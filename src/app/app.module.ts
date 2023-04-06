@@ -7,8 +7,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common'; 
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { AppComponent } from './app.component';
-import { ChartComponent } from './chart/chart.component';
-import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { LineChartComponent } from './line-chart/line-chart.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
@@ -24,8 +22,6 @@ import {MatSelectModule} from '@angular/material/select';
 @NgModule({
   declarations: [
     AppComponent,
-    ChartComponent,
-    BarChartComponent,
     LineChartComponent
   ],
   imports: [

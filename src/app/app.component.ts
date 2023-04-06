@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StockDataService } from './stock-data.service';
+import { StockDataService } from './services/stock-data.service';
 
 
 export interface StockData {
@@ -41,12 +41,12 @@ export class AppComponent implements OnInit {
   getStockData(symbol: string, fromYear: number, toYear: number): void {
     this.stockDataService.getStockData(symbol, fromYear, toYear).subscribe((data: any) => {
       this.dataSource = data;
-      this.calculateSeasonality();
-      this.calculateSeasonalityAvg();
+      this.seasonDataAvg();
+      this.seasonDataAll();
     });
   }
 
-  calculateSeasonalityAvg(): void {
+  seasonDataAvg(): void {
     const data = this.dataSource; // Use the dataSource instead of stockData
     const seasonalityAvg = new Map();
     for (const dailyData of data) {
@@ -66,11 +66,11 @@ export class AppComponent implements OnInit {
       map[1].average = map[1].average / (this.toYear - this.fromYear);
       console.log(this.toYear - this.fromYear);
     }
-
+    debugger
     this.seasonalityAvg = Array.from(seasonalityAvg.values());
   }
 
-  calculateSeasonality(): void {
+  seasonDataAll(): void {
     const data = this.dataSource; // Use the dataSource instead of stockData
     const seasonalityMap = new Map();
     for (const monthlyData of data) {

@@ -15,7 +15,7 @@
 
 <form>
   <mat-form-field appearance="fill">
-    <mat-label>Choose an style</mat-label>
+    <mat-label>Style</mat-label>
     <mat-select name="selectedValue" [(ngModel)]="selectedValue" value="bar">
       <mat-option value="bar">Bar</mat-option>
       <mat-option value="line">Line</mat-option>
@@ -42,11 +42,11 @@
 <!-- <app-bar-chart></app-bar-chart> -->
 <mat-divider></mat-divider>
 <!-- <div style="width: 35%;"> -->
-<div>
+<div style="width: 70%; height: 50;">
   <app-line-chart *ngIf="seasonalityAvg.length > 0" [seasonalityAvg]="seasonalityAvg" [chartStyle]="selectedValue"></app-line-chart>
 </div>
 <div *ngIf="seasonalityAvg.length > 0">
-  <h3>Seasonality Strength and Weakness by Month</h3>
+  <h3>Seasonality strength and weakness average</h3>
   <table>
     <thead>
       <tr>
