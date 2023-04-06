@@ -14,16 +14,37 @@
 </form>
 
 <form>
+  <mat-form-field appearance="fill">
+    <mat-label>Choose an style</mat-label>
+    <mat-select name="selectedValue" [(ngModel)]="selectedValue" value="bar">
+      <mat-option value="bar">Bar</mat-option>
+      <mat-option value="line">Line</mat-option>
+    </mat-select>
+  </mat-form-field>
+
   <section>
-    <button (click)="getStockData(symbol, fromYear, toYear)" mat-raised-button color="primary">Get Stock Data</button>
+    <button (click)="getStockData(symbol, fromYear, toYear)" mat-raised-button color="primary">Get Data</button>
   </section>
 </form>
 
+<!-- <div style="width: 35%;">
+  <mat-grid-list cols="3" rowHeight="2:1">
 
+    <mat-grid-tile style="border: solid 0px; text-align: right;">First Grid</mat-grid-tile>
+    <mat-grid-tile>Second Grid</mat-grid-tile>
+    <mat-grid-tile>Third Grid</mat-grid-tile>
+    <mat-grid-tile>Fourth Grid</mat-grid-tile>
+    <mat-grid-tile>Fifth Grid</mat-grid-tile>
+    <mat-grid-tile>Sixth Frid</mat-grid-tile>
+
+  </mat-grid-list>
+</div> -->
 <!-- <app-bar-chart></app-bar-chart> -->
 <mat-divider></mat-divider>
-<app-line-chart *ngIf="seasonalityAvg.length > 0" [seasonalityAvg]="seasonalityAvg"></app-line-chart>
-
+<!-- <div style="width: 35%;"> -->
+<div>
+  <app-line-chart *ngIf="seasonalityAvg.length > 0" [seasonalityAvg]="seasonalityAvg" [chartStyle]="selectedValue"></app-line-chart>
+</div>
 <div *ngIf="seasonalityAvg.length > 0">
   <h3>Seasonality Strength and Weakness by Month</h3>
   <table>
@@ -97,12 +118,12 @@
       <th mat-header-cell *matHeaderCellDef> Month </th>
       <td mat-cell *matCellDef="let element"> {{ element.month }} </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="average">
       <th mat-header-cell *matHeaderCellDef> Average </th>
       <td mat-cell *matCellDef="let element"> {{ element.average }} </td>
     </ng-container>
-  
+
     <tr mat-header-row *matHeaderRowDef="['month', 'average']"></tr>
     <tr mat-row *matRowDef="let row; columns: ['month', 'average']"></tr>
   </table>

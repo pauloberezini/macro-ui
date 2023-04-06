@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { HttpClientModule } from '@angular/common/http';
 
+import { CommonModule } from '@angular/common'; 
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { AppComponent } from './app.component';
 import { ChartComponent } from './chart/chart.component';
@@ -17,6 +18,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSortModule} from '@angular/material/sort';
 import { ReactiveFormsModule} from '@angular/forms';
 import {MatNativeDateModule} from '@angular/material/core';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -35,14 +38,17 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatInputModule,
     MatNativeDateModule,
     ReactiveFormsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatGridListModule,
+    CommonModule,
+    MatSelectModule
   ],
   exports:[
     MatTableModule,
     MatSortModule,
     MatProgressSpinnerModule,
     MatInputModule,
-    MatPaginatorModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

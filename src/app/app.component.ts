@@ -19,12 +19,14 @@ export interface StockData {
 export class AppComponent implements OnInit {
   displayedColumns: string[] = ['date', 'open', 'high', 'low', 'close', 'volume', 'adjustedClose'];
   seasonalityAvgColumns: string[] = ['month', 'average'];
-   monthNames: string[] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
+  monthNames: string[] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  selectedValue: string = 'line';
+  
   dataSource: any;
   symbol: string = 'GBPUSD=X'; // Add a new property to hold the user input
-  fromYear: number = 2009; // Add a new property to hold the user input
-  toYear: number = 2019; // Add a new property to hold the user input
+  fromYear: number = 2000; // Add a new property to hold the user input
+  currentYear: number = new Date().getFullYear();
+  toYear: number = this.currentYear - 1; // Add a new property to hold the user input
   seasonality: any = [];
   seasonalityAvg: any = [];
   averages: any = [];
@@ -90,7 +92,6 @@ export class AppComponent implements OnInit {
     }
     const sortedValues = Array.from(seasonalityMap.values()).sort((a, b) => a[0].year - b[0].year);
 
-    debugger
     // Reverse the order of the array to get the data in ascending order
     this.seasonality = sortedValues.reverse();
   }
