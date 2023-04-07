@@ -43,9 +43,10 @@
 <mat-divider></mat-divider>
 <!-- <div style="width: 35%;"> -->
 <div style="width: 70%; height: 50;">
-  <app-line-chart *ngIf="seasonalityAvg.length > 0" [seasonalityAvg]="seasonalityAvg" [chartStyle]="selectedValue"></app-line-chart>
+  <app-line-chart *ngIf="seasonalityAvg.length > 0" [seasonalityAvg]="seasonalityAvg"
+    [chartStyle]="selectedValue"></app-line-chart>
 </div>
-<div *ngIf="seasonalityAvg.length > 0">
+<!-- <div *ngIf="seasonalityAvg.length > 0">
   <h3>Seasonality strength and weakness average</h3>
   <table>
     <thead>
@@ -70,47 +71,42 @@
       </td>
     </tbody>
   </table>
-</div>
+</div> -->
 <mat-divider></mat-divider>
 
+
 <div *ngIf="seasonality.length > 0">
-  <h3>Seasonality Strength and Weakness by Month</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Year</th>
-        <th>Jan</th>
-        <th>Feb</th>
-        <th>Mar</th>
-        <th>Apr</th>
-        <th>May</th>
-        <th>Jun</th>
-        <th>Jul</th>
-        <th>Aug</th>
-        <th>Sep</th>
-        <th>Oct</th>
-        <th>Nov</th>
-        <th>Dec</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of seasonality; let i=index">
-        <td>{{item[0].year}}</td>
-        <td *ngIf="item[i]">{{item[0].average | number: '1.2-2' }}</td>
-        <td *ngIf="item[1]">{{item[1].average | number: '1.2-2' }}</td>
-        <td *ngIf="item[2]">{{item[2].average | number: '1.2-2' }}</td>
-        <td *ngIf="item[3]">{{item[3].average | number: '1.2-2' }}</td>
-        <td *ngIf="item[4]">{{item[4].average | number: '1.2-2' }}</td>
-        <td *ngIf="item[5]">{{item[5].average | number: '1.2-2' }}</td>
-        <td *ngIf="item[6]">{{item[6].average | number: '1.2-2' }}</td>
-        <td *ngIf="item[7]">{{item[7].average | number: '1.2-2' }}</td>
-        <td *ngIf="item[8]">{{item[8].average | number: '1.2-2' }}</td>
-        <td *ngIf="item[9]">{{item[9].average | number: '1.2-2' }}</td>
-        <td *ngIf="item[10]">{{item[10].average | number: '1.2-2' }}</td>
-        <td *ngIf="item[11]">{{item[11].average | number: '1.2-2' }}</td>
-      </tr>
-    </tbody>
+
+  <table mat-table [dataSource]="seasonality" class="mat-elevation-z8">
+    
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="year">
+      <th mat-header-cell *matHeaderCellDef> Year </th>
+      <td mat-cell *matCellDef="let element"> {{element.year}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="month">
+      <th mat-header-cell *matHeaderCellDef> Month </th>
+      <td mat-cell *matCellDef="let element"> {{element.month}} </td>
+    </ng-container>
+  
+
+    <ng-container matColumnDef="average">
+      <th mat-header-cell *matHeaderCellDef> Average </th>
+      <td mat-cell *matCellDef="let element"> {{element.average | number: '1.2-2'}} </td>
+    </ng-container> 
+  
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+
+<!-- 
 
   <table *ngIf="seasonalityAvg && seasonalityAvg.length > 0" mat-table [dataSource]="seasonalityAvg"
     class="mat-elevation-z8">
@@ -126,6 +122,6 @@
 
     <tr mat-header-row *matHeaderRowDef="['month', 'average']"></tr>
     <tr mat-row *matRowDef="let row; columns: ['month', 'average']"></tr>
-  </table>
+  </table> -->
 
 </div>

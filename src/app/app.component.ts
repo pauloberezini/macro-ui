@@ -17,11 +17,11 @@ export interface StockData {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  displayedColumns: string[] = ['date', 'open', 'high', 'low', 'close', 'volume', 'adjustedClose'];
   seasonalityAvgColumns: string[] = ['month', 'average'];
-  monthNames: string[] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  selectedValue: string = 'line';
-  
+  monthNames: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  selectedValue: string = 'bar';
+  // displayedColumns: string[] = ['Year', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  displayedColumns: string[] = ['position', 'year', 'month', 'average'];
   dataSource: any;
   symbol: string = 'GBPUSD=X'; // Add a new property to hold the user input
   fromYear: number = 2000; // Add a new property to hold the user input
@@ -66,50 +66,46 @@ export class AppComponent implements OnInit {
       map[1].average = map[1].average / (this.toYear - this.fromYear);
       console.log(this.toYear - this.fromYear);
     }
-    debugger
     this.seasonalityAvg = Array.from(seasonalityAvg.values());
   }
 
   seasonDataAll(): void {
     const data = this.dataSource; // Use the dataSource instead of stockData
-    const seasonalityMap = new Map();
+    const arr = new Array();
+    let index: number = 1;
     for (const monthlyData of data) {
       const [year, month] = monthlyData.date.split('-');
-      const yearKey = `${year}`;
-      // const monthKey = `${year}`+'-'+`${month}`;
 
 
-      if (!seasonalityMap.has(yearKey)) {
-        seasonalityMap.set(yearKey, []);
-      }
       let item = {
+        position: index,
         month: month,
         year: year,
         average: ((monthlyData.close - monthlyData.open) * 100)
       }
-      let arr = seasonalityMap.get(yearKey);
       arr.push(item);
+      index++;
     }
-    const sortedValues = Array.from(seasonalityMap.values()).sort((a, b) => a[0].year - b[0].year);
 
     // Reverse the order of the array to get the data in ascending order
-    this.seasonality = sortedValues.reverse();
+    this.seasonality = arr.sort((a, b) => b.year.localeCompare(a.year));
+    debugger
   }
 
   getMonthName(monthNum: string): string {
     const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December"
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
     ];
     return monthNames[parseInt(monthNum, 10) - 1];
   }
