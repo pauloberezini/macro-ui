@@ -24,6 +24,8 @@
     "@syncfusion/ej2-ng-charts": "^16.2.50",
     "chart.js": "^4.2.1",
     "d3": "^7.8.2",
+    "echarts": "^5.4.2",
+    "ngx-echarts": "^15.0.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
@@ -33,6 +35,7 @@
     "@angular/cli": "~15.2.4",
     "@angular/compiler-cli": "^15.2.0",
     "@types/d3": "^7.4.0",
+    "@types/echarts": "^4.9.17",
     "@types/jasmine": "~4.3.0",
     "jasmine-core": "~4.5.0",
     "karma": "~6.4.0",

@@ -7,12 +7,19 @@ import { StockData } from '../model/stock-data';
   providedIn: 'root'
 })
 export class StockDataService {
-  private baseUrl = 'https://server.berezini.com/historical-data';
+  private baseUrl = 'http://localhost:8089/historical-data';
+  private baseUrlAllDaily = 'http://localhost:8089/historical-data/daily/all';
 
   constructor(private http: HttpClient) { }
 
   getStockData(symbol: string, fromYear: number, toYear: number): Observable<StockData[]> {
     const url = `${this.baseUrl}/${symbol}/${fromYear}/${toYear}`;
+    return this.http.get<StockData[]>(url);
+  }
+
+  
+  getStockAllDailyData(symbol: string): Observable<StockData[]> {
+    const url = `${this.baseUrlAllDaily}/${symbol}`;
     return this.http.get<StockData[]>(url);
   }
 }

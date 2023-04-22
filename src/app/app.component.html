@@ -11,9 +11,7 @@
     <mat-label>Enter to year</mat-label>
     <input name="toYear" [(ngModel)]="toYear" matInput placeholder="Enter to year" value="2019" type="number">
   </mat-form-field>
-</form>
-
-<form>
+  
   <mat-form-field appearance="fill">
     <mat-label>Style</mat-label>
     <mat-select name="selectedValue" [(ngModel)]="selectedValue" value="bar">
@@ -21,6 +19,9 @@
       <mat-option value="line">Line</mat-option>
     </mat-select>
   </mat-form-field>
+</form>
+
+<form>
 
   <section>
     <button (click)="getStockData(symbol, fromYear, toYear)" mat-raised-button color="primary">Get Data</button>
@@ -42,10 +43,15 @@
 <!-- <app-bar-chart></app-bar-chart> -->
 <mat-divider></mat-divider>
 <!-- <div style="width: 35%;"> -->
-<div style="width: 70%; height: 50;">
-  <app-line-chart *ngIf="seasonalityAvg.length > 0" [seasonalityAvg]="seasonalityAvg"
-    [chartStyle]="selectedValue"></app-line-chart>
-</div>
+
+<mat-tab-group>
+  <mat-tab label="Monthly">
+    <app-line-chart *ngIf="seasonalityAvg.length > 0" [seasonalityAvg]="seasonalityAvg"
+      [chartStyle]="selectedValue"></app-line-chart>
+  </mat-tab>
+  <mat-tab label="Daily"> <app-large-area-chart></app-large-area-chart> </mat-tab>
+</mat-tab-group>
+
 <!-- <div *ngIf="seasonalityAvg.length > 0">
   <h3>Seasonality strength and weakness average</h3>
   <table>
@@ -73,55 +79,3 @@
   </table>
 </div> -->
 <mat-divider></mat-divider>
-
-
-<div *ngIf="seasonality.length > 0">
-
-  <table mat-table [dataSource]="seasonality" class="mat-elevation-z8">
-    
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
-      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="year">
-      <th mat-header-cell *matHeaderCellDef> Year </th>
-      <td mat-cell *matCellDef="let element"> {{element.year}} </td>
-    </ng-container>
-    
-    <ng-container matColumnDef="month">
-      <th mat-header-cell *matHeaderCellDef> Month </th>
-      <td mat-cell *matCellDef="let element"> {{element.month}} </td>
-    </ng-container>
-  
-
-    <ng-container matColumnDef="average">
-      <th mat-header-cell *matHeaderCellDef> Average </th>
-      <td mat-cell *matCellDef="let element"> {{element.average | number: '1.2-2'}} </td>
-    </ng-container> 
-  
-
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-
-<!-- 
-
-  <table *ngIf="seasonalityAvg && seasonalityAvg.length > 0" mat-table [dataSource]="seasonalityAvg"
-    class="mat-elevation-z8">
-    <ng-container matColumnDef="month">
-      <th mat-header-cell *matHeaderCellDef> Month </th>
-      <td mat-cell *matCellDef="let element"> {{ element.month }} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="average">
-      <th mat-header-cell *matHeaderCellDef> Average </th>
-      <td mat-cell *matCellDef="let element"> {{ element.average }} </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="['month', 'average']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['month', 'average']"></tr>
-  </table> -->
-
-</div>

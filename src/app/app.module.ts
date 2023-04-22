@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { HttpClientModule } from '@angular/common/http';
-
+import {MatTabsModule} from '@angular/material/tabs';
 import { CommonModule } from '@angular/common'; 
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { AppComponent } from './app.component';
@@ -18,11 +18,15 @@ import { ReactiveFormsModule} from '@angular/forms';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
+import { LargeAreaChartComponent } from './large-area-chart/large-area-chart.component';
+import { AppRoutingModule } from './app-routing.module';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LineChartComponent
+    LineChartComponent,
+    LargeAreaChartComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +41,12 @@ import {MatSelectModule} from '@angular/material/select';
     MatButtonModule,
     MatGridListModule,
     CommonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTabsModule,
+    AppRoutingModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    })
   ],
   exports:[
     MatTableModule,
