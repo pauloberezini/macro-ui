@@ -9,15 +9,20 @@ import { StockDataService } from '../services/stock-data.service';
 })
 export class LargeAreaChartComponent {
 
-  symbol: string = 'MSFT'; // Add a new property to hold the user input
+  symbol: string = 'GBPUSD=X'; // Add a new property to hold the user input
 
   chartOption!: echarts.EChartsOption;
 
 
   constructor(private stockDataService: StockDataService) {
 
-    this.stockDataService.getStockAllDailyData(this.symbol).subscribe((data: any) => {
+    this.stockDataService.getStockAllDailyData(this.symbol,'04').subscribe((response: any) => {
       debugger
+      for (let i = 0; i < response.length; i++) {
+        response[i] = response[i]+10;
+        
+      }
+      
       this.chartOption = {
         xAxis: {
           type: 'category',
@@ -33,7 +38,7 @@ export class LargeAreaChartComponent {
           },
         },
         series: [{
-          data: data,//response
+          data: response,//response
           type: 'line',
           areaStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [

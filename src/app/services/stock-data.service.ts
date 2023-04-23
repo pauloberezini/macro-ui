@@ -18,8 +18,8 @@ export class StockDataService {
   }
 
   
-  getStockAllDailyData(symbol: string): Observable<StockData[]> {
-    const url = `${this.baseUrlAllDaily}/${symbol}`;
+  getStockAllDailyData(symbol: string, monthNumber: string): Observable<StockData[]> {
+    const url = `${this.baseUrlAllDaily}/${symbol}/${monthNumber}`;
     return this.http.get<StockData[]>(url);
   }
 }
