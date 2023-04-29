@@ -3,11 +3,6 @@
         <mat-label>Enter a stock symbol</mat-label>
         <input name="stock" [(ngModel)]="symbol" matInput placeholder="Enter a stock symbol" value="GBPUSD=X">
     </mat-form-field>
-    
-    <!-- <mat-form-field>
-        <mat-label>Month</mat-label>
-        <input name="month" [(ngModel)]="symbol" matInput placeholder="Enter a month" value="GBPUSD=X">
-    </mat-form-field> -->
     <mat-form-field>
         <mat-label>Month</mat-label>
         <mat-select name="month" [(ngModel)]="selectedMonth" (ngModelChange)="getData()">
@@ -16,5 +11,9 @@
       </mat-form-field>
       
 </form>
-
+<form>
+    <section>
+        <button (click)="getData()" mat-raised-button color="primary">Get Data</button>
+    </section>
+</form>
 <div echarts [options]="chartOption" class="demo-chart"></div>

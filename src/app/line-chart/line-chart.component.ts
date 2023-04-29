@@ -1,5 +1,6 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Chart, ChartType } from 'chart.js/auto';
+import { StockDataService } from '../services/stock-data.service';
 
 
 @Component({
@@ -9,35 +10,33 @@ import { Chart, ChartType } from 'chart.js/auto';
 })
 export class LineChartComponent implements OnInit, OnChanges {
   public chart: any;
+  chartStyle: string = 'bar';
+  symbol: string = 'GBPUSD=X'; // Add a new property to hold the user input
+  fromYear: number = 2000; // Add a new property to hold the user input
+  currentYear: number = new Date().getFullYear();
+  toYear: number = this.currentYear - 1; // Add a new property to hold the user input
+
+
+  seasonality: any = [];
+  seasonalityAvg: any = [];
+  averages: any = [];
 
   chartTypes: { [key: string]: ChartType } = {
     bar: "bar",
     line: "line"
   };
 
-  @Input()
-  seasonalityAvg!: any[];
+  seasonalityAvgColumns: string[] = ['month', 'average'];
+  monthNames: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
+  // displayedColumns: string[] = ['Year', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  displayedColumns: string[] = ['position', 'year', 'month', 'average'];
+  dataSource: any;
 
-  @Input()
-  chartStyle!: string;
-
-  constructor() {
-  }
-  ngOnChanges(changes: SimpleChanges) {
-    const valueChange = changes['seasonalityAvg'];
-    // If no change occured then valueChanges will be undefined.
-    if (valueChange) {
-      //this.chart.data.datasets[0].data = this.seasonalityAvg;
-      this.createChart();
-    }
-  }
+  constructor(private stockDataService: StockDataService) { }
+  ngOnChanges() { }
 
   ngOnInit(): void { }
-
-  ngAfterViewInit() {
-    this.createChart();
-  }
 
   createChart() {
     if (this.chart) {
@@ -71,5 +70,77 @@ export class LineChartComponent implements OnInit, OnChanges {
 
     }
     return averages;
+  }
+
+  getStockData(): void {
+    this.stockDataService.getStockData(this.symbol, this.fromYear, this.toYear).subscribe((data: any) => {
+      this.dataSource = data;
+      this.seasonDataAvg();
+      this.seasonDataAll();
+    });
+  }
+
+  seasonDataAvg(): void {
+    const data = this.dataSource; // Use the dataSource instead of stockData
+    const seasonalityAvg = new Map();
+    for (const dailyData of data) {
+      const [year, month] = dailyData.date.split('-');
+      const monthKey = `${month}`;
+
+      if (!seasonalityAvg.has(monthKey)) {
+        seasonalityAvg.set(monthKey, {
+          month: this.getMonthName(month),
+          average: 0
+        });
+      }
+
+      seasonalityAvg.get(monthKey).average += ((dailyData.close - dailyData.open) * 100) / dailyData.open;
+    }
+    for (const map of seasonalityAvg) {
+      map[1].average = map[1].average / (this.toYear - this.fromYear);
+      console.log(this.toYear - this.fromYear);
+    }
+    this.seasonalityAvg = Array.from(seasonalityAvg.values());
+  }
+
+  seasonDataAll(): void {
+    const data = this.dataSource; // Use the dataSource instead of stockData
+    const arr = new Array();
+    let index: number = 1;
+    for (const monthlyData of data) {
+      const [year, month] = monthlyData.date.split('-');
+
+
+      let item = {
+        position: index,
+        month: month,
+        year: year,
+        average: ((monthlyData.close - monthlyData.open) * 100)
+      }
+      arr.push(item);
+      index++;
+    }
+
+    // Reverse the order of the array to get the data in ascending order
+    this.seasonality = arr.sort((a, b) => b.year.localeCompare(a.year));
+    this.createChart();
+  }
+
+  getMonthName(monthNum: string): string {
+    const monthNames = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ];
+    return monthNames[parseInt(monthNum, 10) - 1];
   }
 }
