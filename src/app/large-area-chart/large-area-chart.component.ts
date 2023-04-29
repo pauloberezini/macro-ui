@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import * as echarts from 'echarts';
 import { StockDataService } from '../services/stock-data.service';
 
@@ -10,19 +10,39 @@ import { StockDataService } from '../services/stock-data.service';
 export class LargeAreaChartComponent {
 
   symbol: string = 'GBPUSD=X'; // Add a new property to hold the user input
+  selectedMonth: string = '04'; // Add a new property to hold the user input
+  months = [
+    { label: 'January', value: '01' },
+    { label: 'February', value: '02' },
+    { label: 'March', value: '03' },
+    { label: 'April', value: '04' },
+    { label: 'May', value: '05' },
+    { label: 'June', value: '06' },
+    { label: 'July', value: '07' },
+    { label: 'August', value: '08' },
+    { label: 'September', value: '09' },
+    { label: 'October', value: '10' },
+    { label: 'November', value: '11' },
+    { label: 'December', value: '12' }
+  ];
 
   chartOption!: echarts.EChartsOption;
+  stockDataService: StockDataService;
 
+  constructor(private service: StockDataService) {
+    this.stockDataService = service;
+  }
 
-  constructor(private stockDataService: StockDataService) {
-
-    this.stockDataService.getStockAllDailyData(this.symbol,'04').subscribe((response: any) => {
-      debugger
+  getData(): void {
+    console.log('started');
+    debugger
+    this.stockDataService.getStockAllDailyData(this.symbol, this.selectedMonth).subscribe((response: any) => {
+    
       for (let i = 0; i < response.length; i++) {
-        response[i] = response[i]+10;
-        
+        response[i] = response[i] + 10;
+
       }
-      
+
       this.chartOption = {
         xAxis: {
           type: 'category',

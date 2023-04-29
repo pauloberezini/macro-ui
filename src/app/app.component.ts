@@ -89,7 +89,6 @@ export class AppComponent implements OnInit {
 
     // Reverse the order of the array to get the data in ascending order
     this.seasonality = arr.sort((a, b) => b.year.localeCompare(a.year));
-    debugger
   }
 
   getMonthName(monthNum: string): string {
