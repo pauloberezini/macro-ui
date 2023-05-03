@@ -7,6 +7,7 @@ import { StockData } from '../model/stock-data';
   providedIn: 'root'
 })
 export class StockDataService {
+  private url = 'http://localhost:8089';
   private baseUrl = 'http://localhost:8089/historical-data';
   private baseUrlAllDaily = 'http://localhost:8089/historical-data/daily/all';
 
@@ -20,6 +21,11 @@ export class StockDataService {
   
   getStockAllDailyData(symbol: string, monthNumber: string): Observable<StockData[]> {
     const url = `${this.baseUrlAllDaily}/${symbol}/${monthNumber}`;
+    return this.http.get<StockData[]>(url);
+  }
+  
+  getHighNews(): Observable<StockData[]> {
+    const url = `${this.url}/getHighNews`;
     return this.http.get<StockData[]>(url);
   }
 }

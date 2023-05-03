@@ -1,0 +1,46 @@
+<h2>News Macro</h2>
+<table mat-table [dataSource]="newsCollection">
+  <ng-container matColumnDef="time">
+    <th mat-header-cell *matHeaderCellDef>Time</th>
+    <td mat-cell *matCellDef="let news">{{ news.time }}</td>
+  </ng-container>
+  
+  <ng-container matColumnDef="country">
+    <th mat-header-cell *matHeaderCellDef>Currency</th>
+    <td mat-cell *matCellDef="let news">{{ news.country }}</td>
+  </ng-container>
+  
+  <ng-container matColumnDef="volatility">
+    <th mat-header-cell *matHeaderCellDef>Volatility</th>
+    <td mat-cell *matCellDef="let news">
+      <ng-container *ngIf="news.volatility === '***'">
+        <mat-icon color="warn">whatshot</mat-icon>
+        <mat-icon color="warn">whatshot</mat-icon>
+        <mat-icon color="warn">whatshot</mat-icon>
+      </ng-container>
+    </td>
+  </ng-container>
+  
+  <ng-container matColumnDef="eventName">
+    <th mat-header-cell *matHeaderCellDef>Event Name</th>
+    <td mat-cell *matCellDef="let news">{{ news.eventName }}</td>
+  </ng-container>
+  
+  <ng-container matColumnDef="actualInfo">
+    <th mat-header-cell *matHeaderCellDef>Actual</th>
+    <td mat-cell *matCellDef="let news">{{ news.actualInfo }}</td>
+  </ng-container>
+  
+  <ng-container matColumnDef="forecastInfo">
+    <th mat-header-cell *matHeaderCellDef>Forecast</th>
+    <td mat-cell *matCellDef="let news">{{ news.forecastInfo }}</td>
+  </ng-container>
+  
+  <ng-container matColumnDef="previousInfo">
+    <th mat-header-cell *matHeaderCellDef>Previous</th>
+    <td mat-cell *matCellDef="let news">{{ news.previousInfo }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="['time', 'country', 'volatility', 'eventName', 'actualInfo', 'forecastInfo', 'previousInfo']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['time', 'country', 'volatility', 'eventName', 'actualInfo', 'forecastInfo', 'previousInfo']"></tr>
+</table>

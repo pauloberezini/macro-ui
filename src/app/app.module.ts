@@ -21,12 +21,15 @@ import {MatSelectModule} from '@angular/material/select';
 import { LargeAreaChartComponent } from './large-area-chart/large-area-chart.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { NewsCollectionComponent } from './news-collection/news-collection.component';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
     AppComponent,
     LineChartComponent,
-    LargeAreaChartComponent
+    LargeAreaChartComponent,
+    NewsCollectionComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,8 @@ import { NgxEchartsModule } from 'ngx-echarts';
     AppRoutingModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
-    })
+    }),
+    MatIconModule
   ],
   exports:[
     MatTableModule,

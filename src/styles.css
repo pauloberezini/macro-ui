@@ -18,6 +18,33 @@ mat-grid-tile {
   opacity: 0.75;
   font-size: 0.75em;
 }
-table {
-  width: 100%;
+
+/* Styles for 14-inch screens */
+@media only screen and (min-width: 14in) and (max-width: 15in) {
+  /* Your CSS styles for 14-inch screens here */
+  table {
+    width: 100%;
+  }
+  
+  th, td {
+    padding: 12px;
+  }
+}
+
+/* Styles for ultra-wide screens */
+@media only screen and (min-aspect-ratio: 21/9) {
+  /* Your CSS styles for ultra-wide screens here */
+  table {
+    width: 50%;
+    margin: auto;
+  }
+  
+  th, td {
+    padding: 16px;
+    font-size: 18px;
+  }
+  
+  .fire-icon {
+    font-size: 24px;
+  }
 }
