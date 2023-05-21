@@ -9,12 +9,25 @@ import { StockData } from '../model/stock-data';
 export class StockDataService {
   private url = 'http://localhost:8089';
   private baseUrl = 'http://localhost:8089/historical-data';
+  private baseUrlAlpha = 'http://localhost:8089/alpha/historical-data';
   private baseUrlAllDaily = 'http://localhost:8089/historical-data/daily/all';
 
   constructor(private http: HttpClient) { }
 
   getStockData(symbol: string, fromYear: number, toYear: number): Observable<StockData[]> {
     const url = `${this.baseUrl}/${symbol}/${fromYear}/${toYear}`;
+    return this.http.get<StockData[]>(url);
+  }
+
+
+  getFXData(symbol: string): Observable<StockData[]> {
+    const url = `${this.baseUrlAlpha}/FX-M/${symbol}`;
+    return this.http.get<StockData[]>(url);
+  }
+
+
+  getStockAlphaData(symbol: string): Observable<StockData[]> {
+    const url = `${this.baseUrlAlpha}/STOCK-M/${symbol}`;
     return this.http.get<StockData[]>(url);
   }
 

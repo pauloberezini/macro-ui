@@ -23,13 +23,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NewsCollectionComponent } from './news-collection/news-collection.component';
 import {MatIconModule} from '@angular/material/icon';
+import { FxCollectionComponent } from './fx-collection/fx-collection.component';
+import { StockCollectionComponent } from './stock-collection/stock-collection.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LineChartComponent,
     LargeAreaChartComponent,
-    NewsCollectionComponent
+    NewsCollectionComponent,
+    FxCollectionComponent,
+    StockCollectionComponent
   ],
   imports: [
     BrowserModule,
