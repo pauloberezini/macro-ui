@@ -25,6 +25,11 @@ export class StockDataService {
     return this.http.get<StockData[]>(url);
   }
 
+  getEconomicData(type: string): Observable<Object[]> {
+    const url = `${this.baseUrlAlpha}/economic/${type}`;
+    return this.http.get<Object[]>(url);
+  }
+
 
   getStockAlphaData(symbol: string): Observable<StockData[]> {
     const url = `${this.baseUrlAlpha}/STOCK-M/${symbol}`;
@@ -39,6 +44,10 @@ export class StockDataService {
   
   getHighNews(): Observable<StockData[]> {
     const url = `${this.url}/getHighNews`;
+    return this.http.get<StockData[]>(url);
+  }
+  getMarketNews(): Observable<StockData[]> {
+    const url = `${this.url}/api/news/business-news`;
     return this.http.get<StockData[]>(url);
   }
 }

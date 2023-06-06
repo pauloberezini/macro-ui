@@ -34,8 +34,6 @@ export class LargeAreaChartComponent {
   }
 
   getData(): void {
-    console.log('started');
-    debugger
     this.stockDataService.getStockAllDailyData(this.symbol, this.selectedMonth).subscribe((response: any) => {
     
       for (let i = 0; i < response.length; i++) {

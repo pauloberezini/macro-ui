@@ -14,9 +14,18 @@
 </form>
 
 <form>
-    <section>
+    <!-- <mat-grid-list cols="1" rowHeight="10:1"> -->
+    <!-- <mat-grid-tile> -->
+    <p *ngIf="period">Period: {{period}}</p>
+    <div style="display: flex; align-items: start; justify-content: start;">
         <button (click)="getStockData()" mat-raised-button color="primary">Get Data</button>
-    </section>
+
+        <div *ngIf="isLoading$ | async">
+            <mat-spinner color="warn"></mat-spinner>
+        </div>
+    </div>
+    <!-- </mat-grid-tile> -->
+    <!-- </mat-grid-list> -->
 </form>
 <mat-divider></mat-divider>
 

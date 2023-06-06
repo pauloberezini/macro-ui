@@ -1,0 +1,9 @@
+:host {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.grid-container {
+  max-height: 500px;
+  overflow: auto;
+}

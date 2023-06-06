@@ -11,6 +11,7 @@ export class FxCollectionComponent {
 
   public chart: any;
   chartStyle: string = 'bar';
+  public period!: string;
   symbol: string = 'GBPUSD'; // Add a new property to hold the user input
   fromYear: number = 2000; // Add a new property to hold the user input
   currentYear: number = new Date().getFullYear();
@@ -73,8 +74,9 @@ export class FxCollectionComponent {
   }
 
   getStockData(): void {
-    this.stockDataService.getFXData(this.symbol).subscribe((data: any) => {
-      this.dataSource = data;
+    this.stockDataService.getFXData(this.symbol).subscribe((response: any) => {
+      this.dataSource = response.data;
+      this.period = response.message;
       this.seasonDataAvg();
       this.seasonDataAll();
     });
@@ -98,7 +100,6 @@ export class FxCollectionComponent {
     }
     for (const map of seasonalityAvg) {
       map[1].average = map[1].average / (this.toYear - this.fromYear);
-      console.log(this.toYear - this.fromYear);
     }
     this.seasonalityAvg = Array.from(seasonalityAvg.values());
   }

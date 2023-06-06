@@ -1,0 +1,11 @@
+<h2>CPI Inflation</h2>
+<mat-form-field appearance="fill">
+  <mat-label>Year</mat-label>
+  <mat-select (valueChange)="onYearChange($event)" [(value)]="selectedYear">
+    <mat-option *ngFor="let year of years" [value]="year">{{year}}</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<div class="chart-container">
+  <canvas class="chart-container" id="Inflation">{{ chart }}</canvas>
+</div>

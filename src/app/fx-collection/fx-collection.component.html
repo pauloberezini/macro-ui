@@ -14,6 +14,7 @@
 </form>
 
 <form>
+    <p *ngIf="period">Period: {{period}}</p>
     <section>
         <button (click)="getStockData()" mat-raised-button color="primary">Get Data</button>
     </section>

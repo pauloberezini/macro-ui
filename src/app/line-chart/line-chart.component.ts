@@ -98,7 +98,6 @@ export class LineChartComponent implements OnInit, OnChanges {
     }
     for (const map of seasonalityAvg) {
       map[1].average = map[1].average / (this.toYear - this.fromYear);
-      console.log(this.toYear - this.fromYear);
     }
     this.seasonalityAvg = Array.from(seasonalityAvg.values());
   }

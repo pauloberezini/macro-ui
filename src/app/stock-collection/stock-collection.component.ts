@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Chart, ChartType } from 'chart.js/auto';
 import { StockDataService } from '../services/stock-data.service';
+import { SpinnerService } from '../spinner/spinner.component';
 
 @Component({
   selector: 'app-stock-collection',
@@ -8,7 +9,9 @@ import { StockDataService } from '../services/stock-data.service';
   styleUrls: ['./stock-collection.component.css']
 })
 export class StockCollectionComponent {
-
+  
+  isLoading$ = this.spinnerService.loading$;
+  public period!: string;
   public chart: any;
   chartStyle: string = 'bar';
   symbol: string = 'MSFT'; // Add a new property to hold the user input
@@ -33,7 +36,7 @@ export class StockCollectionComponent {
   displayedColumns: string[] = ['position', 'year', 'month', 'average'];
   dataSource: any;
 
-  constructor(private stockDataService: StockDataService) { }
+  constructor(private stockDataService: StockDataService, public spinnerService: SpinnerService) { }
   ngOnChanges() { }
 
   ngOnInit(): void { }
@@ -49,7 +52,7 @@ export class StockCollectionComponent {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',],
         datasets: [
           {
-            label: "data",
+            label: this.period,
             data: this.getAverageValues(this.seasonalityAvg),
             backgroundColor: 'blue'
           }
@@ -73,10 +76,12 @@ export class StockCollectionComponent {
   }
 
   getStockData(): void {
-    this.stockDataService.getStockAlphaData(this.symbol).subscribe((data: any) => {
-      this.dataSource = data;
+    this.stockDataService.getStockAlphaData(this.symbol).subscribe((response: any) => {
+      this.dataSource = response.data;
+      this.period = response.message;
       this.seasonDataAvg();
       this.seasonDataAll();
+      
     });
   }
 
@@ -98,7 +103,6 @@ export class StockCollectionComponent {
     }
     for (const map of seasonalityAvg) {
       map[1].average = map[1].average / (this.toYear - this.fromYear);
-      console.log(this.toYear - this.fromYear);
     }
     this.seasonalityAvg = Array.from(seasonalityAvg.values());
   }

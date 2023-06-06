@@ -1,18 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
 
-html,
-body {
-  height: 100%;
+:root {
+  --dark-green: #026670;
+  --medium-green: #02C39A;
+  --light-green: #E0FBFC;
+  --dark-gray: #333333;
+  --light-gray: #F0F0F0;
 }
 
 body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: var(--light-gray);
+  color: var(--dark-gray);
 }
 
-mat-grid-tile {
-  background: lightsalmon;
+.mat-toolbar {
+  background-color: var(--dark-green);
+  color: var(--light-gray);
 }
+
+.mat-card {
+  background-color: var(--light-green);
+  color: var(--dark-gray);
+}
+
+button {
+  background-color: var(--dark-green);
+  color: var(--light-gray);
+}
+
+button:hover {
+  background-color: var(--medium-green);
+}
+
 
 .example-additional-selection {
   opacity: 0.75;
@@ -21,30 +40,46 @@ mat-grid-tile {
 
 /* Styles for 14-inch screens */
 @media only screen and (min-width: 14in) and (max-width: 15in) {
+
   /* Your CSS styles for 14-inch screens here */
   table {
     width: 100%;
   }
-  
-  th, td {
+
+  th,
+  td {
     padding: 12px;
   }
 }
 
-/* Styles for ultra-wide screens */
-@media only screen and (min-aspect-ratio: 21/9) {
-  /* Your CSS styles for ultra-wide screens here */
-  table {
-    width: 50%;
-    margin: auto;
-  }
-  
-  th, td {
-    padding: 16px;
-    font-size: 18px;
-  }
-  
-  .fire-icon {
-    font-size: 24px;
-  }
+
+.mat-mdc-progress-spinner {
+  /* position: absolute !important; */
+  width: 30px !important;
+  height: 30px !important;
+  top: 0;
+}
+
+.mat-toolbar {
+
+  background: #68727e;
+
+}
+
+.table-container {
+  height: 100%;
+  width: 100%;
+  /* Or any other maximum height */
+  overflow-y: auto;
+  display: block;
+}
+
+.mat-mdc-card-header {
+  display: block !important;
+}
+
+.chart-container{
+  width: 90%;
+  height: 100%;
+  padding-bottom: 50px !important;
 }
