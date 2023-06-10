@@ -7,14 +7,14 @@
 
   <mat-tab label="Main">
     <mat-grid-list cols="2" rowHeight="2:1" gutterSize="10px">
-
+      <mat-grid-tile rowspan="2">
+        <div class="table-container"><BR><BR><app-news></app-news></div>
+      </mat-grid-tile>
       <mat-grid-tile>
         <div class="table-container"><app-news-collection></app-news-collection></div>
       </mat-grid-tile>
-      <mat-grid-tile rows="1"><app-economic-data [economicType]="'INFLATION'"></app-economic-data> </mat-grid-tile>
-      <mat-grid-tile>
-        <div class="table-container"><BR><BR><app-news></app-news></div>
-      </mat-grid-tile>
+      <mat-grid-tile><app-economic-data [economicType]="'INFLATION'"></app-economic-data> </mat-grid-tile>
+
     </mat-grid-list>
   </mat-tab>
 

@@ -1,6 +1,8 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Chart, ChartType } from 'chart.js/auto';
 import { StockDataService } from '../services/stock-data.service';
+import { MatDialog } from '@angular/material/dialog';
+import { WarningDialogComponent } from '../warning-dialog/warning-dialog.component';
 
 
 @Component({
@@ -33,7 +35,7 @@ export class LineChartComponent implements OnInit, OnChanges {
   displayedColumns: string[] = ['position', 'year', 'month', 'average'];
   dataSource: any;
 
-  constructor(private stockDataService: StockDataService) { }
+  constructor(private stockDataService: StockDataService, public dialog: MatDialog) { }
   ngOnChanges() { }
 
   ngOnInit(): void { }
@@ -73,8 +75,9 @@ export class LineChartComponent implements OnInit, OnChanges {
   }
 
   getStockData(): void {
-    this.stockDataService.getStockData(this.symbol, this.fromYear, this.toYear).subscribe((data: any) => {
-      this.dataSource = data;
+    this.stockDataService.getStockData(this.symbol, this.fromYear, this.toYear).subscribe((response: any) => {
+      this.openDialog(response.errorMsg);
+      this.dataSource = response.data;
       this.seasonDataAvg();
       this.seasonDataAll();
     });
@@ -141,5 +144,16 @@ export class LineChartComponent implements OnInit, OnChanges {
       'December'
     ];
     return monthNames[parseInt(monthNum, 10) - 1];
+  }
+  openDialog(arg: any) {
+    if (arg == '') {
+      return;
+    }
+    debugger
+    const dialogRef = this.dialog.open(WarningDialogComponent, {
+      data: {
+        message: arg,
+      },
+    });
   }
 }

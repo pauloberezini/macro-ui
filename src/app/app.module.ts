@@ -31,6 +31,8 @@ import { EconomicDataComponent } from './economic-data/economic-data.component';
 import { NewsComponent } from './news/news.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { WarningDialogComponent } from './warning-dialog/warning-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -42,7 +44,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     FxCollectionComponent,
     StockCollectionComponent,
     EconomicDataComponent,
-    NewsComponent
+    NewsComponent,
+    WarningDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +70,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatToolbarModule,
     MatProgressSpinnerModule,
     MatCardModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDialogModule
   ],
   exports: [
     MatTableModule,
@@ -75,6 +79,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatProgressSpinnerModule,
     MatInputModule,
     MatPaginatorModule
+  ],
+  entryComponents: [
+    WarningDialogComponent,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import * as echarts from 'echarts';
 import { StockDataService } from '../services/stock-data.service';
+import { MatDialog } from '@angular/material/dialog';
+import { WarningDialogComponent } from '../warning-dialog/warning-dialog.component';
 
 @Component({
   selector: 'app-large-area-chart',
@@ -29,15 +31,16 @@ export class LargeAreaChartComponent {
   chartOption!: echarts.EChartsOption;
   stockDataService: StockDataService;
 
-  constructor(private service: StockDataService) {
+  constructor(private service: StockDataService, public dialog: MatDialog) {
     this.stockDataService = service;
   }
 
   getData(): void {
     this.stockDataService.getStockAllDailyData(this.symbol, this.selectedMonth).subscribe((response: any) => {
-    
-      for (let i = 0; i < response.length; i++) {
-        response[i] = response[i] + 10;
+      this.openDialog(response.errorMsg);
+      let data = response.data;
+      for (let i = 0; i < data.length; i++) {
+        data[i] = data[i] + 10;
 
       }
 
@@ -56,7 +59,7 @@ export class LargeAreaChartComponent {
           },
         },
         series: [{
-          data: response,//response
+          data: response.data,//response
           type: 'line',
           areaStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
@@ -74,5 +77,15 @@ export class LargeAreaChartComponent {
       }
     });
   }
-
+  openDialog(arg: any) {
+    if (arg == '') {
+      return;
+    }
+    debugger
+    const dialogRef = this.dialog.open(WarningDialogComponent, {
+      data: {
+        message: arg,
+      },
+    });
+  }
 }
