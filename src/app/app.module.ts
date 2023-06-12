@@ -7,7 +7,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { AppComponent } from './app.component';
-import { LineChartComponent } from './line-chart/line-chart.component';
+import { LineChartComponent } from './yahoo-monthly-data/line-chart.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -18,21 +18,23 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSelectModule } from '@angular/material/select';
-import { LargeAreaChartComponent } from './large-area-chart/large-area-chart.component';
+import { LargeAreaChartComponent } from './yahoo-daily-data/large-area-chart.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NgxEchartsModule } from 'ngx-echarts';
-import { NewsCollectionComponent } from './news-collection/news-collection.component';
+import { NewsCollectionComponent } from './news-macro-data/news-collection.component';
 import { MatIconModule } from '@angular/material/icon';
-import { FxCollectionComponent } from './fx-collection/fx-collection.component';
-import { StockCollectionComponent } from './stock-collection/stock-collection.component';
+import { FxCollectionComponent } from './alpha-fx-data/fx-collection.component';
+import { StockCollectionComponent } from './apha-stock-data/stock-collection.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ApiInterceptor } from './spinner/apiInterceptor';
-import { EconomicDataComponent } from './economic-data/economic-data.component';
-import { NewsComponent } from './news/news.component';
+import { ApiInterceptor } from './services/spinner/apiInterceptor';
+import { EconomicDataComponent } from './macro-chart/economic-data.component';
+import { NewsComponent } from './news-list/news.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { WarningDialogComponent } from './warning-dialog/warning-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DateFormatPipe } from './model/date-format-pipe';
+import { TruncatePipe } from './model/truncate-pipe';
 
 
 @NgModule({
@@ -45,7 +47,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     StockCollectionComponent,
     EconomicDataComponent,
     NewsComponent,
-    WarningDialogComponent
+    WarningDialogComponent,
+    DateFormatPipe ,
+    TruncatePipe
   ],
   imports: [
     BrowserModule,

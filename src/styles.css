@@ -85,3 +85,8 @@ button:hover {
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-mdc-cell, .mat-mdc-header-cell {
+  padding: 0 2px 0 0 !important;
+  text-align: center !important;
+}

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Chart, ChartType } from 'chart.js/auto';
 import { StockDataService } from '../services/stock-data.service';
-import { SpinnerService } from '../spinner/spinner.component';
+import { SpinnerService } from '../services/spinner/spinner.component';
 
 @Component({
   selector: 'app-stock-collection',

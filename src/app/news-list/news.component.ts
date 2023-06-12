@@ -12,6 +12,7 @@ export class NewsComponent {
     {
       title: 'News Title 1',
       description: 'News Description 1',
+      publishedAt: 'Date',
       content: 'News Content 1',
       url: "https"
     }

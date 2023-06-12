@@ -149,7 +149,6 @@ export class LineChartComponent implements OnInit, OnChanges {
     if (arg == '') {
       return;
     }
-    debugger
     const dialogRef = this.dialog.open(WarningDialogComponent, {
       data: {
         message: arg,

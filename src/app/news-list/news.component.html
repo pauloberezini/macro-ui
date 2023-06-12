@@ -1,12 +1,16 @@
 <mat-card *ngFor="let article of articles">
     <mat-expansion-panel>
         <mat-expansion-panel-header>
-            {{ article.title }}
+            {{ article.publishedAt | dateFormat }}
+            {{ article.title | truncate:50 }}
         </mat-expansion-panel-header>
         <mat-card-content>
+            {{ article.title }}
+            <BR>
+            <BR>
             {{ article.description }}
         </mat-card-content>
         <br>
-        <p><a [href]="article.url" target="_blank">{{ article.url }}</a></p>
+        <p><a [href]="article.url" target="_blank">Click to read more</a></p>
     </mat-expansion-panel>
 </mat-card>

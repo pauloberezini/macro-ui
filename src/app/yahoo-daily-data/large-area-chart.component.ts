@@ -81,7 +81,6 @@ export class LargeAreaChartComponent {
     if (arg == '') {
       return;
     }
-    debugger
     const dialogRef = this.dialog.open(WarningDialogComponent, {
       data: {
         message: arg,

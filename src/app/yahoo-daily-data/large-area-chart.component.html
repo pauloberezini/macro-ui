@@ -12,14 +12,15 @@
     </mat-form-field>
 
 </form>
-<mat-grid-list cols="1" rowHeight="100px">
-    <mat-grid-tile>
-        WARNING EXPEREMENTAL DATA ON THIS PAGE
-    </mat-grid-tile>
-</mat-grid-list>
 <form>
     <section>
         <button (click)="getData()" mat-raised-button color="primary">Get Data</button>
     </section>
 </form>
+<mat-divider></mat-divider>
+<mat-grid-list cols="1" rowHeight="50px">
+    <mat-grid-tile>
+        WARNING EXPEREMENTAL DATA ON THIS PAGE 
+    </mat-grid-tile>
+</mat-grid-list>
 <div echarts [options]="chartOption" class="demo-chart"></div>
