@@ -1,9 +1,9 @@
 <table mat-table [dataSource]="newsCollection">
   <ng-container matColumnDef="time">
     <th mat-header-cell *matHeaderCellDef>Time</th>
-    <td mat-cell *matCellDef="let news">{{ news.time }}</td>
+    <td mat-cell *matCellDef="let news">{{ news.time | timeFormat: 'UTC+1' }}</td>
   </ng-container>
-
+  
   <ng-container matColumnDef="country">
     <th mat-header-cell *matHeaderCellDef>Currency</th>
     <td mat-cell *matCellDef="let news" style="width: fit-content;">{{ news.country }}</td>

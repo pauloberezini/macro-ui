@@ -35,6 +35,7 @@ import { WarningDialogComponent } from './warning-dialog/warning-dialog.componen
 import { MatDialogModule } from '@angular/material/dialog';
 import { DateFormatPipe } from './model/date-format-pipe';
 import { TruncatePipe } from './model/truncate-pipe';
+import { TimeFormatPipe } from './model/time-format.pipe';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { TruncatePipe } from './model/truncate-pipe';
     EconomicDataComponent,
     NewsComponent,
     WarningDialogComponent,
-    DateFormatPipe ,
+    DateFormatPipe,
+    TimeFormatPipe,
     TruncatePipe
   ],
   imports: [

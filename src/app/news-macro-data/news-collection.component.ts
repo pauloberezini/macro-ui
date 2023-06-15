@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { StockDataService } from '../services/stock-data.service';
 
+
 @Component({
   selector: 'app-news-collection',
   templateUrl: './news-collection.component.html',
