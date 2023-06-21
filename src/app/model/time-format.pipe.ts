@@ -9,11 +9,8 @@ export class TimeFormatPipe implements PipeTransform {
     }
 
     adjustForTimezone(arg: string, utcOffset: string): any {
-        const [day, month, year, hour, minute] = arg.split(/[\s:-]/);
-        const parsedDate = new Date(`${year}-${month}-${day}T${hour}:${minute}`);
-        const milliseconds = parsedDate.getTime();
-
-        return this.convertMillisToCurrentTimezone(milliseconds);
+        debugger
+        return this.convertMillisToCurrentTimezone(new Date(arg).getTime());
     }
     convertMillisToCurrentTimezone(gmt4Millis: any) {
         // Get the current timezone offset in hours
