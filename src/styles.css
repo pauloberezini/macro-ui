@@ -13,10 +13,47 @@ body {
   color: var(--dark-gray);
 }
 
-.mat-toolbar {
-  background-color: var(--dark-green);
-  color: var(--light-gray);
+
+/* For tablets */
+@media screen and (max-width: 1024px) {
+  .berezinilogo {
+    height: 50px;
+  }
 }
+
+/* For smartphones */
+@media screen and (max-width: 768px) {
+  .berezinilogo {
+    height: 30px;
+  }
+}
+.centered-content {
+  display: flex;
+  flex-wrap: wrap;
+}
+.centered-content >* {
+  flex: 1 1 160px;
+}
+
+.logosite {
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.6);
+  align-items: left;
+  white-space: nowrap;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+.berezinilogo {
+  background: #0000 url('/assets/images/logo.svg') no-repeat center;
+  background-size: contain;
+  /* Add dimensions for the container */
+  padding-top: 10px;
+  width: 100%;
+  height: 50px; /* Default height for large screens */
+}
+
 
 .mat-card {
   background-color: var(--light-green);
@@ -58,12 +95,6 @@ button:hover {
   width: 30px !important;
   height: 30px !important;
   top: 0;
-}
-
-.mat-toolbar {
-
-  background: #68727e;
-
 }
 
 .table-container {

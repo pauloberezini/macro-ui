@@ -9,13 +9,11 @@ export class TimeFormatPipe implements PipeTransform {
     }
 
     adjustForTimezone(arg: string, utcOffset: string): any {
-        debugger
         return this.convertMillisToCurrentTimezone(new Date(arg).getTime());
     }
     convertMillisToCurrentTimezone(gmt4Millis: any) {
         // Get the current timezone offset in hours
         let currentTimezoneOffsetHours = new Date().getTimezoneOffset() / 60;
-        debugger
         // Calculate the offset between GMT-4 and the current timezone in hours
         let offsetHours = (-4 + currentTimezoneOffsetHours);
 
