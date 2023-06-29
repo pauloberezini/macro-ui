@@ -5,11 +5,10 @@
   <div class="berezinilogo"></div>
   <div></div>
 </div>
-
 <mat-divider></mat-divider>
-<mat-tab-group>
+<!-- <mat-tab-group>
 
-  <mat-tab label="Main">
+  <mat-tab label="Markets">
     <mat-grid-list cols="2" rowHeight="2:1" gutterSize="10px">
       <mat-grid-tile rowspan="2">
         <div class="table-container"><app-news></app-news></div>
@@ -26,4 +25,21 @@
   <mat-tab label="Stock"><app-stock-collection></app-stock-collection></mat-tab>
   <mat-tab label="Monthly-yahoo"> <app-line-chart></app-line-chart> </mat-tab>
   <mat-tab label="Daily-yahoo"> <app-large-area-chart></app-large-area-chart> </mat-tab>
-</mat-tab-group>
+  <mat-tab label="Search"> <app-search></app-search> </mat-tab>
+</mat-tab-group> -->
+
+<div class="centered-content">
+      <div class="example-menu" cdkMenu>
+        <button class="example-menu-item" cdkMenuItem routerLink="/app-news-collection" routerLinkActive="active"
+          ariaCurrentWhenActive="page">Home</button>
+          <button class="example-menu-item" cdkMenuItem routerLink="/app-macro-container" routerLinkActive="active"
+            ariaCurrentWhenActive="page">Historical Macro</button>
+        <button class="example-menu-item" cdkMenuItem routerLink="/app-news" routerLinkActive="active"
+          ariaCurrentWhenActive="page">News</button>
+          <button class="example-menu-item" cdkMenuItem routerLink="/app-supported-by" routerLinkActive="active"
+            ariaCurrentWhenActive="page">Supported by</button>
+      </div>
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+</div>

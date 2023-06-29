@@ -36,7 +36,25 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DateFormatPipe } from './model/date-format-pipe';
 import { TruncatePipe } from './model/truncate-pipe';
 import { TimeFormatPipe } from './model/time-format.pipe';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { RouterModule, Routes } from '@angular/router';
+import { SearchComponent } from './search/search.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MacroContainerComponent } from './macro-container/macro-container.component';
+import { SupportedByComponent } from './supported-by/supported-by.component';
 
+
+const routes: Routes = [
+  { path: 'app-root', component: AppComponent },
+  { path: 'app-news', component: NewsComponent },
+  { path: 'app-news-collection', component: NewsCollectionComponent },
+  { path: 'app-fx-collection', component: FxCollectionComponent },
+  { path: 'app-stock-collection', component: StockCollectionComponent },
+  { path: 'app-line-chart', component: LineChartComponent },
+  { path: 'app-large-area-chart', component: LargeAreaChartComponent },
+  { path: 'app-macro-container', component: MacroContainerComponent },
+  { path: 'app-supported-by', component: SupportedByComponent },
+];
 
 @NgModule({
   declarations: [
@@ -51,7 +69,10 @@ import { TimeFormatPipe } from './model/time-format.pipe';
     WarningDialogComponent,
     DateFormatPipe,
     TimeFormatPipe,
-    TruncatePipe
+    TruncatePipe,
+    SearchComponent,
+    MacroContainerComponent,
+    SupportedByComponent
   ],
   imports: [
     BrowserModule,
@@ -77,14 +98,20 @@ import { TimeFormatPipe } from './model/time-format.pipe';
     MatProgressSpinnerModule,
     MatCardModule,
     MatExpansionModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSidenavModule,
+    AppRoutingModule,
+    RouterModule.forRoot(routes),
+    MatAutocompleteModule
   ],
   exports: [
     MatTableModule,
     MatSortModule,
     MatProgressSpinnerModule,
     MatInputModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSidenavModule,
+    RouterModule
   ],
   entryComponents: [
     WarningDialogComponent,
