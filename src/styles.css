@@ -13,9 +13,11 @@ body {
   background-color: var(--light-gray);
   color: var(--dark-gray);
 }
+
 .mat-mdc-tab:not(.mat-mdc-tab-disabled) .mdc-tab-indicator__content--underline, .mat-mdc-tab-link:not(.mat-mdc-tab-disabled) .mdc-tab-indicator__content--underline {
-  border-color: var(--mdc-tab-indicator-active-indicator-color, var(--logo-blue)) !important;
+  border-color: var(--logo-blue) !important;
 }
+
 .mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label, .mat-mdc-tab-link:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label {
   color: var(--logo-blue) !important;
 }
@@ -24,8 +26,9 @@ body {
   background-color: var(--logo-blue) !important;
   color: var(--light-gray) !important;
 }
-.mat-mdc-table{
-  background-color: var(--light-gray) !important;
+
+.mat-mdc-table {
+  /*background-color: var(--light-gray) !important;*/
 }
 
 .example-menu {
@@ -72,23 +75,24 @@ body {
 
 /* For tablets */
 @media screen and (max-width: 1024px) {
-  .berezinilogo {
+  .berezini-logo {
     height: 50px;
   }
 }
 
 /* For smartphones */
 @media screen and (max-width: 768px) {
-  .berezinilogo {
+  .berezini-logo {
     height: 30px;
   }
 }
 
-.menue-container {
+.menu-container {
   display: flex;
   flex-wrap: wrap;
 }
-.menue-container>* {
+
+.menu-container > * {
   flex: 1 1;
 }
 
@@ -97,29 +101,26 @@ body {
   flex-wrap: wrap;
 }
 
-.centered-content>* {
+.centered-content > * {
   flex: 1 1 160px;
 }
 
-.logosite {
+.logo-site {
   font-family: "Roboto", Arial, sans-serif;
   font-size: 24px;
   font-weight: bold;
   color: rgba(0, 0, 0, 0.6);
-  align-items: left;
   white-space: nowrap;
   padding-top: 10px;
   padding-left: 10px;
 }
 
-.berezinilogo {
+.berezini-logo {
   background: #0000 url('/assets/images/logo.svg') no-repeat center;
   background-size: contain;
-  /* Add dimensions for the container */
   padding-top: 10px;
   width: 100%;
   height: 50px;
-  /* Default height for large screens */
 }
 
 
@@ -145,21 +146,17 @@ button:hover {
 
 /* Styles for 14-inch screens */
 @media only screen and (min-width: 14in) and (max-width: 15in) {
-
-  /* Your CSS styles for 14-inch screens here */
   table {
     width: 100%;
   }
 
-  th,
-  td {
+  th, td {
     padding: 12px;
   }
 }
 
 
 .mat-mdc-progress-spinner {
-  /* position: absolute !important; */
   width: 30px !important;
   height: 30px !important;
   top: 0;
@@ -168,7 +165,6 @@ button:hover {
 .table-container {
   height: 100%;
   width: 100%;
-  /* Or any other maximum height */
   overflow-y: auto;
   display: block;
 }

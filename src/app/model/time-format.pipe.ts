@@ -20,7 +20,6 @@ export class TimeFormatPipe implements PipeTransform {
         // Convert the offset to milliseconds
         let offsetMillis = offsetHours * 60 * 60 * 1000;
 
-        // Add the offset to the input time
         return this.formatDate(new Date(gmt4Millis - offsetMillis));
     }
 
@@ -32,6 +31,6 @@ export class TimeFormatPipe implements PipeTransform {
         let HH = String(date.getHours()).padStart(2, '0');
         let MM = String(date.getMinutes()).padStart(2, '0');
 
-        return dd + '-' + mm + '-' + yyyy + ' ' + HH + ':' + MM;
+        return dd + '/' + mm + '/' + yyyy + '\n ' + HH + ':' + MM;
     }
 }
