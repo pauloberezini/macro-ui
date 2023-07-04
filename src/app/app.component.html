@@ -30,7 +30,7 @@
 
 <div class="centered-content">
   <div class="main-menu" cdkMenu>
-    <button class="example-menu-item" cdkMenuItem routerLink="/app-news-collection" routerLinkActive="active"
+    <button class="example-menu-item" cdkMenuItem routerLink="/" routerLinkActive="active"
       ariaCurrentWhenActive="page">Home</button>
     <button class="example-menu-item" cdkMenuItem routerLink="/app-macro-container" routerLinkActive="active"
       ariaCurrentWhenActive="page">Historical Macro</button>
@@ -41,5 +41,6 @@
   </div>
   <div>
     <router-outlet></router-outlet>
+    <app-news-collection></app-news-collection>
   </div>
 </div>
