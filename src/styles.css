@@ -9,6 +9,13 @@
   --logo-blue: #102f77;
 }
 
+.basic-color{
+  color: var(--logo-blue);
+}
+.bg-color{
+  color: var(--light-gray);
+}
+
 body {
   background-color: var(--light-gray);
   color: var(--dark-gray);
