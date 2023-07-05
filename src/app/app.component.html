@@ -1,46 +1,27 @@
-<div class="centered-content">
+<div class="centered-content" >
   <div>
-    <h1 class="logo-site">Macroeconomic Statistics</h1>
+    <h1 class="logo-site" >Macroeconomic Statistics</h1>
   </div>
   <div class="berezini-logo"></div>
-  <div></div>
+  <div>
+  </div>
 </div>
 <mat-divider></mat-divider>
-<!-- <mat-tab-group>
-
-  <mat-tab label="Markets">
-    <mat-grid-list cols="2" rowHeight="2:1" gutterSize="10px">
-      <mat-grid-tile rowspan="2">
-        <div class="table-container"><app-news></app-news></div>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <div class="table-container"><app-news-collection></app-news-collection></div>
-      </mat-grid-tile>
-      <mat-grid-tile><app-economic-data [economicType]="'INFLATION'"></app-economic-data> </mat-grid-tile>
-
-    </mat-grid-list>
-  </mat-tab>
-
-  <mat-tab label="FX"><app-fx-collection></app-fx-collection></mat-tab>
-  <mat-tab label="Stock"><app-stock-collection></app-stock-collection></mat-tab>
-  <mat-tab label="Monthly-yahoo"> <app-line-chart></app-line-chart> </mat-tab>
-  <mat-tab label="Daily-yahoo"> <app-large-area-chart></app-large-area-chart> </mat-tab>
-  <mat-tab label="Search"> <app-search></app-search> </mat-tab>
-</mat-tab-group> -->
 
 <div class="centered-content">
   <div class="main-menu" cdkMenu>
     <button class="example-menu-item" cdkMenuItem routerLink="/" routerLinkActive="active"
-      ariaCurrentWhenActive="page">Home</button>
+            ariaCurrentWhenActive="page">Home</button>
     <button class="example-menu-item" cdkMenuItem routerLink="/app-macro-container" routerLinkActive="active"
-      ariaCurrentWhenActive="page">Historical Macro</button>
+            ariaCurrentWhenActive="page">Historical Macro</button>
     <button class="example-menu-item" cdkMenuItem routerLink="/app-news" routerLinkActive="active"
-      ariaCurrentWhenActive="page">News</button>
+            ariaCurrentWhenActive="page">News</button>
+    <button class="example-menu-item" cdkMenuItem routerLink="/app-atr-chart" routerLinkActive="active"
+            ariaCurrentWhenActive="page">ATR</button>
     <button class="example-menu-item" cdkMenuItem routerLink="/app-supported-by" routerLinkActive="active"
-      ariaCurrentWhenActive="page">Supported by</button>
+            ariaCurrentWhenActive="page">Supported by</button>
   </div>
   <div>
     <router-outlet></router-outlet>
-    <app-news-collection></app-news-collection>
   </div>
 </div>

@@ -42,18 +42,19 @@ import { SearchComponent } from './search/search.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MacroContainerComponent } from './macro-container/macro-container.component';
 import { SupportedByComponent } from './supported-by/supported-by.component';
+import { AtrChartComponent } from './atr-chart/atr-chart.component';
 
 
 const routes: Routes = [
-  { path: 'app-root', component: AppComponent },
+  { path: '', component: NewsCollectionComponent },
   { path: 'app-news', component: NewsComponent },
-  { path: 'app-news-collection', component: NewsCollectionComponent },
   { path: 'app-fx-collection', component: FxCollectionComponent },
   { path: 'app-stock-collection', component: StockCollectionComponent },
   { path: 'app-line-chart', component: LineChartComponent },
   { path: 'app-large-area-chart', component: LargeAreaChartComponent },
   { path: 'app-macro-container', component: MacroContainerComponent },
   { path: 'app-supported-by', component: SupportedByComponent },
+  { path: 'app-atr-chart', component: AtrChartComponent },
 ];
 
 @NgModule({
@@ -72,7 +73,8 @@ const routes: Routes = [
     TruncatePipe,
     SearchComponent,
     MacroContainerComponent,
-    SupportedByComponent
+    SupportedByComponent,
+    AtrChartComponent
   ],
   imports: [
     BrowserModule,
