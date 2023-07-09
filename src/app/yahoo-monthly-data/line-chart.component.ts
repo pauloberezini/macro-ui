@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { Chart, ChartType } from 'chart.js/auto';
 import { StockDataService } from '../services/stock-data.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -18,21 +18,14 @@ export class LineChartComponent implements OnInit, OnChanges {
   currentYear: number = new Date().getFullYear();
   toYear: number = this.currentYear - 1; // Add a new property to hold the user input
 
-
   seasonality: any = [];
   seasonalityAvg: any = [];
-  averages: any = [];
 
   chartTypes: { [key: string]: ChartType } = {
     bar: "bar",
     line: "line"
   };
 
-  seasonalityAvgColumns: string[] = ['month', 'average'];
-  monthNames: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-  // displayedColumns: string[] = ['Year', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  displayedColumns: string[] = ['position', 'year', 'month', 'average'];
   dataSource: any;
 
   constructor(private stockDataService: StockDataService, public dialog: MatDialog) { }
@@ -48,7 +41,7 @@ export class LineChartComponent implements OnInit, OnChanges {
       type: this.chartTypes[this.chartStyle], //this denotes tha type of chart
 
       data: {// values on X-Axis
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',],
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         datasets: [
           {
             label: "data",
@@ -78,12 +71,12 @@ export class LineChartComponent implements OnInit, OnChanges {
     this.stockDataService.getStockData(this.symbol, this.fromYear, this.toYear).subscribe((response: any) => {
       this.openDialog(response.errorMsg);
       this.dataSource = response.data;
-      this.seasonDataAvg();
-      this.seasonDataAll();
+      this.loadMonthlyData();
+      this.loadDailyData();
     });
   }
 
-  seasonDataAvg(): void {
+  loadDailyData(): void {
     const data = this.dataSource; // Use the dataSource instead of stockData
     const seasonalityAvg = new Map();
     for (const dailyData of data) {
@@ -105,7 +98,7 @@ export class LineChartComponent implements OnInit, OnChanges {
     this.seasonalityAvg = Array.from(seasonalityAvg.values());
   }
 
-  seasonDataAll(): void {
+  loadMonthlyData(): void {
     const data = this.dataSource; // Use the dataSource instead of stockData
     const arr = new Array();
     let index: number = 1;

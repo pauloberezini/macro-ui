@@ -60,7 +60,7 @@ export class EconomicDataComponent {
       this.chart = new Chart('Inflation', {
         type: this.chartTypes[this.chartStyle], //this denotes tha type of chart
         data: {// values on X-Axis
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
           datasets: [
             {
               label: "CPI Inflation",
