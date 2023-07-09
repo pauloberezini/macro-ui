@@ -18,7 +18,6 @@ export class AtrChartComponent implements OnInit {
 
   ngOnInit() {
     this.http.get(this.apiUrl).subscribe((data: any) => {
-      debugger
       let atrData = data['Technical Analysis: ATR'];
       let monthlyData = {};
 
@@ -47,15 +46,28 @@ export class AtrChartComponent implements OnInit {
       }
       debugger
       // Convert the monthlyData object into an array of objects compatible with Chart.js
-      for (let yearMonth in monthlyData) {
+      for (let month in sumByMonth) {
         this.chartData.push({
-          x: yearMonth,
-          y: monthlyData[yearMonth]
+          x: month,
+          y: sumByMonth[month]
         });
       }
 
-      this.chartData = this.chartData.reverse();
+      // this.chartData = this.chartData.reverse();
+      this.chartData.sort(function(a, b) {
+        // Extract the month from the x property
+        var monthA = new Date(a.x).getMonth();
+        var monthB = new Date(b.x).getMonth();
 
+        // Compare the months
+        if (monthA < monthB) {
+          return -1;
+        }
+        if (monthA > monthB) {
+          return 1;
+        }
+        return 0;
+      });
       this.createChart();
     });
   }
@@ -64,7 +76,7 @@ export class AtrChartComponent implements OnInit {
   createChart() {
     const canvas = <HTMLCanvasElement>document.getElementById('atrChart');
     const ctx = canvas.getContext('2d');
-
+    debugger
     this.chart = new Chart(ctx, {
       type: 'line',
       data: {
@@ -79,9 +91,8 @@ export class AtrChartComponent implements OnInit {
       options: {
         scales: {
           x: {
-            type: 'time',
             time: {
-              parser: 'YYYY-MM-DD'
+              parser: 'MM'
             },
             title: {
               display: true,

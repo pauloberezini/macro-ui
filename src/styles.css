@@ -38,6 +38,10 @@ body {
   /*background-color: var(--light-gray) !important;*/
 }
 
+.mat-expansion-panel-header {
+  padding: 0 10px!important;
+}
+
 .main-menu {
   display: block;
   flex-direction: column;
