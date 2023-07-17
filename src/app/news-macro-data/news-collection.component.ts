@@ -9,14 +9,19 @@ import { StockDataService } from '../services/stock-data.service';
 })
 export class NewsCollectionComponent {
   newsCollection!: any[];
+  selectedRow: any;
 
-  ngOnInit(): void { 
+  constructor(private stockDataService: StockDataService) { }
+
+  ngOnInit(): void {
 
      this.stockDataService.getHighNews().subscribe((data: any) => {
       this.newsCollection = data;
     });
   }
-  
-  
-  constructor(private stockDataService: StockDataService) { }
+
+
+  onMacroNewsClick(row:any) {
+    this.selectedRow = row;
+  }
 }

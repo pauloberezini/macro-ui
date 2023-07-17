@@ -42,7 +42,6 @@ import { SearchComponent } from './search/search.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MacroContainerComponent } from './macro-container/macro-container.component';
 import { SupportedByComponent } from './supported-by/supported-by.component';
-import { AtrChartComponent } from './atr-chart/atr-chart.component';
 
 
 const routes: Routes = [
@@ -53,8 +52,7 @@ const routes: Routes = [
   { path: 'app-line-chart', component: LineChartComponent },
   { path: 'app-large-area-chart', component: LargeAreaChartComponent },
   { path: 'app-macro-container', component: MacroContainerComponent },
-  { path: 'app-supported-by', component: SupportedByComponent },
-  { path: 'app-atr-chart', component: AtrChartComponent },
+  { path: 'app-supported-by', component: SupportedByComponent }
 ];
 
 @NgModule({
@@ -73,8 +71,7 @@ const routes: Routes = [
     TruncatePipe,
     SearchComponent,
     MacroContainerComponent,
-    SupportedByComponent,
-    AtrChartComponent
+    SupportedByComponent
   ],
   imports: [
     BrowserModule,

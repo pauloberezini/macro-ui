@@ -1,13 +1,7 @@
-<mat-card>
-  <mat-card-content>
-    <mat-form-field appearance="fill">
-      <mat-label>Year</mat-label>
-      <mat-select (valueChange)="onYearChange($event)" [(value)]="selectedYear">
-        <mat-option *ngFor="let year of years" [value]="year">{{year}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <div>
-      <canvas id="Inflation">{{ chart }}</canvas>
-    </div>
-  </mat-card-content>
-</mat-card>
+<div class="centered-content">
+  <mat-card>
+    <mat-card-content>
+      <canvas #atrChart id="atrChart"></canvas>
+    </mat-card-content>
+  </mat-card>
+</div>

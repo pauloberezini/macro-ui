@@ -2,19 +2,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { StockData } from '../model/stock-data';
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class StockDataService {
-//  private url = 'http://localhost:8089';
-//   private baseUrl = 'http://localhost:8089/historical-data';
-//   private baseUrlAllDaily = 'http://localhost:8089/historical-data/daily/all';
-//   private baseUrlAlpha = 'http://localhost:8089/alpha/historical-data';
-  private baseUrlAlpha = 'https://server.berezini.com/alpha/historical-data';
-  private url = 'https://server.berezini.com';
-  private baseUrl = 'https://server.berezini.com/historical-data';
-  private baseUrlAllDaily = 'https://server.berezini.com/historical-data/daily/all';
+  private url = environment.url; // Use the environment variable
+
+  private baseUrl = environment.baseUrl; // Use the environment variable
+
+  private baseUrlAllDaily = environment.baseUrlAllDaily; // Use the environment variable
+
+  private baseUrlAlpha = environment.baseUrlAlpha; // Use the environment variable
+  private baseUrlDynamicData = environment.baseUrlDynamicData; // Use the environment variable
+
 
   constructor(private http: HttpClient) { }
 
@@ -29,6 +31,22 @@ export class StockDataService {
     return this.http.get<StockData[]>(url);
   }
 
+  // getDynamicData(searchInput: string): Observable<any> {
+  //   const url = `${this.baseUrlDynamicData}/${searchInput}`;
+  //   return this.http.get<StockData[]>(url);
+  // }
+
+  getDynamicData(currency: string, eventName: string): Observable<any> {
+    debugger
+    const url = `${this.baseUrlDynamicData}`;
+    const body = {
+      currency: currency,
+      eventName: eventName
+    };
+
+    return this.http.post<any>(url, body);
+  }
+
   getEconomicData(type: string): Observable<Object[]> {
     const url = `${this.baseUrlAlpha}/economic/${type}`;
     return this.http.get<Object[]>(url);
@@ -40,12 +58,12 @@ export class StockDataService {
     return this.http.get<StockData[]>(url);
   }
 
-  
+
   getStockAllDailyData(symbol: string, monthNumber: string): Observable<StockData[]> {
     const url = `${this.baseUrlAllDaily}/${symbol}/${monthNumber}`;
     return this.http.get<StockData[]>(url);
   }
-  
+
   getHighNews(): Observable<StockData[]> {
     const url = `${this.url}/getHighNews`;
     return this.http.get<StockData[]>(url);
