@@ -47,6 +47,9 @@
             *matHeaderRowDef="['time', 'country', 'volatility', 'eventName', 'actualInfo', 'forecastInfo', 'previousInfo']; sticky: true">
         </tr>
         <tr mat-row (click)="onMacroNewsClick(row)"
+            [ngClass]="{ 'selected-row': selectedRow === row, 'hovered-row': row.isHovered }"
+            (mouseover)="onMouseOver(row)"
+            (mouseleave)="onMouseLeave(row)"
             *matRowDef="let row; columns: ['time', 'country', 'volatility', 'eventName', 'actualInfo', 'forecastInfo', 'previousInfo']">
         </tr>
       </table>
@@ -55,7 +58,7 @@
 
   <mat-card>
     <mat-card-content>
-        <app-economic-data [economicType]="'INFLATION'" [selectedRowData]="selectedRow"></app-economic-data>
+      <app-economic-data [economicType]="'INFLATION'" [selectedRowData]="selectedRow"></app-economic-data>
     </mat-card-content>
   </mat-card>
 </div>
