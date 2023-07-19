@@ -20,6 +20,13 @@ export class NewsCollectionComponent {
     });
   }
 
+  onMouseOver(row: any) {
+    row.isHovered = true;
+  }
+
+  onMouseLeave(row: any) {
+    row.isHovered = false;
+  }
 
   onMacroNewsClick(row:any) {
     this.selectedRow = row;

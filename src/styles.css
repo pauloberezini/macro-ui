@@ -12,6 +12,15 @@
 .basic-color{
   color: var(--logo-blue);
 }
+
+.hovered-row {
+  background-color: var(--light-gray) !important; /* Example background color for hover with transparency */
+}
+
+.selected-row {
+  background-color: var(--light-gray) !important;
+}
+
 .bg-color{
   color: var(--light-gray);
 }
