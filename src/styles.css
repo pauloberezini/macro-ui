@@ -18,14 +18,20 @@
   border-top: 1px solid transparent;
   cursor: pointer;
 }
+
 .mat-mdc-row:hover .mat-mdc-cell {
   border-color : var(--logo-blue) !important;
+}
+
+.hovered-row {
+  background-color: var(--light-gray) !important; /* Example background color for hover with transparency */
 }
 
 .selected-row {
   background-color: var(--light-gray) !important;
 
 }
+
 .selected-row >td{
   font-weight: 500 !important;
 
