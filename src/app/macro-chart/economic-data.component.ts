@@ -41,25 +41,41 @@ export class EconomicDataComponent {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['selectedRowData'] && this.selectedRowData) {
-      let arr = this.selectedRowData.eventName.split(' ');
-      arr.pop();
-      let eventName = arr.join(' ');
-      this.stockDataService.getDynamicData(this.selectedRowData.country, eventName).subscribe(response => {
-        if (response.success) {
-          this.chartData = response.data.map((d: any) => ({
-            x: moment(d.time).format('YYYY-MM'), // Format date to only show year and month
-            y: parseFloat(d.actualInfo)
-          }));
+      const inputString = this.selectedRowData.eventName;
 
-          this.createChart(this.selectedRowData.eventName);
-        }
-      });
+      const regex = /\([^)]+\)/g;
+      const wordsInBrackets = inputString.match(regex);
+
+      if (wordsInBrackets && wordsInBrackets.length > 0) {
+        console.log("Words inside brackets found in the string:");
+        console.log(wordsInBrackets);
+        let arr = this.selectedRowData.eventName.split(' ');
+        arr.pop();
+        let eventName = arr.join(' ');
+        this.request(eventName);
+      } else {
+        let eventName = this.selectedRowData.eventName;
+        this.request(eventName);
+
+      }
     }
   }
 
+  request(eventName:string){
+    this.stockDataService.getDynamicData(this.selectedRowData.country, eventName).subscribe(response => {
+      if (response.success) {
+        this.chartData = response.data.map((d: any) => ({
+          x: moment(d.time).format('YYYY-MM-DD'), // Format date to only show year and month
+          y: parseFloat(d.actualInfo)
+        }));
 
-  createChart(title:string) {
-    debugger
+        this.createChart(this.selectedRowData.eventName);
+      }
+    });
+  }
+
+
+  createChart(title: string) {
     if (this.chart) {
       this.chart.destroy();
     }

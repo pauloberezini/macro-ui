@@ -17,10 +17,10 @@ export class SearchComponent implements OnInit {
   constructor(private alphaVantageService: AlphaVantageService) { }
 
   ngOnInit() {
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      debounceTime(400),
-      distinctUntilChanged(),
-      switchMap(value => this.alphaVantageService.search(value)),
-    );
+    // this.filteredOptions = this.myControl.valueChanges.pipe(
+    //   debounceTime(400),
+    //   distinctUntilChanged(),
+    //   switchMap(value => this.alphaVantageService.search(value)),
+    // );
   }
 }

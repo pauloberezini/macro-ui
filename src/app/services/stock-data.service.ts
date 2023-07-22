@@ -37,7 +37,6 @@ export class StockDataService {
   // }
 
   getDynamicData(currency: string, eventName: string): Observable<any> {
-    debugger
     const url = `${this.baseUrlDynamicData}`;
     const body = {
       currency: currency,
