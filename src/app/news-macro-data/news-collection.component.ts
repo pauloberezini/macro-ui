@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { StockDataService } from '../services/stock-data.service';
+import {Component} from '@angular/core';
+import {StockDataService} from '../services/stock-data.service';
 
 
 @Component({
@@ -11,13 +11,11 @@ export class NewsCollectionComponent {
   newsCollection!: any[];
   selectedRow: any;
 
-  constructor(private stockDataService: StockDataService) { }
+  constructor(private stockDataService: StockDataService) {
+  }
 
   ngOnInit(): void {
-
-     this.stockDataService.getHighNews().subscribe((data: any) => {
-      this.newsCollection = data;
-    });
+    this.refreshData();
   }
 
   onMouseOver(row: any) {
@@ -28,7 +26,14 @@ export class NewsCollectionComponent {
     row.isHovered = false;
   }
 
-  onMacroNewsClick(row:any) {
+  onMacroNewsClick(row: any) {
     this.selectedRow = row;
   }
+
+  refreshData(): void {
+    this.stockDataService.getHighNews().subscribe((data: any) => {
+      this.newsCollection = data;
+    });
+  }
+
 }
