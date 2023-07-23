@@ -1,7 +1,9 @@
 import {Component} from '@angular/core';
 import {StockDataService} from '../services/stock-data.service';
 import {FormControl} from "@angular/forms";
-
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-news-collection',
@@ -9,6 +11,10 @@ import {FormControl} from "@angular/forms";
   styleUrls: ['./news-collection.component.css']
 })
 export class NewsCollectionComponent {
+  private refreshClick = new Subject();
+  private destroy$ = new Subject();
+  canRefresh = true;
+
   newsCollection!: any[];
   selectedOption:string = '1';
   toppings = new FormControl('');
@@ -26,6 +32,14 @@ export class NewsCollectionComponent {
 
   ngOnInit(): void {
     this.refreshData();
+    this.refreshClick.pipe(
+      takeUntil(this.destroy$) // assuming you have a Subject to complete on destroy
+    ).subscribe(() => {
+      this.canRefresh = false;
+      timer(6000).subscribe(() => {
+        this.canRefresh = true;
+      });
+    });
   }
 
   onMouseOver(row: any) {
@@ -41,10 +55,13 @@ export class NewsCollectionComponent {
   }
 
   refreshData(): void {
-    debugger
-    this.stockDataService.getHighNews().subscribe((data: any) => {
-      this.newsCollection = data;
-    });
+    if (this.canRefresh) {
+      this.stockDataService.getHighNews().subscribe((data: any) => {
+        this.newsCollection = data;
+      });
+      // @ts-ignore
+      this.refreshClick.next();
+    }
   }
 
 }
