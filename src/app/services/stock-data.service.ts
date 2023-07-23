@@ -64,7 +64,7 @@ export class StockDataService {
   }
 
   getHighNews(): Observable<StockData[]> {
-    const url = `${this.url}/getHighNews`;
+    const url = `${this.url}/getNews`;
     return this.http.get<StockData[]>(url);
   }
   getMarketNews(): Observable<StockData[]> {

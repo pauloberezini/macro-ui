@@ -1,14 +1,38 @@
 <div class="centered-content">
   <mat-card>
+    <div>
+      <mat-card-actions align="start">
+        <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedOption">
+          <mat-radio-button value="1">All Markets</mat-radio-button>
+          <mat-radio-button value="2">Custom</mat-radio-button>
+        </mat-radio-group>
 
-<!--    <mat-card-header>-->
-<!--      <mat-card-title>Markets</mat-card-title>-->
-<!--      <mat-card-subtitle>Start</mat-card-subtitle>-->
-<!--    </mat-card-header>-->
-<!--    <mat-card-actions>-->
-<!--      <button (click)="refreshData()" mat-button>Refresh</button>-->
-<!--      <button mat-button>SHARE</button>-->
-<!--    </mat-card-actions>-->
+      </mat-card-actions>
+        <mat-card-actions align="end">
+        <button (click)="refreshData()" mat-button>Refresh</button>
+        <button mat-button>SHARE</button>
+      </mat-card-actions>
+    </div>
+
+    <div id="show" *ngIf="selectedOption === '2'">
+      <mat-card-actions align="start">
+        <mat-form-field>
+          <mat-label>Select Currencies</mat-label>
+          <mat-select name="country" [(ngModel)]="selectedCountry" multiple>
+            <mat-option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Volatility</mat-label>
+          <mat-select name="volatility" [(ngModel)]="volatility" multiple>
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let vol of volatilities" [value]="vol">{{ vol }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card-actions>
+    </div>
+
     <mat-card-content>
       <table mat-table [dataSource]="newsCollection">
         <ng-container matColumnDef="time">
@@ -27,6 +51,13 @@
             <ng-container *ngIf="news.volatility === '***'">
               <mat-icon color="warn">whatshot</mat-icon>
               <mat-icon color="warn">whatshot</mat-icon>
+              <mat-icon color="warn">whatshot</mat-icon>
+            </ng-container>
+            <ng-container *ngIf="news.volatility === '**'">
+              <mat-icon color="warn">whatshot</mat-icon>
+              <mat-icon color="warn">whatshot</mat-icon>
+            </ng-container>
+            <ng-container *ngIf="news.volatility === '*'">
               <mat-icon color="warn">whatshot</mat-icon>
             </ng-container>
           </td>

@@ -42,6 +42,7 @@ import { SearchComponent } from './search/search.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MacroContainerComponent } from './macro-container/macro-container.component';
 import { SupportedByComponent } from './supported-by/supported-by.component';
+import {MatRadioModule} from "@angular/material/radio";
 
 
 const routes: Routes = [
@@ -73,36 +74,37 @@ const routes: Routes = [
     MacroContainerComponent,
     SupportedByComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    MatTableModule,
-    FormsModule,
-    MatDividerModule,
-    MatInputModule,
-    MatNativeDateModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatGridListModule,
-    CommonModule,
-    MatSelectModule,
-    MatTabsModule,
-    AppRoutingModule,
-    NgxEchartsModule.forRoot({
-      echarts: () => import('echarts')
-    }),
-    MatIconModule,
-    MatToolbarModule,
-    MatProgressSpinnerModule,
-    MatCardModule,
-    MatExpansionModule,
-    MatDialogModule,
-    MatSidenavModule,
-    AppRoutingModule,
-    RouterModule.forRoot(routes),
-    MatAutocompleteModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        MatTableModule,
+        FormsModule,
+        MatDividerModule,
+        MatInputModule,
+        MatNativeDateModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatGridListModule,
+        CommonModule,
+        MatSelectModule,
+        MatTabsModule,
+        AppRoutingModule,
+        NgxEchartsModule.forRoot({
+            echarts: () => import('echarts')
+        }),
+        MatIconModule,
+        MatToolbarModule,
+        MatProgressSpinnerModule,
+        MatCardModule,
+        MatExpansionModule,
+        MatDialogModule,
+        MatSidenavModule,
+        AppRoutingModule,
+        RouterModule.forRoot(routes),
+        MatAutocompleteModule,
+        MatRadioModule
+    ],
   exports: [
     MatTableModule,
     MatSortModule,
