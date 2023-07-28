@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { StockData } from '../model/stock-data';
 import {environment} from "../../environments/environment";
+import {EventDto} from "../model/event-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -63,9 +64,9 @@ export class StockDataService {
     return this.http.get<StockData[]>(url);
   }
 
-  getHighNews(): Observable<StockData[]> {
+  getHighNews(): Observable<EventDto[]> {
     const url = `${this.url}/getNews`;
-    return this.http.get<StockData[]>(url);
+    return this.http.get<EventDto[]>(url);
   }
   getMarketNews(): Observable<StockData[]> {
     const url = `${this.url}/api/news/business-news`;

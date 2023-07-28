@@ -19,6 +19,11 @@
   cursor: pointer;
 }
 
+.scrollable-table {
+  max-height: 750px; /* adjust as needed */
+  overflow-y: auto;
+}
+
 .mat-mdc-row:hover .mat-mdc-cell {
   border-color : var(--logo-blue) !important;
 }
