@@ -69,17 +69,16 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   getStockData(): void {
     this.stockDataService.getStockData(this.symbol, this.fromYear, this.toYear).subscribe((response: any) => {
-      this.openDialog(response.errorMsg);
       this.dataSource = response.data;
-      this.loadMonthlyData();
+      this.openDialog(response.errorMsg);
       this.loadDailyData();
+      this.loadMonthlyData();
     });
   }
 
   loadDailyData(): void {
-    const data = this.dataSource; // Use the dataSource instead of stockData
     const seasonalityAvg = new Map();
-    for (const dailyData of data) {
+    for (const dailyData of this.dataSource) {
       const [year, month] = dailyData.date.split('-');
       const monthKey = `${month}`;
 
@@ -99,10 +98,9 @@ export class LineChartComponent implements OnInit, OnChanges {
   }
 
   loadMonthlyData(): void {
-    const data = this.dataSource; // Use the dataSource instead of stockData
     const arr = new Array();
     let index: number = 1;
-    for (const monthlyData of data) {
+    for (const monthlyData of this.dataSource) {
       const [year, month] = monthlyData.date.split('-');
 
 
