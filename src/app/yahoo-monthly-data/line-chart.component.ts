@@ -1,8 +1,8 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
-import { Chart, ChartType } from 'chart.js/auto';
-import { StockDataService } from '../services/stock-data.service';
-import { MatDialog } from '@angular/material/dialog';
-import { WarningDialogComponent } from '../warning-dialog/warning-dialog.component';
+import {Component, OnChanges, OnInit} from '@angular/core';
+import {Chart, ChartType} from 'chart.js/auto';
+import {StockDataService} from '../services/stock-data.service';
+import {MatDialog} from '@angular/material/dialog';
+import {WarningDialogComponent} from '../warning-dialog/warning-dialog.component';
 
 
 @Component({
@@ -13,14 +13,12 @@ import { WarningDialogComponent } from '../warning-dialog/warning-dialog.compone
 export class LineChartComponent implements OnInit, OnChanges {
   public chart: any;
   chartStyle: string = 'bar';
-  symbol: string = 'GBPUSD=X'; // Add a new property to hold the user input
-  fromYear: number = 2000; // Add a new property to hold the user input
+  symbol: string = 'GBPUSD=X';
+  fromYear: number = 2000;
   currentYear: number = new Date().getFullYear();
-  toYear: number = this.currentYear - 1; // Add a new property to hold the user input
-
+  toYear: number = this.currentYear - 1;
   seasonality: any = [];
   seasonalityAvg: any = [];
-
   chartTypes: { [key: string]: ChartType } = {
     bar: "bar",
     line: "line"
@@ -28,17 +26,21 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   dataSource: any;
 
-  constructor(private stockDataService: StockDataService, public dialog: MatDialog) { }
-  ngOnChanges() { }
+  constructor(private stockDataService: StockDataService, public dialog: MatDialog) {
+  }
 
-  ngOnInit(): void { }
+  ngOnChanges() {
+  }
+
+  ngOnInit(): void {
+  }
 
   createChart() {
     if (this.chart) {
       this.chart.destroy();
     }
     this.chart = new Chart("MyChartLine", {
-      type: this.chartTypes[this.chartStyle], //this denotes tha type of chart
+      type: this.chartTypes[this.chartStyle],
 
       data: {// values on X-Axis
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -53,10 +55,9 @@ export class LineChartComponent implements OnInit, OnChanges {
       options: {
         aspectRatio: 2.5
       }
-
     });
-
   }
+
   getAverageValues(data: any[]): number[] {
     const averages: number[] = [];
 
@@ -69,17 +70,16 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   getStockData(): void {
     this.stockDataService.getStockData(this.symbol, this.fromYear, this.toYear).subscribe((response: any) => {
-      this.openDialog(response.errorMsg);
       this.dataSource = response.data;
-      this.loadMonthlyData();
+      this.openDialog(response.errorMsg);
       this.loadDailyData();
+      this.loadMonthlyData();
     });
   }
 
   loadDailyData(): void {
-    const data = this.dataSource; // Use the dataSource instead of stockData
     const seasonalityAvg = new Map();
-    for (const dailyData of data) {
+    for (const dailyData of this.dataSource) {
       const [year, month] = dailyData.date.split('-');
       const monthKey = `${month}`;
 
@@ -99,10 +99,9 @@ export class LineChartComponent implements OnInit, OnChanges {
   }
 
   loadMonthlyData(): void {
-    const data = this.dataSource; // Use the dataSource instead of stockData
     const arr = new Array();
     let index: number = 1;
-    for (const monthlyData of data) {
+    for (const monthlyData of this.dataSource) {
       const [year, month] = monthlyData.date.split('-');
 
 
@@ -138,6 +137,7 @@ export class LineChartComponent implements OnInit, OnChanges {
     ];
     return monthNames[parseInt(monthNum, 10) - 1];
   }
+
   openDialog(arg: any) {
     if (arg == '') {
       return;

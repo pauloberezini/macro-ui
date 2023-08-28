@@ -70,7 +70,6 @@ export class NewsCollectionComponent {
 
 
   filterData(): void {
-    debugger
     let filteredNews = this.allNews.filter(event =>
       this.selectedCountry.includes(event.country) &&
       this.volatility.includes(event.volatility)
