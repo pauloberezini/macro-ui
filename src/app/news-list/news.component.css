@@ -2,3 +2,18 @@
     width: 100% !important;
     height: 100% !important;
 }
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.left-content {
+  /* You can add left content styling here if needed */
+}
+
+.right-content {
+  /* You can add right content styling here if needed */
+  padding-right: 20px;
+}
+

@@ -1,23 +1,31 @@
 <mat-card>
-    <mat-card-content>
-        <mat-card *ngFor="let article of articles">
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                    {{ article.publishedAt | dateFormat }}
-                    {{ article.title | truncate:100 }}
-                </mat-expansion-panel-header>
-                <mat-card-content>
-                    {{ article.title }}
-                    <BR>
-                    <BR>
-                    {{ article.description }}
-                </mat-card-content>
-                <br>
-                <p>
-                    <!-- <a [href]="article.url" target="_blank">Click to read more</a> -->
-                    <a mat-stroked-button [href]="article.url" target="_blank">Read more...</a>
-                </p>
-            </mat-expansion-panel>
-        </mat-card>
-    </mat-card-content>
+  <mat-card-content>
+    <mat-card *ngFor="let article of articles">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <div class="header-content">
+            <div class="left-content">
+              {{ article.publishedAt | dateFormat }}
+              {{ article.title | truncate:100 }}
+            </div>
+            <div class="right-content">
+              {{ article.sentiment }}
+            </div>
+          </div>
+        </mat-expansion-panel-header>
+
+        <mat-card-content>
+          {{ article.title }}
+          <BR>
+          <BR>
+          {{ article.description }}
+        </mat-card-content>
+        <br>
+        <p>
+          <!-- <a [href]="article.url" target="_blank">Click to read more</a> -->
+          <a mat-stroked-button [href]="article.url" target="_blank">Read more...</a>
+        </p>
+      </mat-expansion-panel>
+    </mat-card>
+  </mat-card-content>
 </mat-card>

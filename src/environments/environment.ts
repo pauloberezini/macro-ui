@@ -1,5 +1,5 @@
 export const environment = {
-  // production: false,
+  production: false,
   // url: 'http://localhost:8089',
   // baseUrl: 'http://localhost:8089/historical-data',
   // baseUrlAllDaily: 'http://localhost:8089/historical-data/daily/all',
