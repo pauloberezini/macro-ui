@@ -1,0 +1,7 @@
+<button (click)="addFlexItem()">Add New Flex Item</button>
+
+<div class="flex-container">
+  <div *ngFor="let item of flexItems" class="flex-item">
+    {{ item }}
+  </div>
+</div>

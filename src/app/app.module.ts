@@ -44,6 +44,7 @@ import {MacroContainerComponent} from './macro-container/macro-container.compone
 import {SupportedByComponent} from './supported-by/supported-by.component';
 import {MatRadioModule} from "@angular/material/radio";
 import {VolatilityPipe} from "./model/volatility.pipe";
+import { DashGraphsComponent } from './dash-graphs/dash-graphs.component';
 
 
 const routes: Routes = [
@@ -54,7 +55,8 @@ const routes: Routes = [
   {path: 'app-line-chart', component: LineChartComponent},
   {path: 'app-large-area-chart', component: LargeAreaChartComponent},
   {path: 'app-macro-container', component: MacroContainerComponent},
-  {path: 'app-supported-by', component: SupportedByComponent}
+  {path: 'app-supported-by', component: SupportedByComponent},
+  {path: 'dash-graphs', component: DashGraphsComponent}
 ];
 
 @NgModule({
@@ -74,7 +76,8 @@ const routes: Routes = [
     TruncatePipe,
     SearchComponent,
     MacroContainerComponent,
-    SupportedByComponent
+    SupportedByComponent,
+    DashGraphsComponent
   ],
   imports: [
     BrowserModule,
