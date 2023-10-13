@@ -1,4 +1,4 @@
-<button (click)="addFlexItem()">Add New Flex Item</button>
+<button (click)="addGraph()" mat-raised-button color="primary">Add Graph</button>
 
 <div class="flex-container">
   <div *ngFor="let item of flexItems; let i = index" class="flex-item">
@@ -10,4 +10,5 @@
     </mat-form-field>
     <ng-template #target></ng-template>
   </div>
+
 </div>

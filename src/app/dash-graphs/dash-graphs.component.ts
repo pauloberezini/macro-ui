@@ -21,6 +21,7 @@ export class DashGraphsComponent {
 
   // flexItems: string[] = ['Item 1', 'Item 2'];
 
+
   @ViewChildren('target', { read: ViewContainerRef }) targets: QueryList<ViewContainerRef>;
   availableComponents = [
     {name: 'Forex Seasonality', component: FxCollectionComponent},
@@ -29,9 +30,11 @@ export class DashGraphsComponent {
     {name: 'Daily Seasonality pro', component: LargeAreaChartComponent},
     // ... add other components here ...
   ];
+
   flexItems: any[] = [
-    {selectedComponent: null, componentRef: null},
-    // ... initial items ...
+    { selectedComponent: '' }, // Initialize with an empty string or a default value
+    { selectedComponent: '' },
+    // Add more objects as needed
   ];
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver, /*... other dependencies... */) {
@@ -52,7 +55,7 @@ export class DashGraphsComponent {
     }
   }
 
-  addFlexItem(): void {
+  addGraph(): void {
     const newItem = `Item ${this.flexItems.length + 1}`;
     this.flexItems.push(newItem);
   }

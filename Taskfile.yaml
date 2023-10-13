@@ -6,6 +6,10 @@ vars:
   GREETING: Hello, World!
 
 tasks:
+  default:
+    cmds:
+      - ng serve --disable-host-check
+    silent: true
   run:
     cmds:
       - node server.js
