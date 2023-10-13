@@ -1,7 +1,13 @@
 <button (click)="addFlexItem()">Add New Flex Item</button>
 
 <div class="flex-container">
-  <div *ngFor="let item of flexItems" class="flex-item">
-    {{ item }}
+  <div *ngFor="let item of flexItems; let i = index" class="flex-item">
+    <mat-form-field appearance="fill">
+      <mat-label>Select Component</mat-label>
+      <mat-select [(ngModel)]="item.selectedComponent" (selectionChange)="loadComponent(i, $event.value)">
+        <mat-option *ngFor="let comp of availableComponents" [value]="comp.name">{{ comp.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <ng-template #target></ng-template>
   </div>
 </div>

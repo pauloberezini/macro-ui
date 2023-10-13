@@ -53,7 +53,7 @@ export class LargeAreaChartComponent {
         yAxis: {
           type: 'value',
           // min: 0,
-          // max: 100,          
+          // max: 100,
           axisLabel: {
             formatter: '{value} %'
           },

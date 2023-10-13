@@ -3,7 +3,7 @@ import { StockDataService } from '../services/stock-data.service';
 import { Chart, ChartType } from 'chart.js/auto';
 
 @Component({
-  selector: 'app-fx-collection',
+  selector: 'fx-collection',
   templateUrl: './fx-collection.component.html',
   styleUrls: ['./fx-collection.component.css']
 })
@@ -43,7 +43,7 @@ export class FxCollectionComponent {
     if (this.chart) {
       this.chart.destroy();
     }
-    this.chart = new Chart("MyChartLine", {
+    this.chart = new Chart("fx_collection", {
       type: this.chartTypes[this.chartStyle], //this denotes tha type of chart
 
       data: {// values on X-Axis
@@ -57,7 +57,22 @@ export class FxCollectionComponent {
         ]
       },
       options: {
-        aspectRatio: 2.5
+        aspectRatio: 2.5,
+        scales: {
+          x: {
+            display: true,
+            title: {
+              display: true
+            }
+          },
+          y: {
+            display: true,
+            title: {
+              display: true,
+              text: 'Value'
+            }
+          }
+        }
       }
 
     });

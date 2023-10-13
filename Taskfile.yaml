@@ -6,7 +6,16 @@ vars:
   GREETING: Hello, World!
 
 tasks:
-  default:
+  run:
     cmds:
-      - ng serve --disable-host-check 
+      - ng serve --configuration=production
+    silent: true
+  rund:
+    cmds:
+      - ng serve --disable-host-check --configuration=production
+    silent: true
+
+  build:
+    cmds:
+      - ng build --configuration=production
     silent: true

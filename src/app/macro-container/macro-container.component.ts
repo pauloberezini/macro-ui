@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-macro-container',
+  selector: 'seasonality',
   templateUrl: './macro-container.component.html',
   styleUrls: ['./macro-container.component.css']
 })

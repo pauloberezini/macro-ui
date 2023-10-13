@@ -81,14 +81,14 @@ body {
   padding: 6px 0;
 }
 
-.example-menu-item {
+.main-menu-item {
+  width: max-content;
   background-color: transparent;
   color: var(--dark-gray);
   cursor: pointer;
   border: none;
 
   user-select: none;
-  width: 100%;
   line-height: 36px;
   padding: 0 16px;
 
@@ -105,11 +105,11 @@ body {
   padding-top: calc((25% - 5px) * 2 + 10px);
 }
 
-.example-menu-item:hover {
+.main-menu-item:hover {
   background-color: rgb(208, 208, 208);
 }
 
-.example-menu-item:active {
+.main-menu-item:active {
   background-color: var(--logo-blue);
   color: rgb(208, 208, 208);
 }
@@ -187,8 +187,10 @@ body {
 }
 
 
-.mat-card {
+mat-card {
   background-color: var(--light-green);
+
+  margin-bottom: 8px !important;
   color: var(--dark-gray);
 }
 

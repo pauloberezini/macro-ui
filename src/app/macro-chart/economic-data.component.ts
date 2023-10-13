@@ -47,8 +47,6 @@ export class EconomicDataComponent {
       const wordsInBrackets = inputString.match(regex);
 
       if (wordsInBrackets && wordsInBrackets.length > 0) {
-        console.log("Words inside brackets found in the string:");
-        console.log(wordsInBrackets);
         let arr = this.selectedRowData.eventName.split(' ');
         arr.pop();
         let eventName = arr.join(' ');

@@ -9,7 +9,7 @@ import { SpinnerService } from '../services/spinner/spinner.component';
   styleUrls: ['./stock-collection.component.css']
 })
 export class StockCollectionComponent {
-  
+
   isLoading$ = this.spinnerService.loading$;
   public period!: string;
   public chart: any;
@@ -45,7 +45,7 @@ export class StockCollectionComponent {
     if (this.chart) {
       this.chart.destroy();
     }
-    this.chart = new Chart("MyChartLine", {
+    this.chart = new Chart("alpha-stock", {
       type: this.chartTypes[this.chartStyle], //this denotes tha type of chart
 
       data: {// values on X-Axis
@@ -81,7 +81,7 @@ export class StockCollectionComponent {
       this.period = response.message;
       this.seasonDataAvg();
       this.seasonDataAll();
-      
+
     });
   }
 

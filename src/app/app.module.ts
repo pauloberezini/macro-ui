@@ -50,11 +50,11 @@ import { DashGraphsComponent } from './dash-graphs/dash-graphs.component';
 const routes: Routes = [
   {path: '', component: NewsCollectionComponent},
   {path: 'app-news', component: NewsComponent},
-  {path: 'app-fx-collection', component: FxCollectionComponent},
+  {path: 'fx-collection', component: FxCollectionComponent},
   {path: 'app-stock-collection', component: StockCollectionComponent},
   {path: 'app-line-chart', component: LineChartComponent},
   {path: 'app-large-area-chart', component: LargeAreaChartComponent},
-  {path: 'app-macro-container', component: MacroContainerComponent},
+  {path: 'seasonality', component: MacroContainerComponent},
   {path: 'app-supported-by', component: SupportedByComponent},
   {path: 'dash-graphs', component: DashGraphsComponent}
 ];
@@ -122,7 +122,10 @@ const routes: Routes = [
   ],
   entryComponents: [
     WarningDialogComponent,
+    FxCollectionComponent,
+    StockCollectionComponent
   ],
+
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: ApiInterceptor,
