@@ -8,7 +8,7 @@ vars:
 tasks:
   run:
     cmds:
-      - ng serve --configuration=production
+      - node server.js
     silent: true
   rund:
     cmds:
