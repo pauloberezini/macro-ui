@@ -32,7 +32,7 @@ export class FxCollectionComponent {
 
   // displayedColumns: string[] = ['Year', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   displayedColumns: string[] = ['position', 'year', 'month', 'average'];
-  dataSource: any;
+  data: any;
 
   constructor(private stockDataService: StockDataService) { }
   ngOnChanges() { }
@@ -50,7 +50,7 @@ export class FxCollectionComponent {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',],
         datasets: [
           {
-            label: "data",
+            label: this.symbol,
             data: this.getAverageValues(this.seasonalityAvg),
             backgroundColor: 'blue'
           }
@@ -89,8 +89,9 @@ export class FxCollectionComponent {
   }
 
   getStockData(): void {
+    this.data = [];
     this.stockDataService.getFXData(this.symbol).subscribe((response: any) => {
-      this.dataSource = response.data;
+      this.data = response.data;
       this.period = response.message;
       this.seasonDataAvg();
       this.seasonDataAll();
@@ -98,7 +99,7 @@ export class FxCollectionComponent {
   }
 
   seasonDataAvg(): void {
-    const data = this.dataSource; // Use the dataSource instead of stockData
+    const data = this.data; // Use the data instead of stockData
     const seasonalityAvg = new Map();
     for (const dailyData of data) {
       const [year, month] = dailyData.date.split('-');
@@ -120,7 +121,7 @@ export class FxCollectionComponent {
   }
 
   seasonDataAll(): void {
-    const data = this.dataSource; // Use the dataSource instead of stockData
+    const data = this.data; // Use the data instead of stockData
     const arr = new Array();
     let index: number = 1;
     for (const monthlyData of data) {

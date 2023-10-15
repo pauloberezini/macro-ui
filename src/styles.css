@@ -20,7 +20,7 @@
 }
 
 .scrollable-table {
-  max-height: 750px; /* adjust as needed */
+  height: 80vh;
   overflow-y: auto;
 }
 
@@ -165,7 +165,7 @@ body {
 }
 
 .centered-content > * {
-  flex: 1 1 160px;
+  flex: 1 1;
 }
 
 .logo-site {
@@ -236,10 +236,6 @@ button:hover {
 
 .mat-mdc-card-header {
   display: block !important;
-}
-
-.chart-container {
-  max-width: 80% !important;
 }
 
 html,

@@ -1,4 +1,4 @@
-<form>
+<form style="overflow: hidden">
     <mat-form-field>
         <mat-label>Enter a stock symbol</mat-label>
         <input name="stock" [(ngModel)]="symbol" matInput placeholder="Enter a stock symbol" value="GBPUSD=X">
@@ -11,24 +11,16 @@
             <mat-option value="line">Line</mat-option>
         </mat-select>
     </mat-form-field>
-</form>
+  <p *ngIf="period">Period: {{period}}</p>
+  <div style="display: flex; align-items: start; justify-content: start;">
+    <button (click)="getStockData()" mat-raised-button color="primary">Get Data</button>
 
-<form>
-    <!-- <mat-grid-list cols="1" rowHeight="10:1"> -->
-    <!-- <mat-grid-tile> -->
-    <p *ngIf="period">Period: {{period}}</p>
-    <div style="display: flex; align-items: start; justify-content: start;">
-        <button (click)="getStockData()" mat-raised-button color="primary">Get Data</button>
-
-        <div *ngIf="isLoading$ | async">
-            <mat-spinner color="warn"></mat-spinner>
-        </div>
+    <div *ngIf="isLoading$ | async">
+      <mat-spinner color="warn"></mat-spinner>
     </div>
-    <!-- </mat-grid-tile> -->
-    <!-- </mat-grid-list> -->
+  </div>
 </form>
 <mat-divider></mat-divider>
-
-<div class="chart-container">
-    <canvas id="alpha-stock">{{ chart }}</canvas>
+<div *ngIf="data" class="demo-chart">
+  <canvas id="alpha-stock">{{ chart }}</canvas>
 </div>

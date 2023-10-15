@@ -1,4 +1,4 @@
-<form>
+<form style="overflow: hidden">
     <mat-form-field>
         <mat-label>Enter a stock symbol</mat-label>
         <input name="stock" [(ngModel)]="symbol" matInput placeholder="Enter a stock symbol" value="GBPUSD=X">
@@ -19,13 +19,12 @@
             <mat-option value="line">Line</mat-option>
         </mat-select>
     </mat-form-field>
-</form>
-<form>
-    <section>
-        <button (click)="getStockData()" mat-raised-button color="primary">Get Data</button>
-    </section>
+  <section>
+    <button (click)="getStockData()" mat-raised-button color="primary">Get Data</button>
+  </section>
 </form>
 <mat-divider></mat-divider>
-<div class="chart-container">
-    <canvas id="MyChartLine">{{ chart }}</canvas>
+<div *ngIf="data" class="demo-chart">
+  <canvas id="MyChartLine">{{ chart }}</canvas>
 </div>
+

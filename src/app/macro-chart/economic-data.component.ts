@@ -1,4 +1,4 @@
-import {Component, Input, SimpleChanges} from '@angular/core';
+import {Component, ElementRef, Input, SimpleChanges, ViewChild} from '@angular/core';
 import {StockDataService} from '../services/stock-data.service';
 import {Chart, ChartType} from 'chart.js/auto';
 import * as moment from 'moment';
@@ -12,7 +12,9 @@ import 'chartjs-adapter-moment';
 })
 export class EconomicDataComponent {
   @Input() selectedRowData: any;
+  showChart: boolean = false;
   @Input() economicType!: string;
+  @ViewChild("atrChart") atrChart: ElementRef;
   years: number[] = [];
   selectedYear!: number;
   chartStyle: string = 'bar';
@@ -21,10 +23,10 @@ export class EconomicDataComponent {
     line: "line"
   };
 
-  stockDataService: StockDataService;
-
   chart: Chart;
   chartData: any[] = [];
+  noDataAvailable: boolean = true;
+
 
   constructor(public service: StockDataService) {
     const currentYear = new Date().getFullYear();
@@ -32,7 +34,6 @@ export class EconomicDataComponent {
       this.years.push(i);
     }
     this.selectedYear = currentYear;
-    this.stockDataService = service;
   }
 
   onYearChange(year: number) {
@@ -40,6 +41,7 @@ export class EconomicDataComponent {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    this.showChart = true;
     if (changes['selectedRowData'] && this.selectedRowData) {
       const inputString = this.selectedRowData.eventName;
 
@@ -59,13 +61,14 @@ export class EconomicDataComponent {
     }
   }
 
-  request(eventName:string){
-    this.stockDataService.getDynamicData(this.selectedRowData.country, eventName).subscribe(response => {
+  request(eventName: string) {
+    this.service.getDynamicData(this.selectedRowData.country, eventName).subscribe(response => {
       if (response.success) {
         this.chartData = response.data.map((d: any) => ({
-          x: moment(d.time).format('YYYY-MM-DD'), // Format date to only show year and month
+          x: moment(d.time).format('YYYY-MM-DD'),
           y: parseFloat(d.actualInfo)
         }));
+        this.noDataAvailable = this.chartData.length === 0;
 
         this.createChart(this.selectedRowData.eventName);
       }
@@ -73,14 +76,23 @@ export class EconomicDataComponent {
   }
 
 
+
   createChart(title: string) {
-    if (this.chart) {
+    if(this.chart){
       this.chart.destroy();
     }
-    const canvas = <HTMLCanvasElement>document.getElementById('atrChart');
-    const ctx = canvas.getContext('2d');
 
-    this.chart = new Chart(ctx, {
+    if(this.noDataAvailable){
+      return;
+    }
+
+
+
+    let canvas = this.atrChart.nativeElement;
+
+
+
+    this.chart = new Chart(canvas, {
       type: 'bar',
       data: {
         datasets: [{
@@ -111,13 +123,13 @@ export class EconomicDataComponent {
               }
             },
             title: {
-              display: true,
+              display: false,
               text: 'Date'
             }
           },
           y: {
             title: {
-              display: true,
+              display: false,
               text: '%'
             }
           }
@@ -146,7 +158,7 @@ export class EconomicDataComponent {
       overTheMonthPercentChange: number
     };
 
-    this.stockDataService.getEconomicData(this.economicType).subscribe((response: any) => {
+    this.service.getEconomicData(this.economicType).subscribe((response: any) => {
       const dataselectedYear = response.data.filter((record: RecordType) => record.year === this.selectedYear);
 
       // Ensure that data is sorted in chronological order

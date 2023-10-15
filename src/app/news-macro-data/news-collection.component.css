@@ -1,3 +1,20 @@
+.centered-content {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.left-column, .right-column {
+  flex: 1;
+  overflow-y: hidden;
+  padding: 2px;
+
+  width: 50%;
+  height: 90vh;
+  box-sizing: border-box;
+}
+
+
 :host {
   width: 100% !important;
   height: 100% !important;

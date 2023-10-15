@@ -1,8 +1,8 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
-import {Chart, ChartType} from 'chart.js/auto';
 import {StockDataService} from '../services/stock-data.service';
 import {MatDialog} from '@angular/material/dialog';
 import {WarningDialogComponent} from '../warning-dialog/warning-dialog.component';
+import {Chart, ChartType} from 'chart.js/auto';
 
 
 @Component({
@@ -24,7 +24,7 @@ export class LineChartComponent implements OnInit, OnChanges {
     line: "line"
   };
 
-  dataSource: any;
+  data: any;
 
   constructor(private stockDataService: StockDataService, public dialog: MatDialog) {
   }
@@ -46,7 +46,7 @@ export class LineChartComponent implements OnInit, OnChanges {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         datasets: [
           {
-            label: "data",
+            label: this.symbol,
             data: this.getAverageValues(this.seasonalityAvg),
             backgroundColor: 'blue'
           }
@@ -69,8 +69,9 @@ export class LineChartComponent implements OnInit, OnChanges {
   }
 
   getStockData(): void {
+    this.data = [];
     this.stockDataService.getStockData(this.symbol, this.fromYear, this.toYear).subscribe((response: any) => {
-      this.dataSource = response.data;
+      this.data = response.data;
       this.openDialog(response.errorMsg);
       this.loadDailyData();
       this.loadMonthlyData();
@@ -79,7 +80,7 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   loadDailyData(): void {
     const seasonalityAvg = new Map();
-    for (const dailyData of this.dataSource) {
+    for (const dailyData of this.data) {
       const [year, month] = dailyData.date.split('-');
       const monthKey = `${month}`;
 
@@ -101,7 +102,7 @@ export class LineChartComponent implements OnInit, OnChanges {
   loadMonthlyData(): void {
     const arr = new Array();
     let index: number = 1;
-    for (const monthlyData of this.dataSource) {
+    for (const monthlyData of this.data) {
       const [year, month] = monthlyData.date.split('-');
 
 

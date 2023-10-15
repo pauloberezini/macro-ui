@@ -1,21 +1,21 @@
-<form>
-    <mat-form-field>
-        <mat-label>Enter a stock symbol</mat-label>
-        <input name="stock" [(ngModel)]="symbol" matInput placeholder="Enter a stock symbol" value="GBPUSD=X">
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Month</mat-label>
-        <mat-select name="month" [(ngModel)]="selectedMonth" (ngModelChange)="getData()">
-            <mat-option *ngFor="let month of months" [value]="month.value" placeholder="Enter a month">{{ month.label
-                }}</mat-option>
-        </mat-select>
-    </mat-form-field>
+<form style="overflow: hidden">
+  <mat-form-field>
+    <mat-label>Enter a stock symbol</mat-label>
+    <input name="stock" [(ngModel)]="symbol" matInput placeholder="Enter a stock symbol" value="GBPUSD=X">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Month</mat-label>
+    <mat-select name="month" [(ngModel)]="selectedMonth" (ngModelChange)="getData()">
+      <mat-option *ngFor="let month of months" [value]="month.value" placeholder="Enter a month">{{ month.label
+        }}</mat-option>
+    </mat-select>
+  </mat-form-field>
 
-</form>
-<form>
-    <section>
-        <button (click)="getData()" mat-raised-button color="primary">Get Data</button>
-    </section>
+  <section>
+    <button (click)="getData()" mat-raised-button color="primary">Get Data</button>
+  </section>
 </form>
 <mat-divider></mat-divider>
-<div echarts [options]="chartOption" class="demo-chart"></div>
+<div *ngIf="data" class="demo-chart">
+  <div echarts [options]="chartOption"></div>
+</div>

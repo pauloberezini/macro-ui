@@ -27,6 +27,7 @@ export class LargeAreaChartComponent {
     { label: 'November', value: '11' },
     { label: 'December', value: '12' }
   ];
+  data: any =[];
 
   chartOption!: echarts.EChartsOption;
   stockDataService: StockDataService;
@@ -36,11 +37,12 @@ export class LargeAreaChartComponent {
   }
 
   getData(): void {
+    this.data = [];
     this.stockDataService.getStockAllDailyData(this.symbol, this.selectedMonth).subscribe((response: any) => {
       this.openDialog(response.errorMsg);
-      let data = response.data;
-      for (let i = 0; i < data.length; i++) {
-        data[i] = data[i] + 10;
+       this.data = response.data;
+      for (let i = 0; i < this.data.length; i++) {
+        this.data[i] = this.data[i] + 10;
 
       }
 
