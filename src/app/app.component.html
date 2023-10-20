@@ -1,27 +1,31 @@
-<div class="centered-content" >
+<div class="centered-content-home">
   <div>
-    <h1 class="logo-site" >Macroeconomic Statistics</h1>
+    <div class="main-menu-home">
+      <div cdkMenuItem routerLink="/" class="main-menu-item berezini-logo"></div>
+      <button class="main-menu-item" cdkMenuItem routerLink="/" routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"   ariaCurrentWhenActive="page">Events
+      </button>
+      <button class="main-menu-item" cdkMenuItem routerLink="/seasonality" routerLinkActive="active"
+              ariaCurrentWhenActive="page">Historical Macro
+      </button>
+      <button class="main-menu-item" cdkMenuItem routerLink="/app-news" routerLinkActive="active"
+              ariaCurrentWhenActive="page">News
+      </button>
+      <button class="main-menu-item" cdkMenuItem routerLink="/dash-graphs" routerLinkActive="active"
+              ariaCurrentWhenActive="page">Dash Graphs
+      </button>
+      <button class="main-menu-item" cdkMenuItem routerLink="/app-supported-by" routerLinkActive="active"
+              ariaCurrentWhenActive="page">About
+      </button>
+    </div>
   </div>
-  <div class="berezini-logo"></div>
-  <div>
-  </div>
+  <div></div>
 </div>
+
 <mat-divider></mat-divider>
 
-<div class="centered-content">
-  <div class="main-menu" cdkMenu>
-    <button class="main-menu-item" cdkMenuItem routerLink="/" routerLinkActive="active"
-            ariaCurrentWhenActive="page">Home</button>
-    <button class="main-menu-item" cdkMenuItem routerLink="/seasonality" routerLinkActive="active"
-            ariaCurrentWhenActive="page">Historical Macro</button>
-    <button class="main-menu-item" cdkMenuItem routerLink="/app-news" routerLinkActive="active"
-            ariaCurrentWhenActive="page">News</button>
-    <button class="main-menu-item" cdkMenuItem routerLink="/dash-graphs" routerLinkActive="active"
-            ariaCurrentWhenActive="page">Dash Graphs</button>
-    <button class="main-menu-item" cdkMenuItem routerLink="/app-supported-by" routerLinkActive="active"
-            ariaCurrentWhenActive="page">About</button>
-  </div>
-  <div>
-    <router-outlet></router-outlet>
-  </div>
+<div class="centered-content-home">
+
 </div>
+
+<router-outlet></router-outlet>
