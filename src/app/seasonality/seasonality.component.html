@@ -1,0 +1,38 @@
+<mat-grid-list cols="4" rowHeight="1:1">
+  <!-- Tile 1 -->
+  <mat-grid-tile colspan="3" rowspan="1">
+    <section>
+      <div class="example-button-row">
+        <mat-form-field>
+          <mat-label>Enter a stock symbol</mat-label>
+          <input name="stock" [(ngModel)]="stockSymbol" matInput placeholder="Enter a stock symbol" value="GBPUSD=X">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Month</mat-label>
+          <mat-select name="month" [(ngModel)]="selectedMonth" (ngModelChange)="getData()">
+            <mat-option *ngFor="let month of months" [value]="month.value" placeholder="Enter a month">{{ month.label
+              }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button (click)="getData()" mat-raised-button color="primary">Get Data</button>
+      </div>
+    </section>
+    <app-large-area-chart [hideForm]="true"></app-large-area-chart>
+  </mat-grid-tile>
+
+
+  <mat-grid-tile colspan="1" rowspan="2">
+    <app-news></app-news>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="1" rowspan="1">
+    <app-pie-area *ngIf="!hidePie"></app-pie-area>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="2" rowspan="1">
+    <app-line-chart [hideForm]="true"></app-line-chart>
+  </mat-grid-tile>
+
+  <!-- And so on for other tiles... -->
+
+</mat-grid-list>

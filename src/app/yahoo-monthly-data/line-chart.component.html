@@ -1,7 +1,7 @@
-<form style="overflow: hidden">
+<form *ngIf="!hideForm" style="overflow: hidden">
     <mat-form-field>
         <mat-label>Enter a stock symbol</mat-label>
-        <input name="stock" [(ngModel)]="symbol" matInput placeholder="Enter a stock symbol" value="GBPUSD=X">
+        <input name="stock" [(ngModel)]="stockSymbol" matInput placeholder="Enter a stock symbol" value="GBPUSD=X">
     </mat-form-field>
     <mat-form-field>
         <mat-label>Enter from year</mat-label>
@@ -20,7 +20,7 @@
         </mat-select>
     </mat-form-field>
   <section>
-    <button (click)="getStockData()" mat-raised-button color="primary">Get Data</button>
+    <button (click)="getData()" mat-raised-button color="primary">Get Data</button>
   </section>
 </form>
 <mat-divider></mat-divider>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import * as echarts from 'echarts';
 import { StockDataService } from '../services/stock-data.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,9 +11,11 @@ import { WarningDialogComponent } from '../warning-dialog/warning-dialog.compone
 })
 export class LargeAreaChartComponent {
 
-  symbol: string = 'GBPUSD=X'; // Add a new property to hold the user input
-  selectedMonth: string = '04'; // Add a new property to hold the user input
-  months = [
+  @Input() hideForm: boolean = false;
+  stockSymbol: string = 'GBPUSD=X';
+
+  selectedMonth: string = '04';
+  months: any = [
     { label: 'January', value: '01' },
     { label: 'February', value: '02' },
     { label: 'March', value: '03' },
@@ -38,7 +40,7 @@ export class LargeAreaChartComponent {
 
   getData(): void {
     this.data = [];
-    this.stockDataService.getStockAllDailyData(this.symbol, this.selectedMonth).subscribe((response: any) => {
+    this.stockDataService.getStockAllDailyData(this.stockSymbol, this.selectedMonth).subscribe((response: any) => {
       this.openDialog(response.errorMsg);
        this.data = response.data;
       for (let i = 0; i < this.data.length; i++) {

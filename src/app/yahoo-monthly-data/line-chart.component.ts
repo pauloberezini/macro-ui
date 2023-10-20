@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {StockDataService} from '../services/stock-data.service';
 import {MatDialog} from '@angular/material/dialog';
 import {WarningDialogComponent} from '../warning-dialog/warning-dialog.component';
@@ -11,9 +11,12 @@ import {Chart, ChartType} from 'chart.js/auto';
   styleUrls: ['./line-chart.component.css']
 })
 export class LineChartComponent implements OnInit, OnChanges {
+
+  @Input() hideForm: boolean = false;
+
   public chart: any;
   chartStyle: string = 'bar';
-  symbol: string = 'GBPUSD=X';
+  stockSymbol: string = 'GBPUSD=X';
   fromYear: number = 2000;
   currentYear: number = new Date().getFullYear();
   toYear: number = this.currentYear - 1;
@@ -46,7 +49,7 @@ export class LineChartComponent implements OnInit, OnChanges {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         datasets: [
           {
-            label: this.symbol,
+            label: this.stockSymbol,
             data: this.getAverageValues(this.seasonalityAvg),
             backgroundColor: 'blue'
           }
@@ -68,9 +71,9 @@ export class LineChartComponent implements OnInit, OnChanges {
     return averages;
   }
 
-  getStockData(): void {
+  getData(): void {
     this.data = [];
-    this.stockDataService.getStockData(this.symbol, this.fromYear, this.toYear).subscribe((response: any) => {
+    this.stockDataService.getStockData(this.stockSymbol, this.fromYear, this.toYear).subscribe((response: any) => {
       this.data = response.data;
       this.openDialog(response.errorMsg);
       this.loadDailyData();

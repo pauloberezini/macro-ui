@@ -17,3 +17,6 @@
   padding-right: 20px;
 }
 
+.mat-expansion-panel-header {
+  height: auto;
+}

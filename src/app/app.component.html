@@ -1,13 +1,16 @@
-<div class="centered-content-home">
-  <div>
+
+  <section>
     <div class="main-menu-home">
       <div cdkMenuItem routerLink="/" class="main-menu-item berezini-logo"></div>
       <button class="main-menu-item" cdkMenuItem routerLink="/" routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"   ariaCurrentWhenActive="page">Events
       </button>
-      <button class="main-menu-item" cdkMenuItem routerLink="/seasonality" routerLinkActive="active"
-              ariaCurrentWhenActive="page">Historical Macro
+      <button class="main-menu-item" cdkMenuItem routerLink="/app-seasonality" routerLinkActive="active"
+              ariaCurrentWhenActive="page">Seasonality
       </button>
+<!--      <button class="main-menu-item" cdkMenuItem routerLink="/seasonality" routerLinkActive="active"-->
+<!--              ariaCurrentWhenActive="page">Historical Macro-->
+<!--      </button>-->
       <button class="main-menu-item" cdkMenuItem routerLink="/app-news" routerLinkActive="active"
               ariaCurrentWhenActive="page">News
       </button>
@@ -18,9 +21,7 @@
               ariaCurrentWhenActive="page">About
       </button>
     </div>
-  </div>
-  <div></div>
-</div>
+  </section>
 
 <mat-divider></mat-divider>
 

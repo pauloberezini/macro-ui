@@ -45,6 +45,8 @@ import {SupportedByComponent} from './supported-by/supported-by.component';
 import {MatRadioModule} from "@angular/material/radio";
 import {VolatilityPipe} from "./model/volatility.pipe";
 import { DashGraphsComponent } from './dash-graphs/dash-graphs.component';
+import { SeasonalityComponent } from './seasonality/seasonality.component';
+import { PieAreaComponent } from './pie-area/pie-area.component';
 
 
 const routes: Routes = [
@@ -55,6 +57,7 @@ const routes: Routes = [
   {path: 'app-line-chart', component: LineChartComponent},
   {path: 'app-large-area-chart', component: LargeAreaChartComponent},
   {path: 'seasonality', component: MacroContainerComponent},
+  {path: 'app-seasonality', component: SeasonalityComponent},
   {path: 'app-supported-by', component: SupportedByComponent},
   {path: 'dash-graphs', component: DashGraphsComponent}
 ];
@@ -77,7 +80,9 @@ const routes: Routes = [
     SearchComponent,
     MacroContainerComponent,
     SupportedByComponent,
-    DashGraphsComponent
+    DashGraphsComponent,
+    SeasonalityComponent,
+    PieAreaComponent
   ],
   imports: [
     BrowserModule,

@@ -245,7 +245,9 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
 }
-
+.mat-grid-tile-content {
+  display: unset !important;
+}
 
 .mat-mdc-cell,
 .mat-mdc-header-cell {
