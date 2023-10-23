@@ -9,6 +9,10 @@
   --logo-blue: #102f77;
 }
 
+.mat-toolbar{
+  color: var(--light-gray);
+  background-color: var(--logo-blue);
+}
 .basic-color{
   color: var(--logo-blue);
 }
@@ -72,84 +76,12 @@ body {
   padding: 0 10px!important;
 }
 
-.main-menu {
-  display: block;
-  flex-direction: column;
-  max-width: 10vw;
-  border-right: solid 1px rgb(208, 208, 208);
-  background-color: var(--light-gray);
-  padding: 6px 0;
-}
-
-.main-menu-item {
-  color: rgba(26,26,26,.5);
-  width: max-content;
-  background-color: transparent;
-  cursor: pointer;
-  border: none;
-  font-weight: 700;
-
-  user-select: none;
-  line-height: 36px;
-  padding: 0 16px;
-
-  display: grid;
-  align-items: center;
-  flex-direction: row;
-  flex: 1;
-}
 
 ::ng-deep .mat-grid-tile.left-menue {
   left: 0px;
   width: 20vw !important;
   margin-top: 0px;
   padding-top: calc((25% - 5px) * 2 + 10px);
-}
-
-.main-menu-item:hover {
-  /*background-color: rgb(208, 208, 208);*/
-  background-color: unset;
-  color: var(--logo-blue);
-}
-
-.main-menu-item.active {
-  color: var(--logo-blue);
-}
-
-/* For tablets */
-@media screen and (max-width: 1024px) {
-  .berezini-logo {
-    height: 50px;
-  }
-  .main-menu {
-    max-width: 100%;
-    border-right: none;
-  }
-}
-
-
-
-/* For smartphones */
-@media screen and (max-width: 768px) {
-  .berezini-logo {
-    padding-top: 0px;
-    width: 100%;
-    height: 30px;
-  }
-  .main-menu {
-    max-width: 100%;
-    border-right: none;
-  }
-  .centered-content > * {
-    flex: unset !important;
-  }
-  .mat-mdc-card-content:first-child {
-     padding-top: unset !important;
-  }
-  .mat-mdc-tab-labels {
-     display: unset !important;
-    flex: unset !important;
-  }
 }
 
 .menu-container {
@@ -177,13 +109,7 @@ body {
   flex: 1 1;
 }
 
-.main-menu-item.berezini-logo{
-  background: #0000 url('/assets/images/logo.svg') no-repeat center;
-  background-size: contain;
-  padding-top: 10px;
-  width: 100%;
-  height: 50px;
-}
+
 
 mat-card {
   background-color: var(--light-green);
@@ -239,6 +165,7 @@ button:hover {
 html,
 body {
   height: 100%;
+  overflow: hidden;
 }
 
 body {
