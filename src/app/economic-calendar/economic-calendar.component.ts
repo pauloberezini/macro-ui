@@ -13,7 +13,7 @@ import {VolatilityPipe} from "../model/volatility.pipe";
   templateUrl: './economic-calendar.component.html',
   styleUrls: ['./economic-calendar.component.css']
 })
-export class EconomicCalendarComponent implements OnInit{
+export class EconomicCalendarComponent implements OnInit {
   private refreshClick = new Subject();
   private destroy$ = new Subject();
   allNews: EventDto[];
@@ -23,7 +23,7 @@ export class EconomicCalendarComponent implements OnInit{
   newsCollection: MatTableDataSource<EventDto>;
   selectedOption: string = '2';
   toppings = new FormControl('');
-  currencies: string[] = ['USD', 'NZD', 'GBP', 'IDR', 'HKD', 'EUR', 'BRL', 'CAD', 'CNY', 'AUD', 'JPY', 'CHF', 'MXN', 'KRW', 'ZAR', 'NOK', 'SGD', 'INR'];
+  currencies: string[] = ['USD', 'EUR', 'GBP', 'CAD', 'JPY', 'AUD', 'CHF', 'NZD', 'CNY', 'IDR', 'HKD', 'BRL', 'MXN', 'KRW', 'ZAR', 'NOK', 'SGD', 'INR'];
   selectedCountry: string[] = ['USD'];
 
 
@@ -76,16 +76,16 @@ export class EconomicCalendarComponent implements OnInit{
       this.volatility.includes(event.volatility)
     );
 
-    if(filteredNews.length == 0){
+    if (filteredNews.length == 0) {
       return;
-    }else {
+    } else {
       this.newsCollection = new MatTableDataSource<EventDto>(filteredNews);
     }
     this.newsCollection.sort = this.empTbSort;
   }
 
-  onRadioButtonClick(index:number){
-    if(index == 1){
+  onRadioButtonClick(index: number) {
+    if (index == 1) {
       this.newsCollection = new MatTableDataSource<EventDto>(this.allNews);
     }
   }

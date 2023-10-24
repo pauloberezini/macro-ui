@@ -179,13 +179,10 @@ button:hover {
 html,
 body {
   height: 100%;
-  overflow: hidden;
-}
-
-body {
   margin: 0;
   font-family: Arial, sans-serif;
 }
+
 .mat-grid-tile-content {
   display: unset !important;
 }
