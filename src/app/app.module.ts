@@ -21,7 +21,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {LargeAreaChartComponent} from './yahoo-daily-data/large-area-chart.component';
 import {AppRoutingModule} from './app-routing.module';
 import {NgxEchartsModule} from 'ngx-echarts';
-import {NewsCollectionComponent} from './news-macro-data/news-collection.component';
+import {EconomicCalendarComponent} from './economic-calendar/economic-calendar.component';
 import {MatIconModule} from '@angular/material/icon';
 import {FxCollectionComponent} from './alpha-fx-data/fx-collection.component';
 import {StockCollectionComponent} from './apha-stock-data/stock-collection.component';
@@ -50,7 +50,7 @@ import { PieAreaComponent } from './pie-area/pie-area.component';
 
 
 const routes: Routes = [
-  {path: '', component: NewsCollectionComponent},
+  {path: '', component: EconomicCalendarComponent},
   {path: 'app-news', component: NewsComponent},
   {path: 'fx-collection', component: FxCollectionComponent},
   {path: 'app-stock-collection', component: StockCollectionComponent},
@@ -67,7 +67,7 @@ const routes: Routes = [
     AppComponent,
     LineChartComponent,
     LargeAreaChartComponent,
-    NewsCollectionComponent,
+    EconomicCalendarComponent,
     FxCollectionComponent,
     StockCollectionComponent,
     EconomicDataComponent,

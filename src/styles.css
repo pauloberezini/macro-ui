@@ -9,13 +9,31 @@
   --logo-blue: #102f77;
 }
 
-.mat-toolbar{
+.mat-toolbar {
   color: var(--light-gray);
-  background-color: var(--logo-blue);
+  background-color: var(--dark-gray);
 }
-.basic-color{
+.basic-color {
   color: var(--logo-blue);
 }
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+
+.flat-button {
+  background-color: var(--light-gray); /* Makes the button background transparent */
+  border: 0.5px solid gray; /* Sets the border */
+  padding: 5px 15px; /* Some padding for the button content */
+  transition: background-color 0.3s; /* Optional: smooth transition for hover effect */
+  cursor: pointer; /* Makes it clear it's a clickable button */
+}
+
+.flat-button:hover {
+  background-color: rgba(128, 128, 128, 0.1); /* Slight gray background on hover for feedback */
+}
+
 
 .mat-mdc-row .mat-mdc-cell {
   border-bottom: 1px solid transparent;
@@ -63,10 +81,6 @@ body {
   color: var(--logo-blue) !important;
 }
 
-.mat-mdc-raised-button {
-  background-color: var(--logo-blue) !important;
-  color: var(--light-gray) !important;
-}
 
 .mat-mdc-table {
   /*background-color: var(--light-gray) !important;*/

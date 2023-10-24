@@ -2,18 +2,25 @@
   <div class="left-column">
     <mat-toolbar>
       <mat-toolbar-row>
-        <span>Economic calendar</span>
+        <span class="example-spacer">Economic calendar</span>
+        <mat-card-actions align="end">
+          <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedOption">
+            <mat-radio-button value="1" (click)="onRadioButtonClick(1)">
+              <div class="color-white">All Markets</div>
+            </mat-radio-button>
+            <mat-radio-button value="2" (click)="onRadioButtonClick(2)">
+              <div class="color-white">Custom</div>
+            </mat-radio-button>
+          </mat-radio-group>
+        </mat-card-actions>
+        <button *ngIf="selectedOption === '2'" mat-raised-button (click)="filterData()" class="flat-button">Update
+        </button>
+
       </mat-toolbar-row>
     </mat-toolbar>
     <mat-card>
       <div>
-        <mat-card-actions align="start">
-          <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedOption">
-            <mat-radio-button value="1" (click)="onRadioButtonClick(1)">All Markets</mat-radio-button>
-            <mat-radio-button value="2" (click)="onRadioButtonClick(2)">Custom</mat-radio-button>
-          </mat-radio-group>
-        </mat-card-actions>
-        <button *ngIf="selectedOption === '2'" mat-raised-button (click)="filterData()" color="primary">Update</button>
+
       </div>
 
       <div id="show" *ngIf="selectedOption === '2'">
@@ -28,8 +35,8 @@
           <mat-form-field>
             <mat-label>Volatility</mat-label>
             <mat-select name="volatility" [(ngModel)]="volatility" multiple>
-              <mat-option *ngFor="let volatility of volatilitiesSymbolic; let i = index"
-                          [value]="volatilities[i]">
+              <mat-option *ngFor="let volatility of volatilisesSymbolic; let i = index"
+                          [value]="volatilises[i]">
                 {{volatility}}
               </mat-option>
             </mat-select>

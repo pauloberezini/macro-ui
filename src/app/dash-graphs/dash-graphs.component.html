@@ -1,4 +1,10 @@
-<button (click)="addGraph()" mat-raised-button color="primary">Add Graph</button>
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span>Dashboard macro data graphs</span>
+    <span class="example-spacer"></span>
+    <button (click)="addGraph()" mat-raised-button class="flat-button">Add Graph</button>
+  </mat-toolbar-row>
+</mat-toolbar>
 
 <div class="flex-container">
   <div *ngFor="let item of flexItems; let i = index" class="flex-item">

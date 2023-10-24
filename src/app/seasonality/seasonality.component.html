@@ -1,8 +1,16 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span>Seasonal trading pattern analytics</span>
+  </mat-toolbar-row>
+</mat-toolbar>
 <mat-grid-list cols="4" rowHeight="1:1">
   <!-- Tile 1 -->
   <mat-grid-tile colspan="3" rowspan="1">
+
     <section>
       <div class="example-button-row">
+
+
         <mat-form-field>
           <mat-label>Enter a stock symbol</mat-label>
           <input name="stock" [(ngModel)]="stockSymbol" matInput placeholder="Enter a stock symbol" value="GBPUSD=X">
@@ -14,7 +22,7 @@
               }}</mat-option>
           </mat-select>
         </mat-form-field>
-        <button (click)="getData()" mat-raised-button color="primary">Get Data</button>
+        <button (click)="getData()" mat-raised-button class="flat-button">Get Data</button>
       </div>
     </section>
     <app-large-area-chart [hideForm]="true"></app-large-area-chart>
@@ -22,7 +30,7 @@
 
 
   <mat-grid-tile colspan="1" rowspan="2">
-    <app-news></app-news>
+<!--    <app-news></app-news>-->
   </mat-grid-tile>
 
   <mat-grid-tile colspan="1" rowspan="1">

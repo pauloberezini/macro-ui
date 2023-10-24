@@ -13,7 +13,7 @@
     </mat-form-field>
   <p *ngIf="period">Period: {{period}}</p>
   <div style="display: flex; align-items: start; justify-content: start;">
-    <button (click)="getStockData()" mat-raised-button color="primary">Get Data</button>
+    <button (click)="getStockData()" mat-raised-button class="flat-button">Get Data</button>
 
     <div *ngIf="isLoading$ | async">
       <mat-spinner color="warn"></mat-spinner>

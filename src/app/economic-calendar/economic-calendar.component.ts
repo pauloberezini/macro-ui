@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {StockDataService} from '../services/stock-data.service';
 import {FormControl} from "@angular/forms";
 import {Subject} from 'rxjs';
@@ -9,11 +9,11 @@ import {VolatilityPipe} from "../model/volatility.pipe";
 
 
 @Component({
-  selector: 'app-news-collection',
-  templateUrl: './news-collection.component.html',
-  styleUrls: ['./news-collection.component.css']
+  selector: 'app-economic-calendar',
+  templateUrl: './economic-calendar.component.html',
+  styleUrls: ['./economic-calendar.component.css']
 })
-export class NewsCollectionComponent {
+export class EconomicCalendarComponent implements OnInit{
   private refreshClick = new Subject();
   private destroy$ = new Subject();
   allNews: EventDto[];
@@ -21,15 +21,15 @@ export class NewsCollectionComponent {
   canRefresh = true;
 
   newsCollection: MatTableDataSource<EventDto>;
-  selectedOption: string = '1';
+  selectedOption: string = '2';
   toppings = new FormControl('');
   currencies: string[] = ['USD', 'NZD', 'GBP', 'IDR', 'HKD', 'EUR', 'BRL', 'CAD', 'CNY', 'AUD', 'JPY', 'CHF', 'MXN', 'KRW', 'ZAR', 'NOK', 'SGD', 'INR'];
   selectedCountry: string[] = ['USD'];
 
 
-  volatilitiesSymbolic: string[] = ['🔥', '🔥🔥', '🔥🔥🔥'];
-  volatilities: string[] = ['*', '**', '***'];
-  volatility: string[] = ['🔥🔥🔥'];
+  volatilisesSymbolic: string[] = ['🔥', '🔥🔥', '🔥🔥🔥'];
+  volatilises: string[] = ['*', '**', '***'];
+  volatility: string[] = ['***'];
 
   selectedRow: any;
   @ViewChild('empTbSort') empTbSort = new MatSort();
@@ -40,7 +40,7 @@ export class NewsCollectionComponent {
   ngOnInit(): void {
     this.loadData();
     let volatilityPipe = new VolatilityPipe();
-    this.volatilitiesSymbolic = this.volatilities.map(volatility => volatilityPipe.transform(volatility));
+    this.volatilisesSymbolic = this.volatilises.map(volatility => volatilityPipe.transform(volatility));
   }
 
 
@@ -62,6 +62,7 @@ export class NewsCollectionComponent {
         this.allNews = data;
         this.newsCollection = new MatTableDataSource<EventDto>(data);
         this.newsCollection.sort = this.empTbSort;
+        this.filterData();
       });
       // @ts-ignore
       this.refreshClick.next();

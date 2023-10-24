@@ -1,0 +1,46 @@
+.centered-content {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.left-column, .right-column {
+  flex: 1;
+  overflow-y: hidden;
+  padding: 0 2px 0 0;
+
+  width: 50%;
+  height: 90vh;
+  box-sizing: border-box;
+}
+
+
+:host {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.grid-container {
+  max-height: 500px;
+  overflow: auto;
+}
+.color-white {
+  color: white;
+}
+
+
+
+.mat-mdc-radio-button.mat-accent {
+  --mdc-radio-disabled-selected-icon-color: white;
+  --mdc-radio-disabled-unselected-icon-color: white;
+  --mdc-radio-unselected-focus-icon-color: white;
+  --mdc-radio-unselected-hover-icon-color: white;
+  --mdc-radio-unselected-icon-color: white;
+  --mdc-radio-unselected-pressed-icon-color: white;
+  --mdc-radio-selected-focus-icon-color: white;
+  --mdc-radio-selected-hover-icon-color: white;
+  --mdc-radio-selected-icon-color: white;
+  --mdc-radio-selected-pressed-icon-color: white;
+  --mat-mdc-radio-ripple-color: white;
+  --mat-mdc-radio-checked-ripple-color: white;
+}
