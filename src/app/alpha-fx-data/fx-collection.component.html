@@ -19,5 +19,5 @@
 </form>
 <mat-divider></mat-divider>
 <div *ngIf="data" class="demo-chart">
-  <canvas id="fx_collection">{{ chart }}</canvas>
+  <canvas [id]="canvasId">{{ chart }}</canvas>
 </div>

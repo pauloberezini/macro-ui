@@ -56,7 +56,8 @@ export class DashGraphsComponent {
   }
 
   addGraph(): void {
-    const newItem = `Item ${this.flexItems.length + 1}`;
+    const newItem = { selectedComponent: '' }; // Initialize with an empty string or a default value
     this.flexItems.push(newItem);
   }
+
 }

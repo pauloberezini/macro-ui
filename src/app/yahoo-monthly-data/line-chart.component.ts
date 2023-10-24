@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnChanges, OnInit, Renderer2} from '@angular/core';
 import {StockDataService} from '../services/stock-data.service';
 import {MatDialog} from '@angular/material/dialog';
 import {WarningDialogComponent} from '../warning-dialog/warning-dialog.component';
@@ -28,21 +28,29 @@ export class LineChartComponent implements OnInit, OnChanges {
   };
 
   data: any;
+  canvasId: string;
 
-  constructor(private stockDataService: StockDataService, public dialog: MatDialog) {
-  }
+
+  constructor(
+    private stockDataService: StockDataService,
+    public dialog: MatDialog,
+    private renderer: Renderer2,
+    private el: ElementRef
+  ) {}
 
   ngOnChanges() {
   }
 
+
   ngOnInit(): void {
+    this.canvasId = 'MyChartLine-' + Math.random().toString(36).substring(2, 15);
   }
 
   createChart() {
     if (this.chart) {
       this.chart.destroy();
     }
-    this.chart = new Chart("MyChartLine", {
+    this.chart = new Chart(this.canvasId, {
       type: this.chartTypes[this.chartStyle],
 
       data: {// values on X-Axis

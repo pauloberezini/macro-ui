@@ -1,8 +1,8 @@
 import {Component, Input} from '@angular/core';
 import * as echarts from 'echarts';
-import { StockDataService } from '../services/stock-data.service';
-import { MatDialog } from '@angular/material/dialog';
-import { WarningDialogComponent } from '../warning-dialog/warning-dialog.component';
+import {StockDataService} from '../services/stock-data.service';
+import {MatDialog} from '@angular/material/dialog';
+import {WarningDialogComponent} from '../warning-dialog/warning-dialog.component';
 
 @Component({
   selector: 'app-large-area-chart',
@@ -16,20 +16,20 @@ export class LargeAreaChartComponent {
 
   selectedMonth: string = '04';
   months: any = [
-    { label: 'January', value: '01' },
-    { label: 'February', value: '02' },
-    { label: 'March', value: '03' },
-    { label: 'April', value: '04' },
-    { label: 'May', value: '05' },
-    { label: 'June', value: '06' },
-    { label: 'July', value: '07' },
-    { label: 'August', value: '08' },
-    { label: 'September', value: '09' },
-    { label: 'October', value: '10' },
-    { label: 'November', value: '11' },
-    { label: 'December', value: '12' }
+    {label: 'January', value: '01'},
+    {label: 'February', value: '02'},
+    {label: 'March', value: '03'},
+    {label: 'April', value: '04'},
+    {label: 'May', value: '05'},
+    {label: 'June', value: '06'},
+    {label: 'July', value: '07'},
+    {label: 'August', value: '08'},
+    {label: 'September', value: '09'},
+    {label: 'October', value: '10'},
+    {label: 'November', value: '11'},
+    {label: 'December', value: '12'}
   ];
-  data: any =[];
+  data: any = [];
 
   chartOption!: echarts.EChartsOption;
   stockDataService: StockDataService;
@@ -41,8 +41,9 @@ export class LargeAreaChartComponent {
   getData(): void {
     this.data = [];
     this.stockDataService.getStockAllDailyData(this.stockSymbol, this.selectedMonth).subscribe((response: any) => {
-      this.openDialog(response.errorMsg);
-       this.data = response.data;
+      // this.openDialog(response.errorMsg);
+      console.log(response.errorMsg);
+      this.data = response.data;
       for (let i = 0; i < this.data.length; i++) {
         this.data[i] = this.data[i] + 10;
 
@@ -81,6 +82,7 @@ export class LargeAreaChartComponent {
       }
     });
   }
+
   openDialog(arg: any) {
     if (arg == '') {
       return;

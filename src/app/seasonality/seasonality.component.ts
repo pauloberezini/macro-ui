@@ -39,12 +39,16 @@ export class SeasonalityComponent {
 
   getData(): void {
     this.largeAreaChartComponent.stockSymbol = this.stockSymbol;
+    this.largeAreaChartComponent.selectedMonth = this.selectedMonth;
     this.largeAreaChartComponent.getData();
 
     this.lineChartComponent.stockSymbol = this.stockSymbol;
     this.lineChartComponent.getData();
 
     this.hidePie = false;
-    this.pieAreaComponent.ngAfterViewInit();
+    if (this.pieAreaComponent) {
+      this.pieAreaComponent.createPieChart();
+    }
+
   }
 }

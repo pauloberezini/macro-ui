@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { StockDataService } from '../services/stock-data.service';
-import { Chart, ChartType } from 'chart.js/auto';
+import {ChangeDetectorRef, Component} from '@angular/core';
+import {StockDataService} from '../services/stock-data.service';
+import {Chart, ChartType} from 'chart.js/auto';
 
 @Component({
   selector: 'fx-collection',
@@ -16,7 +16,7 @@ export class FxCollectionComponent {
   fromYear: number = 2000; // Add a new property to hold the user input
   currentYear: number = new Date().getFullYear();
   toYear: number = this.currentYear - 1; // Add a new property to hold the user input
-
+  public canvasId: string = 'fx_collection_' + this.getRandomId();
 
   seasonality: any = [];
   seasonalityAvg: any = [];
@@ -34,50 +34,63 @@ export class FxCollectionComponent {
   displayedColumns: string[] = ['position', 'year', 'month', 'average'];
   data: any;
 
-  constructor(private stockDataService: StockDataService) { }
-  ngOnChanges() { }
+  constructor(private stockDataService: StockDataService, private cdr: ChangeDetectorRef) {
+  }
 
-  ngOnInit(): void { }
+  ngOnChanges() {
+  }
+
+  ngOnInit(): void {
+  }
 
   createChart() {
     if (this.chart) {
       this.chart.destroy();
+      this.chart = null;
     }
-    this.chart = new Chart("fx_collection", {
-      type: this.chartTypes[this.chartStyle], //this denotes tha type of chart
 
-      data: {// values on X-Axis
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',],
-        datasets: [
-          {
-            label: this.symbol,
-            data: this.getAverageValues(this.seasonalityAvg),
-            backgroundColor: 'blue'
-          }
-        ]
-      },
-      options: {
-        aspectRatio: 2.5,
-        scales: {
-          x: {
-            display: true,
-            title: {
-              display: true
+    this.canvasId = 'fx_collection_' + this.getRandomId();
+
+    // Detect changes to update the view immediately
+    this.cdr.detectChanges();
+
+    setTimeout(() => {
+      this.chart = new Chart(this.canvasId, {
+        type: this.chartTypes[this.chartStyle], //this denotes tha type of chart
+
+        data: {// values on X-Axis
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',],
+          datasets: [
+            {
+              label: this.symbol,
+              data: this.getAverageValues(this.seasonalityAvg),
+              backgroundColor: 'blue'
             }
-          },
-          y: {
-            display: true,
-            title: {
+          ]
+        },
+        options: {
+          aspectRatio: 2.5,
+          scales: {
+            x: {
               display: true,
-              text: 'Value'
+              title: {
+                display: true
+              }
+            },
+            y: {
+              display: true,
+              title: {
+                display: true,
+                text: 'Value'
+              }
             }
           }
         }
-      }
-
+      });
     });
 
   }
+
   getAverageValues(data: any[]): number[] {
     const averages: number[] = [];
 
@@ -86,6 +99,10 @@ export class FxCollectionComponent {
 
     }
     return averages;
+  }
+
+  getRandomId(): string {
+    return Math.random().toString(36).substr(2, 9);
   }
 
   getStockData(): void {
