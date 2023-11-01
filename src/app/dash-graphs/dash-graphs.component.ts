@@ -1,14 +1,10 @@
 import {
   Component,
   ComponentFactoryResolver,
-  ComponentRef,
   QueryList,
-  ViewChild,
   ViewChildren,
   ViewContainerRef
 } from '@angular/core';
-import {FxCollectionComponent} from "../alpha-fx-data/fx-collection.component";
-import {StockCollectionComponent} from "../apha-stock-data/stock-collection.component";
 import {LargeAreaChartComponent} from "../yahoo-daily-data/large-area-chart.component";
 import {LineChartComponent} from "../yahoo-monthly-data/line-chart.component";
 
@@ -24,8 +20,6 @@ export class DashGraphsComponent {
 
   @ViewChildren('target', { read: ViewContainerRef }) targets: QueryList<ViewContainerRef>;
   availableComponents = [
-    {name: 'Forex Seasonality', component: FxCollectionComponent},
-    {name: 'Stock Seasonality', component: StockCollectionComponent},
     {name: 'Seasonality pro', component: LineChartComponent},
     {name: 'Daily Seasonality pro', component: LargeAreaChartComponent},
     // ... add other components here ...
@@ -51,7 +45,6 @@ export class DashGraphsComponent {
       // @ts-ignore
       const factory = this.componentFactoryResolver.resolveComponentFactory(selectedComponent.component);
       const componentRef = containerRef.createComponent(factory);
-      // If you need to interact with the dynamically loaded component, you can do it using componentRef.instance
     }
   }
 

@@ -1,0 +1,7 @@
+/* my-component.component.css */
+
+:host {
+  display: block;
+  margin: 20px;
+  padding: 20px;
+}

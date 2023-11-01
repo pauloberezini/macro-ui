@@ -1,8 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; /* Disable scrolling on the body */
+  font-family: Arial, sans-serif;
+}
+
+.scrollable-component { /* Add this class to components where you want scrolling */
+  overflow-y: auto; /* Enables vertical scrolling */
+  max-height: 100%; /* Adjust this value as per your requirement */
+}
 
 :root {
   --dark-green: #026670;
-  --medium-green: #02C39A;
+  --medium-green: #102f77;
   --light-green: #E0FBFC;
   --dark-gray: #333333;
   --light-gray: #F0F0F0;
@@ -13,8 +24,22 @@
   color: var(--light-gray);
   background-color: var(--dark-gray);
 }
+
 .basic-color {
   color: var(--logo-blue);
+}
+
+.mat-button-toggle-appearance-standard .mat-button-toggle-label-content{
+  line-height: unset;
+}
+
+.mat-button-toggle:hover {
+  color: var(--light-gray) !important;
+  background-color: var(--logo-blue);
+}
+.mat-button-toggle-checked {
+  color: var(--light-gray) !important;
+  background-color: var(--logo-blue);
 }
 
 .example-spacer {
@@ -174,13 +199,6 @@ button:hover {
 
 .mat-mdc-card-header {
   display: block !important;
-}
-
-html,
-body {
-  height: 100%;
-  margin: 0;
-  font-family: Arial, sans-serif;
 }
 
 .mat-grid-tile-content {

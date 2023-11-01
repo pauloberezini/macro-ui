@@ -23,8 +23,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {NgxEchartsModule} from 'ngx-echarts';
 import {EconomicCalendarComponent} from './economic-calendar/economic-calendar.component';
 import {MatIconModule} from '@angular/material/icon';
-import {FxCollectionComponent} from './alpha-fx-data/fx-collection.component';
-import {StockCollectionComponent} from './apha-stock-data/stock-collection.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {ApiInterceptor} from './services/spinner/apiInterceptor';
 import {EconomicDataComponent} from './macro-chart/economic-data.component';
@@ -47,17 +45,18 @@ import {VolatilityPipe} from "./model/volatility.pipe";
 import { DashGraphsComponent } from './dash-graphs/dash-graphs.component';
 import { SeasonalityComponent } from './seasonality/seasonality.component';
 import { PieAreaComponent } from './pie-area/pie-area.component';
+import { ChartYearComponentComponent } from './chart-year-component/chart-year-component.component';
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 
 const routes: Routes = [
   {path: '', component: EconomicCalendarComponent},
   {path: 'app-news', component: NewsComponent},
-  {path: 'fx-collection', component: FxCollectionComponent},
-  {path: 'app-stock-collection', component: StockCollectionComponent},
   {path: 'app-line-chart', component: LineChartComponent},
   {path: 'app-large-area-chart', component: LargeAreaChartComponent},
   {path: 'seasonality', component: MacroContainerComponent},
   {path: 'app-seasonality', component: SeasonalityComponent},
+  {path: 'app-chart-year-component', component: ChartYearComponentComponent},
   {path: 'app-supported-by', component: SupportedByComponent},
   {path: 'dash-graphs', component: DashGraphsComponent}
 ];
@@ -68,8 +67,6 @@ const routes: Routes = [
     LineChartComponent,
     LargeAreaChartComponent,
     EconomicCalendarComponent,
-    FxCollectionComponent,
-    StockCollectionComponent,
     EconomicDataComponent,
     NewsComponent,
     WarningDialogComponent,
@@ -82,7 +79,8 @@ const routes: Routes = [
     SupportedByComponent,
     DashGraphsComponent,
     SeasonalityComponent,
-    PieAreaComponent
+    PieAreaComponent,
+    ChartYearComponentComponent
   ],
   imports: [
     BrowserModule,
@@ -114,7 +112,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     MatAutocompleteModule,
     MatSortModule,
-    MatRadioModule
+    MatRadioModule,
+    MatButtonToggleModule
   ],
   exports: [
     MatTableModule,
@@ -127,8 +126,6 @@ const routes: Routes = [
   ],
   entryComponents: [
     WarningDialogComponent,
-    FxCollectionComponent,
-    StockCollectionComponent
   ],
 
   providers: [{

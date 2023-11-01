@@ -2,6 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {LargeAreaChartComponent} from "../yahoo-daily-data/large-area-chart.component";
 import {LineChartComponent} from "../yahoo-monthly-data/line-chart.component";
 import {PieAreaComponent} from "../pie-area/pie-area.component";
+import {ChartYearComponentComponent} from "../chart-year-component/chart-year-component.component";
 
 @Component({
   selector: 'app-seasonality',
@@ -12,9 +13,18 @@ export class SeasonalityComponent {
   @ViewChild(LargeAreaChartComponent) largeAreaChartComponent!: LargeAreaChartComponent;
   @ViewChild(LineChartComponent) lineChartComponent!: LineChartComponent;
   @ViewChild(PieAreaComponent) pieAreaComponent!: PieAreaComponent;
+  @ViewChild(ChartYearComponentComponent) chartYearComponentComponent!: ChartYearComponentComponent;
 
   hidePie: boolean = true;
-  stockSymbol: string = 'GBPUSD=X';
+  selectedStockSymbol: string = 'SP500';
+  election: string = '';
+  stockSymbols: string[] = [
+    "AUDUSD", "BRENT", "BTCUSD", "COPPER", "CORN", "DAX",
+    "DOW_JONES", "DXY", "EURUSD", "GAS", "GASOLINE", "GBPUSD",
+    "GOLD", "NASDAQ_100", "NIKKEI_225", "NZDUSD", "PLATINUM",
+    "SILVER", "SOYBEANS", "SP500", "USDCAD", "USDCHF", "USDJPY",
+    "WHEAT", "WTI"
+  ];
   months: any = [
     {label: 'January', value: '01'},
     {label: 'February', value: '02'},
@@ -38,11 +48,15 @@ export class SeasonalityComponent {
   }
 
   getData(): void {
-    this.largeAreaChartComponent.stockSymbol = this.stockSymbol;
-    this.largeAreaChartComponent.selectedMonth = this.selectedMonth;
-    this.largeAreaChartComponent.getData();
+    // this.largeAreaChartComponent.stockSymbol = this.stockSymbol;
+    // this.largeAreaChartComponent.selectedMonth = this.selectedMonth;
+    // this.largeAreaChartComponent.getData();
 
-    this.lineChartComponent.stockSymbol = this.stockSymbol;
+    this.chartYearComponentComponent.stockName = this.selectedStockSymbol;
+    this.chartYearComponentComponent.election = this.election;
+    this.chartYearComponentComponent.createChart();
+
+    this.lineChartComponent.stockSymbol = this.selectedStockSymbol;
     this.lineChartComponent.getData();
 
     this.hidePie = false;

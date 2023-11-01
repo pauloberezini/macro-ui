@@ -14,6 +14,7 @@ export class StockDataService {
   private baseUrl = environment.baseUrl; // Use the environment variable
 
   private baseUrlAllDaily = environment.baseUrlAllDaily; // Use the environment variable
+  private baseUrlYearAllDaily = environment.baseUrlYearAllDaily; // Use the environment variable
 
   private baseUrlAlpha = environment.baseUrlAlpha; // Use the environment variable
   private baseUrlDynamicData = environment.baseUrlDynamicData; // Use the environment variable
@@ -26,16 +27,6 @@ export class StockDataService {
     return this.http.get<StockData[]>(url);
   }
 
-
-  getFXData(symbol: string): Observable<StockData[]> {
-    const url = `${this.baseUrlAlpha}/FX-M/${symbol}`;
-    return this.http.get<StockData[]>(url);
-  }
-
-  // getDynamicData(searchInput: string): Observable<any> {
-  //   const url = `${this.baseUrlDynamicData}/${searchInput}`;
-  //   return this.http.get<StockData[]>(url);
-  // }
 
   getDynamicData(currency: string, eventName: string): Observable<any> {
     const url = `${this.baseUrlDynamicData}`;
@@ -58,9 +49,18 @@ export class StockDataService {
     return this.http.get<StockData[]>(url);
   }
 
+  getStockAlphaData25(stockName: string,election: string): Observable<StockData[]> {
+    const url = `${this.baseUrl}/25/${stockName}/${election}`;
+    return this.http.get<StockData[]>(url);
+  }
+
 
   getStockAllDailyData(symbol: string, monthNumber: string): Observable<StockData[]> {
     const url = `${this.baseUrlAllDaily}/${symbol}/${monthNumber}`;
+    return this.http.get<StockData[]>(url);
+  }
+  getStockYearAllDaily(symbol: string): Observable<StockData[]> {
+    const url = `${this.baseUrlYearAllDaily}/${symbol}`;
     return this.http.get<StockData[]>(url);
   }
 
