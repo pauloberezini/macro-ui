@@ -25,16 +25,13 @@
       <mat-button-toggle value="pre">Pre Election</mat-button-toggle>
     </mat-button-toggle-group>
     </section>
-  <mat-grid-list cols="2" rowHeight="2:1">
-    <mat-grid-tile>
+  <mat-grid-list cols="5" rowHeight="100%">
+    <mat-grid-tile colspan="4">
       <app-chart-year-component></app-chart-year-component>
     </mat-grid-tile>
-    <mat-grid-tile>
-<!--      <app-pie-area *ngIf="!hidePie"></app-pie-area>-->
+    <mat-grid-tile colspan="1">
+      <!-- <app-pie-area *ngIf="!hidePie"></app-pie-area> -->
     </mat-grid-tile>
-    <mat-grid-tile>
-<!--      <app-line-chart [hideForm]="true"></app-line-chart>-->
-    </mat-grid-tile>
-    <mat-grid-tile></mat-grid-tile>
   </mat-grid-list>
+
 

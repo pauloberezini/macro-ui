@@ -17,7 +17,7 @@ export class SeasonalityComponent {
 
   hidePie: boolean = true;
   selectedStockSymbol: string = 'SP500';
-  election: string = '';
+  election: string = 'regular';
   stockSymbols: string[] = [
     "AUDUSD", "BRENT", "BTCUSD", "COPPER", "CORN", "DAX",
     "DOW_JONES", "DXY", "EURUSD", "GAS", "GASOLINE", "GBPUSD",
@@ -56,8 +56,8 @@ export class SeasonalityComponent {
     this.chartYearComponentComponent.election = this.election;
     this.chartYearComponentComponent.createChart();
 
-    this.lineChartComponent.stockSymbol = this.selectedStockSymbol;
-    this.lineChartComponent.getData();
+   // this.lineChartComponent.stockSymbol = this.selectedStockSymbol;
+   // this.lineChartComponent.getData();
 
     this.hidePie = false;
     if (this.pieAreaComponent) {
