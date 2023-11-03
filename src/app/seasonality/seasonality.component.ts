@@ -56,8 +56,8 @@ export class SeasonalityComponent {
     this.chartYearComponentComponent.election = this.election;
     this.chartYearComponentComponent.createChart();
 
-    this.lineChartComponent.stockSymbol = this.selectedStockSymbol;
-    this.lineChartComponent.getData();
+   // this.lineChartComponent.stockSymbol = this.selectedStockSymbol;
+   // this.lineChartComponent.getData();
 
     this.hidePie = false;
     if (this.pieAreaComponent) {
