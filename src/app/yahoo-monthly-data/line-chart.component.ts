@@ -104,7 +104,6 @@ export class LineChartComponent implements OnInit, OnChanges {
 
       seasonalityAvg.get(monthKey).average += ((dailyData.close - dailyData.open) * 100) / dailyData.open;
     }
-    debugger
     for (const map of seasonalityAvg) {
       map[1].average = map[1].average / (this.toYear - this.fromYear);
     }

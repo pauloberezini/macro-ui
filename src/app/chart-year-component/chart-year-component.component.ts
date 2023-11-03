@@ -58,12 +58,9 @@ export class ChartYearComponentComponent implements OnInit {
 
   createChart() {
     this.stockDataService.getStockAlphaData25(this.stockName, this.election).subscribe((response: any) => {
-      debugger
       let responseLabel:string = response.data[0].name;
-
       let responseValues: any [] = [];
       response.data.forEach((item: any) => {
-        // Iterate over each property in the object
         responseValues.push(item.value);
 
       });
@@ -74,7 +71,6 @@ export class ChartYearComponentComponent implements OnInit {
       const cloudData = Array.from({length: 365}, () => Math.floor(Math.random() * 100));
 
       // this.stockDataService.getStockYearAllDaily('GBPUSD').subscribe((response: any) => {
-      debugger
       if (this.chart) {
         this.chart.destroy();
       }
