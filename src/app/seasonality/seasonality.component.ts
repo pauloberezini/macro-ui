@@ -3,6 +3,7 @@ import {LargeAreaChartComponent} from "../yahoo-daily-data/large-area-chart.comp
 import {LineChartComponent} from "../yahoo-monthly-data/line-chart.component";
 import {PieAreaComponent} from "../pie-area/pie-area.component";
 import {ChartYearComponentComponent} from "../chart-year-component/chart-year-component.component";
+import {Meta} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-seasonality',
@@ -14,6 +15,8 @@ export class SeasonalityComponent {
   @ViewChild(LineChartComponent) lineChartComponent!: LineChartComponent;
   @ViewChild(PieAreaComponent) pieAreaComponent!: PieAreaComponent;
   @ViewChild(ChartYearComponentComponent) chartYearComponentComponent!: ChartYearComponentComponent;
+
+  constructor(private metaTagService: Meta) {}
 
   hidePie: boolean = true;
   selectedStockSymbol: string = 'SP500';
@@ -42,7 +45,15 @@ export class SeasonalityComponent {
   selectedMonth: string = '04';
 
   ngOnInit() {
-    // Get the current month and set it to selectedMonth
+    this.metaTagService.addTags([
+      { name: 'description', content: 'Explore historical market trends with Berezini Partners’ Seasonal Trading Pattern Analytics. Uncover patterns and make informed trading decisions based on SP500 historical seasonality.' },
+      { name: 'keywords', content: 'seasonality analysis, market trends, historical trading patterns, SP500 seasonality, trading insights, Berezini Partners, stock market analysis, trading strategies' },
+      { property: 'og:title', content: 'Seasonal Trading Pattern Analytics | Berezini Partners' },
+      { property: 'og:description', content: 'Dive into SP500 historical seasonality and trading patterns. Berezini Partners offers advanced analytics to spot trends and strategize your trades.' },
+      { property: 'og:url', content: 'https://macro.berezini.com/app-seasonality' },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:image', content: 'https://macro.berezini.com/assets/images/seasonality-analysis-og-image.png' }, // Replace with your actual image path
+    ]);
     const currentMonth = new Date().getMonth() + 1; // +1 because getMonth() returns a zero-based value (0 for January, 1 for February, and so on)
     this.selectedMonth = currentMonth < 10 ? '0' + currentMonth : '' + currentMonth;
   }

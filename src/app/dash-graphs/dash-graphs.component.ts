@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import {LargeAreaChartComponent} from "../yahoo-daily-data/large-area-chart.component";
 import {LineChartComponent} from "../yahoo-monthly-data/line-chart.component";
+import {Meta} from "@angular/platform-browser";
 
 @Component({
   selector: 'dash-graphs',
@@ -14,32 +15,34 @@ import {LineChartComponent} from "../yahoo-monthly-data/line-chart.component";
   styleUrls: ['./dash-graphs.component.css']
 })
 export class DashGraphsComponent {
-
-  // flexItems: string[] = ['Item 1', 'Item 2'];
-
-
   @ViewChildren('target', { read: ViewContainerRef }) targets: QueryList<ViewContainerRef>;
   availableComponents = [
     {name: 'Seasonality pro', component: LineChartComponent},
     {name: 'Daily Seasonality pro', component: LargeAreaChartComponent},
-    // ... add other components here ...
   ];
 
-  flexItems: any[] = [
-    { selectedComponent: '' }, // Initialize with an empty string or a default value
-    { selectedComponent: '' },
-    // Add more objects as needed
-  ];
-
-  constructor(private componentFactoryResolver: ComponentFactoryResolver, /*... other dependencies... */) {
+  constructor(private metaTagService: Meta, private componentFactoryResolver: ComponentFactoryResolver) {
+  }
+  ngOnInit() {
+    this.metaTagService.addTags([
+      { name: 'description', content: 'Visualize market trends and analyze financial data with Berezini Partners’ Dashboard macro data graphs. Access comprehensive market seasonality and performance data.' },
+      { name: 'keywords', content: 'financial data, market trends, macro data graphs, financial visualization, market analysis, Berezini Partners, seasonality charts, stock market data' },
+      { property: 'og:title', content: 'Market Trends Visualization | Berezini Partners' },
+      { property: 'og:description', content: 'Explore interactive graphs and visualize financial market data to gain insights into seasonality and market trends with Berezini Partners.' },
+      { property: 'og:url', content: 'https://macro.berezini.com/dash-graphs' },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:image', content: 'https://macro.berezini.com/assets/images/macro-data-graphs-og-image.png' },
+    ]);
   }
 
-  // ... other methods ...
+  flexItems: any[] = [
+    { selectedComponent: '' },     { selectedComponent: '' },
+  ];
+
 
   loadComponent(index: number, componentName: string): void {
     const containerRef = this.targets.toArray()[index];
-    containerRef.clear();  // Clear any existing content
-
+    containerRef.clear();
     const selectedComponent = this.availableComponents.find(comp => comp.name === componentName);
     if (selectedComponent) {
       // @ts-ignore
@@ -49,7 +52,7 @@ export class DashGraphsComponent {
   }
 
   addGraph(): void {
-    const newItem = { selectedComponent: '' }; // Initialize with an empty string or a default value
+    const newItem = { selectedComponent: '' };
     this.flexItems.push(newItem);
   }
 
