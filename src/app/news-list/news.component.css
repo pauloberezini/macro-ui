@@ -1,22 +1,60 @@
-:host {
-    width: 100% !important;
-    height: 100% !important;
+.article-date {
+  font-size: 0.85em;
+  color: #666;
 }
 .header-content {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
+  height: 5vh;
+}
+.article-title {
+  font-size: 1.2em;
+  margin-right: 10px;
 }
 
-.left-content {
-  /* You can add left content styling here if needed */
+
+.right-content{
+  padding-right: 10px;
 }
 
-.right-content {
-  /* You can add right content styling here if needed */
-  padding-right: 20px;
+.sentiment-indicator {
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
 }
 
-.mat-expansion-panel-header {
-  height: auto;
+.sentiment-indicator.positive {
+  background-color: #4CAF50;
+}
+
+.sentiment-indicator.neutral {
+  background-color: #2196F3;
+}
+
+.sentiment-indicator.negative {
+  background-color: #F44336;
+}
+
+.mat-stroked-button {
+  margin-top: 10px;
+}
+
+
+/*scroller*/
+.news-scroller {
+  height: 100%; /* This will take the full height of the parent */
+  overflow-y: auto; /* This will add a vertical scrollbar when needed */
+}
+.news-scroller::-webkit-scrollbar {
+  width: 10px;
+}
+
+.news-scroller::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.news-scroller::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+.news-scroller::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

@@ -1,4 +1,4 @@
-import {Component, ComponentFactoryResolver} from '@angular/core';
+import {Component} from '@angular/core';
 import {Meta} from "@angular/platform-browser";
 
 @Component({

@@ -1,3 +1,36 @@
+mat-grid-tile-content {
+  height: 100%;
+}
+
 mat-button-toggle-group {
   margin-left: 12px;
+}
+/* Mobile Phones */
+@media screen and (max-width: 600px) {
+  mat-grid-tile {
+    padding: 5px;
+  }
+  .mat-form-field {
+    width: 100%;
+  }
+}
+
+/* Tablets */
+@media screen and (min-width: 601px) and (max-width: 960px) {
+  mat-grid-tile {
+    padding: 10px;
+  }
+  .mat-form-field {
+    width: 50%;
+  }
+}
+
+/* Desktops */
+@media screen and (min-width: 961px) {
+  mat-grid-tile {
+    padding: 500px;
+  }
+  .mat-form-field {
+    width: 25%;
+  }
 }

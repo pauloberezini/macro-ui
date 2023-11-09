@@ -25,13 +25,8 @@
       <mat-button-toggle value="post">Post Election</mat-button-toggle>
     </mat-button-toggle-group>
     </section>
-  <mat-grid-list cols="5" rowHeight="100%">
-    <mat-grid-tile colspan="4">
+  <mat-grid-list [cols]="grid.cols" [rowHeight]="grid.rowHeight">
+    <mat-grid-tile class="grid-tile">
       <app-chart-year-component></app-chart-year-component>
     </mat-grid-tile>
-    <mat-grid-tile colspan="1">
-      <!-- <app-pie-area *ngIf="!hidePie"></app-pie-area> -->
-    </mat-grid-tile>
   </mat-grid-list>
-
-

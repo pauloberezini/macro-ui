@@ -1,6 +1,8 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {Chart} from 'chart.js/auto';
 import {StockDataService} from "../services/stock-data.service";
+import {Subject} from "rxjs";
+import {debounceTime} from "rxjs/operators";
 
 
 // Register the dateFnsAdapter with Chart.js
@@ -13,6 +15,7 @@ import {StockDataService} from "../services/stock-data.service";
 export class ChartYearComponentComponent implements OnInit {
 
   public chart: any;
+  resizeEvent = new Subject<void>();
 
   public election : string = 'regular';
   public stockName : string = 'SP500';
@@ -21,6 +24,11 @@ export class ChartYearComponentComponent implements OnInit {
   values: number[] = [];
 
   constructor(public stockDataService: StockDataService) {
+    this.resizeEvent.pipe(
+      debounceTime(300) // Wait for 300ms pause in events to avoid thrashing
+    ).subscribe(() => {
+      this.createChart();
+    });
   }
 
   ngOnInit(): void {
@@ -30,14 +38,14 @@ export class ChartYearComponentComponent implements OnInit {
 
   }
 
+  ngOnDestroy() {
+    this.resizeEvent.unsubscribe();
+  }
+
+
   @HostListener('window:resize', ['$event'])
   onResize() {
-
-    if (this.chart) {
-      this.chart.destroy();
-    }
-
-    this.createChart();
+    this.resizeEvent.next();
   }
 
   generateDailyLabels(year: number) {
