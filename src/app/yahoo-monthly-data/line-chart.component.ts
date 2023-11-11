@@ -80,7 +80,7 @@ export class LineChartComponent implements OnInit, OnChanges {
                 // backgroundColor: 'rgba(0, 0, 0, 0.05)', // low opacity
                 content: 'macro.berezini.com',
                 font: {
-                  size: 140,
+                  size: 80,
                   style: 'normal',
                   family:'Fantasy'
                 },

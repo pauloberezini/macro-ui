@@ -164,7 +164,7 @@ export class ChartYearComponentComponent implements OnInit {
                   // backgroundColor: 'rgba(0, 0, 0, 0.05)', // low opacity
                   content: 'macro.berezini.com',
                   font: {
-                    size: 140,
+                    size: 100,
                     style: 'normal',
                     family:'Fantasy'
                   },

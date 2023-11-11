@@ -18,7 +18,7 @@ export class DashGraphsComponent {
   @ViewChildren('target', { read: ViewContainerRef }) targets: QueryList<ViewContainerRef>;
   availableComponents = [
     {name: 'Seasonality pro', component: LineChartComponent},
-    {name: 'Daily Seasonality pro', component: LargeAreaChartComponent},
+    // {name: 'Daily Seasonality pro', component: LargeAreaChartComponent},
   ];
 
   constructor(private metaTagService: Meta, private componentFactoryResolver: ComponentFactoryResolver) {
