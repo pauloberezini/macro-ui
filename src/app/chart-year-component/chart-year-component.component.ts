@@ -3,6 +3,7 @@ import {Chart} from 'chart.js/auto';
 import {StockDataService} from "../services/stock-data.service";
 import {Subject} from "rxjs";
 import {debounceTime} from "rxjs/operators";
+import annotationPlugin from "chartjs-plugin-annotation";
 
 
 // Register the dateFnsAdapter with Chart.js
@@ -82,6 +83,7 @@ export class ChartYearComponentComponent implements OnInit {
       if (this.chart) {
         this.chart.destroy();
       }
+      Chart.register(annotationPlugin);
       this.chart = new Chart(this.canvasId, {
         type: 'line',
         data: {
@@ -110,6 +112,7 @@ export class ChartYearComponentComponent implements OnInit {
         },
         options: {
           aspectRatio: 2.5,
+
           animations: {
             radius: {
               duration: 0.1,
@@ -151,6 +154,24 @@ export class ChartYearComponentComponent implements OnInit {
             }
           },
           plugins: {
+            annotation: {
+              annotations: {
+                watermark: {
+                  type: 'label',
+                  position: 'center',
+                  color:'rgba(0, 0, 0, 0.2)',
+                  opacity:0.05,
+                  // backgroundColor: 'rgba(0, 0, 0, 0.05)', // low opacity
+                  content: 'macro.berezini.com',
+                  font: {
+                    size: 140,
+                    style: 'normal',
+                    family:'Fantasy'
+                  },
+                  textAlign: 'center'
+                }
+              }
+            },
             tooltip: {
               backgroundColor: 'rgba(0, 0, 0, 0.7)',
               bodyFont: {

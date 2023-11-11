@@ -3,6 +3,7 @@ import {StockDataService} from '../services/stock-data.service';
 import {MatDialog} from '@angular/material/dialog';
 import {WarningDialogComponent} from '../warning-dialog/warning-dialog.component';
 import {Chart, ChartType} from 'chart.js/auto';
+import annotationPlugin from 'chartjs-plugin-annotation';
 
 
 @Component({
@@ -50,6 +51,9 @@ export class LineChartComponent implements OnInit, OnChanges {
     if (this.chart) {
       this.chart.destroy();
     }
+
+    Chart.register(annotationPlugin);
+    // @ts-ignore
     this.chart = new Chart(this.canvasId, {
       type: this.chartTypes[this.chartStyle],
 
@@ -64,7 +68,27 @@ export class LineChartComponent implements OnInit, OnChanges {
         ]
       },
       options: {
-        aspectRatio: 2.5
+        aspectRatio: 2.5,
+        plugins: {
+          annotation: {
+            annotations: {
+              watermark: {
+                type: 'label',
+                position: 'center',
+                color:'rgba(0, 0, 0, 0.2)',
+                opacity:0.05,
+                // backgroundColor: 'rgba(0, 0, 0, 0.05)', // low opacity
+                content: 'macro.berezini.com',
+                font: {
+                  size: 140,
+                  style: 'normal',
+                  family:'Fantasy'
+                },
+                textAlign: 'center'
+              }
+            }
+          }
+        }
       }
     });
   }
