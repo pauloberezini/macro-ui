@@ -5,7 +5,6 @@ import {
   ViewChildren,
   ViewContainerRef
 } from '@angular/core';
-import {LargeAreaChartComponent} from "../yahoo-daily-data/large-area-chart.component";
 import {LineChartComponent} from "../yahoo-monthly-data/line-chart.component";
 import {Meta} from "@angular/platform-browser";
 

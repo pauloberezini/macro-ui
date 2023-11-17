@@ -18,8 +18,8 @@ export class ChartYearComponentComponent implements OnInit {
   public chart: any;
   resizeEvent = new Subject<void>();
 
-  public election : string = 'regular';
-  public stockName : string = 'SP500';
+  public election: string = 'regular';
+  public stockName: string = 'SP500';
   canvasId: string;
 
   values: number[] = [];
@@ -67,7 +67,7 @@ export class ChartYearComponentComponent implements OnInit {
 
   createChart() {
     this.stockDataService.getStockAlphaData25(this.stockName, this.election).subscribe((response: any) => {
-      let responseLabel:string = response.data[0].name;
+      let responseLabel: string = response.data[0].name;
       let responseValues: any [] = [];
       response.data.forEach((item: any) => {
         responseValues.push(item.value);
@@ -84,13 +84,20 @@ export class ChartYearComponentComponent implements OnInit {
         this.chart.destroy();
       }
       Chart.register(annotationPlugin);
+
+      let years: string = responseLabel + ' ' +response.data[0].rangeValue + ' years';
+      if(this.election != 'regular'){
+        years = responseLabel + ' ' + 6 + ' years';
+      }
+
+
       this.chart = new Chart(this.canvasId, {
         type: 'line',
         data: {
           labels: dailyLabels,
           datasets: [
             {
-              label: responseLabel,
+              label: years,
               data: responseValues,
               borderColor: 'rgb(255, 99, 132)',
               backgroundColor: 'rgba(255, 99, 132, 0.2)',
@@ -159,14 +166,14 @@ export class ChartYearComponentComponent implements OnInit {
                 watermark: {
                   type: 'label',
                   position: 'center',
-                  color:'rgba(0, 0, 0, 0.2)',
-                  opacity:0.05,
+                  color: 'rgba(0, 0, 0, 0.2)',
+                  opacity: 0.05,
                   // backgroundColor: 'rgba(0, 0, 0, 0.05)', // low opacity
                   content: 'macro.berezini.com',
                   font: {
                     size: 100,
                     style: 'normal',
-                    family:'Fantasy'
+                    family: 'Fantasy'
                   },
                   textAlign: 'center'
                 }

@@ -18,7 +18,6 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
-import {LargeAreaChartComponent} from './yahoo-daily-data/large-area-chart.component';
 import {AppRoutingModule} from './app-routing.module';
 import {NgxEchartsModule} from 'ngx-echarts';
 import {EconomicCalendarComponent} from './economic-calendar/economic-calendar.component';
@@ -54,7 +53,6 @@ const routes: Routes = [
   {path: '', component: EconomicCalendarComponent},
   {path: 'app-news', component: NewsComponent},
   {path: 'app-line-chart', component: LineChartComponent},
-  {path: 'app-large-area-chart', component: LargeAreaChartComponent},
   {path: 'seasonality', component: MacroContainerComponent},
   {path: 'app-seasonality', component: SeasonalityComponent},
   {path: 'app-chart-year-component', component: ChartYearComponentComponent},
@@ -66,7 +64,6 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     LineChartComponent,
-    LargeAreaChartComponent,
     EconomicCalendarComponent,
     EconomicDataComponent,
     NewsComponent,
