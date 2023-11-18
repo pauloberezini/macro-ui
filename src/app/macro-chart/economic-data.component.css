@@ -1,8 +1,3 @@
-.centered-content-macro-chart {
-  display: flex;
-  justify-content: center;
-}
-
 .no-data {
   text-align: center;
   padding-top: 15vh;

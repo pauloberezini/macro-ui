@@ -41,12 +41,13 @@ import {MacroContainerComponent} from './macro-container/macro-container.compone
 import {SupportedByComponent} from './supported-by/supported-by.component';
 import {MatRadioModule} from "@angular/material/radio";
 import {VolatilityPipe} from "./model/volatility.pipe";
-import { DashGraphsComponent } from './dash-graphs/dash-graphs.component';
-import { SeasonalityComponent } from './seasonality/seasonality.component';
-import { PieAreaComponent } from './pie-area/pie-area.component';
-import { ChartYearComponentComponent } from './chart-year-component/chart-year-component.component';
+import {DashGraphsComponent} from './dash-graphs/dash-graphs.component';
+import {SeasonalityComponent} from './seasonality/seasonality.component';
+import {PieAreaComponent} from './pie-area/pie-area.component';
+import {ChartYearComponentComponent} from './chart-year-component/chart-year-component.component';
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {FlexLayoutModule} from "@angular/flex-layout";
 
 
 const routes: Routes = [
@@ -80,40 +81,41 @@ const routes: Routes = [
     PieAreaComponent,
     ChartYearComponentComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        MatTableModule,
-        FormsModule,
-        MatDividerModule,
-        MatInputModule,
-        MatNativeDateModule,
-        ReactiveFormsModule,
-        MatButtonModule,
-        MatGridListModule,
-        CommonModule,
-        MatSelectModule,
-        MatTabsModule,
-        AppRoutingModule,
-        NgxEchartsModule.forRoot({
-            echarts: () => import('echarts')
-        }),
-        MatIconModule,
-        MatToolbarModule,
-        MatProgressSpinnerModule,
-        MatCardModule,
-        MatExpansionModule,
-        MatDialogModule,
-        MatSidenavModule,
-        AppRoutingModule,
-        RouterModule.forRoot(routes),
-        MatAutocompleteModule,
-        MatSortModule,
-        MatRadioModule,
-        MatButtonToggleModule,
-        MatProgressBarModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    MatTableModule,
+    FormsModule,
+    MatDividerModule,
+    MatInputModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatGridListModule,
+    CommonModule,
+    MatSelectModule,
+    MatTabsModule,
+    AppRoutingModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    }),
+    MatIconModule,
+    MatToolbarModule,
+    MatProgressSpinnerModule,
+    MatCardModule,
+    MatExpansionModule,
+    MatDialogModule,
+    MatSidenavModule,
+    AppRoutingModule,
+    RouterModule.forRoot(routes),
+    MatAutocompleteModule,
+    MatSortModule,
+    MatRadioModule,
+    MatButtonToggleModule,
+    MatProgressBarModule,
+    FlexLayoutModule
+  ],
   exports: [
     MatTableModule,
     MatSortModule,

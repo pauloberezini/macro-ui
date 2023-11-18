@@ -1,5 +1,5 @@
-<section>
-  <div class="main-menu-home">
+<div class="container">
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center" class="main-menu-home">
     <div cdkMenuItem routerLink="/" class="main-menu-item berezini-logo"></div>
     <button class="main-menu-item" cdkMenuItem routerLink="/" routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }" ariaCurrentWhenActive="page">Events
@@ -7,9 +7,6 @@
     <button class="main-menu-item" cdkMenuItem routerLink="/app-seasonality" routerLinkActive="active"
             ariaCurrentWhenActive="page">Seasonality
     </button>
-    <!--      <button class="main-menu-item" cdkMenuItem routerLink="/seasonality" routerLinkActive="active"-->
-    <!--              ariaCurrentWhenActive="page">Historical Macro-->
-    <!--      </button>-->
     <button class="main-menu-item" cdkMenuItem routerLink="/app-news" routerLinkActive="active"
             ariaCurrentWhenActive="page">News
     </button>
@@ -20,7 +17,6 @@
             ariaCurrentWhenActive="page">About
     </button>
   </div>
-</section>
 
-
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+</div>

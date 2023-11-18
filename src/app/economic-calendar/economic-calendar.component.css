@@ -1,33 +1,40 @@
-.centered-content {
+.container {
   display: flex;
-  flex-direction: row;
-  width: 100%;
+  flex-direction: column;
+  height: 100vh;
 }
 
-.left-column, .right-column {
-  flex: 1;
-  overflow-y: hidden;
-  padding: 0 2px 0 0;
-
-  width: 50%;
-  height: 90vh;
-  box-sizing: border-box;
-}
-
-
-:host {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.grid-container {
-  max-height: 500px;
-  overflow: auto;
-}
 .color-white {
   color: white;
 }
+@media (max-width: 599px) {
+  .mat-table {
+    overflow-x: auto;
+  }
 
+  /* Optional: Hide less important columns on smaller screens */
+  .hide-on-mobile {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .mat-cell, .mat-header-cell {
+    padding: 8px; /* Reduce padding on smaller screens */
+  }
+
+  .less-important-column {
+    display: none; /* Hide less important columns on smaller screens */
+  }
+}
+
+.scrollable-table-container {
+  overflow-x: auto; /* Enables horizontal scrolling */
+}
+
+table {
+  width: 100%; /* Ensures the table expands to the width of its container */
+}
 
 
 .mat-mdc-radio-button.mat-accent {

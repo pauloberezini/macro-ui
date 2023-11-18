@@ -1,7 +1,5 @@
-<mat-card-content>
   <div *ngIf="noDataAvailable" class="centered-content, no-data">
     <mat-icon aria-hidden="false" aria-label="No data icon">info</mat-icon>
     <p>No Macro data available for this event, or no event has been selected.</p>
   </div>
   <canvas *ngIf="showChart" #atrChart>{{chart}}</canvas>
-</mat-card-content>
