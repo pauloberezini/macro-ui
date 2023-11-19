@@ -21,5 +21,7 @@ tasks:
 
   build:
     cmds:
+      - git pull
+      - npm install
       - ng build --configuration=production
     silent: true
