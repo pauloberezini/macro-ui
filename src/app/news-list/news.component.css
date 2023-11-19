@@ -10,15 +10,10 @@
   margin-right: 10px;
 }
 
-
-.right-content{
-  padding-right: 10px;
-}
-
 .sentiment-indicator {
   color: white;
   padding: 5px 10px;
-  border-radius: 15px;
+  /*border-radius: 15px;*/
 }
 
 .sentiment-indicator.positive {

@@ -22,7 +22,7 @@
   display: grid;
   align-items: center;
   flex-direction: row;
-  flex: 1;
+  /*flex: 1;*/
 }
 
 .main-menu-item:hover {
