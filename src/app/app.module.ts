@@ -48,6 +48,9 @@ import {ChartYearComponentComponent} from './chart-year-component/chart-year-com
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {FlexLayoutModule} from "@angular/flex-layout";
+import { HockeyBetComponent } from './hockey-bet/hockey-bet.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import { TeamCardComponent } from './hockey-bet/team-card/team-card.component';
 
 
 const routes: Routes = [
@@ -58,7 +61,8 @@ const routes: Routes = [
   {path: 'app-seasonality', component: SeasonalityComponent},
   {path: 'app-chart-year-component', component: ChartYearComponentComponent},
   {path: 'app-supported-by', component: SupportedByComponent},
-  {path: 'dash-graphs', component: DashGraphsComponent}
+  {path: 'dash-graphs', component: DashGraphsComponent},
+  {path: 'hockey-bet', component: HockeyBetComponent}
 ];
 
 @NgModule({
@@ -79,7 +83,9 @@ const routes: Routes = [
     DashGraphsComponent,
     SeasonalityComponent,
     PieAreaComponent,
-    ChartYearComponentComponent
+    ChartYearComponentComponent,
+    HockeyBetComponent,
+    TeamCardComponent
   ],
   imports: [
     BrowserModule,
@@ -114,7 +120,8 @@ const routes: Routes = [
     MatRadioModule,
     MatButtonToggleModule,
     MatProgressBarModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatCheckboxModule
   ],
   exports: [
     MatTableModule,

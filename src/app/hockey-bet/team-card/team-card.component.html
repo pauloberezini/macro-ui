@@ -1,0 +1,20 @@
+<!-- team-card.component.html -->
+<mat-card class="team-card">
+  <mat-card-title>{{ team.teamName }}</mat-card-title>
+  <mat-card-content>
+    <mat-card-content>
+      <p>Games Played: {{ team.gamesPlayed }}</p>
+      <p>Goals: {{ team.gamesPlayed }}</p>
+      <p>Looses: {{ team.goalsAgainst }}</p>
+
+      <p>GA (All): {{ team.all.goalsAverage }}</p>
+      <p>LA (All): {{ team.all.lossesAverage }}</p>
+
+      <p>GA (Home): {{ team.home.goalsAverage }}</p>
+      <p>LA (Home): {{ team.home.lossesAverage }}</p>
+
+      <p>GA (Guest): {{ team.guest.goalsAverage }}</p>
+      <p>LA (Guest): {{ team.guest.lossesAverage }}</p>
+    </mat-card-content>
+  </mat-card-content>
+</mat-card>

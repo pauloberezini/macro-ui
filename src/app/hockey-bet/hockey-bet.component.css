@@ -1,0 +1,51 @@
+.cards-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.team-card {
+  flex: 0 0 48%;
+  margin: 10px;
+  display: flex; /* Added to make the card itself a flex container */
+  flex-direction: column; /* Stack the children of the card vertically */
+}
+
+/* Aligns the entire content of the first card to the right */
+.cards-container mat-card:first-child {
+  align-items: flex-end; /* Aligns children of the flex container to the right */
+}
+
+.mat-mdc-row .mat-mdc-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid black;
+  cursor: pointer;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  border-color: currentColor;
+}
+
+.demo-row-is-clicked {
+  font-weight: bold;
+}
+/* Styles for table columns */
+.demo-table .mat-column-number {
+  width: 80px; /* fixed pixel width */
+}
+
+.demo-table .mat-column-team {
+  width: 100px; /* fixed pixel width */
+}
+
+.demo-table .mat-column-goalsAverage {
+  width: 25%; /* percentage width */
+}
+
+.demo-table .mat-column-loosesAverage {
+  width: 25%; /* percentage width */
+}
+.mat-mdc-table .mdc-data-table__row {
+  height: 30px;
+}

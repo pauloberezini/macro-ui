@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { StockData } from '../model/stock-data';
 import {environment} from "../../environments/environment";
 import {EventDto} from "../model/event-dto";
+import {HockeyTeamStats} from "../model/hockey-teams-stats";
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,11 @@ export class StockDataService {
   getEconomicData(type: string): Observable<Object[]> {
     const url = `${this.baseUrlAlpha}/economic/${type}`;
     return this.http.get<Object[]>(url);
+  }
+
+  getNhlData(): Observable<HockeyTeamStats[]> {
+    const url = `${this.url}/nhl/standings`;
+    return this.http.get<HockeyTeamStats[]>(url);
   }
 
 
