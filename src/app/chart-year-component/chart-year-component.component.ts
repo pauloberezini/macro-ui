@@ -75,7 +75,6 @@ export class ChartYearComponentComponent implements OnInit {
       });
       this.values = responseValues;
       const dailyLabels = this.generateDailyLabels(2023)
-
       const tempData = Array.from({length: 365}, () => Math.floor(Math.random() * 20) + 10);
       const cloudData = Array.from({length: 365}, () => Math.floor(Math.random() * 100));
 
@@ -85,11 +84,10 @@ export class ChartYearComponentComponent implements OnInit {
       }
       Chart.register(annotationPlugin);
 
-      let years: string = responseLabel + ' ' +response.data[0].rangeValue + ' years';
+      let years: string = this.stockName + ' ' +response.data[0].rangeValue + ' years';
       if(this.election != 'regular'){
-        years = responseLabel + ' ' + 6 + ' years';
+        years = this.stockName + ' ' + 6 + ' years';
       }
-
 
       this.chart = new Chart(this.canvasId, {
         type: 'line',

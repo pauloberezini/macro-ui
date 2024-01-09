@@ -132,10 +132,6 @@ const routes: Routes = [
     MatSidenavModule,
     RouterModule
   ],
-  entryComponents: [
-    WarningDialogComponent,
-  ],
-
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: ApiInterceptor,
