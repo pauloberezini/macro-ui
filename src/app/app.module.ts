@@ -28,7 +28,6 @@ import {EconomicDataComponent} from './macro-chart/economic-data.component';
 import {NewsComponent} from './news-list/news.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
-import {WarningDialogComponent} from './warning-dialog/warning-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {DateFormatPipe} from './model/date-format-pipe';
 import {TruncatePipe} from './model/truncate-pipe';
@@ -72,7 +71,6 @@ const routes: Routes = [
     EconomicCalendarComponent,
     EconomicDataComponent,
     NewsComponent,
-    WarningDialogComponent,
     DateFormatPipe,
     VolatilityPipe,
     TimeFormatPipe,

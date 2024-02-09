@@ -1,7 +1,6 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, Renderer2} from '@angular/core';
 import {StockDataService} from '../services/stock-data.service';
 import {MatDialog} from '@angular/material/dialog';
-import {WarningDialogComponent} from '../warning-dialog/warning-dialog.component';
 import {Chart, ChartType} from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
 
@@ -107,7 +106,6 @@ export class LineChartComponent implements OnInit, OnChanges {
     this.data = [];
     this.stockDataService.getStockData(this.stockSymbol, this.fromYear, this.toYear).subscribe((response: any) => {
       this.data = response.data;
-      this.openDialog(response.errorMsg);
       this.loadDailyData();
       this.loadMonthlyData();
     });
@@ -172,16 +170,5 @@ export class LineChartComponent implements OnInit, OnChanges {
       'December'
     ];
     return monthNames[parseInt(monthNum, 10) - 1];
-  }
-
-  openDialog(arg: any) {
-    if (arg == '') {
-      return;
-    }
-    const dialogRef = this.dialog.open(WarningDialogComponent, {
-      data: {
-        message: arg,
-      },
-    });
   }
 }

@@ -1,28 +1,20 @@
-<mat-toolbar>
-  <mat-toolbar-row>
-    <span>News Sentiment Scope</span>
-  </mat-toolbar-row>
-</mat-toolbar>
-
-<mat-card-content class="news-scroller">
-  <mat-card *ngFor="let article of articles">
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <div class="header-content">
-          <div class="left-content">
+<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="6px" fxFlexFill>
+  <div fxFlex="50%">
+    <mat-card *ngFor="let article of articles">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <div fxLayoutGap="row" fxLayoutGap="5px" fxLayoutAlign="start center">
             <span class="article-date">{{ article.publishedAt | dateFormat }}</span>
-          </div>
-          <div class="right-content">
-            <span class="sentiment-indicator" [ngClass]="article.sentiment">{{ article.sentiment }}</span>
-            <span class="spacer" style="display: inline-block; width: 10px;"></span>
+            <!-- Use an empty span for the dot -->
+            <span class="sentiment-indicator" [ngClass]="article.sentiment"></span>
             <span class="article-title">{{ article.title | truncate:100 }}</span>
           </div>
-        </div>
-      </mat-expansion-panel-header>
-      <mat-card-content>
-        <p>{{ article.description }}</p>
-        <a mat-stroked-button [href]="article.url" target="_blank">Read more...</a>
-      </mat-card-content>
-    </mat-expansion-panel>
-  </mat-card>
-</mat-card-content>
+        </mat-expansion-panel-header>
+        <mat-card-content>
+          <p>{{ article.description }}</p>
+          <a mat-stroked-button [href]="article.url" target="_blank">Read more...</a>
+        </mat-card-content>
+      </mat-expansion-panel>
+    </mat-card>
+  </div>
+</div>
