@@ -3,7 +3,7 @@
     <mat-card *ngFor="let article of articles">
       <mat-expansion-panel>
         <mat-expansion-panel-header>
-          <div fxLayoutGap="row" fxLayoutGap="5px" fxLayoutAlign="start center">
+          <div fxLayoutGap="row" fxLayoutGap="16px" fxLayoutAlign="start center">
             <span class="article-date">{{ article.publishedAt | dateFormat }}</span>
             <!-- Use an empty span for the dot -->
             <span class="sentiment-indicator" [ngClass]="article.sentiment"></span>

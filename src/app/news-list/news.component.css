@@ -1,5 +1,6 @@
 .article-date {
   font-size: 0.85em;
+  flex: none;
   color: #666;
 }
 .header-content {
@@ -10,6 +11,7 @@
   margin-right: 10px;
 }
 .sentiment-indicator {
+  flex: none;
   width: 12px; /* Size of the dot */
   height: 12px; /* Size of the dot */
   border-radius: 50%; /* Make it round */
