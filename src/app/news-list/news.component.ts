@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { StockDataService } from '../services/stock-data.service';
 import {Meta} from "@angular/platform-browser";
 import {Article} from "../model/article";
+import { MediaObserver, MediaChange } from '@angular/flex-layout';
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-news',
@@ -11,7 +14,14 @@ import {Article} from "../model/article";
 export class NewsComponent {
 
   articles: Article[] = [];
-  constructor(private metaTagService: Meta, private stockDataService: StockDataService) { }
+  truncateLength: number = 100;
+  private mediaSub: Subscription;
+
+  constructor(
+    private metaTagService: Meta,
+    private stockDataService: StockDataService,
+    private mediaObserver: MediaObserver // Inject MediaObserver
+  ) { }
 
   ngOnInit(): void {
     this.metaTagService.addTags([
@@ -25,6 +35,10 @@ export class NewsComponent {
     ]);
     this.stockDataService.getMarketNews().subscribe((data: any) => {
       this.articles = data;
+    });
+    this.mediaSub = this.mediaObserver.asObservable().subscribe((changes: MediaChange[]) => {
+      const change = changes.find(c => c.mqAlias === 'xs');
+      this.truncateLength = change ? 70 : 100; // If extra-small screen, truncate at 50, else 100
     });
   }
 }

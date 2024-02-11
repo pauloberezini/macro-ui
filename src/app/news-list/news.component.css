@@ -7,8 +7,7 @@
   height: 5vh;
 }
 .article-title {
-  font-size: 1.2em;
-  margin-right: 10px;
+  /*margin-right: 10px;*/
 }
 .sentiment-indicator {
   flex: none;
