@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StockDataService } from '../services/stock-data.service';
 import {Meta} from "@angular/platform-browser";
+import {Article} from "../model/article";
 
 @Component({
   selector: 'app-news',
@@ -9,7 +10,7 @@ import {Meta} from "@angular/platform-browser";
 })
 export class NewsComponent {
 
-  articles: any = null;
+  articles: Article[] = [];
   constructor(private metaTagService: Meta, private stockDataService: StockDataService) { }
 
   ngOnInit(): void {

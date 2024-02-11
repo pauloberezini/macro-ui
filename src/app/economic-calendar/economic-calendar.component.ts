@@ -71,6 +71,7 @@ export class EconomicCalendarComponent implements OnInit {
 
 
   filterData(): void {
+    this.selectedRow = null;
     let filteredNews = this.allNews.filter(event =>
       this.selectedCountry.includes(event.country) &&
       this.volatility.includes(event.volatility)
