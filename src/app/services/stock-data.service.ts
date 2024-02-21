@@ -79,4 +79,8 @@ export class StockDataService {
     const url = `${this.url}/api/news/business-news`;
     return this.http.get<Article[]>(url);
   }
+  getNewsTitles(currency: string): Observable<any> {
+    const url = `${this.baseUrlAlpha}/dynamic/getAllMacroTitles/${currency}`;
+    return this.http.get<any>(url);
+  }
 }

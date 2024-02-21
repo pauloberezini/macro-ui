@@ -100,7 +100,7 @@ html, body, mat-sidenav-container, mat-sidenav-content {
 }
 
 body {
-  background-color: var(--light-gray);
+  /*background-color: var(--light-gray);*/
   color: var(--dark-gray);
 }
 

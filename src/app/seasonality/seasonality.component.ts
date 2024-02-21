@@ -97,7 +97,6 @@ export class SeasonalityComponent {
     // this.largeAreaChartComponent.stockSymbol = this.stockSymbol;
     // this.largeAreaChartComponent.selectedMonth = this.selectedMonth;
     // this.largeAreaChartComponent.getData();
-  debugger
     this.chartYearComponentComponent.stockName = this.selectedStockSymbol;
     this.chartYearComponentComponent.election = this.election;
     this.chartYearComponentComponent.createChart();

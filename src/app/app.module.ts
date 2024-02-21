@@ -47,9 +47,10 @@ import {ChartYearComponentComponent} from './chart-year-component/chart-year-com
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {FlexLayoutModule} from "@angular/flex-layout";
-import { HockeyBetComponent } from './hockey-bet/hockey-bet.component';
+import {HockeyBetComponent} from './hockey-bet/hockey-bet.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
-import { TeamCardComponent } from './hockey-bet/team-card/team-card.component';
+import {TeamCardComponent} from './hockey-bet/team-card/team-card.component';
+import {MacroChartsComponent} from "./macro-charts/macro-charts.component";
 
 
 const routes: Routes = [
@@ -119,7 +120,9 @@ const routes: Routes = [
     MatButtonToggleModule,
     MatProgressBarModule,
     FlexLayoutModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    CommonModule,
+    MacroChartsComponent
   ],
   exports: [
     MatTableModule,
