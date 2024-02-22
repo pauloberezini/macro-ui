@@ -5,6 +5,9 @@
 /tmp
 /out-tsc
 /bazel-out
+/server.js
+/src/sitemap.xml
+/cert
 
 # Node
 /node_modules
