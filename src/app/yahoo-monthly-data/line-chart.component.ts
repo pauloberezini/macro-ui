@@ -1,7 +1,6 @@
-import {Component, ElementRef, Input, OnChanges, OnInit, Renderer2} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, Renderer2} from '@angular/core';
 import {StockDataService} from '../services/stock-data.service';
 import {MatDialog} from '@angular/material/dialog';
-import {WarningDialogComponent} from '../warning-dialog/warning-dialog.component';
 import {Chart, ChartType} from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
 
@@ -11,7 +10,7 @@ import annotationPlugin from 'chartjs-plugin-annotation';
   templateUrl: './line-chart.component.html',
   styleUrls: ['./line-chart.component.css']
 })
-export class LineChartComponent implements OnInit, OnChanges {
+export class LineChartComponent implements AfterViewInit, OnInit, OnChanges {
 
   @Input() hideForm: boolean = false;
 
@@ -39,12 +38,15 @@ export class LineChartComponent implements OnInit, OnChanges {
     private el: ElementRef
   ) {}
 
+  ngAfterViewInit(): void {
+    this.canvasId = 'MyChartLine-' + Math.random().toString(36).substring(2, 15);
+    }
+
   ngOnChanges() {
   }
 
 
   ngOnInit(): void {
-    this.canvasId = 'MyChartLine-' + Math.random().toString(36).substring(2, 15);
   }
 
   createChart() {
@@ -107,7 +109,6 @@ export class LineChartComponent implements OnInit, OnChanges {
     this.data = [];
     this.stockDataService.getStockData(this.stockSymbol, this.fromYear, this.toYear).subscribe((response: any) => {
       this.data = response.data;
-      this.openDialog(response.errorMsg);
       this.loadDailyData();
       this.loadMonthlyData();
     });
@@ -172,16 +173,5 @@ export class LineChartComponent implements OnInit, OnChanges {
       'December'
     ];
     return monthNames[parseInt(monthNum, 10) - 1];
-  }
-
-  openDialog(arg: any) {
-    if (arg == '') {
-      return;
-    }
-    const dialogRef = this.dialog.open(WarningDialogComponent, {
-      data: {
-        message: arg,
-      },
-    });
   }
 }

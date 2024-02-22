@@ -28,7 +28,6 @@ import {EconomicDataComponent} from './macro-chart/economic-data.component';
 import {NewsComponent} from './news-list/news.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
-import {WarningDialogComponent} from './warning-dialog/warning-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {DateFormatPipe} from './model/date-format-pipe';
 import {TruncatePipe} from './model/truncate-pipe';
@@ -48,9 +47,10 @@ import {ChartYearComponentComponent} from './chart-year-component/chart-year-com
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {FlexLayoutModule} from "@angular/flex-layout";
-import { HockeyBetComponent } from './hockey-bet/hockey-bet.component';
+import {HockeyBetComponent} from './hockey-bet/hockey-bet.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
-import { TeamCardComponent } from './hockey-bet/team-card/team-card.component';
+import {TeamCardComponent} from './hockey-bet/team-card/team-card.component';
+import {MacroChartsComponent} from "./macro-charts/macro-charts.component";
 
 
 const routes: Routes = [
@@ -72,7 +72,6 @@ const routes: Routes = [
     EconomicCalendarComponent,
     EconomicDataComponent,
     NewsComponent,
-    WarningDialogComponent,
     DateFormatPipe,
     VolatilityPipe,
     TimeFormatPipe,
@@ -121,7 +120,9 @@ const routes: Routes = [
     MatButtonToggleModule,
     MatProgressBarModule,
     FlexLayoutModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    CommonModule,
+    MacroChartsComponent
   ],
   exports: [
     MatTableModule,
@@ -132,10 +133,6 @@ const routes: Routes = [
     MatSidenavModule,
     RouterModule
   ],
-  entryComponents: [
-    WarningDialogComponent,
-  ],
-
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: ApiInterceptor,

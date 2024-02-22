@@ -1,0 +1,40 @@
+<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="6px">
+  <mat-card fxFlex="100%">
+    <mat-card-actions align="start">
+
+
+      <mat-form-field>
+        <mat-label>Select Currencies</mat-label>
+        <mat-select name="country" [(ngModel)]="selectedCountry">
+          <mat-option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="fill" style="width: 100%">
+        <mat-label>Search</mat-label>
+        <input type="text"
+               aria-label="Number"
+               matInput
+               [formControl]="currencyControl"
+               [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let currency of filteredCurrencies | async" [value]="currency">
+            {{ currency }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+
+    </mat-card-actions>
+
+    @if (noDataAvailable) {
+      <div class="centered-content, no-data">
+        <mat-icon aria-hidden="false" aria-label="No data icon">info</mat-icon>
+        <p>No Macro data available for this event, or no event has been selected.</p>
+      </div>
+
+    }
+    <canvas #atrChart>{{ chart }}</canvas>
+  </mat-card>
+</div>

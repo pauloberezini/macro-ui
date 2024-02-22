@@ -1,21 +1,24 @@
 .article-date {
   font-size: 0.85em;
+  flex: none;
   color: #666;
 }
 .header-content {
   height: 5vh;
 }
 .article-title {
-  font-size: 1.2em;
-  margin-right: 10px;
+  /*margin-right: 10px;*/
 }
-
 .sentiment-indicator {
-  color: white;
-  padding: 5px 10px;
-  /*border-radius: 15px;*/
+  flex: none;
+  width: 12px; /* Size of the dot */
+  height: 12px; /* Size of the dot */
+  border-radius: 50%; /* Make it round */
+  display: inline-block; /* Ensure it aligns well with the text */
+  margin-right: 5px; /* Add some space before the title */
 }
 
+/* Keep your existing color definitions */
 .sentiment-indicator.positive {
   background-color: #4CAF50;
 }
@@ -27,6 +30,7 @@
 .sentiment-indicator.negative {
   background-color: #F44336;
 }
+
 
 .mat-stroked-button {
   margin-top: 10px;

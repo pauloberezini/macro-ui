@@ -27,8 +27,8 @@ html, body, mat-sidenav-container, mat-sidenav-content {
 }
 
 .mat-toolbar {
-  color: var(--light-gray);
-  background-color: var(--dark-gray);
+  color: var(--light-gray) !important;
+  background-color: var(--dark-gray) !important;
 }
 
 .basic-color {
@@ -36,16 +36,16 @@ html, body, mat-sidenav-container, mat-sidenav-content {
 }
 
 .mat-button-toggle-appearance-standard .mat-button-toggle-label-content{
-  line-height: unset;
+  line-height: unset !important;
 }
 
 .mat-button-toggle:hover {
   color: var(--light-gray) !important;
-  background-color: var(--logo-blue);
+  background-color: var(--logo-blue) !important;
 }
 .mat-button-toggle-checked {
   color: var(--light-gray) !important;
-  background-color: var(--logo-blue);
+  background-color: var(--logo-blue) !important;
 }
 
 .example-spacer {
@@ -100,7 +100,7 @@ html, body, mat-sidenav-container, mat-sidenav-content {
 }
 
 body {
-  background-color: var(--light-gray);
+  /*background-color: var(--light-gray);*/
   color: var(--dark-gray);
 }
 
@@ -110,15 +110,6 @@ body {
 
 .mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label, .mat-mdc-tab-link:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label {
   color: var(--logo-blue) !important;
-}
-
-
-.mat-mdc-table {
-  /*background-color: var(--light-gray) !important;*/
-}
-
-.mat-expansion-panel-header {
-  padding: 0 10px!important;
 }
 
 
@@ -157,8 +148,6 @@ body {
 
 mat-card {
   background-color: var(--light-green);
-
-  margin-bottom: 8px !important;
   color: var(--dark-gray);
 }
 
@@ -210,11 +199,11 @@ button:hover {
   display: unset !important;
 }
 
-.mat-mdc-cell,
-.mat-mdc-header-cell {
-  padding: 0 2px 0 0 !important;
-  text-align: center !important;
-}
+/*.mat-mdc-cell,*/
+/*.mat-mdc-header-cell {*/
+/*  padding: 0 2px 0 0 !important;*/
+/*  text-align: center !important;*/
+/*}*/
 
 .mat-tab-group {
   flex-direction: row !important;
@@ -230,4 +219,14 @@ button:hover {
 
 .mat-ink-bar {
   display: none;
+}
+
+.loader {
+  /* Your CSS styles to create the loader design */
+  /* Add keyframes animation for the rotating effect */
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

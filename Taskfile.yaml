@@ -14,7 +14,7 @@ tasks:
     cmds:
       - node server.js
     silent: true
-  rund:
+  runp:
     cmds:
       - ng serve --disable-host-check --configuration=production
     silent: true

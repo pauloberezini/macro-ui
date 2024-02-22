@@ -41,8 +41,8 @@ export class EconomicDataComponent {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.showChart = true;
     if (changes['selectedRowData'] && this.selectedRowData) {
+      this.showChart = true;
       const inputString = this.selectedRowData.eventName;
 
       const regex = /\([^)]+\)/g;
@@ -58,6 +58,9 @@ export class EconomicDataComponent {
         this.request(eventName);
 
       }
+    } else {
+      this.noDataAvailable = true;
+      this.showChart = false;
     }
   }
 
@@ -76,20 +79,17 @@ export class EconomicDataComponent {
   }
 
 
-
   createChart(title: string) {
-    if(this.chart){
+    if (this.chart) {
       this.chart.destroy();
     }
 
-    if(this.noDataAvailable){
+    if (this.noDataAvailable) {
       return;
     }
 
 
-
     let canvas = this.atrChart.nativeElement;
-
 
 
     this.chart = new Chart(canvas, {
