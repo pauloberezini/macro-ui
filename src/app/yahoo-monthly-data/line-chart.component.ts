@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnChanges, OnInit, Renderer2} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, Renderer2} from '@angular/core';
 import {StockDataService} from '../services/stock-data.service';
 import {MatDialog} from '@angular/material/dialog';
 import {Chart, ChartType} from 'chart.js/auto';
@@ -10,7 +10,7 @@ import annotationPlugin from 'chartjs-plugin-annotation';
   templateUrl: './line-chart.component.html',
   styleUrls: ['./line-chart.component.css']
 })
-export class LineChartComponent implements OnInit, OnChanges {
+export class LineChartComponent implements AfterViewInit, OnInit, OnChanges {
 
   @Input() hideForm: boolean = false;
 
@@ -38,12 +38,15 @@ export class LineChartComponent implements OnInit, OnChanges {
     private el: ElementRef
   ) {}
 
+  ngAfterViewInit(): void {
+    this.canvasId = 'MyChartLine-' + Math.random().toString(36).substring(2, 15);
+    }
+
   ngOnChanges() {
   }
 
 
   ngOnInit(): void {
-    this.canvasId = 'MyChartLine-' + Math.random().toString(36).substring(2, 15);
   }
 
   createChart() {
