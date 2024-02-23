@@ -8,6 +8,7 @@ import {FlexModule} from "@angular/flex-layout";
 import {MatCardModule} from "@angular/material/card";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-pie-chart',
@@ -17,7 +18,8 @@ import {MatIconModule} from "@angular/material/icon";
     FlexModule,
     MatCardModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    NgIf
   ],
   styleUrls: ['./pie-chart.component.css']
 })
@@ -25,6 +27,8 @@ export class PieChartComponent implements AfterViewInit, OnInit {
 
   public chart: any;
   public newsSentiment: Observable<NewsSentiment>;
+  public noDataAvailable: boolean = true;
+  public showChart: boolean = true;
 
   constructor(public service: StockDataService) {
   }
@@ -46,6 +50,12 @@ export class PieChartComponent implements AfterViewInit, OnInit {
         sentiment.push(value.negativeSum);
         sentiment.push(value.positiveSum);
         sentiment.push(value.neutralSum);
+        if (value.allSum == 0) {
+          this.showChart = false;
+          return;
+        }else {
+          this.noDataAvailable = false;
+        }
         // You might want to do something here to update the chart with the new sentiment value
         this.chart = new Chart("pie", {
           type: 'pie', //this denotes tha type of chart
@@ -72,7 +82,6 @@ export class PieChartComponent implements AfterViewInit, OnInit {
     } else {
       throw new Error('newsSentiment is not available');
     }
-
 
 
   }

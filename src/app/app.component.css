@@ -58,9 +58,7 @@
     max-width: 100%;
     border-right: none;
   }
-  .centered-content > * {
-    flex: unset !important;
-  }
+
   .mat-mdc-card-content:first-child {
     padding-top: unset !important;
   }

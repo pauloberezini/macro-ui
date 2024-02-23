@@ -135,14 +135,19 @@ body {
   flex-wrap: nowrap;
 }
 
-
-.centered-content {
-  display: flex;
-  flex-wrap: wrap;
+.no-data {
+  text-align: center;
+  padding-top: 15vh;
 }
 
-.centered-content > * {
-  flex: 1 1;
+.no-data mat-icon {
+  color: var(--logo-blue); /* Red */
+}
+
+.no-data p {
+  margin-top: 10px;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.54); /* Lighter black for softer text */
 }
 
 
