@@ -51,6 +51,7 @@ import {HockeyBetComponent} from './hockey-bet/hockey-bet.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {TeamCardComponent} from './hockey-bet/team-card/team-card.component';
 import {MacroChartsComponent} from "./macro-charts/macro-charts.component";
+import {PieChartComponent} from "./pie-chart/pie-chart.component";
 
 
 const routes: Routes = [
@@ -122,7 +123,8 @@ const routes: Routes = [
     FlexLayoutModule,
     MatCheckboxModule,
     CommonModule,
-    MacroChartsComponent
+    MacroChartsComponent,
+    PieChartComponent
   ],
   exports: [
     MatTableModule,

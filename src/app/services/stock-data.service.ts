@@ -6,6 +6,7 @@ import {environment} from "../../environments/environment";
 import {EventDto} from "../model/event-dto";
 import {HockeyTeamStats} from "../model/hockey-teams-stats";
 import {Article} from "../model/article";
+import {NewsSentiment} from "../model/news-sentiment";
 
 @Injectable({
   providedIn: 'root'
@@ -79,6 +80,13 @@ export class StockDataService {
     const url = `${this.url}/api/news/business-news`;
     return this.http.get<Article[]>(url);
   }
+
+  getDailySentiment(): Observable<NewsSentiment> {
+    const url = `${this.url}/api/news/sentiment/day`;
+    return this.http.get<NewsSentiment>(url);
+  }
+
+
   getNewsTitles(currency: string): Observable<any> {
     const url = `${this.baseUrlAlpha}/dynamic/getAllMacroTitles/${currency}`;
     return this.http.get<any>(url);
