@@ -14,8 +14,11 @@ import {MatButtonModule} from "@angular/material/button";
 import {StockDataService} from "../services/stock-data.service";
 import * as moment from "moment/moment";
 import {MatIconModule} from "@angular/material/icon";
-import {Chart} from "chart.js/auto";
+import {Chart, registerables} from "chart.js/auto";
+import annotationPlugin from "chartjs-plugin-annotation";
 
+
+Chart.register(...registerables, annotationPlugin);
 @Component({
   selector: 'app-macro-charts',
   standalone: true,
@@ -41,6 +44,7 @@ import {Chart} from "chart.js/auto";
 export class MacroChartsComponent implements OnInit {
   currencyControl = new FormControl();
   filteredCurrencies: Observable<string[]>;
+
 
   currencies: string[] = ['USD', 'EUR', 'GBP', 'CAD', 'JPY', 'AUD', 'CHF', 'NZD', 'CNY', 'IDR', 'HKD', 'BRL', 'MXN', 'KRW', 'ZAR', 'NOK', 'SGD', 'INR'];
   selectedCountry: string = 'USD';

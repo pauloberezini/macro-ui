@@ -6,9 +6,8 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-
 <div class="flex-container" fxLayout="row" fxLayoutWrap="wrap">
-  <div *ngFor="let item of flexItems; let i = index" class="flex-item" fxFlex="50%">
+  <div *ngFor="let item of flexItems; let i = index" class="flex-item" fxFlex="100%" fxFlex.gt-xs="50%">
     <mat-form-field appearance="fill">
       <mat-label>Select Component</mat-label>
       <mat-select [(ngModel)]="item.selectedComponent" (selectionChange)="loadComponent(i, $event.value)">
