@@ -5,15 +5,34 @@
       <span class="example-spacer"> AI Today News Sentiment</span>
     </mat-toolbar-row>
   </mat-toolbar>
-  @if (noDataAvailable) {
-    <div  class="centered-content, no-data">
-      <mat-icon aria-hidden="false" aria-label="No data icon">info</mat-icon>
-      <p>Currently, there are no new updates to report for today. Please check back later for any developments.</p>
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" class="content-container">
+
+    <div fxFlex="50%" fxFlex.xs="100%" style="display: block;">
+      <mat-list>
+        <mat-list-item>Negative: {{negativeSum}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Positive: {{positiveSum}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Neutral: {{neutralSum}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>All: {{allSum}}</mat-list-item>
+      </mat-list>
+
+
     </div>
-  }
-  @if (showChart) {
-    <div style="display: block;">
-      <canvas id="pie"></canvas>
+
+    <div fxFlex="50%" fxFlex.xs="100%" style="display: block;">
+      @if (noDataAvailable) {
+        <div class="centered-content, no-data">
+          <mat-icon aria-hidden="false" aria-label="No data icon">info</mat-icon>
+          <p>Currently, there are no new updates to report for today. Please check back later for any developments.</p>
+        </div>
+      }
+      @if (showChart) {
+        <div style="display: block;">
+          <canvas id="pie"></canvas>
+        </div>
+      }
     </div>
-  }
+  </div>
 </mat-card>

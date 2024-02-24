@@ -9,6 +9,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {NgIf} from "@angular/common";
+import {MatListModule} from "@angular/material/list";
 
 @Component({
   selector: 'app-pie-chart',
@@ -19,7 +20,8 @@ import {NgIf} from "@angular/common";
     MatCardModule,
     MatToolbarModule,
     MatIconModule,
-    NgIf
+    NgIf,
+    MatListModule
   ],
   styleUrls: ['./pie-chart.component.css']
 })
@@ -29,6 +31,13 @@ export class PieChartComponent implements AfterViewInit, OnInit {
   public newsSentiment: Observable<NewsSentiment>;
   public noDataAvailable: boolean = true;
   public showChart: boolean = true;
+
+  public negativeSum: number = 0;
+  public positiveSum: number = 0;
+  public neutralSum: number = 0;
+  public allSum: number = 0;
+
+
 
   constructor(public service: StockDataService) {
   }
@@ -46,6 +55,10 @@ export class PieChartComponent implements AfterViewInit, OnInit {
     const sentiment: number[] = [];
     if (this.newsSentiment) {
       this.newsSentiment.subscribe(value => {
+        this.negativeSum = value.negativeSum;
+        this.positiveSum = value.positiveSum;
+        this.neutralSum = value.neutralSum;
+        this.allSum = value.allSum;
         // Assuming value.negativeSum is the number you want to push into the sentiment array
         sentiment.push(value.negativeSum);
         sentiment.push(value.positiveSum);
