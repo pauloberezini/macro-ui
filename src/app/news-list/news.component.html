@@ -1,5 +1,11 @@
 <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="6px" fxFlexFill>
   <div fxFlex="50%">
+    <mat-toolbar>
+      <mat-toolbar-row>
+        <mat-icon>newspaper</mat-icon>
+        <span class="example-spacer"> Last News</span>
+      </mat-toolbar-row>
+    </mat-toolbar>
     <mat-card *ngFor="let article of articles">
       <mat-expansion-panel>
         <mat-expansion-panel-header>
