@@ -136,9 +136,21 @@ body {
 }
 
 .no-data {
-  text-align: center;
-  padding-top: 15vh;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.centered-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%; /* Or a specific height if you want to set one */
+  flex-direction: column;
+}
+
 
 .no-data mat-icon {
   color: var(--logo-blue); /* Red */
