@@ -1,10 +1,11 @@
+
 <mat-toolbar>
-  <mat-toolbar-row>
     <span>Dashboard macro data graphs</span>
-    <span class="example-spacer"></span>
-    <button (click)="addGraph()" mat-raised-button class="flat-button">Add Graph</button>
-  </mat-toolbar-row>
 </mat-toolbar>
+<div fxLayout="row" fxLayoutAlign="end center" >
+  <button (click)="addGraph()" mat-raised-button class="flat-button">Add Graph</button>
+  <button (click)="cleanAll()" mat-raised-button class="flat-button">Clean all</button>
+</div>
 
 <div class="flex-container" fxLayout="row" fxLayoutWrap="wrap">
   <div *ngFor="let item of flexItems; let i = index" class="flex-item" fxFlex="100%" fxFlex.gt-xs="50%">

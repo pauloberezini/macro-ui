@@ -66,5 +66,10 @@ export class DashGraphsComponent {
     const newItem = {selectedComponent: ''};
     this.flexItems.push(newItem);
   }
+  cleanAll(): void {
+    this.targets.forEach(target => target.clear());
+    this.flexItems = [];
+    this.addGraph();
+  }
 
 }

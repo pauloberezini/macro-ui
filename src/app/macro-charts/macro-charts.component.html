@@ -5,7 +5,7 @@
 
       <mat-form-field>
         <mat-label>Select Currencies</mat-label>
-        <mat-select name="country" [(ngModel)]="selectedCountry">
+        <mat-select name="currency" [(ngModel)]="selectedCountry" (selectionChange)="onCurrencyChange()">
           <mat-option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -13,7 +13,7 @@
 
       <mat-form-field appearance="fill" style="width: 100%">
         <mat-label>Search</mat-label>
-        <input type="text"
+        <input name="search" type="text"
                aria-label="Number"
                matInput
                [formControl]="currencyControl"
@@ -31,7 +31,7 @@
     @if (noDataAvailable) {
       <div class="centered-content, no-data">
         <mat-icon aria-hidden="false" aria-label="No data icon">info</mat-icon>
-        <p>No Macro data available for this event, or no event has been selected.</p>
+        <p>Select the relevant economic indicator</p>
       </div>
 
     }

@@ -72,6 +72,8 @@ export class MacroChartsComponent implements OnInit {
         filter(value => value.length > 1) // Only if the value length is greater than 1
       )
       .subscribe(value => {
+        debugger
+
         this.request(value);
       });
   }
@@ -87,7 +89,12 @@ export class MacroChartsComponent implements OnInit {
         this.noDataAvailable = this.chartData.length === 0;
         this.showChart = this.chartData.length > 0;
 
-        this.createChart(eventName);
+
+        if (this.showChart) {
+          this.createChart(eventName);
+          // Clear the search input after the chart is successfully loaded
+          this.currencyControl.setValue('');
+        }
       }
     });
   }
@@ -151,6 +158,9 @@ export class MacroChartsComponent implements OnInit {
       }
 
     });
+
+    //todo add here clean the input
+
   }
 
 
@@ -160,6 +170,14 @@ export class MacroChartsComponent implements OnInit {
   private _filter(currencies: string[], value: string): string[] {
     const filterValue = value.toLowerCase();
     return currencies.filter(currency => currency.toLowerCase().includes(filterValue));
+  }
+
+  onCurrencyChange(): void {
+    this.noDataAvailable = true;
+    if (this.chart) {
+      this.chart.destroy();
+    }
+    this.currencyControl.setValue('');
   }
 
 
