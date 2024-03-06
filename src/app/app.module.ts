@@ -52,6 +52,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {TeamCardComponent} from './hockey-bet/team-card/team-card.component';
 import {MacroChartsComponent} from "./macro-charts/macro-charts.component";
 import {PieChartComponent} from "./pie-chart/pie-chart.component";
+import {DataMessageComponent} from "./util/data-message/data-message.component";
 
 
 const routes: Routes = [
@@ -87,45 +88,46 @@ const routes: Routes = [
     HockeyBetComponent,
     TeamCardComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    MatTableModule,
-    FormsModule,
-    MatDividerModule,
-    MatInputModule,
-    MatNativeDateModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatGridListModule,
-    CommonModule,
-    MatSelectModule,
-    MatTabsModule,
-    AppRoutingModule,
-    NgxEchartsModule.forRoot({
-      echarts: () => import('echarts')
-    }),
-    MatIconModule,
-    MatToolbarModule,
-    MatProgressSpinnerModule,
-    MatCardModule,
-    MatExpansionModule,
-    MatDialogModule,
-    MatSidenavModule,
-    AppRoutingModule,
-    RouterModule.forRoot(routes),
-    MatAutocompleteModule,
-    MatSortModule,
-    MatRadioModule,
-    MatButtonToggleModule,
-    MatProgressBarModule,
-    FlexLayoutModule,
-    MatCheckboxModule,
-    CommonModule,
-    MacroChartsComponent,
-    PieChartComponent
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        MatTableModule,
+        FormsModule,
+        MatDividerModule,
+        MatInputModule,
+        MatNativeDateModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatGridListModule,
+        CommonModule,
+        MatSelectModule,
+        MatTabsModule,
+        AppRoutingModule,
+        NgxEchartsModule.forRoot({
+            echarts: () => import('echarts')
+        }),
+        MatIconModule,
+        MatToolbarModule,
+        MatProgressSpinnerModule,
+        MatCardModule,
+        MatExpansionModule,
+        MatDialogModule,
+        MatSidenavModule,
+        AppRoutingModule,
+        RouterModule.forRoot(routes),
+        MatAutocompleteModule,
+        MatSortModule,
+        MatRadioModule,
+        MatButtonToggleModule,
+        MatProgressBarModule,
+        FlexLayoutModule,
+        MatCheckboxModule,
+        CommonModule,
+        MacroChartsComponent,
+        PieChartComponent,
+        DataMessageComponent
+    ],
   exports: [
     MatTableModule,
     MatSortModule,

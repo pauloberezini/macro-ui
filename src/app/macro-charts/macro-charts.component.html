@@ -29,11 +29,7 @@
     </mat-card-actions>
 
     @if (noDataAvailable) {
-      <div class="centered-content, no-data">
-        <mat-icon aria-hidden="false" aria-label="No data icon">info</mat-icon>
-        <p>Select the relevant economic indicator</p>
-      </div>
-
+      <app-data-message [messageText]="'Select the relevant economic indicator'"></app-data-message>
     }
     <canvas #atrChart>{{ chart }}</canvas>
   </mat-card>

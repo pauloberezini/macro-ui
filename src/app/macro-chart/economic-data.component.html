@@ -1,9 +1,7 @@
 @if (noDataAvailable) {
-  <div class="centered-content no-data">
-    <mat-icon aria-hidden="false" aria-label="No data icon">info</mat-icon>
-    <p>No Macro data available for this event, or no event has been selected.</p>
-  </div>
+  <app-data-message
+    [messageText]="'No Macro data available for this event, or no event has been selected.'"></app-data-message>
 }
 @if (showChart) {
-    <canvas *ngIf="showChart" #atrChart>{{ chart }}</canvas>
+  <canvas *ngIf="showChart" #atrChart>{{ chart }}</canvas>
 }

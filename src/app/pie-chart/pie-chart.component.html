@@ -19,12 +19,9 @@
       </mat-list>
     </div>
 
-    <div fxFlex="70%" fxFlex.xs="100%" class="no-data">
+    <div fxFlex="70%" fxFlex.xs="100%">
       @if (noDataAvailable) {
-        <div class="centered-content">
-          <mat-icon aria-hidden="false" aria-label="No data icon">info</mat-icon>
-          <p>Currently, there are no new updates to report for today. Please check back later for any developments.</p>
-        </div>
+        <app-data-message [messageText]="'Currently, there are no new updates to report for today. Please check back later for any developments.'"></app-data-message>
       }
       @if (showChart) {
         <div style="display: block;">

@@ -16,6 +16,7 @@ import * as moment from "moment/moment";
 import {MatIconModule} from "@angular/material/icon";
 import {Chart, registerables} from "chart.js/auto";
 import annotationPlugin from "chartjs-plugin-annotation";
+import {DataMessageComponent} from "../util/data-message/data-message.component";
 
 
 Chart.register(...registerables, annotationPlugin);
@@ -36,7 +37,8 @@ Chart.register(...registerables, annotationPlugin);
     MatSelectModule,
     MatButtonModule,
     NgIf,
-    MatIconModule
+    MatIconModule,
+    DataMessageComponent
   ],
   templateUrl: './macro-charts.component.html',
   styleUrl: './macro-charts.component.css'

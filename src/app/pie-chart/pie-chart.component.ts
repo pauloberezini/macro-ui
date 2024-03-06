@@ -10,6 +10,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {NgIf} from "@angular/common";
 import {MatListModule} from "@angular/material/list";
+import {DataMessageComponent} from "../util/data-message/data-message.component";
 
 @Component({
   selector: 'app-pie-chart',
@@ -21,7 +22,8 @@ import {MatListModule} from "@angular/material/list";
     MatToolbarModule,
     MatIconModule,
     NgIf,
-    MatListModule
+    MatListModule,
+    DataMessageComponent
   ],
   styleUrls: ['./pie-chart.component.css']
 })
