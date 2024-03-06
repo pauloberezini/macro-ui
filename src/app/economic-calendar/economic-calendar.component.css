@@ -4,9 +4,6 @@
   height: 100vh;
 }
 
-.color-white {
-  color: white;
-}
 @media (max-width: 599px) {
   .mat-table {
     overflow-x: auto;
@@ -38,16 +35,17 @@ table {
 
 
 .mat-mdc-radio-button.mat-accent {
-  --mdc-radio-disabled-selected-icon-color: white;
-  --mdc-radio-disabled-unselected-icon-color: white;
-  --mdc-radio-unselected-focus-icon-color: white;
-  --mdc-radio-unselected-hover-icon-color: white;
-  --mdc-radio-unselected-icon-color: white;
-  --mdc-radio-unselected-pressed-icon-color: white;
-  --mdc-radio-selected-focus-icon-color: white;
-  --mdc-radio-selected-hover-icon-color: white;
-  --mdc-radio-selected-icon-color: white;
-  --mdc-radio-selected-pressed-icon-color: white;
-  --mat-mdc-radio-ripple-color: white;
-  --mat-mdc-radio-checked-ripple-color: white;
+  --mdc-radio-disabled-selected-icon-color: var(--logo-blue);
+  --mdc-radio-disabled-unselected-icon-color: var(--logo-blue);
+  --mdc-radio-unselected-focus-icon-color: var(--logo-blue);
+  --mdc-radio-unselected-hover-icon-color: var(--logo-blue);
+  --mdc-radio-unselected-icon-color: var(--logo-blue);
+  --mdc-radio-unselected-pressed-icon-color: var(--logo-blue);
+  --mdc-radio-selected-focus-icon-color: var(--logo-blue);
+  --mdc-radio-selected-hover-icon-color: var(--logo-blue);
+  --mdc-radio-selected-icon-color: var(--logo-blue);
+  --mdc-radio-selected-pressed-icon-color: var(--logo-blue);
+  --mat-mdc-radio-ripple-color: var(--logo-blue);
+  --mat-mdc-radio-checked-ripple-color: var(--logo-blue);
+  --mat-radio-checked-ripple-color: unset;
 }

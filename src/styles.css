@@ -3,7 +3,16 @@ html, body, mat-sidenav-container, mat-sidenav-content {
   margin: 0;
   font-size: 100%;
   font-family: Arial, sans-serif;
+
+  --mat-toolbar-title-text-font: Roboto, sans-serif;
+  --mat-toolbar-title-text-line-height: 32px;
+  --mat-toolbar-title-text-size: 16px;
+  --mat-toolbar-title-text-tracking: 0.0125em;
+  --mat-toolbar-title-text-weight: unset;
+  --mat-toolbar-standard-height: 40px;
+  --mat-toolbar-mobile-height: 40px;
 }
+
 
 * {
   margin: 0;

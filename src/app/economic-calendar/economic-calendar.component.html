@@ -1,24 +1,26 @@
 <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="6px" fxFlexFill>
   <mat-card fxFlex="100%">
     <mat-toolbar fxLayout="column" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutAlign.xs="start stretch">
-      <mat-toolbar-row fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign.xs="start stretch">
-        <mat-toolbar-row fxHide.xs>
-          <span class="example-spacer">Economic calendar</span>
-        </mat-toolbar-row>
-        <mat-card-actions align="end" fxFlex>
-          <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedOption">
-            <mat-radio-button value="1" (click)="onRadioButtonClick(1)">
-              <div class="color-white">All Markets</div>
-            </mat-radio-button>
-            <mat-radio-button style="padding-right: 10px" value="2" (click)="onRadioButtonClick(2)">
-              <div class="color-white">Custom</div>
-            </mat-radio-button>
-          </mat-radio-group>
-          <button *ngIf="selectedOption === '2'" mat-raised-button (click)="filterData()" class="flat-button">Update
-          </button>
-        </mat-card-actions>
+      <mat-toolbar-row fxHide.xs>
+        <span class="example-spacer">Economic calendar</span>
       </mat-toolbar-row>
+
     </mat-toolbar>
+
+    <mat-toolbar-row fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign.xs="start stretch">
+      <mat-card-actions align="end" fxFlex>
+        <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedOption">
+          <mat-radio-button value="1" (click)="onRadioButtonClick(1)">
+            <div>All Markets</div>
+          </mat-radio-button>
+          <mat-radio-button style="padding-right: 10px" value="2" (click)="onRadioButtonClick(2)">
+            <div>Custom</div>
+          </mat-radio-button>
+        </mat-radio-group>
+        <button *ngIf="selectedOption === '2'" mat-raised-button (click)="filterData()" class="flat-button">Update
+        </button>
+      </mat-card-actions>
+    </mat-toolbar-row>
 
     <div *ngIf="selectedOption === '2'">
       <mat-card-actions align="start">
