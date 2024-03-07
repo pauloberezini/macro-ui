@@ -39,12 +39,15 @@ export class PieChartComponent implements AfterViewInit, OnInit {
   public neutralSum: number = 0;
   public allSum: number = 0;
   @Input() period!: string;
+  public canvasId: string;
+  @Input('title-chart') titleChart!: string;
 
 
   constructor(public service: StockDataService) {
   }
 
   ngOnInit(): void {
+    this.canvasId = 'pie-chart-component-' + Math.random().toString(36).substring(2, 15);
     if (this.period != '') {
       this.newsSentiment = this.service.getChartSentiment(this.period);
     }
@@ -78,7 +81,7 @@ export class PieChartComponent implements AfterViewInit, OnInit {
         }
 
         // Initialize the new chart on the canvas
-        this.chart = new Chart("pie", {
+        this.chart = new Chart(this.canvasId, {
           type: 'pie', // This denotes the type of chart
           data: {
             labels: ['Negative', 'Positive', 'Neutral'],
