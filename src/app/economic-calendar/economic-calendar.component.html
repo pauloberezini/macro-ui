@@ -94,7 +94,12 @@
       <mat-toolbar-row>
         <span class="example-spacer">Historical data</span>
       </mat-toolbar-row>
+
     </mat-toolbar>
+
+      <div class="centered-content">
+        <app-economic-data [economicType]="'INFLATION'" [selectedRowData]="selectedRow"></app-economic-data>
+      </div>
   </mat-card>
-  <app-economic-data [economicType]="'INFLATION'" [selectedRowData]="selectedRow"></app-economic-data>
+
 </div>
