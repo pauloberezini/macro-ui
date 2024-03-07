@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ChartData, ChartType} from 'chart.js';
 import {Chart} from "chart.js/auto";
 import {StockDataService} from "../services/stock-data.service";
@@ -38,14 +38,17 @@ export class PieChartComponent implements AfterViewInit, OnInit {
   public positiveSum: number = 0;
   public neutralSum: number = 0;
   public allSum: number = 0;
-
+  @Input() period!: string;
 
 
   constructor(public service: StockDataService) {
   }
 
   ngOnInit(): void {
-    this.newsSentiment = this.service.getDailySentiment();
+    if (this.period != '') {
+      this.newsSentiment = this.service.getChartSentiment(this.period);
+    }
+
   }
 
 
@@ -61,25 +64,27 @@ export class PieChartComponent implements AfterViewInit, OnInit {
         this.positiveSum = value.positiveSum;
         this.neutralSum = value.neutralSum;
         this.allSum = value.allSum;
-        // Assuming value.negativeSum is the number you want to push into the sentiment array
-        sentiment.push(value.negativeSum);
-        sentiment.push(value.positiveSum);
-        sentiment.push(value.neutralSum);
+
+        // Check if there's already a chart and destroy it
+        if (this.chart) {
+          this.chart.destroy();
+        }
+
         if (value.allSum == 0) {
           this.showChart = false;
           return;
-        }else {
+        } else {
           this.noDataAvailable = false;
         }
-        // You might want to do something here to update the chart with the new sentiment value
-        this.chart = new Chart("pie", {
-          type: 'pie', //this denotes tha type of chart
 
-          data: {// values on X-Axis
+        // Initialize the new chart on the canvas
+        this.chart = new Chart("pie", {
+          type: 'pie', // This denotes the type of chart
+          data: {
             labels: ['Negative', 'Positive', 'Neutral'],
             datasets: [{
               label: 'AI Sentiment',
-              data: sentiment,
+              data: [this.negativeSum, this.positiveSum, this.neutralSum],
               backgroundColor: [
                 '#F44336',
                 '#4CAF50',
@@ -91,13 +96,11 @@ export class PieChartComponent implements AfterViewInit, OnInit {
           options: {
             aspectRatio: 2.5
           }
-
         });
       });
     } else {
       throw new Error('newsSentiment is not available');
     }
-
-
   }
+
 }

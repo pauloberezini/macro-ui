@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="6px" fxFlexFill>
   <div fxFlex="50%">
-    <app-pie-chart></app-pie-chart>
+    <app-pie-chart [period]="'daily'"></app-pie-chart>
   </div>
   <div fxFlex="50%">
     <mat-toolbar>
@@ -14,7 +14,6 @@
         <mat-expansion-panel-header>
           <div fxLayoutGap="row" fxLayoutGap="6px" fxLayoutAlign="start center">
             <span class="article-date">{{ article.publishedAt | dateFormat }}</span>
-            <!-- Use an empty span for the dot -->
             <span class="sentiment-indicator" [ngClass]="article.sentiment"></span>
             <span class="article-title">{{ article.title | truncate:truncateLength }}</span>
           </div>
@@ -25,5 +24,9 @@
         </mat-card-content>
       </mat-expansion-panel>
     </mat-card>
+  </div>
+
+  <div fxFlex="50%">
+    <app-pie-chart [period]="'monthly'"></app-pie-chart>
   </div>
 </div>
