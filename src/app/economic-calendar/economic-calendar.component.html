@@ -4,39 +4,23 @@
       <mat-toolbar-row fxHide.xs>
         <span class="example-spacer">Economic calendar</span>
       </mat-toolbar-row>
-
     </mat-toolbar>
-
-    <mat-toolbar-row fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign.xs="start stretch">
-      <mat-card-actions align="end" fxFlex>
-        <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedOption">
-          <mat-radio-button value="1" (click)="onRadioButtonClick(1)">
-            <div>All Markets</div>
-          </mat-radio-button>
-          <mat-radio-button style="padding-right: 10px" value="2" (click)="onRadioButtonClick(2)">
-            <div>Custom</div>
-          </mat-radio-button>
-        </mat-radio-group>
-        <button *ngIf="selectedOption === '2'" mat-raised-button (click)="filterData()" class="flat-button">Update
-        </button>
-      </mat-card-actions>
-    </mat-toolbar-row>
 
     <div *ngIf="selectedOption === '2'">
       <mat-card-actions align="start">
         <mat-form-field>
           <mat-label>Select Currencies</mat-label>
-          <mat-select name="country" [(ngModel)]="selectedCountry" multiple>
+          <mat-select (selectionChange)="filterData()" name="country" [(ngModel)]="selectedCountry" multiple>
             <mat-option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Volatility</mat-label>
-          <mat-select name="volatility" [(ngModel)]="volatility" multiple>
+          <mat-select (selectionChange)="filterData()"  name="volatility" [(ngModel)]="volatility" multiple>
             <mat-option *ngFor="let volatility of volatilisesSymbolic; let i = index"
                         [value]="volatilises[i]">
-              {{volatility}}
+              {{ volatility }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -111,8 +95,6 @@
         <span class="example-spacer">Historical data</span>
       </mat-toolbar-row>
     </mat-toolbar>
-    <div class="centered-content">
-    <app-economic-data [economicType]="'INFLATION'" [selectedRowData]="selectedRow"></app-economic-data>
-    </div>
   </mat-card>
+  <app-economic-data [economicType]="'INFLATION'" [selectedRowData]="selectedRow"></app-economic-data>
 </div>

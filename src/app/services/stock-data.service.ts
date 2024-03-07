@@ -81,8 +81,8 @@ export class StockDataService {
     return this.http.get<Article[]>(url);
   }
 
-  getDailySentiment(): Observable<NewsSentiment> {
-    const url = `${this.url}/api/news/sentiment/day`;
+    getChartSentiment(period: string): Observable<NewsSentiment> {
+    const url = `${this.url}/api/news/sentiment/${period}`;
     return this.http.get<NewsSentiment>(url);
   }
 
