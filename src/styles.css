@@ -160,6 +160,12 @@ body {
   flex-direction: column;
 }
 
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: unset !important;
+}
+
 
 .no-data mat-icon {
   color: var(--logo-blue); /* Red */
