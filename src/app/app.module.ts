@@ -7,7 +7,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms'; // Import FormsModule
 import {AppComponent} from './app.component';
-import {LineChartComponent} from './yahoo-monthly-data/line-chart.component';
+import {SeasonalityPro} from './yahoo-monthly-data/seasonality-pro.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
@@ -58,7 +58,7 @@ import {DataMessageComponent} from "./util/data-message/data-message.component";
 const routes: Routes = [
   {path: '', component: EconomicCalendarComponent},
   {path: 'app-news', component: NewsComponent},
-  {path: 'app-line-chart', component: LineChartComponent},
+  {path: 'app-line-chart', component: SeasonalityPro},
   {path: 'seasonality', component: MacroContainerComponent},
   {path: 'app-seasonality', component: SeasonalityComponent},
   {path: 'app-chart-year-component', component: ChartYearComponentComponent},
@@ -70,7 +70,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    LineChartComponent,
+    SeasonalityPro,
     EconomicCalendarComponent,
     EconomicDataComponent,
     NewsComponent,

@@ -7,10 +7,10 @@ import annotationPlugin from 'chartjs-plugin-annotation';
 
 @Component({
   selector: 'app-line-chart',
-  templateUrl: './line-chart.component.html',
-  styleUrls: ['./line-chart.component.css']
+  templateUrl: './seasonality-pro.component.html',
+  styleUrls: ['./seasonality-pro.component.css']
 })
-export class LineChartComponent implements AfterViewInit, OnInit, OnChanges {
+export class SeasonalityPro implements AfterViewInit, OnInit, OnChanges {
 
   @Input() hideForm: boolean = false;
 

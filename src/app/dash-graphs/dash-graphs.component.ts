@@ -5,7 +5,7 @@ import {
   ViewChildren,
   ViewContainerRef
 } from '@angular/core';
-import {LineChartComponent} from "../yahoo-monthly-data/line-chart.component";
+import {SeasonalityPro} from "../yahoo-monthly-data/seasonality-pro.component";
 import {Meta} from "@angular/platform-browser";
 import {MacroChartsComponent} from "../macro-charts/macro-charts.component";
 
@@ -17,7 +17,7 @@ import {MacroChartsComponent} from "../macro-charts/macro-charts.component";
 export class DashGraphsComponent {
   @ViewChildren('target', {read: ViewContainerRef}) targets: QueryList<ViewContainerRef>;
   availableComponents = [
-    {name: 'Seasonality pro', component: LineChartComponent},
+    {name: 'Seasonality pro', component: SeasonalityPro},
     {name: 'Economic Indicators', component: MacroChartsComponent},
     // {name: 'Daily Seasonality pro', component: LargeAreaChartComponent},
   ];
