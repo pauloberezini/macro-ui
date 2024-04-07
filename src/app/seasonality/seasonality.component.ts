@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, ViewChild} from '@angular/core';
-import {LineChartComponent} from "../yahoo-monthly-data/line-chart.component";
+import {SeasonalityPro} from "../yahoo-monthly-data/seasonality-pro.component";
 import {PieAreaComponent} from "../pie-area/pie-area.component";
 import {ChartYearComponentComponent} from "../chart-year-component/chart-year-component.component";
 import {Meta} from "@angular/platform-browser";
@@ -11,7 +11,7 @@ import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
   styleUrls: ['./seasonality.component.css']
 })
 export class SeasonalityComponent {
-  @ViewChild(LineChartComponent) lineChartComponent!: LineChartComponent;
+  @ViewChild(SeasonalityPro) lineChartComponent!: SeasonalityPro;
   @ViewChild(PieAreaComponent) pieAreaComponent!: PieAreaComponent;
   @ViewChild(ChartYearComponentComponent) chartYearComponentComponent!: ChartYearComponentComponent;
 
