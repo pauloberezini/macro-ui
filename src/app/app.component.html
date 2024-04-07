@@ -1,25 +1,61 @@
-<div class="container">
-  <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center" class="main-menu-home">
-    <div cdkMenuItem routerLink="/" class="main-menu-item berezini-logo"></div>
-    <button class="main-menu-item" cdkMenuItem routerLink="/" routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }" ariaCurrentWhenActive="page">Events
-    </button>
-    <button class="main-menu-item" cdkMenuItem routerLink="/app-seasonality" routerLinkActive="active"
-            ariaCurrentWhenActive="page">Seasonality
-    </button>
-    <button class="main-menu-item" cdkMenuItem routerLink="/app-news" routerLinkActive="active"
-            ariaCurrentWhenActive="page">News
-    </button>
-    <button class="main-menu-item" cdkMenuItem routerLink="/dash-graphs" routerLinkActive="active"
-            ariaCurrentWhenActive="page">Dash Graphs
-    </button>
-<!--    <button class="main-menu-item" cdkMenuItem routerLink="/hockey-bet" routerLinkActive="active"-->
-<!--            ariaCurrentWhenActive="page">Hockey - Bet-->
-<!--    </button>-->
-    <button class="main-menu-item" cdkMenuItem routerLink="/app-supported-by" routerLinkActive="active"
-            ariaCurrentWhenActive="page">About
-    </button>
+<div class="container" fxLayout="row" fxLayoutGap="10px" fxLayout.xs="column">
+
+  <div cdkMenuItem routerLink="/" class="main-menu-item berezini-logo"></div>
+  <button class="menu-toggle" (click)="toggleMenu()">
+    <mat-icon>menu</mat-icon> <!-- Assuming you're using Angular Material Icons -->
+  </button>
+</div>
+<div class="app-container" fxLayout="row" fxLayoutGap="10px" fxLayout.xs="column">
+
+
+  <div [ngClass]="{'menu-collapsed': isCollapsed, 'menu-expanded': !isCollapsed}"
+       class="main-menu-overlay" fxLayout="column" fxLayoutAlign="start start"
+       (mouseenter)="isCollapsed = false" (mouseleave)="isCollapsed = true">
+
+
+    <!-- Vertical Menu Section -->
+    <div fxFlex="20" class="main-menu-home" fxLayout="column" fxLayoutAlign="start start">
+      <div fxLayout="column" fxLayoutAlign="start start" class="main-menu-home">
+        <!-- Menu items here -->
+
+        <button class="main-menu-item" cdkMenuItem routerLink="/" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }" ariaCurrentWhenActive="page">
+          <mat-icon>event_note</mat-icon>
+          <span *ngIf="!isCollapsed">Events</span>
+        </button>
+        <button class="main-menu-item" cdkMenuItem routerLink="/app-seasonality" routerLinkActive="active"
+                ariaCurrentWhenActive="page">
+          <mat-icon> show_chart</mat-icon>
+          <span *ngIf="!isCollapsed">Seasonality</span>
+        </button>
+        <button class="main-menu-item" cdkMenuItem routerLink="/app-news" routerLinkActive="active"
+                ariaCurrentWhenActive="page">
+          <mat-icon> pie_chart</mat-icon>
+          <span *ngIf="!isCollapsed">News</span>
+        </button>
+        <button class="main-menu-item" cdkMenuItem routerLink="/dash-graphs" routerLinkActive="active"
+                ariaCurrentWhenActive="page">
+          <mat-icon> multiline_chart</mat-icon>
+          <span *ngIf="!isCollapsed">Dash Graphs</span>
+        </button>
+        <!-- Hockey - Bet button is commented out, keep it that way if not needed -->
+        <!-- <button class="main-menu-item" cdkMenuItem routerLink="/hockey-bet" routerLinkActive="active"
+                ariaCurrentWhenActive="page">Hockey - Bet
+        </button> -->
+        <button class="main-menu-item" cdkMenuItem routerLink="/app-supported-by" routerLinkActive="active"
+                ariaCurrentWhenActive="page">
+          <mat-icon>info</mat-icon>
+          <span *ngIf="!isCollapsed">About</span>
+        </button>
+      </div>
+    </div>
   </div>
 
-  <router-outlet></router-outlet>
+  <!-- Content Section -->
+  <div fxFlex="100" class="content-area">
+
+    <!-- Your content goes here -->
+    <router-outlet></router-outlet>
+  </div>
 </div>
+

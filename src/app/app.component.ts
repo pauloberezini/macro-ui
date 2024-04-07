@@ -17,6 +17,7 @@ export interface StockData {
 })
 
 export class AppComponent {
+  isCollapsed = true;
 
   constructor(private metaTagService: Meta) {}
   ngOnInit() {
@@ -29,5 +30,9 @@ export class AppComponent {
       { property: 'og:type', content: 'website' },
       { property: 'og:image', content: 'https://macro.berezini.com/assets/images/economic-calendar-og-image.png' },
     ]);
+  }
+
+  toggleMenu() {
+    this.isCollapsed = !this.isCollapsed;
   }
 }

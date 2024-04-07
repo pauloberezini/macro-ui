@@ -3,8 +3,45 @@
   flex-direction: column;
   max-width: 10vw;
   border-right: solid 1px rgb(208, 208, 208);
-  background-color: var(--light-gray);
+  background-color: var(--dark-gray);
   padding: 6px 0;
+}
+
+.menu-toggle {
+  position: absolute;
+  color: var(--dark-gray);
+  background-color: transparent;
+  top: 16px;
+  left: 15px;
+  z-index: 1050;
+  /*background-color: transparent;*/
+  border: none;
+  cursor: pointer;
+}
+
+.menu-expanded .main-menu-item mat-icon {
+  margin-right: 8px;
+}
+
+.app-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+.main-menu-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 200px;
+  background-color: var(--light-gray);
+  z-index: 1000;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.menu-expanded {
+  transform: translateX(0);
 }
 
 .main-menu-item {
@@ -14,11 +51,9 @@
   cursor: pointer;
   border: none;
   font-weight: 700;
-
   user-select: none;
   line-height: 36px;
   padding: 0 16px;
-
   display: grid;
   align-items: center;
   flex-direction: row;
@@ -26,7 +61,6 @@
 }
 
 .main-menu-item:hover {
-  /*background-color: rgb(208, 208, 208);*/
   background-color: unset;
   color: var(--logo-blue);
 }
@@ -36,21 +70,27 @@
 }
 
 .berezini-logo {
-  margin-right: 16px;  /* provides some space after the logo */
+  margin-right: 16px;
+  padding-top: 60px;
   padding-right: 200px;
 }
+
 .main-menu-item.berezini-logo{
   background: #0000 url('/assets/images/logo.svg') no-repeat center;
   background-size: contain;
-  padding-top: 60px;
-  width: 100%;
-  height: 50px;
+}
+@media screen and (max-width: 600px) {
+  .berezini-logo {
+    height: 30px;
+    padding-top: 15px;
+    background-size: cover;
+    padding-top: 40px;
+  }
 }
 
-/* For smartphones */
 @media screen and (max-width: 768px) {
   .berezini-logo {
-    padding-top: 0px;
+    padding-top: 40px;
     width: 100%;
     height: 30px;
   }
@@ -58,21 +98,56 @@
     max-width: 100%;
     border-right: none;
   }
-
-  .mat-mdc-card-content:first-child {
-    padding-top: unset !important;
-  }
-  .mat-mdc-tab-labels {
-    display: unset !important;
-    flex: unset !important;
-  }
 }
+
 @media screen and (max-width: 1024px) {
   .berezini-logo {
     height: 50px;
+    padding-top: 40px;
   }
   .main-menu {
     max-width: 100%;
     border-right: none;
   }
+}
+
+.menu-collapsed {
+  width: 50px;
+}
+
+.menu-expanded {
+  width: 200px;
+}
+
+.main-menu-item {
+  display: flex;
+  align-items: center;
+}
+
+.menu-icon {
+  margin-right: 10px;
+}
+
+.menu-collapsed .main-menu-item span:not(.menu-icon) {
+  display: none;
+}
+
+.menu-collapsed .menu-icon {
+  transform: rotate(-90deg);
+}
+
+.menu-expanded .menu-icon {
+  transform: rotate(90deg);
+}
+
+.content-area {
+  transition: margin-left 0.3s;
+}
+
+.container.menu-expanded .content-area {
+  margin-left: 200px;
+}
+
+.container.menu-collapsed .content-area {
+  margin-left: 50px;
 }
