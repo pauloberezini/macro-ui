@@ -17,7 +17,7 @@
 
         <mat-form-field>
           <mat-label>Volatility</mat-label>
-          <mat-select (selectionChange)="filterData()"  name="volatility" [(ngModel)]="volatility" multiple>
+          <mat-select (selectionChange)="filterData()" name="volatility" [(ngModel)]="volatility" multiple>
             <mat-option *ngFor="let volatility of volatilisesSymbolic; let i = index"
                         [value]="volatilises[i]">
               {{ volatility }}
@@ -64,8 +64,14 @@
 
         <ng-container matColumnDef="actualInfo">
           <th mat-header-cell *matHeaderCellDef>Actual</th>
-          <td mat-cell *matCellDef="let news">{{ news.actualInfo }}</td>
+          <td mat-cell *matCellDef="let news" [ngStyle]="{
+        'background-color': news.actualInfo > news.forecastInfo ? '#ccffcc' :
+                             news.actualInfo < news.forecastInfo ? '#ffcccc' : 'transparent'
+      }">
+            {{ news.actualInfo }}
+          </td>
         </ng-container>
+
 
         <ng-container matColumnDef="forecastInfo">
           <th mat-header-cell *matHeaderCellDef>Forecast</th>
@@ -97,9 +103,9 @@
 
     </mat-toolbar>
 
-      <div class="centered-content">
-        <app-economic-data [economicType]="'INFLATION'" [selectedRowData]="selectedRow"></app-economic-data>
-      </div>
+    <div class="centered-content">
+      <app-economic-data [economicType]="'INFLATION'" [selectedRowData]="selectedRow"></app-economic-data>
+    </div>
   </mat-card>
 
 </div>
