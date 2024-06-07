@@ -31,7 +31,7 @@
       <table mat-table [dataSource]="newsCollection" matSort #empTbSort="matSort">
         <ng-container matColumnDef="time">
           <th mat-header-cell *matHeaderCellDef>Time</th>
-          <td mat-cell *matCellDef="let news">{{ news.time | timeFormat: 1 }}</td>
+          <td mat-cell *matCellDef="let news">{{ news.time | timeFormat: 0 }}</td>
         </ng-container>
 
         <ng-container matColumnDef="country">
