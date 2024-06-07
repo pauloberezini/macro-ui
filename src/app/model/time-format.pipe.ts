@@ -5,15 +5,27 @@ import {Pipe, PipeTransform} from '@angular/core';
 })
 export class TimeFormatPipe implements PipeTransform {
   transform(time: string, utcOffset: number): any {
+    const currentTime = new Date(time);
+    if (this.isDST(currentTime)) {
+      utcOffset = 0; // Adjust by 1 hour
+    } else {
+      utcOffset = 1;
+    }
     return this.adjustForTimezone(time, utcOffset);
   }
 
+  isDST(date: Date): boolean {
+    const jan = new Date(date.getFullYear(), 0, 1).getTimezoneOffset();
+    const jul = new Date(date.getFullYear(), 6, 1).getTimezoneOffset();
+    return date.getTimezoneOffset() < Math.max(jan, jul);
+  }
+
   adjustForTimezone(arg: string, utcOffset: number): any {
-    let localDate :Date = new Date(arg);
+    let localDate: Date = new Date(arg);
     localDate.setHours(localDate.getHours() + utcOffset);
 
     let isDST = this.isDaylightSavingTime(localDate);
-    console.log('isDST '+ isDST);
+    console.log('isDST ' + isDST);
     return this.convertMillisToCurrentTimezone(localDate.getTime());
   }
 
@@ -26,7 +38,6 @@ export class TimeFormatPipe implements PipeTransform {
 
     // Convert the offset to milliseconds
     let offsetMillis = offsetHours * 60 * 60 * 1000;
-
 
 
     return this.formatDate(new Date(gmt4Millis - offsetMillis));
