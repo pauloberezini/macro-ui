@@ -28,7 +28,7 @@ mat-button-toggle-group {
 /* Desktops */
 @media screen and (min-width: 961px) {
   mat-grid-tile {
-    padding: 500px;
+    height: 100%;
   }
   .mat-form-field {
     width: 25%;

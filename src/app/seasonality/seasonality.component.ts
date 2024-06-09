@@ -1,24 +1,39 @@
-import {ChangeDetectorRef, Component, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ComponentRef, OnInit, Type, ViewChild, ViewContainerRef} from '@angular/core';
 import {SeasonalityPro} from "../yahoo-monthly-data/seasonality-pro.component";
 import {PieAreaComponent} from "../pie-area/pie-area.component";
 import {ChartYearComponentComponent} from "../chart-year-component/chart-year-component.component";
 import {Meta} from "@angular/platform-browser";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 
+export interface Tile {
+  color: string;
+  cols: number;
+  rows: number;
+}
+
 @Component({
   selector: 'app-seasonality',
   templateUrl: './seasonality.component.html',
   styleUrls: ['./seasonality.component.css']
 })
-export class SeasonalityComponent {
+
+export class SeasonalityComponent implements OnInit {
   @ViewChild(SeasonalityPro) lineChartComponent!: SeasonalityPro;
   @ViewChild(PieAreaComponent) pieAreaComponent!: PieAreaComponent;
   @ViewChild(ChartYearComponentComponent) chartYearComponentComponent!: ChartYearComponentComponent;
+  @ViewChild('dynamicInsert', {read: ViewContainerRef}) dynamicInsert: ViewContainerRef;
+  private componentRef: ComponentRef<any>;
 
   gridCols: number;
-  grid = { cols: 4, rowHeight: '2:1' };
+  grid = {cols: 5, rowHeight: '2:1'};
+  tiles: Tile[] = [
+    {cols: 3, rows: 3, color: 'lightblue'}, // 70% of the grid
+    {cols: 1, rows: 3, color: 'lightgreen'}, // 30% of the grid
+    // {cols: 2, rows: 1, color: 'lightpink'}, // Full width
+  ];
 
-  constructor(private metaTagService: Meta, private breakpointObserver: BreakpointObserver,private cdRef: ChangeDetectorRef) {
+  constructor(private metaTagService: Meta, private breakpointObserver: BreakpointObserver,
+              private cdRef: ChangeDetectorRef) {
     this.breakpointObserver.observe([
       Breakpoints.XSmall,
       Breakpoints.Small,
@@ -28,10 +43,10 @@ export class SeasonalityComponent {
     ]).subscribe(result => {
       if (result.matches) {
         if (result.breakpoints[Breakpoints.XSmall]) {
-          this.grid.cols = 1;
-          this.grid.rowHeight = '1:1';
+          this.grid.cols = 3;
+          this.grid.rowHeight = '1.75:1';
         } else if (result.breakpoints[Breakpoints.Small]) {
-          this.grid.cols = 2;
+          this.grid.cols = 3;
           this.grid.rowHeight = '1.5:1';
         } else if (result.breakpoints[Breakpoints.Medium]) {
           this.grid.cols = 3;
@@ -40,6 +55,9 @@ export class SeasonalityComponent {
           this.grid.cols = 4;
           this.grid.rowHeight = '2:1';
         }
+        console.log('grid.cols: ', this.grid.cols)
+        console.log('grid.rowHeight: ', this.grid.rowHeight)
+
       }
     });
   }
@@ -93,7 +111,8 @@ export class SeasonalityComponent {
     this.selectedMonth = currentMonth < 10 ? '0' + currentMonth : '' + currentMonth;
   }
 
-  getData(): void {
+  async getData() {
+    this.dynamicInsert.clear();
     // this.largeAreaChartComponent.stockSymbol = this.stockSymbol;
     // this.largeAreaChartComponent.selectedMonth = this.selectedMonth;
     // this.largeAreaChartComponent.getData();
@@ -110,5 +129,19 @@ export class SeasonalityComponent {
     }
 
     this.cdRef.detectChanges();
+
+    const componentMap = {
+      'GAS': () => import('../dynamic-component/gas/gas.component').then(m => m.GasComponent),
+      // Add other mappings...
+    };
+
+    if (componentMap[this.selectedStockSymbol]) {
+      const componentFactory = await componentMap[this.selectedStockSymbol]().then((cmp: Type<unknown>) => {
+        return this.dynamicInsert.createComponent(cmp);
+      });
+      this.componentRef = componentFactory;
+      // Optionally set properties on the component instance
+      // this.componentRef.instance.someInput = someValue;
+    }
   }
 }

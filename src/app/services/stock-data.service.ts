@@ -7,6 +7,7 @@ import {EventDto} from "../model/event-dto";
 import {HockeyTeamStats} from "../model/hockey-teams-stats";
 import {Article} from "../model/article";
 import {NewsSentiment} from "../model/news-sentiment";
+import {StorageResponseDTO} from "../model/gas-storage";
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +50,11 @@ export class StockDataService {
   getNhlData(): Observable<HockeyTeamStats[]> {
     const url = `${this.url}/nhl/standings`;
     return this.http.get<HockeyTeamStats[]>(url);
+  }
+
+  getGasStorageData(): Observable<StorageResponseDTO> {
+    const url = `${this.url}/agsi/storageData`;
+    return this.http.get<StorageResponseDTO>(url);
   }
 
 

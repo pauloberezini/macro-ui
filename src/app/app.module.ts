@@ -53,6 +53,7 @@ import {TeamCardComponent} from './hockey-bet/team-card/team-card.component';
 import {MacroChartsComponent} from "./macro-charts/macro-charts.component";
 import {PieChartComponent} from "./pie-chart/pie-chart.component";
 import {DataMessageComponent} from "./util/data-message/data-message.component";
+import {GasComponent} from "./dynamic-component/gas/gas.component";
 
 
 const routes: Routes = [
@@ -64,6 +65,7 @@ const routes: Routes = [
   {path: 'app-chart-year-component', component: ChartYearComponentComponent},
   {path: 'app-supported-by', component: SupportedByComponent},
   {path: 'dash-graphs', component: DashGraphsComponent},
+  {path: 'app-gas', component: GasComponent},
   {path: 'hockey-bet', component: HockeyBetComponent}
 ];
 

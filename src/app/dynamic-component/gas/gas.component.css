@@ -1,0 +1,21 @@
+.legend-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.legend {
+  display: flex;
+  border: 1px solid #ccc; /* Optional: adds border around the legend */
+  border-radius: 5px; /* Optional: rounds the corners of the legend border */
+}
+
+.legend-item {
+  padding: 5px 10px;
+  color: white; /* Text color */
+  font-size: 14px;
+  display: inline-block;
+  text-align: center;
+}
+
+/* Additional styling for individual legend items if necessary */
