@@ -1,0 +1,25 @@
+<!-- gas.component.html -->
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span>Storage capacity {{ lastDay }}</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="legend-container">
+  <div class="legend">
+    <div class="legend-item" style="background-color: #cc0000;">1 - 40</div>
+    <div class="legend-item" style="background-color: #f90000;">41 - 50</div>
+    <div class="legend-item" style="background-color: #ff6600;">51 - 60</div>
+    <div class="legend-item" style="background-color: #ffa500;">61 - 70</div>
+    <div class="legend-item" style="background-color: #00ff00;">71 - 80</div>
+    <div class="legend-item" style="background-color: #00b200;">81 - 90</div>
+    <div class="legend-item" style="background-color: #004700;">91 - 100</div>
+  </div>
+</div>
+
+<div>
+  <canvas #gasChart></canvas>
+</div>
+
+<footer class="source-attribution">
+  <p>Data sourced from GIE AGSI/ALSI platforms</p>
+</footer>

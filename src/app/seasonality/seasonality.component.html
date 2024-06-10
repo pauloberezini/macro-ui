@@ -24,7 +24,19 @@
   </mat-button-toggle-group>
 </section>
 <mat-grid-list [cols]="grid.cols" [rowHeight]="grid.rowHeight">
-  <mat-grid-tile class="grid-tile">
+  <!-- Tile 1: Chart component occupying 70% of the first row -->
+<mat-grid-tile [colspan]="tiles[0].cols" [rowspan]="tiles[0].rows" ><!--  [style.background]="tiles[0].color"-->
     <app-chart-year-component></app-chart-year-component>
   </mat-grid-tile>
+
+  <!-- Tile 2: Dynamic content occupying 30% of the first row -->
+  <mat-grid-tile [colspan]="tiles[1].cols" [rowspan]="tiles[1].rows">
+    <ng-template #dynamicInsert></ng-template>
+  </mat-grid-tile>
+
+<!--  &lt;!&ndash; Tile 3: Possibly for future expansion or additional content, spans the full width of the second row &ndash;&gt;-->
+<!--  <mat-grid-tile [colspan]="tiles[2].cols" [rowspan]="tiles[2].rows" [style.background]="tiles[2].color">-->
+<!--    &lt;!&ndash; You can place additional components or templates here &ndash;&gt;-->
+<!--  </mat-grid-tile>-->
 </mat-grid-list>
+

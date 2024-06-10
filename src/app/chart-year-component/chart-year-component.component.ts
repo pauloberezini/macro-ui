@@ -18,7 +18,7 @@ export class ChartYearComponentComponent implements OnInit {
   public chart: any;
   resizeEvent = new Subject<void>();
 
-  public election: string = 'regular';
+  public election: string = 'elec';
   public stockName: string = 'SP500';
   canvasId: string;
 
@@ -35,8 +35,6 @@ export class ChartYearComponentComponent implements OnInit {
   ngOnInit(): void {
     this.canvasId = 'chart-year-component-' + Math.random().toString(36).substring(2, 15);
     this.createChart();
-
-
   }
 
   ngOnDestroy() {
@@ -198,10 +196,5 @@ export class ChartYearComponentComponent implements OnInit {
         }
       });
     });
-
-
-    // })
-
-
   }
 }
