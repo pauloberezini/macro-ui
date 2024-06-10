@@ -69,6 +69,19 @@ export class EconomicCalendarComponent implements OnInit {
     }
   }
 
+  getBackgroundColor(actualInfo: string, forecastInfo: string): string {
+    const actual = parseFloat(actualInfo.trim());
+    const forecast = parseFloat(forecastInfo.trim());
+
+    if (!isNaN(actual) && !isNaN(forecast)) {
+      if (actual > forecast) {
+        return '#ccffcc'; // Light green for actual greater than forecast
+      } else if (actual < forecast) {
+        return '#ffcccc'; // Light red for actual less than forecast
+      }
+    }
+    return 'transparent'; // Default no background
+  }
 
   filterData(): void {
     this.selectedRow = null;

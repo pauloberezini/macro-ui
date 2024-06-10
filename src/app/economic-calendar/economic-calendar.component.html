@@ -65,13 +65,11 @@
         <ng-container matColumnDef="actualInfo">
           <th mat-header-cell *matHeaderCellDef>Actual</th>
           <td mat-cell *matCellDef="let news" [ngStyle]="{
-        'background-color': (news.actualInfo && news.actualInfo > news.forecastInfo) ? '#ccffcc' :
-                             (news.actualInfo && news.actualInfo < news.forecastInfo) ? '#ffcccc' : 'transparent'
-      }">
-            {{ news.actualInfo }}
+      'background-color': getBackgroundColor(news.actualInfo, news.forecastInfo)
+    }">
+            {{ news.actualInfo.trim() }}
           </td>
         </ng-container>
-
 
         <ng-container matColumnDef="forecastInfo">
           <th mat-header-cell *matHeaderCellDef>Forecast</th>
