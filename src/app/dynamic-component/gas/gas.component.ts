@@ -16,6 +16,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 })
 export class GasComponent implements AfterViewInit {
   @ViewChild('gasChart') gasChart: ElementRef<HTMLCanvasElement>;
+  public lastDay: string;
 
   public chart: Chart;
   public chartOptions: ChartOptions = {
@@ -47,6 +48,7 @@ export class GasComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.gasStorageData$.subscribe(data => {
       this.updateChartData(data);
+      this.lastDay = data.gasDay;
     });
   }
 

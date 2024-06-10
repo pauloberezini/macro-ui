@@ -1,10 +1,9 @@
 <!-- gas.component.html -->
 <mat-toolbar>
   <mat-toolbar-row>
-    <span>Storage capacity</span>
+    <span>Storage capacity {{ lastDay }}</span>
   </mat-toolbar-row>
 </mat-toolbar>
-
 <div class="legend-container">
   <div class="legend">
     <div class="legend-item" style="background-color: #cc0000;">1 - 40</div>
@@ -20,3 +19,7 @@
 <div>
   <canvas #gasChart></canvas>
 </div>
+
+<footer class="source-attribution">
+  <p>Data sourced from GIE AGSI/ALSI platforms</p>
+</footer>

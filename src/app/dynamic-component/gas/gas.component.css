@@ -13,9 +13,17 @@
 .legend-item {
   padding: 5px 10px;
   color: white; /* Text color */
-  font-size: 14px;
+  font-size: 0.7rem;
   display: inline-block;
   text-align: center;
 }
 
 /* Additional styling for individual legend items if necessary */
+/* gas.component.css */
+.source-attribution {
+  text-align: center;
+  /*margin-top: 10px;*/
+  float: right;
+  font-size: 0.6rem;
+  color: #666;
+}

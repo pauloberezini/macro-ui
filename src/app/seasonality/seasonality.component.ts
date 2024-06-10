@@ -24,7 +24,6 @@ export class SeasonalityComponent implements OnInit {
   @ViewChild('dynamicInsert', {read: ViewContainerRef}) dynamicInsert: ViewContainerRef;
   private componentRef: ComponentRef<any>;
 
-  gridCols: number;
   grid = {cols: 5, rowHeight: '2:1'};
   tiles: Tile[] = [
     {cols: 3, rows: 3, color: 'lightblue'}, // 70% of the grid
