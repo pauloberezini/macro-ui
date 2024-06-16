@@ -1,3 +1,27 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span>Seasonal trading pattern analytics</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+<section>
+  <mat-form-field>
+    <mat-label>Enter a stock symbol</mat-label>
+    <mat-select (selectionChange)="getData()" [(value)]="stockName" name="stock">
+      @for (symbol of stockSymbols; track symbol) {
+        <mat-option [value]="symbol">{{ symbol }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</section>
+
+<section>
+  <mat-button-toggle-group (change)="getData()" [(ngModel)]="election" aria-label="Font Style">
+    <mat-button-toggle value="regular">Regular</mat-button-toggle>
+    <mat-button-toggle value="pre">Pre Election</mat-button-toggle>
+    <mat-button-toggle value="elec">Election</mat-button-toggle>
+    <mat-button-toggle value="post">Post Election</mat-button-toggle>
+  </mat-button-toggle-group>
+</section>
 <div class="chart-container">
   <canvas [id]="canvasId">{{ chart }}</canvas>
 </div>
