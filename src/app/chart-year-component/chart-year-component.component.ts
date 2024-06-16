@@ -1,12 +1,9 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, EventEmitter, HostListener, OnInit, Output, Type} from '@angular/core';
 import {Chart} from 'chart.js/auto';
 import {StockDataService} from "../services/stock-data.service";
 import {Subject} from "rxjs";
 import {debounceTime} from "rxjs/operators";
 import annotationPlugin from "chartjs-plugin-annotation";
-
-
-// Register the dateFnsAdapter with Chart.js
 
 @Component({
   selector: 'app-chart-year-component',
@@ -14,6 +11,7 @@ import annotationPlugin from "chartjs-plugin-annotation";
   styleUrls: ['./chart-year-component.component.css']
 })
 export class ChartYearComponentComponent implements OnInit {
+  @Output() valueChanged = new EventEmitter<string>();
 
   public chart: any;
   resizeEvent = new Subject<void>();
@@ -21,6 +19,14 @@ export class ChartYearComponentComponent implements OnInit {
   public election: string = 'elec';
   public stockName: string = 'SP500';
   canvasId: string;
+
+  stockSymbols: string[] = [
+    "AUDUSD", "BRENT", "BTCUSD", "COPPER", "CORN", "DAX",
+    "DOW_JONES", "DXY", "EURUSD", "GAS", "GASOLINE", "GBPUSD",
+    "GOLD", "NASDAQ_100", "NIKKEI_225", "NZDUSD", "PLATINUM",
+    "SILVER", "SOYBEANS", "SP500", "USDCAD", "USDCHF", "USDJPY",
+    "WHEAT", "WTI"
+  ];
 
   values: number[] = [];
 
@@ -35,6 +41,12 @@ export class ChartYearComponentComponent implements OnInit {
   ngOnInit(): void {
     this.canvasId = 'chart-year-component-' + Math.random().toString(36).substring(2, 15);
     this.createChart();
+
+  }
+
+  async getData() {
+    this.createChart();
+    this.valueChanged.emit(this.stockName);
   }
 
   ngOnDestroy() {

@@ -32,7 +32,7 @@ export class GasComponent implements AfterViewInit {
         max: 100,  // Set the maximum value for the y-axis
         ticks: {
           // Optionally, you can adjust the step size as needed
-          stepSize: 1
+          stepSize: 2
         }
       }
     }
