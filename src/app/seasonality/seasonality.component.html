@@ -1,42 +1,14 @@
-<mat-toolbar>
-  <mat-toolbar-row>
-    <span>Seasonal trading pattern analytics</span>
-  </mat-toolbar-row>
-</mat-toolbar>
+<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="6px" fxFlexFill>
 
 
-<section>
-  <mat-form-field>
-    <mat-label>Enter a stock symbol</mat-label>
-    <mat-select (selectionChange)="getData()" [(value)]="selectedStockSymbol" name="stock">
-      @for (symbol of stockSymbols; track symbol) {
-        <mat-option [value]="symbol">{{ symbol }}</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
-</section>
-<section>
-  <mat-button-toggle-group (change)="getData()" [(ngModel)]="election" aria-label="Font Style">
-    <mat-button-toggle value="regular">Regular</mat-button-toggle>
-    <mat-button-toggle value="pre">Pre Election</mat-button-toggle>
-    <mat-button-toggle value="elec">Election</mat-button-toggle>
-    <mat-button-toggle value="post">Post Election</mat-button-toggle>
-  </mat-button-toggle-group>
-</section>
-<mat-grid-list [cols]="grid.cols" [rowHeight]="grid.rowHeight">
-  <!-- Tile 1: Chart component occupying 70% of the first row -->
-<mat-grid-tile [colspan]="tiles[0].cols" [rowspan]="tiles[0].rows" ><!--  [style.background]="tiles[0].color"-->
-    <app-chart-year-component></app-chart-year-component>
-  </mat-grid-tile>
+  <div fxFlex="60%">
+    <app-chart-year-component (valueChanged)="handleValueChanged($event)"></app-chart-year-component>
+  </div>
 
-  <!-- Tile 2: Dynamic content occupying 30% of the first row -->
-  <mat-grid-tile [colspan]="tiles[1].cols" [rowspan]="tiles[1].rows">
+
+  <div fxFlex="30%">
     <ng-template #dynamicInsert></ng-template>
-  </mat-grid-tile>
+  </div>
 
-<!--  &lt;!&ndash; Tile 3: Possibly for future expansion or additional content, spans the full width of the second row &ndash;&gt;-->
-<!--  <mat-grid-tile [colspan]="tiles[2].cols" [rowspan]="tiles[2].rows" [style.background]="tiles[2].color">-->
-<!--    &lt;!&ndash; You can place additional components or templates here &ndash;&gt;-->
-<!--  </mat-grid-tile>-->
-</mat-grid-list>
 
+</div>
