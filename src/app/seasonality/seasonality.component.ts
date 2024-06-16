@@ -21,73 +21,16 @@ export class SeasonalityComponent implements OnInit {
   @ViewChild(SeasonalityPro) lineChartComponent!: SeasonalityPro;
   @ViewChild(PieAreaComponent) pieAreaComponent!: PieAreaComponent;
   @ViewChild(ChartYearComponentComponent) chartYearComponentComponent!: ChartYearComponentComponent;
-  @ViewChild('dynamicInsert', {read: ViewContainerRef}) dynamicInsert: ViewContainerRef;
-  private componentRef: ComponentRef<any>;
+  @ViewChild('dynamicInsert', {read: ViewContainerRef}) dynamicInsert!: ViewContainerRef;
 
-  grid = {cols: 5, rowHeight: '2:1'};
-  tiles: Tile[] = [
-    {cols: 3, rows: 3, color: 'lightblue'}, // 70% of the grid
-    {cols: 1, rows: 3, color: 'lightgreen'}, // 30% of the grid
-    // {cols: 2, rows: 1, color: 'lightpink'}, // Full width
-  ];
 
-  constructor(private metaTagService: Meta, private breakpointObserver: BreakpointObserver,
-              private cdRef: ChangeDetectorRef) {
-    this.breakpointObserver.observe([
-      Breakpoints.XSmall,
-      Breakpoints.Small,
-      Breakpoints.Medium,
-      Breakpoints.Large,
-      Breakpoints.XLarge,
-    ]).subscribe(result => {
-      if (result.matches) {
-        if (result.breakpoints[Breakpoints.XSmall]) {
-          this.grid.cols = 3;
-          this.grid.rowHeight = '1.75:1';
-        } else if (result.breakpoints[Breakpoints.Small]) {
-          this.grid.cols = 3;
-          this.grid.rowHeight = '1.5:1';
-        } else if (result.breakpoints[Breakpoints.Medium]) {
-          this.grid.cols = 3;
-          this.grid.rowHeight = '1.75:1';
-        } else {
-          this.grid.cols = 4;
-          this.grid.rowHeight = '2:1';
-        }
-        console.log('grid.cols: ', this.grid.cols)
-        console.log('grid.rowHeight: ', this.grid.rowHeight)
+  constructor(private metaTagService: Meta, private cdRef: ChangeDetectorRef) {
 
-      }
-    });
   }
-
-  hidePie: boolean = true;
   selectedStockSymbol: string = 'SP500';
-  election: string = 'elec';
-  stockSymbols: string[] = [
-    "AUDUSD", "BRENT", "BTCUSD", "COPPER", "CORN", "DAX",
-    "DOW_JONES", "DXY", "EURUSD", "GAS", "GASOLINE", "GBPUSD",
-    "GOLD", "NASDAQ_100", "NIKKEI_225", "NZDUSD", "PLATINUM",
-    "SILVER", "SOYBEANS", "SP500", "USDCAD", "USDCHF", "USDJPY",
-    "WHEAT", "WTI"
-  ];
-  months: any = [
-    {label: 'January', value: '01'},
-    {label: 'February', value: '02'},
-    {label: 'March', value: '03'},
-    {label: 'April', value: '04'},
-    {label: 'May', value: '05'},
-    {label: 'June', value: '06'},
-    {label: 'July', value: '07'},
-    {label: 'August', value: '08'},
-    {label: 'September', value: '09'},
-    {label: 'October', value: '10'},
-    {label: 'November', value: '11'},
-    {label: 'December', value: '12'}
-  ];
   selectedMonth: string = '04';
 
-  ngOnInit() {
+  async ngOnInit() {
     this.metaTagService.addTags([
       {
         name: 'description',
@@ -110,21 +53,15 @@ export class SeasonalityComponent implements OnInit {
     this.selectedMonth = currentMonth < 10 ? '0' + currentMonth : '' + currentMonth;
   }
 
-  async getData() {
-    this.dynamicInsert.clear();
-    // this.largeAreaChartComponent.stockSymbol = this.stockSymbol;
-    // this.largeAreaChartComponent.selectedMonth = this.selectedMonth;
-    // this.largeAreaChartComponent.getData();
-    this.chartYearComponentComponent.stockName = this.selectedStockSymbol;
-    this.chartYearComponentComponent.election = this.election;
-    this.chartYearComponentComponent.createChart();
+  handleValueChanged(stockName: string) {
+    this.selectedStockSymbol = stockName;
+    this.getData();
+  }
 
-    // this.lineChartComponent.stockSymbol = this.selectedStockSymbol;
-    // this.lineChartComponent.getData();
-
-    this.hidePie = false;
-    if (this.pieAreaComponent) {
-      this.pieAreaComponent.createPieChart();
+  async getData(){
+    debugger
+    if (this.dynamicInsert) {
+      this.dynamicInsert.clear();
     }
 
     this.cdRef.detectChanges();
@@ -135,12 +72,10 @@ export class SeasonalityComponent implements OnInit {
     };
 
     if (componentMap[this.selectedStockSymbol]) {
-      const componentFactory = await componentMap[this.selectedStockSymbol]().then((cmp: Type<unknown>) => {
+      await componentMap[this.selectedStockSymbol]().then((cmp: Type<unknown>) => {
         return this.dynamicInsert.createComponent(cmp);
       });
-      this.componentRef = componentFactory;
-      // Optionally set properties on the component instance
-      // this.componentRef.instance.someInput = someValue;
     }
   }
+
 }
