@@ -1,24 +1,24 @@
 <form *ngIf="!hideForm" style="overflow: hidden">
-    <mat-form-field>
-        <mat-label>Enter a stock symbol</mat-label>
-        <input name="stock" [(ngModel)]="stockSymbol" matInput placeholder="Enter a stock symbol" value="GBPUSD=X">
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Enter from year</mat-label>
-        <input name="fromYear" [(ngModel)]="fromYear" matInput placeholder="Enter from year" value="2009" type="number">
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Enter to year</mat-label>
-        <input name="toYear" [(ngModel)]="toYear" matInput placeholder="Enter to year" value="2019" type="number">
-    </mat-form-field>
+  <mat-form-field>
+    <mat-label>Enter a stock symbol</mat-label>
+    <input name="stock" [(ngModel)]="stockSymbol" matInput placeholder="Enter a stock symbol" value="GBPUSD=X">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Style</mat-label>
+    <mat-select name="selectedValue" [(ngModel)]="chartStyle" value="bar">
+      <mat-option value="bar">Bar</mat-option>
+      <mat-option value="line">Line</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Enter from year</mat-label>
+    <input name="fromYear" [(ngModel)]="fromYear" matInput placeholder="Enter from year" value="2009" type="number">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Enter to year</mat-label>
+    <input name="toYear" [(ngModel)]="toYear" matInput placeholder="Enter to year" value="2019" type="number">
+  </mat-form-field>
 
-    <mat-form-field appearance="fill">
-        <mat-label>Style</mat-label>
-        <mat-select name="selectedValue" [(ngModel)]="chartStyle" value="bar">
-            <mat-option value="bar">Bar</mat-option>
-            <mat-option value="line">Line</mat-option>
-        </mat-select>
-    </mat-form-field>
   <section>
     <button (click)="getData()" mat-raised-button class="flat-button">Get Data</button>
   </section>
