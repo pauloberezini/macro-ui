@@ -3,6 +3,7 @@ import {StockDataService} from '../services/stock-data.service';
 import {MatDialog} from '@angular/material/dialog';
 import {Chart, ChartType} from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
+import {DateFormatPipe} from "../model/date-format-pipe";
 
 
 @Component({
@@ -29,18 +30,19 @@ export class SeasonalityPro implements AfterViewInit, OnInit, OnChanges {
 
   data: any;
   canvasId: string;
+  earliestDate: string;
 
 
   constructor(
     private stockDataService: StockDataService,
     public dialog: MatDialog,
-    private renderer: Renderer2,
-    private el: ElementRef
-  ) {}
+    private datefromat: DateFormatPipe
+  ) {
+  }
 
   ngAfterViewInit(): void {
     this.canvasId = 'MyChartLine-' + Math.random().toString(36).substring(2, 15);
-    }
+  }
 
   ngOnChanges() {
   }
@@ -63,7 +65,7 @@ export class SeasonalityPro implements AfterViewInit, OnInit, OnChanges {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         datasets: [
           {
-            label: this.stockSymbol,
+            label: this.stockSymbol + ' Data Beginning from: ' + this.datefromat.transform(this.earliestDate),
             data: this.getAverageValues(this.seasonalityAvg),
             backgroundColor: 'blue'
           }
@@ -77,14 +79,14 @@ export class SeasonalityPro implements AfterViewInit, OnInit, OnChanges {
               watermark: {
                 type: 'label',
                 position: 'center',
-                color:'rgba(0, 0, 0, 0.2)',
-                opacity:0.05,
+                color: 'rgba(0, 0, 0, 0.2)',
+                opacity: 0.05,
                 // backgroundColor: 'rgba(0, 0, 0, 0.05)', // low opacity
                 content: 'macro.berezini.com',
                 font: {
                   size: 80,
                   style: 'normal',
-                  family:'Fantasy'
+                  family: 'Fantasy'
                 },
                 textAlign: 'center'
               }
@@ -108,7 +110,9 @@ export class SeasonalityPro implements AfterViewInit, OnInit, OnChanges {
   getData(): void {
     this.data = [];
     this.stockDataService.getStockData(this.stockSymbol, this.fromYear, this.toYear).subscribe((response: any) => {
+      debugger
       this.data = response.data;
+      this.earliestDate = this.data[0].date;
       this.loadDailyData();
       this.loadMonthlyData();
     });

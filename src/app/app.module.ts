@@ -54,6 +54,7 @@ import {MacroChartsComponent} from "./macro-charts/macro-charts.component";
 import {PieChartComponent} from "./pie-chart/pie-chart.component";
 import {DataMessageComponent} from "./util/data-message/data-message.component";
 import {GasComponent} from "./dynamic-component/gas/gas.component";
+import {LoginComponent} from "./login/login.component";
 
 
 const routes: Routes = [
@@ -88,48 +89,49 @@ const routes: Routes = [
     PieAreaComponent,
     ChartYearComponentComponent,
     HockeyBetComponent,
+    LoginComponent,
     TeamCardComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        MatTableModule,
-        FormsModule,
-        MatDividerModule,
-        MatInputModule,
-        MatNativeDateModule,
-        ReactiveFormsModule,
-        MatButtonModule,
-        MatGridListModule,
-        CommonModule,
-        MatSelectModule,
-        MatTabsModule,
-        AppRoutingModule,
-        NgxEchartsModule.forRoot({
-            echarts: () => import('echarts')
-        }),
-        MatIconModule,
-        MatToolbarModule,
-        MatProgressSpinnerModule,
-        MatCardModule,
-        MatExpansionModule,
-        MatDialogModule,
-        MatSidenavModule,
-        AppRoutingModule,
-        RouterModule.forRoot(routes),
-        MatAutocompleteModule,
-        MatSortModule,
-        MatRadioModule,
-        MatButtonToggleModule,
-        MatProgressBarModule,
-        FlexLayoutModule,
-        MatCheckboxModule,
-        CommonModule,
-        MacroChartsComponent,
-        PieChartComponent,
-        DataMessageComponent
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    MatTableModule,
+    FormsModule,
+    MatDividerModule,
+    MatInputModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatGridListModule,
+    CommonModule,
+    MatSelectModule,
+    MatTabsModule,
+    AppRoutingModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    }),
+    MatIconModule,
+    MatToolbarModule,
+    MatProgressSpinnerModule,
+    MatCardModule,
+    MatExpansionModule,
+    MatDialogModule,
+    MatSidenavModule,
+    AppRoutingModule,
+    RouterModule.forRoot(routes),
+    MatAutocompleteModule,
+    MatSortModule,
+    MatRadioModule,
+    MatButtonToggleModule,
+    MatProgressBarModule,
+    FlexLayoutModule,
+    MatCheckboxModule,
+    CommonModule,
+    MacroChartsComponent,
+    PieChartComponent,
+    DataMessageComponent
+  ],
   exports: [
     MatTableModule,
     MatSortModule,
@@ -139,11 +141,13 @@ const routes: Routes = [
     MatSidenavModule,
     RouterModule
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: ApiInterceptor,
-    multi: true,
-  }],
+  providers: [
+    DateFormatPipe,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiInterceptor,
+      multi: true,
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule {
