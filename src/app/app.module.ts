@@ -54,6 +54,7 @@ import {MacroChartsComponent} from "./macro-charts/macro-charts.component";
 import {PieChartComponent} from "./pie-chart/pie-chart.component";
 import {DataMessageComponent} from "./util/data-message/data-message.component";
 import {GasComponent} from "./dynamic-component/gas/gas.component";
+import {LoginComponent} from "./login/login.component";
 
 
 const routes: Routes = [
@@ -88,6 +89,7 @@ const routes: Routes = [
     PieAreaComponent,
     ChartYearComponentComponent,
     HockeyBetComponent,
+    LoginComponent,
     TeamCardComponent
   ],
   imports: [
