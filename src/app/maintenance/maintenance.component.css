@@ -1,12 +1,15 @@
 .maintenance-page {
   text-align: center;
   padding: 50px;
-  background-color: #f8f9fa;
+  background-image: url('/assets/maintenance.jpg');
+  background-size: cover;
+  background-position: center;
   border: 1px solid #dee2e6;
   border-radius: 5px;
   margin: 100px auto;
-  max-width: 600px;
+  max-width: 100%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: white;
 }
 
 .maintenance-page h1 {
@@ -16,5 +19,4 @@
 
 .maintenance-page p {
   font-size: 1.2em;
-  color: #6c757d;
 }
