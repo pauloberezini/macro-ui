@@ -55,7 +55,6 @@ import {PieChartComponent} from "./pie-chart/pie-chart.component";
 import {DataMessageComponent} from "./util/data-message/data-message.component";
 import {GasComponent} from "./dynamic-component/gas/gas.component";
 import {LoginComponent} from "./login/login.component";
-import {ErrorInterceptorService} from "./interceptors/error.service";
 
 
 const routes: Routes = [
@@ -143,7 +142,6 @@ const routes: Routes = [
     RouterModule
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true},
     DateFormatPipe,
     {
       provide: HTTP_INTERCEPTORS,
