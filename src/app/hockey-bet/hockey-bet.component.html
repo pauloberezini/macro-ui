@@ -3,6 +3,11 @@
       <app-team-card [team]="team"></app-team-card>
   </ng-container>
 </div>
+<mat-radio-group [(ngModel)]="isPreviousStandings" (change)="switchTable()">
+  <mat-radio-button [value]="false">Current Standings</mat-radio-button>
+  <mat-radio-button [value]="true">Previous Standings</mat-radio-button>
+</mat-radio-group>
+
 
 <table mat-table [dataSource]="dataSource"  class="mat-elevation-z8 demo-table">
   <!-- Checkbox Column -->
