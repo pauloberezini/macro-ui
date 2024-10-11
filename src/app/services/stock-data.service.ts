@@ -52,6 +52,11 @@ export class StockDataService {
     return this.http.get<HockeyTeamStats[]>(url);
   }
 
+  getPreviousNhlData(): Observable<any> {
+    return this.http.get(`${this.url}/nhl/previousstandings`);
+  }
+
+
   getGasStorageData(): Observable<StorageResponseDTO> {
     const url = `${this.url}/agsi/storageData`;
     return this.http.get<StorageResponseDTO>(url);
