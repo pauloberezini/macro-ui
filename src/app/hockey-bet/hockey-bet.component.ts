@@ -12,20 +12,35 @@ import {Observable} from "rxjs";
 export class HockeyBetComponent {
   displayedColumns: string[] = ['select', 'teamName', 'gamesPlayed', 'goalsFor', 'goalsAgainst', 'goalsAverageAll', 'lossesAverage', 'goalsAverageAllH', 'lossesAverageH', 'goalsAverageAllG', 'lossesAverageG'];
   dataSource: HockeyTeamStats[];
-
+  isPreviousStandings: boolean = false; // Добавляем флаг для определения таблицы
   selection = new SelectionModel<HockeyTeamStats>(true, []);
 
-
-  constructor(public service: StockDataService) {
-  }
+  constructor(public service: StockDataService) {}
 
   ngOnInit(): void {
+    this.loadCurrentStandings();
+  }
 
-
+  loadCurrentStandings(): void {
     this.service.getNhlData().subscribe((response: any) => {
       this.dataSource = response;
-    })
+    });
   }
+
+  loadPreviousStandings(): void {
+    this.service.getPreviousNhlData().subscribe((response: any) => {
+      this.dataSource = response;
+    });
+  }
+
+  switchTable(): void {
+    if (this.isPreviousStandings) {
+      this.loadPreviousStandings();
+    } else {
+      this.loadCurrentStandings();
+    }
+  }
+
 
   onRowClicked(row: HockeyTeamStats) {
     if (this.selection.isSelected(row) || this.canSelectMore()) {
@@ -37,19 +52,21 @@ export class HockeyBetComponent {
     return this.selection.selected.length < 2;
   }
 
-
   isAllSelected() {
+    if (!this.dataSource) {
+      return false;
+    }
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.length;
     return numSelected === numRows;
   }
+
 
   toggleAllRows() {
     if (this.isAllSelected()) {
       this.selection.clear();
     } else {
       this.selection.clear(); // Clear existing selection
-      // Select the first two rows
       this.dataSource.slice(0, 2).forEach(row => this.selection.select(row));
     }
   }
