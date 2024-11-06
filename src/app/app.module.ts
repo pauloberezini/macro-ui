@@ -55,6 +55,7 @@ import {PieChartComponent} from "./pie-chart/pie-chart.component";
 import {DataMessageComponent} from "./util/data-message/data-message.component";
 import {GasComponent} from "./dynamic-component/gas/gas.component";
 import {LoginComponent} from "./login/login.component";
+import {SentimentLineChartComponent} from "./sentiment-line-chart/sentiment-line-chart.component";
 
 
 const routes: Routes = [
@@ -130,7 +131,8 @@ const routes: Routes = [
     CommonModule,
     MacroChartsComponent,
     PieChartComponent,
-    DataMessageComponent
+    DataMessageComponent,
+    SentimentLineChartComponent
   ],
   exports: [
     MatTableModule,
