@@ -41,6 +41,11 @@ export class StockDataService {
 
     return this.http.post<any>(url, body);
   }
+// Add this method to StockDataService
+  getSentimentSummary(): Observable<any[]> {
+    const url = `${this.url}/api/sentiment/summary`;
+    return this.http.get<any[]>(url);
+  }
 
   getEconomicData(type: string): Observable<Object[]> {
     const url = `${this.baseUrlAlpha}/economic/${type}`;

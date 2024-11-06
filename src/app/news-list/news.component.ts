@@ -1,26 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { StockDataService } from '../services/stock-data.service';
-import {Meta} from "@angular/platform-browser";
-import {Article} from "../model/article";
+import { Meta } from "@angular/platform-browser";
+import { Article } from "../model/article";
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
 import { Subscription } from 'rxjs';
-
 
 @Component({
   selector: 'app-news',
   templateUrl: './news.component.html',
   styleUrls: ['./news.component.css']
 })
-export class NewsComponent {
+export class NewsComponent implements OnInit {
 
   articles: Article[] = [];
+  sentimentData: any[] = []; // Add the sentimentData array
   truncateLength: number = 100;
   private mediaSub: Subscription;
 
   constructor(
     private metaTagService: Meta,
     private stockDataService: StockDataService,
-    private mediaObserver: MediaObserver // Inject MediaObserver
+    private mediaObserver: MediaObserver
   ) { }
 
   ngOnInit(): void {
@@ -33,12 +33,20 @@ export class NewsComponent {
       { property: 'og:type', content: 'website' },
       { property: 'og:image', content: 'https://macro.berezini.com/assets/images/news-sentiment-og-image.png' },
     ]);
+
     this.stockDataService.getMarketNews().subscribe((data: any) => {
       this.articles = data;
     });
+
+    // Fetch sentiment data
+    this.stockDataService.getSentimentSummary().subscribe((data: any[]) => {
+      this.sentimentData = data;
+    });
+
+
     this.mediaSub = this.mediaObserver.asObservable().subscribe((changes: MediaChange[]) => {
       const change = changes.find(c => c.mqAlias === 'xs');
-      this.truncateLength = change ? 70 : 100; // If extra-small screen, truncate at 50, else 100
+      this.truncateLength = change ? 70 : 100;
     });
   }
 }
