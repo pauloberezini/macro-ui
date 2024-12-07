@@ -56,6 +56,7 @@ import {DataMessageComponent} from "./util/data-message/data-message.component";
 import {GasComponent} from "./dynamic-component/gas/gas.component";
 import {LoginComponent} from "./login/login.component";
 import {SentimentLineChartComponent} from "./sentiment-line-chart/sentiment-line-chart.component";
+import {InsidersComponent} from "./insiders/insiders.component";
 
 
 const routes: Routes = [
@@ -66,6 +67,7 @@ const routes: Routes = [
   {path: 'app-seasonality', component: SeasonalityComponent},
   {path: 'app-chart-year-component', component: ChartYearComponentComponent},
   {path: 'app-supported-by', component: SupportedByComponent},
+  {path: 'insiders', component: InsidersComponent},
   {path: 'dash-graphs', component: DashGraphsComponent},
   {path: 'app-gas', component: GasComponent},
   {path: 'hockey-bet', component: HockeyBetComponent}
@@ -85,6 +87,7 @@ const routes: Routes = [
     SearchComponent,
     MacroContainerComponent,
     SupportedByComponent,
+    InsidersComponent,
     DashGraphsComponent,
     SeasonalityComponent,
     PieAreaComponent,
