@@ -5,7 +5,7 @@ import {MatTableModule} from '@angular/material/table';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {MatTabsModule} from '@angular/material/tabs';
 import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms'; // Import FormsModule
+import {FormsModule, ReactiveFormsModule} from '@angular/forms'; // Import FormsModule
 import {AppComponent} from './app.component';
 import {SeasonalityPro} from './yahoo-monthly-data/seasonality-pro.component';
 import {MatInputModule} from '@angular/material/input';
@@ -14,7 +14,6 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSortModule} from '@angular/material/sort';
-import {ReactiveFormsModule} from '@angular/forms';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
@@ -125,6 +124,7 @@ const routes: Routes = [
     AppRoutingModule,
     RouterModule.forRoot(routes),
     MatAutocompleteModule,
+    MatTableModule,
     MatSortModule,
     MatRadioModule,
     MatButtonToggleModule,
