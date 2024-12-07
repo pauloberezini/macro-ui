@@ -29,7 +29,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDialogModule} from '@angular/material/dialog';
 import {DateFormatPipe} from './model/date-format-pipe';
-import {TruncatePipe} from './model/truncate-pipe';
+import {CamelCasePipe, TruncatePipe} from './model/truncate-pipe';
 import {TimeFormatPipe} from './model/time-format.pipe';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {RouterModule, Routes} from '@angular/router';
@@ -135,7 +135,8 @@ const routes: Routes = [
     MacroChartsComponent,
     PieChartComponent,
     DataMessageComponent,
-    SentimentLineChartComponent
+    SentimentLineChartComponent,
+    CamelCasePipe
   ],
   exports: [
     MatTableModule,
