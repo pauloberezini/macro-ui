@@ -42,6 +42,14 @@
         <!-- <button class="main-menu-item" cdkMenuItem routerLink="/hockey-bet" routerLinkActive="active"
                 ariaCurrentWhenActive="page">Hockey - Bet
         </button> -->
+
+        <button class="main-menu-item" cdkMenuItem routerLink="/insiders" routerLinkActive="active"
+                ariaCurrentWhenActive="page">
+          <mat-icon> goat
+          </mat-icon>
+          <span *ngIf="!isCollapsed">Insiders</span>
+        </button>
+
         <button class="main-menu-item" cdkMenuItem routerLink="/app-supported-by" routerLinkActive="active"
                 ariaCurrentWhenActive="page">
           <mat-icon>info</mat-icon>

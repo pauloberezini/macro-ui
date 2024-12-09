@@ -1,5 +1,4 @@
-import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {ChartData, ChartType} from 'chart.js';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {Chart} from "chart.js/auto";
 import {StockDataService} from "../services/stock-data.service";
 import {NewsSentiment} from "../model/news-sentiment";
@@ -27,7 +26,7 @@ import {DataMessageComponent} from "../util/data-message/data-message.component"
   ],
   styleUrls: ['./pie-chart.component.css']
 })
-export class PieChartComponent implements AfterViewInit, OnInit {
+  export class PieChartComponent implements AfterViewInit, OnInit {
 
   public chart: any;
   public newsSentiment: Observable<NewsSentiment>;
