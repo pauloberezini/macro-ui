@@ -56,6 +56,7 @@ import {GasComponent} from "./dynamic-component/gas/gas.component";
 import {LoginComponent} from "./login/login.component";
 import {SentimentLineChartComponent} from "./sentiment-line-chart/sentiment-line-chart.component";
 import {InsidersComponent} from "./insiders/insiders.component";
+import {SearchBarComponent} from "./components/search-bar/search-bar.component";
 
 
 const routes: Routes = [
@@ -93,6 +94,7 @@ const routes: Routes = [
     ChartYearComponentComponent,
     HockeyBetComponent,
     LoginComponent,
+    SearchBarComponent,
     TeamCardComponent
   ],
   imports: [

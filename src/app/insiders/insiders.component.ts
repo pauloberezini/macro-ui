@@ -1,7 +1,7 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {StockDataService} from "../services/stock-data.service";
 import {InsiderData} from '../model/InsiderData';
-import {MatSort, Sort} from "@angular/material/sort";
+import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
@@ -9,12 +9,18 @@ import {MatTableDataSource} from "@angular/material/table";
   templateUrl: './insiders.component.html',
   styleUrls: ['./insiders.component.css'],
 })
-export class InsidersComponent implements OnInit, AfterViewInit {
+export class InsidersComponent implements AfterViewInit {
 
-  public stockName: string;
   public data = new MatTableDataSource<InsiderData>([]);
 
   @ViewChild(MatSort,{ static: true }) sort: MatSort;
+
+  selectedSuggestion: string = '';
+
+  handleSuggestion(suggestion: string): void {
+    this.selectedSuggestion = suggestion; // Handle the selected suggestion
+    this.getInsidersData(); // Get the insiders data
+  }
 
   displayedColumns: string[] = [
     'title',
@@ -31,11 +37,6 @@ export class InsidersComponent implements OnInit, AfterViewInit {
     private stockDataService: StockDataService,
   ) {}
 
-  ngOnInit() {
-    this.stockName = this.stockSymbols[0];
-    this.getInsidersData();
-  }
-
   ngAfterViewInit(): void {
     if (this.sort) {
       this.data.sort = this.sort;
@@ -44,31 +45,9 @@ export class InsidersComponent implements OnInit, AfterViewInit {
     }
   }
 
-  announceSortChange(sortState: Sort) {
-    console.log(sortState);
-  }
-
-  stockSymbols = [
-    "OPEN",
-    "AAPL",
-    "MSFT",
-    "AMZN",
-    "GOOGL",
-    "META",
-    "TSLA",
-    "NVDA",
-    "BRK-A",
-    "JNJ",
-    "JPM"
-  ];
-
-  onSelectedStockChanges(): void {
-    this.getInsidersData();
-  }
-
   getInsidersData(): void {
     this.data.data = [];
-    this.stockDataService.getInsidersDataForStock(this.stockName).subscribe((response) => {
+    this.stockDataService.getInsidersDataForStock(this.selectedSuggestion).subscribe((response) => {
       this.data.data = response;
     });
   }

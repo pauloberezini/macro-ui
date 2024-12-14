@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {StockData} from '../model/stock-data';
 import {environment} from "../../environments/environment";
@@ -9,6 +9,7 @@ import {Article} from "../model/article";
 import {NewsSentiment} from "../model/news-sentiment";
 import {StorageResponseDTO} from "../model/gas-storage";
 import {InsiderData} from "../model/InsiderData";
+import {StockSuggestion} from "../model/stock-suggestion";
 
 @Injectable({
   providedIn: 'root'
@@ -112,5 +113,10 @@ export class StockDataService {
   getInsidersDataForStock(stockName: string): Observable<InsiderData[]> {
     const url = `${this.url}/api/insiders/${stockName}`;
     return this.http.get<InsiderData[]>(url);
+  }
+
+  suggest(query: string): Observable<StockSuggestion[]> {
+    const url = `${this.url}/api/insiders/autosuggest`;
+    return this.http.get<StockSuggestion[]>(url, { params: new HttpParams().set('query', query) });
   }
 }
