@@ -1,13 +1,15 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { StockData } from '../model/stock-data';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {StockData} from '../model/stock-data';
 import {environment} from "../../environments/environment";
 import {EventDto} from "../model/event-dto";
 import {HockeyTeamStats} from "../model/hockey-teams-stats";
 import {Article} from "../model/article";
 import {NewsSentiment} from "../model/news-sentiment";
 import {StorageResponseDTO} from "../model/gas-storage";
+import {InsiderData} from "../model/InsiderData";
+import {StockSuggestion} from "../model/stock-suggestion";
 
 @Injectable({
   providedIn: 'root'
@@ -97,7 +99,7 @@ export class StockDataService {
     return this.http.get<Article[]>(url);
   }
 
-    getChartSentiment(period: string): Observable<NewsSentiment> {
+  getChartSentiment(period: string): Observable<NewsSentiment> {
     const url = `${this.url}/api/news/sentiment/${period}`;
     return this.http.get<NewsSentiment>(url);
   }
@@ -106,5 +108,15 @@ export class StockDataService {
   getNewsTitles(currency: string): Observable<any> {
     const url = `${this.baseUrlAlpha}/dynamic/getAllMacroTitles/${currency}`;
     return this.http.get<any>(url);
+  }
+
+  getInsidersDataForStock(stockName: string): Observable<InsiderData[]> {
+    const url = `${this.url}/api/insiders/${stockName}`;
+    return this.http.get<InsiderData[]>(url);
+  }
+
+  suggest(query: string): Observable<StockSuggestion[]> {
+    const url = `${this.url}/api/insiders/autosuggest`;
+    return this.http.get<StockSuggestion[]>(url, { params: new HttpParams().set('query', query) });
   }
 }

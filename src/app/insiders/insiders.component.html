@@ -1,0 +1,41 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span>Insiders</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<app-search-bar (suggestionSelected)="handleSuggestion($event)"></app-search-bar>
+<div [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
+  <div class="container">
+    <h2>Insider Transactions</h2>
+
+    <table
+      mat-table
+      [dataSource]="data"
+      matSort
+      class="mat-elevation-z8">
+
+      <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ column | camelCaseSplit | titlecase }}
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element[column] }}
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <div *ngIf="data?.data?.length === 0" class="data-loader">
+    <div class="spinner-container">
+      <mat-spinner></mat-spinner>
+      <span>Loading data, please wait...</span>
+    </div>
+  </div>
+
+</div>
+
+
+

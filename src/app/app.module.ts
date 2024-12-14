@@ -5,7 +5,7 @@ import {MatTableModule} from '@angular/material/table';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {MatTabsModule} from '@angular/material/tabs';
 import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms'; // Import FormsModule
+import {FormsModule, ReactiveFormsModule} from '@angular/forms'; // Import FormsModule
 import {AppComponent} from './app.component';
 import {SeasonalityPro} from './yahoo-monthly-data/seasonality-pro.component';
 import {MatInputModule} from '@angular/material/input';
@@ -14,7 +14,6 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSortModule} from '@angular/material/sort';
-import {ReactiveFormsModule} from '@angular/forms';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
@@ -30,7 +29,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDialogModule} from '@angular/material/dialog';
 import {DateFormatPipe} from './model/date-format-pipe';
-import {TruncatePipe} from './model/truncate-pipe';
+import {CamelCasePipe, TruncatePipe} from './model/truncate-pipe';
 import {TimeFormatPipe} from './model/time-format.pipe';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {RouterModule, Routes} from '@angular/router';
@@ -56,6 +55,8 @@ import {DataMessageComponent} from "./util/data-message/data-message.component";
 import {GasComponent} from "./dynamic-component/gas/gas.component";
 import {LoginComponent} from "./login/login.component";
 import {SentimentLineChartComponent} from "./sentiment-line-chart/sentiment-line-chart.component";
+import {InsidersComponent} from "./insiders/insiders.component";
+import {SearchBarComponent} from "./components/search-bar/search-bar.component";
 
 
 const routes: Routes = [
@@ -66,6 +67,7 @@ const routes: Routes = [
   {path: 'app-seasonality', component: SeasonalityComponent},
   {path: 'app-chart-year-component', component: ChartYearComponentComponent},
   {path: 'app-supported-by', component: SupportedByComponent},
+  {path: 'insiders', component: InsidersComponent},
   {path: 'dash-graphs', component: DashGraphsComponent},
   {path: 'app-gas', component: GasComponent},
   {path: 'hockey-bet', component: HockeyBetComponent}
@@ -85,12 +87,14 @@ const routes: Routes = [
     SearchComponent,
     MacroContainerComponent,
     SupportedByComponent,
+    InsidersComponent,
     DashGraphsComponent,
     SeasonalityComponent,
     PieAreaComponent,
     ChartYearComponentComponent,
     HockeyBetComponent,
     LoginComponent,
+    SearchBarComponent,
     TeamCardComponent
   ],
   imports: [
@@ -122,6 +126,7 @@ const routes: Routes = [
     AppRoutingModule,
     RouterModule.forRoot(routes),
     MatAutocompleteModule,
+    MatTableModule,
     MatSortModule,
     MatRadioModule,
     MatButtonToggleModule,
@@ -132,7 +137,8 @@ const routes: Routes = [
     MacroChartsComponent,
     PieChartComponent,
     DataMessageComponent,
-    SentimentLineChartComponent
+    SentimentLineChartComponent,
+    CamelCasePipe
   ],
   exports: [
     MatTableModule,
