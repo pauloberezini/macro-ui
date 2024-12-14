@@ -1,0 +1,28 @@
+<div class="search-bar">
+  <input
+    type="text"
+    [formControl]="searchControl"
+    placeholder="Search..."
+    class="search-input"
+  />
+  <button
+    *ngIf="searchControl.value"
+    class="clear-button"
+    (click)="clearInput()"
+    aria-label="Clear search"
+  >
+    ✕
+  </button>
+  <ul *ngIf="suggestions.length > 0 || searchControl.value" class="suggestions-list">
+    <li
+      *ngFor="let suggestion of suggestions"
+      class="suggestion-item"
+      (click)="onSuggestionClick(suggestion)"
+    >
+      {{ nameToDisplay(suggestion) }}
+    </li>
+    <li *ngIf="showNoResults" class="no-results-item">
+      {{ 'No results found' }}
+    </li>
+  </ul>
+</div>
