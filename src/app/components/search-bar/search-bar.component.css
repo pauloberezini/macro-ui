@@ -5,7 +5,7 @@
 
 .search-input {
   width: 100%;
-  padding: 8px 30px 8px 8px; /* Add padding-right for the clear button */
+  padding: 8px 30px 8px 8px;
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -13,7 +13,7 @@
 
 .clear-button {
   position: absolute;
-  right: 10px; /* Position the button inside the input on the right */
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
   background: none;
@@ -49,4 +49,10 @@
 
 .suggestion-item:hover {
   background-color: #f0f0f0;
+}
+
+.no-results-item {
+  padding: 8px;
+  color: #888;
+  text-align: center;
 }

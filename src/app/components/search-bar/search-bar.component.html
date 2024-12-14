@@ -13,13 +13,16 @@
   >
     ✕
   </button>
-  <ul *ngIf="suggestions.length > 0" class="suggestions-list">
+  <ul *ngIf="suggestions.length > 0 || searchControl.value" class="suggestions-list">
     <li
       *ngFor="let suggestion of suggestions"
       class="suggestion-item"
       (click)="onSuggestionClick(suggestion)"
     >
       {{ nameToDisplay(suggestion) }}
+    </li>
+    <li *ngIf="suggestions.length === 0" class="no-results-item">
+      {{ 'No results found' }}
     </li>
   </ul>
 </div>
