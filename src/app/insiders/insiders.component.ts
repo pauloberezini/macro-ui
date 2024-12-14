@@ -24,13 +24,16 @@ export class InsidersComponent implements AfterViewInit {
 
   displayedColumns: string[] = [
     'title',
+    'symbol',
+    'filingDate',
+    'reportingName',
     'transactionDate',
     'transactionCode',
     'amount',
-    'price',
     'sharesHeld',
+    'price',
     'ownership',
-    'relationship',
+    'relationship'
   ];
 
   constructor(
