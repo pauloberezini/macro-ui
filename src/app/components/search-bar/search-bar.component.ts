@@ -14,7 +14,7 @@ export class SearchBarComponent implements OnInit {
   searchControl = new FormControl('');
   suggestions: StockSuggestion[] = [];
   @Output() suggestionSelected = new EventEmitter<string>();
-
+  showNoResults: boolean = false;
   constructor(private service: StockDataService) {}
 
   ngOnInit(): void {
@@ -26,6 +26,13 @@ export class SearchBarComponent implements OnInit {
       )
       .subscribe((suggestions) => {
         this.suggestions = suggestions;
+        if (suggestions.length === 0) {
+          this.showNoResults = true;
+        }
+        else
+        {
+          this.showNoResults = false;
+        }
       })
     ;
   }
