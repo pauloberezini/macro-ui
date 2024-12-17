@@ -36,6 +36,10 @@ export class TradingViewComponent implements OnInit, OnChanges {
       locale: 'en',
       allow_symbol_change: false,
       calendar: false,
+      hide_top_toolbar: true,
+      hide_volume: true,
+      hide_legend: true,
+      save_image: false,
       support_host: 'https://www.tradingview.com'
     });
 
