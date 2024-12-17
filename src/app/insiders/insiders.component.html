@@ -37,5 +37,7 @@
 
 </div>
 
-
+<app-trading-view
+  [symbol]="selectedSuggestion"
+  [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'"></app-trading-view>
 
