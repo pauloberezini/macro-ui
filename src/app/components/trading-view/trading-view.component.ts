@@ -24,23 +24,25 @@ export class TradingViewComponent implements OnInit, OnChanges {
   loadTradingViewScript(): void {
     const script = this.renderer.createElement('script');
     script.type = 'text/javascript';
-    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
+    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js';
     script.async = true;
     script.text = JSON.stringify({
-      autosize: false,
-      symbol: `${this.symbol}`,
-      interval: 'D',
-      timezone: 'Etc/UTC',
-      theme: 'light',
-      style: '1',
+      symbols: [[`${this.symbol}`]],
+      chartOnly: false,
+      width: '100%',
+      height: '100%',
       locale: 'en',
-      allow_symbol_change: false,
-      calendar: false,
-      hide_top_toolbar: true,
-      hide_volume: true,
-      hide_legend: true,
-      save_image: false,
-      support_host: 'https://www.tradingview.com'
+      colorTheme: 'light',
+      gridLineColor: '#f0f3fa',
+      trendLineColor: '#2196f3',
+      fontColor: '#787b86',
+      isTransparent: false,
+      autosize: true,
+
+      dateRanges: [
+        '12m|1D',
+      ],
+      largeChartUrl: ''
     });
 
     // Append the script to the widget container
