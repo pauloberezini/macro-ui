@@ -1,4 +1,18 @@
 canvas {
-  max-width: 100%;
-  /*height: 400px; !* Set a fixed height for consistent appearance *!*/
+  /* This ensures the canvas does not exceed the container’s dimensions */
+  display: block;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  height: auto !important;   /* Let the container control the height */
+  width: 100% !important;    /* Force it to fit the container’s width */
+}
+
+.chart-container {
+  /* Ensure the container itself is sized */
+  display: block;
+  position: relative;
+  width: 100%;       /* or another max-width if desired */
+  height: 400px;     /* or any fixed height you want */
+  max-width: 100%;   /* ensures it won’t exceed parent’s width */
+  overflow: hidden;  /* hides any overflow in case the canvas tries to go outside */
 }
