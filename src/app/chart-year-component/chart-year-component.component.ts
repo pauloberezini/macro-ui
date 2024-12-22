@@ -188,13 +188,24 @@ export class ChartYearComponentComponent implements OnInit {
               }
             },
             tooltip: {
-              backgroundColor: 'rgba(0, 0, 0, 0.7)',
-              bodyFont: {
-                size: 14,
-              },
-              titleFont: {
-                size: 16,
-                weight: 'bold',
+              callbacks: {
+                title: (tooltipItems) => {
+                  // Usually only one item per tooltip in a line chart,
+                  // so we just grab the first item
+                  if (!tooltipItems.length) return '';
+
+                  const xValue = tooltipItems[0].parsed.x;  // The raw x-value (timestamp, etc.)
+                  const dateObj = new Date(xValue);
+
+                  // Format date to month & day only, e.g., “Aug 13”
+                  // Using built-in toLocaleDateString for quickness:
+                  return dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                },
+                label: context => {
+                  const dateObject = new Date(context.parsed.x);
+                  const averageData = context.parsed.y;
+                  return `Average point: ${averageData}`;
+                }
               }
             },
             legend: {
