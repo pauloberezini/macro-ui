@@ -1,6 +1,7 @@
 html, body, mat-sidenav-container, mat-sidenav-content {
   height: 100%;
   margin: 0;
+  overflow: hidden; /* Ensure no scrollbar from the body */
   font-size: 100%;
   font-family: Arial, sans-serif;
 
