@@ -10,7 +10,7 @@
 <!-- Flex container with two rows -->
 <div fxLayout="column" style="height: 100vh; overflow: hidden;">
   <!-- Row 1: Trading View -->
-  <div fxFlex="50"  fxLayout="row" fxLayoutAlign="center center" style="border: 1px solid #ddd;">
+  <div fxFlex="30"  fxLayout="row" fxLayoutAlign="center center" style="border: 1px solid #ddd;">
     <app-trading-view style="height: 100%; width: 100%;"
       [symbol]="selectedSuggestion"
       [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
@@ -18,7 +18,7 @@
   </div>
 
   <!-- Row 2: Insider Transactions -->
-  <div fxFlex="50" style="border: 1px solid #ddd; overflow: auto;" [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
+  <div fxFlex="70" style="border: 1px solid #ddd; overflow: auto;" [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
     <div class="container">
       <h2>Insider Transactions</h2>
 
