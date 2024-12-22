@@ -57,6 +57,11 @@ export class SentimentLineChartComponent implements OnInit, OnChanges {
     const todaySentiment = this.sentimentData.find(item => item.date.startsWith(today))?.totalSentimentPoint;
     const label = todaySentiment !== undefined ? `Today’s Sentiment: ${todaySentiment.toFixed(1)}` : 'Total Sentiment Point';
 
+    const todayDate = new Date();
+    const minDate = new Date(today);
+    minDate.setDate(minDate.getDate() - 30); // subtract 30 days
+
+
     const config: ChartConfiguration = {
       type: 'line',
       data: {
@@ -80,6 +85,8 @@ export class SentimentLineChartComponent implements OnInit, OnChanges {
           },
           x: {
             type: 'time',
+            min: minDate.getTime(),
+            max: todayDate.getTime(),
             time: {
               unit: 'day'
             }
