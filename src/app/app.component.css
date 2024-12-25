@@ -19,34 +19,15 @@
   cursor: pointer;
 }
 
-.menu-expanded .main-menu-item mat-icon {
-  margin-right: 8px;
-}
-
 .app-container {
   position: relative;
   /*min-height: 100vh;*/
 }
-
-.main-menu-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 200px;
-  background-color: var(--light-gray);
-  z-index: 1000;
-  transform: translateX(-100%);
-  transition: transform 0.3s ease;
-}
-
-.menu-expanded {
-  transform: translateX(0);
-}
-
+/************************************/
+/* GENERAL BUTTON STYLES            */
+/************************************/
 .main-menu-item {
   color: rgba(26,26,26,.5);
-  width: max-content;
   background-color: transparent;
   cursor: pointer;
   border: none;
@@ -54,14 +35,20 @@
   user-select: none;
   line-height: 36px;
   padding: 0 16px;
-  display: grid;
+
+  /* Horizontal alignment of icon + text */
+  display: flex;
   align-items: center;
-  flex-direction: row;
-  flex: 1;
 }
 
+/* Icon next to text */
+.menu-icon {
+  margin-right: 8px;
+}
+
+/* Hover & active states */
 .main-menu-item:hover {
-  background-color: unset;
+  background-color: unset; /* or change to a highlight color if desired */
   color: var(--logo-blue);
 }
 
@@ -69,85 +56,84 @@
   color: var(--logo-blue);
 }
 
-.berezini-logo {
-  margin-right: 16px;
-  padding-top: 60px;
-  padding-right: 200px;
-}
-
-.main-menu-item.berezini-logo{
-  background: #0000 url('/assets/images/logo.svg') no-repeat center;
-  background-size: contain;
-}
-@media screen and (max-width: 600px) {
-  .berezini-logo {
-    height: 30px;
-    padding-top: 15px;
-    background-size: cover;
-    padding-top: 40px;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .berezini-logo {
-    padding-top: 40px;
-    width: 100%;
-    height: 30px;
-  }
-  .main-menu {
-    max-width: 100%;
-    border-right: none;
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .berezini-logo {
-    height: 50px;
-    padding-top: 40px;
-  }
-  .main-menu {
-    max-width: 100%;
-    border-right: none;
-  }
-}
-
-.menu-collapsed {
-  width: 50px;
-}
-
-.menu-expanded {
-  width: 200px;
-}
-
-.main-menu-item {
+/************************************/
+/* HORIZONTAL NAV WRAPPER           */
+/************************************/
+.top-nav {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  background-color: var(--light-gray);
+
+  padding: 8px 16px;
+  border-bottom: 1px solid rgb(208, 208, 208);
 }
 
-.menu-icon {
-  margin-right: 10px;
+/************************************/
+/* LOGO                             */
+/************************************/
+
+.berezini-logo {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 2rem;        /* adjust size as needed */
+  font-weight: 1700;       /* or 400, 600, etc. */
+  color: var(--logo-blue);            /* choose your brand color */
 }
 
-.menu-collapsed .main-menu-item span:not(.menu-icon) {
-  display: none;
+
+
+/* Keep your media queries if you still want the logo to resize */
+@media screen and (max-width: 600px) {
+  .berezini-logo {
+    width: 80px;
+    height: 30px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .berezini-logo {
+    width: 100px;
+    height: 30px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .berezini-logo {
+    width: 100px;
+    height: 40px;
+  }
+}
+/************************************/
+/* MENU ITEMS (horizontal)          */
+/************************************/
+.menu-items {
+  display: flex;
+  align-items: center;
+
+  /* The fxLayoutGap in HTML helps, but you can also set a fallback here */
+  /*gap: 20px;*/
 }
 
-.menu-collapsed .menu-icon {
-  transform: rotate(-90deg);
+/************************************/
+/* SIGN IN & JOIN BUTTONS           */
+/************************************/
+.auth-buttons {
+  display: flex;
+  gap: 10px; /* spacing between Sign In & Join buttons */
 }
 
-.menu-expanded .menu-icon {
-  transform: rotate(90deg);
+.join-button {
+  /* If you want a distinct style, e.g. */
+  border: 1px solid var(--logo-blue);
+  color: var(--logo-blue);
+  /* etc. */
 }
 
+/************************************/
+/* CONTENT AREA BELOW THE NAV       */
+/************************************/
 .content-area {
-  transition: margin-left 0.3s;
-}
-
-.container.menu-expanded .content-area {
-  margin-left: 200px;
-}
-
-.container.menu-collapsed .content-area {
-  margin-left: 50px;
+  /* Remain full width, or whatever your layout requires */
+  width: 100%;
+  /* If you want padding from the nav:
+     padding-top: 60px;
+  */
 }
