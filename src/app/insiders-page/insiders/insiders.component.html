@@ -1,0 +1,62 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span>Insiders</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<!-- Search Bar -->
+<app-search-bar (suggestionSelected)="handleSuggestion($event)"></app-search-bar>
+<div fxLayout="row" style="width: 100%; height: 100vh;">
+
+  <!-- Main Content -->
+  <div fxFlex="70" style="border-right: 1px solid #ddd;">
+    <!-- Flex container with two rows -->
+    <div fxLayout="column" style="height: 100%; overflow: hidden;">
+      <!-- Row 1: Trading View -->
+      <div fxFlex="30" fxLayout="row" fxLayoutAlign="center center" style="border: 1px solid #ddd;">
+        <app-trading-view style="height: 100%; width: 100%;"
+                          [symbol]="selectedSuggestion"
+                          [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
+        </app-trading-view>
+      </div>
+      <!-- Row 2: Insider Transactions -->
+      <div fxFlex="60" style="border: 1px solid #ddd; overflow: auto;" [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
+        <div class="container">
+          <h2>Insider Transactions</h2>
+          <table
+            mat-table
+            [dataSource]="data"
+            matSort
+            class="mat-elevation-z8"
+            style="width: 100%;">
+            <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                {{ column | camelCaseSplit | titlecase }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element[column] }}
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+        <div *ngIf="data?.data?.length === 0" class="data-loader">
+          <div class="spinner-container">
+            <mat-spinner></mat-spinner>
+            <span>Loading data, please wait...</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- Right Side Column -->
+  <div fxFlex="30" style="border: 1px solid #ddd; padding: 1rem;">
+    <div style="height: 100%;
+     border: 1px solid #ddd;" [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
+      <app-company-profile [symbol]="selectedSuggestion"/>
+    </div>
+  </div>
+
+</div>

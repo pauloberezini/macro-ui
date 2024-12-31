@@ -38,7 +38,6 @@ export class TradingViewComponent implements OnInit, OnChanges {
       fontColor: '#787b86',
       isTransparent: false,
       autosize: true,
-
       dateRanges: [
         '12m|1D',
       ],
