@@ -35,7 +35,8 @@ export class CompanyProfileComponent implements OnInit, OnChanges {
     script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-symbol-profile.js';
     script.async = true;
     script.text = JSON.stringify({
-      height: 800,
+      height: "\"100%\"",
+      width: "\"100%\"",
       symbol: this.symbol,
       locale: 'en',
       isTransparent: false,
