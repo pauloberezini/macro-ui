@@ -55,9 +55,10 @@ import {DataMessageComponent} from "./util/data-message/data-message.component";
 import {GasComponent} from "./dynamic-component/gas/gas.component";
 import {LoginComponent} from "./login/login.component";
 import {SentimentLineChartComponent} from "./sentiment-line-chart/sentiment-line-chart.component";
-import {InsidersComponent} from "./insiders/insiders.component";
+import {InsidersComponent} from "./insiders-page/insiders/insiders.component";
 import {SearchBarComponent} from "./components/search-bar/search-bar.component";
 import {TradingViewComponent} from "./components/trading-view/trading-view.component";
+import {CompanyProfileComponent} from "./components/company-profile/company-profile.component";
 
 
 const routes: Routes = [
@@ -98,50 +99,51 @@ const routes: Routes = [
     SearchBarComponent,
     TeamCardComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        MatTableModule,
-        FormsModule,
-        MatDividerModule,
-        MatInputModule,
-        MatNativeDateModule,
-        ReactiveFormsModule,
-        MatButtonModule,
-        MatGridListModule,
-        CommonModule,
-        MatSelectModule,
-        MatTabsModule,
-        AppRoutingModule,
-        NgxEchartsModule.forRoot({
-            echarts: () => import('echarts')
-        }),
-        MatIconModule,
-        MatToolbarModule,
-        MatProgressSpinnerModule,
-        MatCardModule,
-        MatExpansionModule,
-        MatDialogModule,
-        MatSidenavModule,
-        AppRoutingModule,
-        RouterModule.forRoot(routes),
-        MatAutocompleteModule,
-        MatTableModule,
-        MatSortModule,
-        MatRadioModule,
-        MatButtonToggleModule,
-        MatProgressBarModule,
-        FlexLayoutModule,
-        MatCheckboxModule,
-        CommonModule,
-        MacroChartsComponent,
-        PieChartComponent,
-        DataMessageComponent,
-        SentimentLineChartComponent,
-        CamelCasePipe,
-        TradingViewComponent
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    MatTableModule,
+    FormsModule,
+    MatDividerModule,
+    MatInputModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatGridListModule,
+    CommonModule,
+    MatSelectModule,
+    MatTabsModule,
+    AppRoutingModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    }),
+    MatIconModule,
+    MatToolbarModule,
+    MatProgressSpinnerModule,
+    MatCardModule,
+    MatExpansionModule,
+    MatDialogModule,
+    MatSidenavModule,
+    AppRoutingModule,
+    RouterModule.forRoot(routes),
+    MatAutocompleteModule,
+    MatTableModule,
+    MatSortModule,
+    MatRadioModule,
+    MatButtonToggleModule,
+    MatProgressBarModule,
+    FlexLayoutModule,
+    MatCheckboxModule,
+    CommonModule,
+    MacroChartsComponent,
+    PieChartComponent,
+    DataMessageComponent,
+    SentimentLineChartComponent,
+    CamelCasePipe,
+    TradingViewComponent,
+    CompanyProfileComponent
+  ],
   exports: [
     MatTableModule,
     MatSortModule,
