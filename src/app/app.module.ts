@@ -142,7 +142,7 @@ const routes: Routes = [
     SentimentLineChartComponent,
     CamelCasePipe,
     TradingViewComponent,
-    CompanyProfileComponent
+    CompanyProfileComponent,
   ],
   exports: [
     MatTableModule,
