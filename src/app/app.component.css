@@ -60,14 +60,18 @@
 /* HORIZONTAL NAV WRAPPER           */
 /************************************/
 .top-nav {
+  position: sticky; /* Make the header sticky */
+  top: 0; /* Stick to the top of the viewport */
+  z-index: 1000; /* Ensure it stays above other content */
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: var(--light-gray);
-
   padding: 8px 16px;
   border-bottom: 1px solid rgb(208, 208, 208);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for a floating effect */
 }
+
 
 /************************************/
 /* LOGO                             */
