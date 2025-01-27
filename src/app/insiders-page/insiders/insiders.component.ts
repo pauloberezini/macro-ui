@@ -13,7 +13,11 @@ export class InsidersComponent implements AfterViewInit {
 
   public data = new MatTableDataSource<InsiderData>([]);
 
-  @ViewChild(MatSort,{ static: true }) sort: MatSort;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
+
+  ngAfterViewInit(): void {
+    this.data.sort = this.sort;
+  }
 
   selectedSuggestion: string = '';
 
@@ -38,20 +42,24 @@ export class InsidersComponent implements AfterViewInit {
 
   constructor(
     private stockDataService: StockDataService,
-  ) {}
-
-  ngAfterViewInit(): void {
-    if (this.sort) {
-      this.data.sort = this.sort;
-    } else {
-      console.error("MatSort not initialized.");
-    }
+  ) {
   }
 
   getInsidersData(): void {
-    this.data.data = [];
-    this.stockDataService.getInsidersDataForStock(this.selectedSuggestion).subscribe((response) => {
-      this.data.data = response;
+    this.data.data = []; // Clear the existing data
+
+    this.stockDataService.getInsidersDataForStock(this.selectedSuggestion).subscribe({
+      next: (response) => {
+        if (response && response.length > 0) {
+          this.data.data = response;
+        } else {
+          console.warn('No data received for symbol:', this.selectedSuggestion);
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching insider data:', error);
+      },
     });
   }
+
 }

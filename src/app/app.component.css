@@ -93,10 +93,39 @@
     height: 30px;
   }
 }
+
+/* Responsive Design: Mobile Adjustments */
 @media screen and (max-width: 768px) {
+  .top-nav {
+    flex-direction: column; /* Stack items vertically */
+    align-items: stretch; /* Align items to fill the width */
+    padding: 8px 12px;
+  }
+
   .berezini-logo {
-    width: 100px;
-    height: 30px;
+    font-size: 1.5rem; /* Reduce logo size */
+    text-align: center; /* Center-align the logo */
+  }
+
+  .menu-items {
+    flex-direction: column; /* Stack menu items vertically */
+    gap: 8px; /* Add spacing between items */
+    align-items: stretch; /* Stretch to full width */
+  }
+
+  .main-menu-item {
+    justify-content: center; /* Center-align text and icons */
+    padding: 8px;
+  }
+
+  .auth-buttons {
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .join-button {
+    width: 100%; /* Make "Join" button full width */
   }
 }
 @media screen and (max-width: 1024px) {
