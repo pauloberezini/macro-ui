@@ -20,7 +20,7 @@
         </app-trading-view>
       </div>
       <!-- Row 2: Insider Transactions -->
-      <div fxFlex="60" style="overflow: auto;"
+      <div fxFlex="100"
            [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
         <div class="container">
           <h2>Insider Transactions</h2>
@@ -53,10 +53,18 @@
     </div>
   </div>
   <!-- Right Side Column -->
-  <div fxFlex="30">
-    <div style="height: 100%;" [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
-      <app-company-profile [symbol]="selectedSuggestion"/>
+  <div fxFlex="30" fxLayout="column" style="height: 100%;">
+    <!-- First Cell: Company Profile -->
+    <div style="overflow: hidden;" [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
+      <app-company-profile style="height: 100%; width: 100%;" [symbol]="selectedSuggestion"></app-company-profile>
+    </div>
+
+    <!-- Second Cell: Fundamental Data -->
+    <div fxFlex="100" style="height: 100%; overflow: hidden;" [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
+      <app-fundamental-data style="height: 100%; width: 100%;" [symbol]="selectedSuggestion"></app-fundamental-data>
     </div>
   </div>
+
+
 
 </div>

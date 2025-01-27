@@ -1,0 +1,7 @@
+.company-profile-widget-container__widget {
+  height: 30vh; /* 80% of the viewport height */
+  width: 100%;  /* Full width */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

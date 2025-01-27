@@ -1,0 +1,13 @@
+.tradingview-widget-container {
+  height: 100%; /* Ensure full height for the widget container */
+  width: 100%;  /* Ensure full width for the widget container */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tradingview-widget-container__widget {
+  height: 100%; /* Inherit height from the parent container */
+  width: 100%;  /* Inherit width from the parent container */
+  overflow: hidden; /* Remove any unwanted scrollbars */
+}
