@@ -30,7 +30,7 @@ export class InsidersComponent implements AfterViewInit {
     'title',
     'symbol',
     'filingDate',
-    'reportingName',
+    // 'reportingName', no data from API
     'transactionDate',
     'transactionCode',
     'amount',
@@ -51,7 +51,11 @@ export class InsidersComponent implements AfterViewInit {
     this.stockDataService.getInsidersDataForStock(this.selectedSuggestion).subscribe({
       next: (response) => {
         if (response && response.length > 0) {
-          this.data.data = response;
+          // Sort the data by transactionDate in descending order
+          const sortedData = response.sort((a, b) => {
+            return new Date(b.transactionDate).getTime() - new Date(a.transactionDate).getTime();
+          });
+          this.data.data = sortedData;
         } else {
           console.warn('No data received for symbol:', this.selectedSuggestion);
         }
@@ -61,5 +65,6 @@ export class InsidersComponent implements AfterViewInit {
       },
     });
   }
+
 
 }
