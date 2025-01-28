@@ -40,6 +40,10 @@
   display: flex;
   align-items: center;
 }
+mat-card {
+  margin: 16px; /* Add a uniform margin around all mat-cards */
+  box-sizing: border-box; /* Ensure padding and borders are included in the element's total width and height */
+}
 
 /* Icon next to text */
 .menu-icon {
