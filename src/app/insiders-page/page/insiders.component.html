@@ -1,6 +1,6 @@
 <mat-toolbar>
   <mat-toolbar-row>
-    <span>Insiders</span>
+    <span>Insiders Data</span>
   </mat-toolbar-row>
 </mat-toolbar>
 
@@ -14,16 +14,20 @@
     <div fxLayout="column" style="height: 100%; overflow: hidden;">
       <!-- Row 1: Trading View -->
       <div fxFlex="30" fxLayout="row" fxLayoutAlign="center center">
-        <app-trading-view style="height: 100%; width: 100%;"
+        <app-trading-view-chart style="height: 100%; width: 100%;"
                           [symbol]="selectedSuggestion"
                           [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
-        </app-trading-view>
+        </app-trading-view-chart>
       </div>
       <!-- Row 2: Insider Transactions -->
       <div fxFlex="100"
            [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
         <div class="container">
-          <h2>Insider Transactions</h2>
+          <mat-toolbar>
+            <mat-toolbar-row>
+              <span>Insiders Transactions</span>
+            </mat-toolbar-row>
+          </mat-toolbar>
           <table
             mat-table
             [dataSource]="data"
@@ -60,11 +64,18 @@
     </div>
 
     <!-- Second Cell: Fundamental Data -->
-    <div fxFlex="100" style="height: 100%; overflow: hidden;" [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
+    <div fxFlex="100" style="height: 100%; overflow: hidden;"
+         [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
       <app-fundamental-data style="height: 100%; width: 100%;" [symbol]="selectedSuggestion"></app-fundamental-data>
+
+    </div>
+    <!-- Copyright Positioned at the Bottom -->
+    <div class="tradingview-widget-copyright">
+      <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
+        <span class="blue-text">Track all markets on TradingView</span>
+      </a>
     </div>
   </div>
-
 
 
 </div>
