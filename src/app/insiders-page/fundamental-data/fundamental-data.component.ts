@@ -43,7 +43,7 @@ export class FundamentalDataComponent implements OnChanges {
       width: "100%", // Responsive width
       height: "100%", // Responsive height
       colorTheme: "light",
-      symbol: 'NASDAQ:' + this.symbol,
+      symbol: '' + this.symbol,
       locale: "en",
     };
 

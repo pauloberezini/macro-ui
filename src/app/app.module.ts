@@ -55,10 +55,10 @@ import {DataMessageComponent} from "./util/data-message/data-message.component";
 import {GasComponent} from "./dynamic-component/gas/gas.component";
 import {LoginComponent} from "./login/login.component";
 import {SentimentLineChartComponent} from "./sentiment-line-chart/sentiment-line-chart.component";
-import {InsidersComponent} from "./insiders-page/insiders/insiders.component";
-import {SearchBarComponent} from "./components/search-bar/search-bar.component";
-import {TradingViewComponent} from "./components/trading-view/trading-view.component";
-import {CompanyProfileComponent} from "./components/company-profile/company-profile.component";
+import {InsidersComponent} from "./insiders-page/page/insiders.component";
+import {SearchBarComponent} from "./insiders-page/search-bar/search-bar.component";
+import {TradingViewChartComponent} from "./insiders-page/chart/trading-view-chart.component";
+import {CompanyProfileComponent} from "./insiders-page/company-profile/company-profile.component";
 import {FundamentalDataComponent} from "./insiders-page/fundamental-data/fundamental-data.component";
 
 
@@ -142,7 +142,7 @@ const routes: Routes = [
         DataMessageComponent,
         SentimentLineChartComponent,
         CamelCasePipe,
-        TradingViewComponent,
+        TradingViewChartComponent,
         CompanyProfileComponent,
         FundamentalDataComponent,
     ],

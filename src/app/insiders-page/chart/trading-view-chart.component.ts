@@ -9,12 +9,12 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-trading-view',
-  templateUrl: './trading-view.component.html',
+  selector: 'app-trading-view-chart',
+  templateUrl: './trading-view-chart.component.html',
   standalone: true,
-  styleUrls: ['./trading-view.component.css'],
+  styleUrls: ['./trading-view-chart.component.css'],
 })
-export class TradingViewComponent implements OnInit, OnChanges {
+export class TradingViewChartComponent implements OnInit, OnChanges {
   private isInitialized = false; // Track if the component has been initialized
 
   constructor(private el: ElementRef, private renderer: Renderer2) {}
