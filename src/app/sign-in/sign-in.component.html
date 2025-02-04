@@ -1,0 +1,41 @@
+<!-- sign-in.component.html -->
+<div class="sign-in-container">
+  <mat-card class="sign-in-card">
+    <mat-card-title>Sign In</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+        <!-- Email Field -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Enter your email" formControlName="email" type="email">
+          @if (signInForm.get('email')?.hasError('required')) {
+            <mat-error>
+              Email is required.
+            </mat-error>
+          }
+          @if (signInForm.get('email')?.hasError('email')) {
+            <mat-error>
+              Please enter a valid email address.
+            </mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Password Field -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput placeholder="Enter your password" formControlName="password" type="password">
+          @if (signInForm.get('password')?.hasError('required')) {
+            <mat-error>
+              Password is required.
+            </mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Sign In Button -->
+        <button mat-raised-button color="primary" type="submit" [disabled]="signInForm.invalid">
+          Sign In
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
