@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
 import {Meta} from "@angular/platform-browser";
-import {SignInComponent} from "./sign-in/sign-in.component";
+import {SignInComponent} from "./login/sign-in/sign-in.component";
 import {MatDialog} from "@angular/material/dialog";
+import {JoinComponent} from "./login/join/join.component";
 
 export interface StockData {
   date: string;
@@ -48,6 +49,17 @@ export class AppComponent {
 
   toggleMenu() {
     this.isCollapsed = !this.isCollapsed;
+  }
+
+  openJoinPopup(): void {
+    const dialogRef = this.dialog.open(JoinComponent, {
+      width: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Join dialog closed:', result);
+      // You can perform additional actions with the result if needed
+    });
   }
 
   openSignInPopup(): void {

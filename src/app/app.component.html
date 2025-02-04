@@ -52,15 +52,15 @@
   </div>
 
   <!-- Right (Sign In / Join Berezini) -->
-  <div class="auth-buttons" fxLayout="row" fxLayoutGap="10px">
-    <!-- Remove routerLink for Sign In and add (click)="openSignInPopup()" -->
+  <div fxLayout="row" fxLayoutGap="10px" class="auth-buttons">
     <button class="main-menu-item" cdkMenuItem (click)="openSignInPopup()">
       Sign In
     </button>
-    <button class="main-menu-item join-button" cdkMenuItem routerLink="/join-berezini">
+    <button class="main-menu-item join-button" cdkMenuItem (click)="openJoinPopup()">
       Join Berezini
     </button>
   </div>
+
 
 </div>
 

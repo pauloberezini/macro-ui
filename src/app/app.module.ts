@@ -53,14 +53,13 @@ import {MacroChartsComponent} from "./macro-charts/macro-charts.component";
 import {PieChartComponent} from "./pie-chart/pie-chart.component";
 import {DataMessageComponent} from "./util/data-message/data-message.component";
 import {GasComponent} from "./dynamic-component/gas/gas.component";
-import {LoginComponent} from "./login/login.component";
 import {SentimentLineChartComponent} from "./sentiment-line-chart/sentiment-line-chart.component";
 import {InsidersComponent} from "./insiders-page/page/insiders.component";
 import {SearchBarComponent} from "./insiders-page/search-bar/search-bar.component";
 import {TradingViewChartComponent} from "./insiders-page/chart/trading-view-chart.component";
 import {CompanyProfileComponent} from "./insiders-page/company-profile/company-profile.component";
 import {FundamentalDataComponent} from "./insiders-page/fundamental-data/fundamental-data.component";
-import {SignInComponent} from "./sign-in/sign-in.component";
+import {SignInComponent} from "./login/sign-in/sign-in.component";
 
 
 const routes: Routes = [
@@ -97,7 +96,6 @@ const routes: Routes = [
     PieAreaComponent,
     ChartYearComponentComponent,
     HockeyBetComponent,
-    LoginComponent,
     SearchBarComponent,
     TeamCardComponent
   ],
