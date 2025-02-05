@@ -3,6 +3,11 @@
   <mat-card class="sign-in-card">
     <mat-card-title>Sign In</mat-card-title>
     <mat-card-content>
+      @if (infoMessage){
+      <div class="info-message">
+        {{ infoMessage }}
+      </div>
+      }
       <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
         <!-- Email Field -->
         <mat-form-field appearance="outline" class="full-width">
