@@ -60,6 +60,7 @@ import {TradingViewChartComponent} from "./insiders-page/chart/trading-view-char
 import {CompanyProfileComponent} from "./insiders-page/company-profile/company-profile.component";
 import {FundamentalDataComponent} from "./insiders-page/fundamental-data/fundamental-data.component";
 import {SignInComponent} from "./login/sign-in/sign-in.component";
+import {JwtInterceptor} from "./login/interceptors/jwt.interceptor";
 
 
 const routes: Routes = [
@@ -156,6 +157,7 @@ const routes: Routes = [
     RouterModule
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     DateFormatPipe,
     {
       provide: HTTP_INTERCEPTORS,

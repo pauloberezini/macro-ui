@@ -13,6 +13,11 @@
               Email is required.
             </mat-error>
           }
+          @if (signInForm.get('email')?.hasError('email')) {
+            <mat-error>
+              Enter a valid email.
+            </mat-error>
+          }
         </mat-form-field>
 
         <!-- Password Field -->
@@ -25,6 +30,11 @@
             </mat-error>
           }
         </mat-form-field>
+
+        <!-- Save Password Checkbox -->
+        <mat-checkbox formControlName="savePassword">
+          Save Password
+        </mat-checkbox>
 
         <!-- Sign In Button -->
         <button mat-raised-button color="primary" type="submit" [disabled]="signInForm.invalid">

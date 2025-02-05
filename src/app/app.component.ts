@@ -1,8 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Meta} from "@angular/platform-browser";
 import {SignInComponent} from "./login/sign-in/sign-in.component";
 import {MatDialog} from "@angular/material/dialog";
 import {JoinComponent} from "./login/join/join.component";
+import {AuthService} from "./services/auth.service";
 
 export interface StockData {
   date: string;
@@ -20,10 +21,11 @@ export interface StockData {
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
   isCollapsed = true;
+  isLoggedIn: boolean = false;
 
-  constructor(private metaTagService: Meta, private dialog: MatDialog) {
+  constructor(private metaTagService: Meta, private dialog: MatDialog, private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -45,6 +47,9 @@ export class AppComponent {
       {property: 'og:type', content: 'website'},
       {property: 'og:image', content: 'https://macro.berezini.com/assets/images/economic-calendar-og-image.png'},
     ]);
+    this.authService.isLoggedIn$.subscribe(status => {
+      this.isLoggedIn = status;
+    });
   }
 
   toggleMenu() {
@@ -60,6 +65,10 @@ export class AppComponent {
       console.log('Join dialog closed:', result);
       // You can perform additional actions with the result if needed
     });
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 
   openSignInPopup(): void {

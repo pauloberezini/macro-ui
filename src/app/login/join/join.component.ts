@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogRef } from '@angular/material/dialog';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MatCardModule} from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDialogRef} from '@angular/material/dialog';
+import {RegistrationDTO, RegistrationService} from "../../services/registration.service";
 
 @Component({
   selector: 'app-join',
@@ -23,10 +24,13 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class JoinComponent implements OnInit {
   joinForm: FormGroup;
 
+
   constructor(
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<JoinComponent>
-  ) {}
+    private dialogRef: MatDialogRef<JoinComponent>,
+    private registrationService: RegistrationService  // inject the service here
+  ) {
+  }
 
   ngOnInit(): void {
     this.joinForm = this.fb.group({
@@ -39,9 +43,21 @@ export class JoinComponent implements OnInit {
 
   onSubmit(): void {
     if (this.joinForm.valid) {
-      console.log('Join form data:', this.joinForm.value);
-      // Optionally close the dialog and pass the form data back
-      this.dialogRef.close(this.joinForm.value);
+      const formData: RegistrationDTO = this.joinForm.value;
+      console.log('Join form data:', formData);
+
+      // Call the registration API
+      this.registrationService.registerUser(formData).subscribe({
+        next: (response) => {
+          console.log('Registration successful', response);
+          // Optionally, close the dialog and pass data or show a success message
+          this.dialogRef.close();
+        },
+        error: (error) => {
+          console.error('Registration error', error);
+          // Optionally, show an error message to the user
+        }
+      });
     }
   }
 }

@@ -52,14 +52,22 @@
   </div>
 
   <!-- Right (Sign In / Join Berezini) -->
-  <div fxLayout="row" fxLayoutGap="10px" class="auth-buttons">
-    <button class="main-menu-item" cdkMenuItem (click)="openSignInPopup()">
-      Sign In
-    </button>
-    <button class="main-menu-item join-button" cdkMenuItem (click)="openJoinPopup()">
-      Join Berezini
-    </button>
-  </div>
+  @if (!isLoggedIn) {
+    <div fxLayout="row" fxLayoutGap="10px" class="auth-buttons">
+      <button class="main-menu-item" cdkMenuItem (click)="openSignInPopup()">
+        Sign In
+      </button>
+      <button class="main-menu-item join-button" cdkMenuItem (click)="openJoinPopup()">
+        Join Berezini
+      </button>
+    </div>
+  } @else {
+    <div fxLayout="row" fxLayoutGap="10px" class="auth-buttons">
+      <button class="main-menu-item" cdkMenuItem (click)="logout()">
+        Logout
+      </button>
+    </div>
+  }
 
 
 </div>
