@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Optional} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -28,7 +28,7 @@ export class SignInComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<SignInComponent>,
+    @Optional() private dialogRef: MatDialogRef<SignInComponent>, // Mark as optional
     private authService: AuthService
   ) {}
 
