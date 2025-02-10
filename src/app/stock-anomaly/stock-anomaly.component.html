@@ -1,0 +1,12 @@
+<div>
+  <h2>Stock Anomaly Detection for {{ ticker() }}</h2>
+  <button (click)="analyzeStock()">Analyze</button>
+
+  <div *ngIf="graphData && graphData.data && graphData.data.length > 0">
+    <plotly-plot
+      *ngIf="graphData.data.length"
+      [data]="graphData.data"
+      [layout]="graphData.layout">
+    </plotly-plot>
+  </div>
+</div>

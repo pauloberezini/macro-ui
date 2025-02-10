@@ -61,7 +61,11 @@ import {CompanyProfileComponent} from "./insiders-page/company-profile/company-p
 import {FundamentalDataComponent} from "./insiders-page/fundamental-data/fundamental-data.component";
 import {SignInComponent} from "./login/sign-in/sign-in.component";
 import {JwtInterceptor} from "./login/interceptors/jwt.interceptor";
+import * as PlotlyJS from 'plotly.js-dist-min';
+import { PlotlyModule } from 'angular-plotly.js';
 
+
+PlotlyModule.plotlyjs = PlotlyJS;
 
 const routes: Routes = [
   {path: '', component: EconomicCalendarComponent},
@@ -145,7 +149,8 @@ const routes: Routes = [
     TradingViewChartComponent,
     CompanyProfileComponent,
     FundamentalDataComponent,
-    SignInComponent
+    SignInComponent,
+    PlotlyModule,
   ],
   exports: [
     MatTableModule,
@@ -157,7 +162,7 @@ const routes: Routes = [
     RouterModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     DateFormatPipe,
     {
       provide: HTTP_INTERCEPTORS,
