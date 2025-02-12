@@ -19,7 +19,7 @@ import { Component } from '@angular/core';
       </div>
       <div class="message">
         <p>There is no life here, try to find
-          <a href="https://codepen.io/ddly/">something else</a>.
+          <a href="https://macro.berezini.com">something else</a>.
         </p>
       </div>
     </div>
@@ -133,7 +133,7 @@ import { Component } from '@angular/core';
     .message {
       position: absolute;
       color: #ddd;
-      top: 44em;
+      top: 40em;
       width: 100%;
       text-align: center;
       font-size: 1.6em;

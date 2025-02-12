@@ -4,7 +4,7 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<button style="margin-right: 5px" (click)="analyzeStock()" mat-raised-button class="flat-button">Analyze</button>
+<button (click)="analyzeStock()" mat-raised-button class="flat-button">Analyze</button>
 <div class="chart-container">
   <canvas #chartCanvas>{{chart}}</canvas>
 </div>
