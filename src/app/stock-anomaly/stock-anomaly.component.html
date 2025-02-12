@@ -1,12 +1,10 @@
-<div>
-  <h2>Stock Anomaly Detection for {{ ticker() }}</h2>
-  <button (click)="analyzeStock()">Analyze</button>
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span>Stock Anomaly</span>
+  </mat-toolbar-row>
+</mat-toolbar>
 
-  <div *ngIf="graphData && graphData.data && graphData.data.length > 0">
-    <plotly-plot
-      *ngIf="graphData.data.length"
-      [data]="graphData.data"
-      [layout]="graphData.layout">
-    </plotly-plot>
-  </div>
+<button style="margin-right: 5px" (click)="analyzeStock()" mat-raised-button class="flat-button">Analyze</button>
+<div class="chart-container">
+  <canvas #chartCanvas>{{chart}}</canvas>
 </div>

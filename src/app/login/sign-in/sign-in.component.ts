@@ -68,7 +68,8 @@ export class SignInComponent implements OnInit {
       this.authService.login(credentials).subscribe({
         next: (response: LoginResponse) => {
           console.log('Login successful', response);
-          // Save token, email, and password as needed
+
+          // Store token
           localStorage.setItem('token', response.token);
           localStorage.setItem('lastEmail', email);
           if (savePassword) {
@@ -76,12 +77,14 @@ export class SignInComponent implements OnInit {
           } else {
             localStorage.removeItem('lastPassword');
           }
-          // If this component is used as a dialog, close it;
-          // otherwise, navigate to the returnUrl.
+
+          console.log("Navigating to:", this.returnUrl);  // Debugging
           if (this.dialogRef) {
             this.dialogRef.close(response);
           } else {
-            this.router.navigateByUrl(this.returnUrl);
+            this.router.navigateByUrl(this.returnUrl)
+              .then(success => console.log('Navigation Success:', success))
+              .catch(err => console.error('Navigation Error:', err));
           }
         },
         error: (error) => {
@@ -90,5 +93,6 @@ export class SignInComponent implements OnInit {
       });
     }
   }
+
 
 }
