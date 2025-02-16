@@ -26,8 +26,10 @@ import {MatButtonModule} from '@angular/material/button';
 })
 export class SignInComponent implements OnInit {
   signInForm: FormGroup;
-  returnUrl: string = '/'; // default route if none is provided
+  resetPasswordForm: FormGroup;
+  returnUrl: string = '/';
   infoMessage: string = '';
+  isResetPasswordMode: boolean = false; // Toggle for reset password mode
 
   constructor(
     private fb: FormBuilder,
@@ -35,21 +37,19 @@ export class SignInComponent implements OnInit {
     private router: Router,
     @Optional() private dialogRef: MatDialogRef<SignInComponent>,
     private authService: AuthService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
-    const lastEmail = localStorage.getItem('lastEmail') || '';
-    const lastPassword = localStorage.getItem('lastPassword') || '';
-    const savePassword = !!lastPassword;
-
     this.signInForm = this.fb.group({
-      email: [lastEmail, [Validators.required, Validators.email]],
-      password: [savePassword ? lastPassword : '', Validators.required],
-      savePassword: [savePassword]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      savePassword: [false]
     });
 
-    // Read query parameters for returnUrl and info message
+    this.resetPasswordForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]]
+    });
+
     this.route.queryParams.subscribe(params => {
       if (params['returnUrl']) {
         this.returnUrl = params['returnUrl'];
@@ -68,8 +68,6 @@ export class SignInComponent implements OnInit {
       this.authService.login(credentials).subscribe({
         next: (response: LoginResponse) => {
           console.log('Login successful', response);
-
-          // Store token
           localStorage.setItem('token', response.token);
           localStorage.setItem('lastEmail', email);
           if (savePassword) {
@@ -77,22 +75,30 @@ export class SignInComponent implements OnInit {
           } else {
             localStorage.removeItem('lastPassword');
           }
-
-          console.log("Navigating to:", this.returnUrl);  // Debugging
-          if (this.dialogRef) {
-            this.dialogRef.close(response);
-          } else {
-            this.router.navigateByUrl(this.returnUrl)
-              .then(success => console.log('Navigation Success:', success))
-              .catch(err => console.error('Navigation Error:', err));
-          }
+          this.router.navigateByUrl(this.returnUrl).catch(err => console.error('Navigation Error:', err));
         },
-        error: (error) => {
-          console.error('Login failed', error);
+        error: () => {
+          this.infoMessage = "Login unsuccessful. Please check your credentials or join our partner network!";
         }
       });
     }
   }
+  onResetPassword(): void {
+    if (this.resetPasswordForm.valid) {
+      const { email } = this.resetPasswordForm.value;
+
+      // ✅ Execute the API call but ignore the response
+      this.authService.requestPasswordReset(email).subscribe();
+
+      // ✅ Always show this message, no matter what
+      this.infoMessage = "If your email is registered, you will receive a reset link.";
+      this.isResetPasswordMode = false; // Return to sign-in mode
+    }
+  }
 
 
+  toggleResetPasswordMode(): void {
+    this.isResetPasswordMode = !this.isResetPasswordMode;
+    this.infoMessage = ''; // Clear messages when switching
+  }
 }

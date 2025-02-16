@@ -35,9 +35,8 @@ export class JoinComponent implements OnInit {
   ngOnInit(): void {
     this.joinForm = this.fb.group({
       name: ['', Validators.required],        // Name / Nickname is required
-      surname: [''],                            // Surname is optional
       email: ['', [Validators.required, Validators.email]], // Email is required and must be valid
-      password: ['', Validators.required]       // Password is required
+      password: ['', Validators.required, Validators.minLength(6)]       // Password is required
     });
   }
 

@@ -4,7 +4,13 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
+<mat-form-field>
+  <mat-label>Enter a stock symbol</mat-label>
+  <input name="stock" [(ngModel)]="stockSymbol" matInput placeholder="Enter a stock symbol" value="GBPUSD=X">
+</mat-form-field>
+
+<p>Anomalies: {{ anomaly_count }}</p>
 <button (click)="analyzeStock()" mat-raised-button class="flat-button">Analyze</button>
 <div class="chart-container">
-  <canvas #chartCanvas>{{chart}}</canvas>
+  <canvas #chartCanvas>{{ chart }}</canvas>
 </div>

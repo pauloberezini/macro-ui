@@ -1,51 +1,70 @@
-<!-- sign-in.component.html -->
 <div class="sign-in-container">
   <mat-card class="sign-in-card">
-    <mat-card-title>Sign In</mat-card-title>
+    <mat-card-title>{{ isResetPasswordMode ? 'Reset Password' : 'Sign In' }}</mat-card-title>
     <mat-card-content>
-      @if (infoMessage){
-      <div class="info-message">
-        {{ infoMessage }}
-      </div>
+      <!-- Sign-in Form -->
+      @if (!isResetPasswordMode) {
+        <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Enter your email" formControlName="email" type="email">
+            @if (signInForm.get('email')?.hasError('required')) {
+              <mat-error>Email is required.</mat-error>
+            }
+            @if (signInForm.get('email')?.hasError('email')) {
+              <mat-error>Enter a valid email.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="Enter your password" formControlName="password" type="password">
+            @if (signInForm.get('password')?.hasError('required')) {
+              <mat-error>Password is required.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-checkbox formControlName="savePassword">Save Password</mat-checkbox>
+
+          <button mat-raised-button color="primary" type="submit" [disabled]="signInForm.invalid">
+            Sign In
+          </button>
+          <button mat-button class="main-menu-item" type="button" (click)="toggleResetPasswordMode()">
+            Forgot Password?
+          </button>
+          <!-- Display messages -->
+          @if (infoMessage) {
+            <div class="info-message">
+              {{ infoMessage }}
+            </div>
+          }
+
+        </form>
       }
-      <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
-        <!-- Email Field -->
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Email</mat-label>
-          <input matInput placeholder="Enter your email" formControlName="email" type="email">
-          @if (signInForm.get('email')?.hasError('required')) {
-            <mat-error>
-              Email is required.
-            </mat-error>
-          }
-          @if (signInForm.get('email')?.hasError('email')) {
-            <mat-error>
-              Enter a valid email.
-            </mat-error>
-          }
-        </mat-form-field>
 
-        <!-- Password Field -->
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Password</mat-label>
-          <input matInput placeholder="Enter your password" formControlName="password" type="password">
-          @if (signInForm.get('password')?.hasError('required')) {
-            <mat-error>
-              Password is required.
-            </mat-error>
-          }
-        </mat-form-field>
+      <!-- Reset Password Form -->
+      @if (isResetPasswordMode) {
+        <form [formGroup]="resetPasswordForm" (ngSubmit)="onResetPassword()">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Enter your registered email" formControlName="email" type="email">
+            @if (resetPasswordForm.get('email')?.hasError('required')) {
+              <mat-error>Email is required.</mat-error>
+            }
+            @if (resetPasswordForm.get('email')?.hasError('email')) {
+              <mat-error>Enter a valid email.</mat-error>
+            }
+          </mat-form-field>
 
-        <!-- Save Password Checkbox -->
-        <mat-checkbox formControlName="savePassword">
-          Save Password
-        </mat-checkbox>
+          <button mat-raised-button color="primary" type="submit" [disabled]="resetPasswordForm.invalid">
+            Send Reset Link
+          </button>
+          <button mat-button color="warn" type="button" (click)="toggleResetPasswordMode()">
+            Back to Sign In
+          </button>
+        </form>
+      }
 
-        <!-- Sign In Button -->
-        <button mat-raised-button color="primary" type="submit" [disabled]="signInForm.invalid">
-          Sign In
-        </button>
-      </form>
     </mat-card-content>
   </mat-card>
 </div>

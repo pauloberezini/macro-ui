@@ -63,6 +63,7 @@ import {SignInComponent} from "./login/sign-in/sign-in.component";
 import {JwtInterceptor} from "./login/interceptors/jwt.interceptor";
 import * as PlotlyJS from 'plotly.js-dist-min';
 import { PlotlyModule } from 'angular-plotly.js';
+import {ResetPasswordComponent} from "./login/reset-password/reset-password.component";
 
 
 PlotlyModule.plotlyjs = PlotlyJS;
@@ -78,6 +79,7 @@ const routes: Routes = [
   {path: 'insiders', component: InsidersComponent},
   {path: 'dash-graphs', component: DashGraphsComponent},
   {path: 'app-gas', component: GasComponent},
+  {path: 'reset-password', component: ResetPasswordComponent },
   {path: 'hockey-bet', component: HockeyBetComponent}
 ];
 

@@ -1,28 +1,41 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, signal, WritableSignal } from '@angular/core';
-import { StockAnalysisModel, StockAnalysisService } from '../services/stock-analysis.service';
-import { NgIf } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {
+  Component,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+  signal,
+  WritableSignal,
+  ChangeDetectorRef
+} from '@angular/core';
+import {StockAnalysisModel, StockAnalysisService} from '../services/stock-analysis.service';
+import {NgIf} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 import Chart from 'chart.js/auto';
-import { MatToolbarModule } from "@angular/material/toolbar";
+import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
 
 @Component({
   selector: 'app-stock-anomaly',
   standalone: true,
   templateUrl: './stock-anomaly.component.html',
-  imports: [NgIf, FormsModule, MatToolbarModule, MatButtonModule, MatCardModule]
+  imports: [NgIf, FormsModule, MatToolbarModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule]
 })
 export class StockAnomalyComponent implements AfterViewInit {
   @ViewChild('chartCanvas') chartRef!: ElementRef<HTMLCanvasElement>;
-  chart!: Chart | null; // Allows null to handle destruction
+  public chart: any;
 
-  ticker: WritableSignal<string> = signal('SLV');
+  stockSymbol: string = 'BTC-USD';
+  ticker: WritableSignal<string> = signal(this.stockSymbol);
+  anomaly_count: number;
 
-  constructor(private stockService: StockAnalysisService) {}
+  constructor(private stockService: StockAnalysisService, private cdr: ChangeDetectorRef) { }
+
 
   ngAfterViewInit() {
-    this.initChart([], [], []); // Initialize an empty chart
+    // this.initChart([], [], []); // Initialize an empty chart
   }
 
   analyzeStock() {
@@ -32,6 +45,7 @@ export class StockAnomalyComponent implements AfterViewInit {
 
         try {
           if (data.graph_data?.data?.length) {
+            this.anomaly_count = data.anomaly_count;
             const mainTrace = data.graph_data.data.find((trace: { name: string; }) => trace.name === "Test MSE");
             const thresholdTrace = data.graph_data.data.find((trace: { name: string; }) => trace.name === "Threshold");
 
@@ -54,6 +68,9 @@ export class StockAnomalyComponent implements AfterViewInit {
             console.log("Threshold Y values:", thresholdYValues);
 
             this.updateChart(xValues, yValues, thresholdYValues);
+
+            // Manually trigger change detection after updating chart data
+            this.cdr.detectChanges();
           } else {
             console.error('Invalid graph_data:', data.graph_data);
           }
@@ -66,6 +83,7 @@ export class StockAnomalyComponent implements AfterViewInit {
       }
     });
   }
+
 
   initChart(labels: string[], data: number[], thresholdData: number[]) {
     if (this.chart) {
@@ -113,15 +131,15 @@ export class StockAnomalyComponent implements AfterViewInit {
       },
       options: {
         responsive: true,
-        interaction: { intersect: false },
-        animation: { duration: 0 },
+        interaction: {intersect: false},
+        animation: {duration: 0},
         scales: {
           x: {
-            grid: { color: 'rgba(0, 0, 0, 0.1)' },
-            ticks: { autoSkip: true, maxTicksLimit: 12 }
+            grid: {color: 'rgba(0, 0, 0, 0.1)'},
+            ticks: {autoSkip: true, maxTicksLimit: 12}
           },
           y: {
-            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+            grid: {color: 'rgba(0, 0, 0, 0.1)'},
             beginAtZero: true, // Ensure the Y-axis starts at zero
             min: minY - 2, // Force Y-axis lower bound
             max: maxY + 2 // Force Y-axis upper bound
@@ -134,7 +152,7 @@ export class StockAnomalyComponent implements AfterViewInit {
               label: (context) => `MSE: ${context.parsed.y}`
             }
           },
-          legend: { labels: { font: { size: 14 } } }
+          legend: {labels: {font: {size: 14}}}
         }
       }
     });

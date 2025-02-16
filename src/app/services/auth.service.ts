@@ -18,8 +18,8 @@ export interface LoginResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private url: string = environment.url; // e.g., "http://localhost:8089"
-  private baseUrl = `${this.url}/api/login`;
+  private baseUrl = `${environment.url}/api/login`;
+  private resetPassUrl = `${environment.url}/api/password-reset`;
 
   // BehaviorSubject to track login state
   private loggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
@@ -27,7 +27,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  // New login method accepting a LoginRequest and returning an Observable<LoginResponse>
+  /** 🔹 User Login */
   login(loginRequest: LoginRequest): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(this.baseUrl, loginRequest).pipe(
       tap((response: LoginResponse) => {
@@ -39,7 +39,7 @@ export class AuthService {
     );
   }
 
-  // Logout method clears the token and updates the login status
+  /** 🔹 Logout: Clear stored token and user data */
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('lastEmail');
@@ -47,8 +47,19 @@ export class AuthService {
     this.loggedInSubject.next(false);
   }
 
-  // Simple method to check if user is logged in
+  /** 🔹 Check if user is logged in */
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
+  }
+
+  /** 🔹 Request password reset link (sends email) */
+  requestPasswordReset(email: string): Observable<any> {
+    return this.http.post(`${this.resetPassUrl}/request`, { email }, { responseType: 'text' });
+  }
+
+
+  /** 🔹 Confirm password reset with token */
+  confirmResetPassword(token: string, newPassword: string): Observable<any> {
+    return this.http.post(`${this.resetPassUrl}/confirm?token=${token}`, { newPassword }, { responseType: 'text' });
   }
 }
