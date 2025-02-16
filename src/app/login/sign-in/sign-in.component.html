@@ -26,7 +26,7 @@
 
           <mat-checkbox formControlName="savePassword">Save Password</mat-checkbox>
 
-          <button mat-raised-button color="primary" type="submit" [disabled]="signInForm.invalid">
+          <button mat-raised-button class="main-menu-item join-button" type="submit" [disabled]="signInForm.invalid">
             Sign In
           </button>
           <button mat-button class="main-menu-item" type="button" (click)="toggleResetPasswordMode()">
@@ -56,10 +56,10 @@
             }
           </mat-form-field>
 
-          <button mat-raised-button color="primary" type="submit" [disabled]="resetPasswordForm.invalid">
+          <button mat-raised-button class="main-menu-item join-button" type="submit" [disabled]="resetPasswordForm.invalid">
             Send Reset Link
           </button>
-          <button mat-button color="warn" type="button" (click)="toggleResetPasswordMode()">
+          <button mat-button class="main-menu-item join-button" type="button" (click)="toggleResetPasswordMode()">
             Back to Sign In
           </button>
         </form>

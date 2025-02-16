@@ -1,14 +1,14 @@
-import {Component, OnInit, Optional} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {MatDialogRef} from '@angular/material/dialog';
-import {AuthService, LoginRequest, LoginResponse} from '../../services/auth.service';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {ReactiveFormsModule} from '@angular/forms';
-import {MatCardModule} from '@angular/material/card';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatButtonModule} from '@angular/material/button';
+import { Component, OnInit, Optional } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialogRef } from '@angular/material/dialog';
+import { AuthService, LoginRequest, LoginResponse } from '../../services/auth.service';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-sign-in',
@@ -35,7 +35,7 @@ export class SignInComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    @Optional() private dialogRef: MatDialogRef<SignInComponent>,
+    @Optional() private dialogRef: MatDialogRef<SignInComponent>, // Optional dialog reference
     private authService: AuthService
   ) {}
 
@@ -75,6 +75,13 @@ export class SignInComponent implements OnInit {
           } else {
             localStorage.removeItem('lastPassword');
           }
+
+          // Close the dialog after successful login
+          if (this.dialogRef) {
+            this.dialogRef.close();
+          }
+
+          // Redirect to the return URL
           this.router.navigateByUrl(this.returnUrl).catch(err => console.error('Navigation Error:', err));
         },
         error: () => {
@@ -83,19 +90,19 @@ export class SignInComponent implements OnInit {
       });
     }
   }
+
   onResetPassword(): void {
     if (this.resetPasswordForm.valid) {
       const { email } = this.resetPasswordForm.value;
 
-      // ✅ Execute the API call but ignore the response
+      // Execute the API call but ignore the response
       this.authService.requestPasswordReset(email).subscribe();
 
-      // ✅ Always show this message, no matter what
+      // Always show this message, no matter what
       this.infoMessage = "If your email is registered, you will receive a reset link.";
       this.isResetPasswordMode = false; // Return to sign-in mode
     }
   }
-
 
   toggleResetPasswordMode(): void {
     this.isResetPasswordMode = !this.isResetPasswordMode;
