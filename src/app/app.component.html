@@ -1,3 +1,5 @@
+<!-- app.component.html -->
+
 <!-- Top Nav -->
 <div class="top-nav"
      fxLayout="row"
@@ -9,9 +11,8 @@
     Berezini Partners
   </div>
 
-
   <!-- Middle (Main Menu Items) -->
-  <div fxLayout="row"  class="menu-items">
+  <div fxLayout="row" class="menu-items">
     <button class="main-menu-item" cdkMenuItem routerLink="/"
             routerLinkActive="active"
             ariaCurrentWhenActive="page">
@@ -23,6 +24,12 @@
             ariaCurrentWhenActive="page">
       <mat-icon class="menu-icon">show_chart</mat-icon>
       Seasonality
+    </button>
+    <button class="main-menu-item" cdkMenuItem routerLink="/app-stock-anomaly"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page">
+      <mat-icon class="menu-icon">show_chart</mat-icon>
+      Anomaly
     </button>
     <button class="main-menu-item" cdkMenuItem routerLink="/insiders"
             routerLinkActive="active"
@@ -51,14 +58,24 @@
   </div>
 
   <!-- Right (Sign In / Join Berezini) -->
-  <div fxLayout="row" fxLayoutGap="10px" class="auth-buttons">
-    <button class="main-menu-item" cdkMenuItem routerLink="/sign-in">
-      Sign In
-    </button>
-    <button class="main-menu-item join-button" cdkMenuItem routerLink="/join-berezini">
-      Join Berezini
-    </button>
-  </div>
+  @if (!isLoggedIn) {
+    <div fxLayout="row" fxLayoutGap="10px" class="auth-buttons">
+      <button class="main-menu-item" cdkMenuItem (click)="openSignInPopup()">
+        Sign In
+      </button>
+      <button class="main-menu-item join-button" cdkMenuItem (click)="openJoinPopup()">
+        Join Berezini
+      </button>
+    </div>
+  } @else {
+    <div fxLayout="row" fxLayoutGap="10px" class="auth-buttons">
+      <button class="main-menu-item" cdkMenuItem (click)="logout()">
+        Logout
+      </button>
+    </div>
+  }
+
+
 </div>
 
 <!-- Content Area -->
