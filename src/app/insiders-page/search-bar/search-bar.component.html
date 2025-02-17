@@ -1,10 +1,9 @@
 <div class="search-bar">
-  <input
-    type="text"
-    [formControl]="searchControl"
-    placeholder="Search..."
-    class="search-input"
-  />
+  <mat-form-field>
+    <mat-label>Enter a stock symbol</mat-label>
+    <input name="stock"  type="text"
+           [formControl]="searchControl" matInput placeholder="Enter a stock symbol" value="APPL">
+  </mat-form-field>
   <button
     *ngIf="searchControl.value"
     class="clear-button"

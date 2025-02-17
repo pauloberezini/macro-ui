@@ -53,14 +53,20 @@ import {MacroChartsComponent} from "./macro-charts/macro-charts.component";
 import {PieChartComponent} from "./pie-chart/pie-chart.component";
 import {DataMessageComponent} from "./util/data-message/data-message.component";
 import {GasComponent} from "./dynamic-component/gas/gas.component";
-import {LoginComponent} from "./login/login.component";
 import {SentimentLineChartComponent} from "./sentiment-line-chart/sentiment-line-chart.component";
 import {InsidersComponent} from "./insiders-page/page/insiders.component";
 import {SearchBarComponent} from "./insiders-page/search-bar/search-bar.component";
 import {TradingViewChartComponent} from "./insiders-page/chart/trading-view-chart.component";
 import {CompanyProfileComponent} from "./insiders-page/company-profile/company-profile.component";
 import {FundamentalDataComponent} from "./insiders-page/fundamental-data/fundamental-data.component";
+import {SignInComponent} from "./login/sign-in/sign-in.component";
+import {JwtInterceptor} from "./login/interceptors/jwt.interceptor";
+import * as PlotlyJS from 'plotly.js-dist-min';
+import { PlotlyModule } from 'angular-plotly.js';
+import {ResetPasswordComponent} from "./login/reset-password/reset-password.component";
 
+
+PlotlyModule.plotlyjs = PlotlyJS;
 
 const routes: Routes = [
   {path: '', component: EconomicCalendarComponent},
@@ -73,6 +79,7 @@ const routes: Routes = [
   {path: 'insiders', component: InsidersComponent},
   {path: 'dash-graphs', component: DashGraphsComponent},
   {path: 'app-gas', component: GasComponent},
+  {path: 'reset-password', component: ResetPasswordComponent },
   {path: 'hockey-bet', component: HockeyBetComponent}
 ];
 
@@ -96,56 +103,57 @@ const routes: Routes = [
     PieAreaComponent,
     ChartYearComponentComponent,
     HockeyBetComponent,
-    LoginComponent,
     SearchBarComponent,
     TeamCardComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        MatTableModule,
-        FormsModule,
-        MatDividerModule,
-        MatInputModule,
-        MatNativeDateModule,
-        ReactiveFormsModule,
-        MatButtonModule,
-        MatGridListModule,
-        CommonModule,
-        MatSelectModule,
-        MatTabsModule,
-        AppRoutingModule,
-        NgxEchartsModule.forRoot({
-            echarts: () => import('echarts')
-        }),
-        MatIconModule,
-        MatToolbarModule,
-        MatProgressSpinnerModule,
-        MatCardModule,
-        MatExpansionModule,
-        MatDialogModule,
-        MatSidenavModule,
-        AppRoutingModule,
-        RouterModule.forRoot(routes),
-        MatAutocompleteModule,
-        MatTableModule,
-        MatSortModule,
-        MatRadioModule,
-        MatButtonToggleModule,
-        MatProgressBarModule,
-        FlexLayoutModule,
-        MatCheckboxModule,
-        CommonModule,
-        MacroChartsComponent,
-        PieChartComponent,
-        DataMessageComponent,
-        SentimentLineChartComponent,
-        CamelCasePipe,
-        TradingViewChartComponent,
-        CompanyProfileComponent,
-        FundamentalDataComponent,
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    MatTableModule,
+    FormsModule,
+    MatDividerModule,
+    MatInputModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatGridListModule,
+    CommonModule,
+    MatSelectModule,
+    MatTabsModule,
+    AppRoutingModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    }),
+    MatIconModule,
+    MatToolbarModule,
+    MatProgressSpinnerModule,
+    MatCardModule,
+    MatExpansionModule,
+    MatDialogModule,
+    MatSidenavModule,
+    AppRoutingModule,
+    RouterModule.forRoot(routes),
+    MatAutocompleteModule,
+    MatTableModule,
+    MatSortModule,
+    MatRadioModule,
+    MatButtonToggleModule,
+    MatProgressBarModule,
+    FlexLayoutModule,
+    MatCheckboxModule,
+    CommonModule,
+    MacroChartsComponent,
+    PieChartComponent,
+    DataMessageComponent,
+    SentimentLineChartComponent,
+    CamelCasePipe,
+    TradingViewChartComponent,
+    CompanyProfileComponent,
+    FundamentalDataComponent,
+    SignInComponent,
+    PlotlyModule,
+  ],
   exports: [
     MatTableModule,
     MatSortModule,
@@ -156,6 +164,7 @@ const routes: Routes = [
     RouterModule
   ],
   providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     DateFormatPipe,
     {
       provide: HTTP_INTERCEPTORS,
