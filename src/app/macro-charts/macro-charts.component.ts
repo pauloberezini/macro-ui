@@ -12,7 +12,7 @@ import {debounceTime, distinctUntilChanged, map, switchMap} from "rxjs/operators
 import {MatSelectModule} from "@angular/material/select";
 import {MatButtonModule} from "@angular/material/button";
 import {StockDataService} from "../services/stock-data.service";
-import * as moment from "moment/moment";
+import moment from "moment/moment";
 import {MatIconModule} from "@angular/material/icon";
 import {Chart, registerables} from "chart.js/auto";
 import annotationPlugin from "chartjs-plugin-annotation";

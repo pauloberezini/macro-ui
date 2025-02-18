@@ -1,9 +1,14 @@
 import {Component} from '@angular/core';
 import {Meta} from "@angular/platform-browser";
+import {MatCardModule} from "@angular/material/card";
 
 @Component({
   selector: 'app-supported-by',
   templateUrl: './supported-by.component.html',
+  standalone: true,
+  imports: [
+    MatCardModule
+  ],
   styleUrls: ['./supported-by.component.css']
 })
 export class SupportedByComponent {

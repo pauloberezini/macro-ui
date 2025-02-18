@@ -8,10 +8,21 @@ import {
 import {SeasonalityPro} from "../yahoo-monthly-data/seasonality-pro.component";
 import {Meta} from "@angular/platform-browser";
 import {MacroChartsComponent} from "../macro-charts/macro-charts.component";
+import {MatSelectModule} from "@angular/material/select";
+import {FormsModule} from "@angular/forms";
+import {MatCardModule} from "@angular/material/card";
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 @Component({
   selector: 'dash-graphs',
   templateUrl: './dash-graphs.component.html',
+  standalone: true,
+  imports: [
+    MatSelectModule,
+    FormsModule,
+    MatCardModule,
+    MatToolbarModule
+  ],
   styleUrls: ['./dash-graphs.component.css']
 })
 export class DashGraphsComponent {

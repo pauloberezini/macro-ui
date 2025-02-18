@@ -1,13 +1,18 @@
 import {Component, ElementRef, Input, SimpleChanges, ViewChild} from '@angular/core';
 import {StockDataService} from '../services/stock-data.service';
 import {Chart, ChartType} from 'chart.js/auto';
-import * as moment from 'moment';
+import moment from 'moment';
 import 'chart.js';
 import 'chartjs-adapter-moment';
+import {DataMessageComponent} from "../util/data-message/data-message.component";
 
 @Component({
   selector: 'app-economic-data',
   templateUrl: './economic-data.component.html',
+  standalone: true,
+  imports: [
+    DataMessageComponent
+  ],
   styleUrls: ['./economic-data.component.css']
 })
 export class EconomicDataComponent {

@@ -1,13 +1,19 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
 import {StockDataService} from "../../services/stock-data.service";
 import {StockSuggestion} from "../../model/stock-suggestion";
+import {MatInputModule} from "@angular/material/input";
 
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
+  standalone: true,
+  imports: [
+    MatInputModule,
+    ReactiveFormsModule
+  ],
   styleUrls: ['./search-bar.component.css']
 })
 export class SearchBarComponent implements OnInit {

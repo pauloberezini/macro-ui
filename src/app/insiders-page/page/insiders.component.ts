@@ -2,12 +2,32 @@ import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {StockDataService} from "../../services/stock-data.service";
 import {InsiderData} from '../../model/InsiderData';
 import {MatSort} from "@angular/material/sort";
-import {MatTableDataSource} from "@angular/material/table";
+import {MatTableDataSource, MatTableModule} from "@angular/material/table";
+import {FundamentalDataComponent} from "../fundamental-data/fundamental-data.component";
+import {SearchBarComponent} from "../search-bar/search-bar.component";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {TradingViewChartComponent} from "../chart/trading-view-chart.component";
+import {CamelCasePipe} from "../../model/truncate-pipe";
+import {TitleCasePipe} from "@angular/common";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {CompanyProfileComponent} from "../company-profile/company-profile.component";
 
 @Component({
   selector: 'insiders',
   templateUrl: './insiders.component.html',
   styleUrls: ['./insiders.component.css'],
+  imports: [
+    FundamentalDataComponent,
+    SearchBarComponent,
+    MatToolbarModule,
+    TradingViewChartComponent,
+    MatTableModule,
+    CamelCasePipe,
+    TitleCasePipe,
+    MatProgressSpinnerModule,
+    CompanyProfileComponent
+  ],
+  standalone: true
 })
 export class InsidersComponent implements AfterViewInit {
 

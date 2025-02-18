@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {ApplicationRef, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatTableModule} from '@angular/material/table';
@@ -60,7 +60,6 @@ import {TradingViewChartComponent} from "./insiders-page/chart/trading-view-char
 import {CompanyProfileComponent} from "./insiders-page/company-profile/company-profile.component";
 import {FundamentalDataComponent} from "./insiders-page/fundamental-data/fundamental-data.component";
 import {SignInComponent} from "./login/sign-in/sign-in.component";
-import {JwtInterceptor} from "./login/interceptors/jwt.interceptor";
 import * as PlotlyJS from 'plotly.js-dist-min';
 import { PlotlyModule } from 'angular-plotly.js';
 import {ResetPasswordComponent} from "./login/reset-password/reset-password.component";
@@ -68,43 +67,8 @@ import {ResetPasswordComponent} from "./login/reset-password/reset-password.comp
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
-const routes: Routes = [
-  {path: '', component: EconomicCalendarComponent},
-  {path: 'app-news', component: NewsComponent},
-  {path: 'app-line-chart', component: SeasonalityPro},
-  {path: 'seasonality', component: MacroContainerComponent},
-  {path: 'app-seasonality', component: SeasonalityComponent},
-  {path: 'app-chart-year-component', component: ChartYearComponentComponent},
-  {path: 'app-supported-by', component: SupportedByComponent},
-  {path: 'insiders', component: InsidersComponent},
-  {path: 'dash-graphs', component: DashGraphsComponent},
-  {path: 'app-gas', component: GasComponent},
-  {path: 'reset-password', component: ResetPasswordComponent },
-  {path: 'hockey-bet', component: HockeyBetComponent}
-];
-
 @NgModule({
   declarations: [
-    AppComponent,
-    SeasonalityPro,
-    EconomicCalendarComponent,
-    EconomicDataComponent,
-    NewsComponent,
-    DateFormatPipe,
-    VolatilityPipe,
-    TimeFormatPipe,
-    TruncatePipe,
-    SearchComponent,
-    MacroContainerComponent,
-    SupportedByComponent,
-    InsidersComponent,
-    DashGraphsComponent,
-    SeasonalityComponent,
-    PieAreaComponent,
-    ChartYearComponentComponent,
-    HockeyBetComponent,
-    SearchBarComponent,
-    TeamCardComponent
   ],
   imports: [
     BrowserModule,
@@ -133,7 +97,6 @@ const routes: Routes = [
     MatDialogModule,
     MatSidenavModule,
     AppRoutingModule,
-    RouterModule.forRoot(routes),
     MatAutocompleteModule,
     MatTableModule,
     MatSortModule,
@@ -152,7 +115,7 @@ const routes: Routes = [
     CompanyProfileComponent,
     FundamentalDataComponent,
     SignInComponent,
-    PlotlyModule,
+    PlotlyModule
   ],
   exports: [
     MatTableModule,
@@ -164,14 +127,16 @@ const routes: Routes = [
     RouterModule
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     DateFormatPipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiInterceptor,
       multi: true,
-    }],
-  bootstrap: [AppComponent]
+    }
+  ]
 })
 export class AppModule {
+  ngDoBootstrap(appRef: ApplicationRef) {
+    appRef.bootstrap(AppComponent);
+  }
 }

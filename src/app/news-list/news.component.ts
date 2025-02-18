@@ -2,12 +2,32 @@ import { Component, OnInit } from '@angular/core';
 import { StockDataService } from '../services/stock-data.service';
 import { Meta } from "@angular/platform-browser";
 import { Article } from "../model/article";
-import { MediaObserver, MediaChange } from '@angular/flex-layout';
+import {MediaObserver, MediaChange, ExtendedModule} from '@angular/flex-layout';
 import { Subscription } from 'rxjs';
+import {PieChartComponent} from "../pie-chart/pie-chart.component";
+import {SentimentLineChartComponent} from "../sentiment-line-chart/sentiment-line-chart.component";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
+import {MatCardModule} from "@angular/material/card";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {DateFormatPipe} from "../model/date-format-pipe";
+import {TruncatePipe} from "../model/truncate-pipe";
 
 @Component({
   selector: 'app-news',
   templateUrl: './news.component.html',
+  standalone: true,
+  imports: [
+    PieChartComponent,
+    SentimentLineChartComponent,
+    MatToolbarModule,
+    MatIconModule,
+    MatCardModule,
+    MatExpansionModule,
+    ExtendedModule,
+    DateFormatPipe,
+    TruncatePipe
+  ],
   styleUrls: ['./news.component.css']
 })
 export class NewsComponent implements OnInit {

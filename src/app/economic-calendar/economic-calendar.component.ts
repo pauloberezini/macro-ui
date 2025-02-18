@@ -1,16 +1,39 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {StockDataService} from '../services/stock-data.service';
-import {FormControl} from "@angular/forms";
+import {FormControl, FormsModule} from "@angular/forms";
 import {Subject} from 'rxjs';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from "@angular/material/table";
+import {MatSort, MatSortModule} from '@angular/material/sort';
+import {MatTableDataSource, MatTableModule} from "@angular/material/table";
 import {EventDto} from "../model/event-dto";
 import {VolatilityPipe} from "../model/volatility.pipe";
+import {EconomicDataComponent} from "../macro-chart/economic-data.component";
+import {MatCardModule} from "@angular/material/card";
+import {MatSelectModule} from "@angular/material/select";
+import {TimeFormatPipe} from "../model/time-format.pipe";
+import {MatIconModule} from "@angular/material/icon";
+import {NgForOf, NgStyle} from "@angular/common";
+import {ExtendedModule} from "@angular/flex-layout";
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 
 @Component({
   selector: 'app-economic-calendar',
   templateUrl: './economic-calendar.component.html',
+  standalone: true,
+  imports: [
+    EconomicDataComponent,
+    MatCardModule,
+    MatSelectModule,
+    FormsModule,
+    MatTableModule,
+    TimeFormatPipe,
+    MatSortModule,
+    MatIconModule,
+    NgStyle,
+    ExtendedModule,
+    MatToolbarModule,
+    NgForOf
+  ],
   styleUrls: ['./economic-calendar.component.css']
 })
 export class EconomicCalendarComponent implements OnInit {

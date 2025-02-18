@@ -1,15 +1,17 @@
-<div class="cards-container" *ngIf="selection.selected.length > 0 && selection.selected.length <= 2">
-  <ng-container *ngFor="let team of selection.selected">
+@if (selection.selected.length > 0 && selection.selected.length <= 2) {
+  <div class="cards-container">
+    <ng-container *ngFor="let team of selection.selected">
       <app-team-card [team]="team"></app-team-card>
-  </ng-container>
-</div>
+    </ng-container>
+  </div>
+}
 <mat-radio-group [(ngModel)]="isPreviousStandings" (change)="switchTable()">
   <mat-radio-button [value]="false">Current Standings</mat-radio-button>
   <mat-radio-button [value]="true">Previous Standings</mat-radio-button>
 </mat-radio-group>
 
 
-<table mat-table [dataSource]="dataSource"  class="mat-elevation-z8 demo-table">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
   <!-- Checkbox Column -->
   <ng-container matColumnDef="select">
     <th mat-header-cell *matHeaderCellDef>
@@ -32,58 +34,58 @@
   <!-- Team Name Column -->
   <ng-container matColumnDef="teamName">
     <th mat-header-cell *matHeaderCellDef>Team Name</th>
-    <td mat-cell *matCellDef="let element">{{element.teamName}}</td>
+    <td mat-cell *matCellDef="let element">{{ element.teamName }}</td>
   </ng-container>
 
   <!-- Games Played Column -->
   <ng-container matColumnDef="gamesPlayed">
     <th mat-header-cell *matHeaderCellDef>Games Played</th>
-    <td mat-cell *matCellDef="let element">{{element.gamesPlayed}}</td>
+    <td mat-cell *matCellDef="let element">{{ element.gamesPlayed }}</td>
   </ng-container>
 
   <!-- Goals For Column -->
   <ng-container matColumnDef="goalsFor">
     <th mat-header-cell *matHeaderCellDef>Goals For</th>
-    <td mat-cell *matCellDef="let element">{{element.goalsFor}}</td>
+    <td mat-cell *matCellDef="let element">{{ element.goalsFor }}</td>
   </ng-container>
 
   <!-- Goals Against Column -->
   <ng-container matColumnDef="goalsAgainst">
     <th mat-header-cell *matHeaderCellDef>Goals Against</th>
-    <td mat-cell *matCellDef="let element">{{element.goalsAgainst}}</td>
+    <td mat-cell *matCellDef="let element">{{ element.goalsAgainst }}</td>
   </ng-container>
 
   <!-- Goals Average (All) Column -->
   <ng-container matColumnDef="goalsAverageAll">
     <th mat-header-cell *matHeaderCellDef>Goals Average (All)</th>
-    <td mat-cell *matCellDef="let element">{{element.all.goalsAverage}}</td>
+    <td mat-cell *matCellDef="let element">{{ element.all.goalsAverage }}</td>
   </ng-container>
 
   <ng-container matColumnDef="lossesAverage">
     <th mat-header-cell *matHeaderCellDef>Looses Average (All)</th>
-    <td mat-cell *matCellDef="let element">{{element.all.lossesAverage}}</td>
+    <td mat-cell *matCellDef="let element">{{ element.all.lossesAverage }}</td>
   </ng-container>
 
   <!-- Goals Average (HOME) Column -->
   <ng-container matColumnDef="goalsAverageAllH">
     <th mat-header-cell *matHeaderCellDef>Goals Average (HOME)</th>
-    <td mat-cell *matCellDef="let element">{{element.home.goalsAverage}}</td>
+    <td mat-cell *matCellDef="let element">{{ element.home.goalsAverage }}</td>
   </ng-container>
 
   <ng-container matColumnDef="lossesAverageH">
     <th mat-header-cell *matHeaderCellDef>Looses Average (HOME)</th>
-    <td mat-cell *matCellDef="let element">{{element.home.lossesAverage}}</td>
+    <td mat-cell *matCellDef="let element">{{ element.home.lossesAverage }}</td>
   </ng-container>
 
   <!-- Goals Average (GUEST) Column -->
   <ng-container matColumnDef="goalsAverageAllG">
     <th mat-header-cell *matHeaderCellDef>Goals Average (GUEST)</th>
-    <td mat-cell *matCellDef="let element">{{element.guest.goalsAverage}}</td>
+    <td mat-cell *matCellDef="let element">{{ element.guest.goalsAverage }}</td>
   </ng-container>
 
   <ng-container matColumnDef="lossesAverageG">
     <th mat-header-cell *matHeaderCellDef>Looses Average (GUEST)</th>
-    <td mat-cell *matCellDef="let element">{{element.guest.lossesAverage}}</td>
+    <td mat-cell *matCellDef="let element">{{ element.guest.lossesAverage }}</td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

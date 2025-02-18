@@ -4,10 +4,21 @@ import {StockDataService} from "../services/stock-data.service";
 import {Subject} from "rxjs";
 import {debounceTime} from "rxjs/operators";
 import annotationPlugin from "chartjs-plugin-annotation";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {FormsModule} from "@angular/forms";
+import {MatSelectModule} from "@angular/material/select";
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 @Component({
   selector: 'app-chart-year-component',
   templateUrl: './chart-year-component.component.html',
+  standalone: true,
+  imports: [
+    MatButtonToggleModule,
+    FormsModule,
+    MatSelectModule,
+    MatToolbarModule
+  ],
   styleUrls: ['./chart-year-component.component.css']
 })
 export class ChartYearComponentComponent implements OnInit {

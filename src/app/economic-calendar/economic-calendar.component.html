@@ -6,7 +6,7 @@
       </mat-toolbar-row>
     </mat-toolbar>
 
-    <div *ngIf="selectedOption === '2'">
+    @if (selectedOption === '2') {
       <mat-card-actions align="start">
         <mat-form-field>
           <mat-label>Select Currencies</mat-label>
@@ -25,7 +25,7 @@
           </mat-select>
         </mat-form-field>
       </mat-card-actions>
-    </div>
+    }
 
     <mat-card-content class="scrollable-table-container">
       <table mat-table [dataSource]="newsCollection" matSort #empTbSort="matSort">

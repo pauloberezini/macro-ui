@@ -1,21 +1,22 @@
-// src/app/interceptors/jwt.interceptor.ts
-import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+import { HttpInterceptorFn } from '@angular/common/http';
+import { HttpRequest, HttpHandlerFn, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-@Injectable()
-export class JwtInterceptor implements HttpInterceptor {
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // Retrieve the token from local storage (or via a service)
-    const token = localStorage.getItem('token');
-    if (token) {
-      // Clone the request and add the Authorization header with the token
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-    }
-    return next.handle(request);
+export const jwtInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> => {
+  console.log("🚀 Interceptor Executed - Checking Request:", req.url);
+
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    req = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    console.log("✅ Modified Request with Token:", req);
+  } else {
+    console.warn("⚠️ No Token Found - Sending Request Without Authorization Header");
   }
-}
+
+  return next(req);
+};
