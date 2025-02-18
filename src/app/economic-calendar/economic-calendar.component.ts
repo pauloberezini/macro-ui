@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {StockDataService} from '../services/stock-data.service';
 import {FormControl, FormsModule} from "@angular/forms";
 import {Subject} from 'rxjs';
@@ -11,8 +11,8 @@ import {MatCardModule} from "@angular/material/card";
 import {MatSelectModule} from "@angular/material/select";
 import {TimeFormatPipe} from "../model/time-format.pipe";
 import {MatIconModule} from "@angular/material/icon";
-import {NgForOf, NgStyle} from "@angular/common";
-import {ExtendedModule} from "@angular/flex-layout";
+import {NgForOf, NgIf, NgStyle} from "@angular/common";
+import {FlexLayoutModule, FlexModule} from "@angular/flex-layout";
 import {MatToolbarModule} from "@angular/material/toolbar";
 
 
@@ -30,13 +30,15 @@ import {MatToolbarModule} from "@angular/material/toolbar";
     MatSortModule,
     MatIconModule,
     NgStyle,
-    ExtendedModule,
     MatToolbarModule,
-    NgForOf
+    NgForOf,
+    FlexModule,
+    NgIf,
+    FlexLayoutModule
   ],
   styleUrls: ['./economic-calendar.component.css']
 })
-export class EconomicCalendarComponent implements OnInit {
+export class EconomicCalendarComponent implements OnInit, AfterViewInit {
   private refreshClick = new Subject();
   private destroy$ = new Subject();
   allNews: EventDto[];
@@ -55,7 +57,8 @@ export class EconomicCalendarComponent implements OnInit {
   volatility: string[] = ['***'];
 
   selectedRow: any;
-  @ViewChild('empTbSort') empTbSort = new MatSort();
+  @ViewChild(MatSort) empTbSort!: MatSort;
+
 
   constructor(private stockDataService: StockDataService) {
   }
@@ -64,6 +67,15 @@ export class EconomicCalendarComponent implements OnInit {
     this.loadData();
     let volatilityPipe = new VolatilityPipe();
     this.volatilisesSymbolic = this.volatilises.map(volatility => volatilityPipe.transform(volatility));
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      if (this.newsCollection) {
+        this.newsCollection.sort = this.empTbSort;
+        console.log("Sorting Applied:", this.empTbSort);
+      }
+    });
   }
 
 
@@ -82,15 +94,42 @@ export class EconomicCalendarComponent implements OnInit {
   loadData(): void {
     if (this.canRefresh) {
       this.stockDataService.getHighNews().subscribe((data: EventDto[]) => {
-        this.allNews = data;
-        this.newsCollection = new MatTableDataSource<EventDto>(data);
-        this.newsCollection.sort = this.empTbSort;
+        console.log("Raw API Data:", data);
+
+        // ✅ Normalize volatility values to expected format
+        const volatilityMapping: Record<string, string> = {
+          '*': '*',
+          '**': '**',
+          '***': '***'
+        };
+
+        this.allNews = data.map(event => ({
+          ...event,
+          volatility: volatilityMapping[event.volatility?.trim()] || '*', // Default to '*'
+        }));
+
+        console.log("Processed Data:", this.allNews);
+
+        // ✅ Assign data to MatTableDataSource
+        this.newsCollection = new MatTableDataSource<EventDto>(this.allNews);
+
+        // ✅ Apply sorting once data is available
+        setTimeout(() => {
+          if (this.empTbSort) {
+            this.newsCollection.sort = this.empTbSort;
+          }
+        });
+
+        // ✅ Apply filtering after loading data
         this.filterData();
       });
-      // @ts-ignore
-      this.refreshClick.next();
+
+      this.refreshClick.next(1);
     }
   }
+
+
+
 
   getBackgroundColor(actualInfo: string, forecastInfo: string): string {
     const actual = parseFloat(actualInfo.trim());
@@ -108,18 +147,46 @@ export class EconomicCalendarComponent implements OnInit {
 
   filterData(): void {
     this.selectedRow = null;
+
+    console.log("Filtering Data with:", this.selectedCountry, this.volatility);
+
+    const availableCountries = [...new Set(this.allNews.map(e => e.country))];
+    const availableVolatility = [...new Set(this.allNews.map(e => e.volatility))];
+
+    console.log("Available Country Values:", availableCountries);
+    console.log("Available Volatility Values:", availableVolatility);
+
+    // ✅ Ensure selected values actually exist in dataset
+    const validCountries = this.selectedCountry.filter(c => availableCountries.includes(c));
+    const validVolatility = this.volatility.filter(v => availableVolatility.includes(v));
+
+    if (validCountries.length === 0) {
+      console.warn("Selected countries do not match available values. Using all available.");
+      validCountries.push(...availableCountries);
+    }
+    if (validVolatility.length === 0) {
+      console.warn("Selected volatility values do not match available values. Using all available.");
+      validVolatility.push(...availableVolatility);
+    }
+
+    // ✅ Apply filtering with verified selections
     let filteredNews = this.allNews.filter(event =>
-      this.selectedCountry.includes(event.country) &&
-      this.volatility.includes(event.volatility)
+      validCountries.includes(event.country) &&
+      validVolatility.includes(event.volatility)
     );
 
-    if (filteredNews.length == 0) {
-      return;
-    } else {
-      this.newsCollection = new MatTableDataSource<EventDto>(filteredNews);
+    console.log("Filtered Data:", filteredNews);
+
+    this.newsCollection.data = filteredNews; // ✅ Update table data
+
+    if (this.newsCollection.sort) {
+      this.newsCollection.sort = this.empTbSort;
     }
-    this.newsCollection.sort = this.empTbSort;
   }
+
+
+
+
 
   onRadioButtonClick(index: number) {
     if (index == 1) {
