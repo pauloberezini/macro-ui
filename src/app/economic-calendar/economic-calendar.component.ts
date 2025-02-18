@@ -94,7 +94,6 @@ export class EconomicCalendarComponent implements OnInit, AfterViewInit {
       this.stockDataService.getHighNews().subscribe((data: EventDto[]) => {
         console.log("Raw API Data:", data);
 
-        // ✅ Normalize volatility values to expected format
         const volatilityMapping: Record<string, string> = {
           '*': '*',
           '**': '**',
@@ -108,26 +107,20 @@ export class EconomicCalendarComponent implements OnInit, AfterViewInit {
 
         console.log("Processed Data:", this.allNews);
 
-        // ✅ Assign data to MatTableDataSource
         this.newsCollection = new MatTableDataSource<EventDto>(this.allNews);
 
-        // ✅ Apply sorting once data is available
         setTimeout(() => {
           if (this.empTbSort) {
             this.newsCollection.sort = this.empTbSort;
           }
         });
 
-        // ✅ Apply filtering after loading data
         this.filterData();
       });
 
       this.refreshClick.next(1);
     }
   }
-
-
-
 
   getBackgroundColor(actualInfo: string, forecastInfo: string): string {
     const actual = parseFloat(actualInfo.trim());
@@ -154,7 +147,6 @@ export class EconomicCalendarComponent implements OnInit, AfterViewInit {
     console.log("Available Country Values:", availableCountries);
     console.log("Available Volatility Values:", availableVolatility);
 
-    // ✅ Ensure selected values actually exist in dataset
     const validCountries = this.selectedCountry.filter(c => availableCountries.includes(c));
     const validVolatility = this.volatility.filter(v => availableVolatility.includes(v));
 
@@ -167,7 +159,6 @@ export class EconomicCalendarComponent implements OnInit, AfterViewInit {
       validVolatility.push(...availableVolatility);
     }
 
-    // ✅ Apply filtering with verified selections
     let filteredNews = this.allNews.filter(event =>
       validCountries.includes(event.country) &&
       validVolatility.includes(event.volatility)
@@ -175,20 +166,10 @@ export class EconomicCalendarComponent implements OnInit, AfterViewInit {
 
     console.log("Filtered Data:", filteredNews);
 
-    this.newsCollection.data = filteredNews; // ✅ Update table data
+    this.newsCollection.data = filteredNews;
 
     if (this.newsCollection.sort) {
       this.newsCollection.sort = this.empTbSort;
-    }
-  }
-
-
-
-
-
-  onRadioButtonClick(index: number) {
-    if (index == 1) {
-      this.newsCollection = new MatTableDataSource<EventDto>(this.allNews);
     }
   }
 }
