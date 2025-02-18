@@ -8,7 +8,7 @@ import {SearchBarComponent} from "../search-bar/search-bar.component";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {TradingViewChartComponent} from "../chart/trading-view-chart.component";
 import {CamelCasePipe} from "../../model/truncate-pipe";
-import {TitleCasePipe} from "@angular/common";
+import {NgIf, TitleCasePipe} from "@angular/common";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {CompanyProfileComponent} from "../company-profile/company-profile.component";
 
@@ -25,7 +25,8 @@ import {CompanyProfileComponent} from "../company-profile/company-profile.compon
     CamelCasePipe,
     TitleCasePipe,
     MatProgressSpinnerModule,
-    CompanyProfileComponent
+    CompanyProfileComponent,
+    NgIf
   ],
   standalone: true
 })

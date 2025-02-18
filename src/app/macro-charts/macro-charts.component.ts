@@ -1,5 +1,4 @@
 import {Component, ElementRef, OnInit, signal, ViewChild} from '@angular/core';
-import {FlexModule} from "@angular/flex-layout";
 import {MatCardModule} from "@angular/material/card";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -24,7 +23,6 @@ Chart.register(...registerables, annotationPlugin);
   selector: 'app-macro-charts',
   standalone: true,
   imports: [
-    FlexModule,
     MatCardModule,
     AsyncPipe,
     FormsModule,
@@ -36,7 +34,6 @@ Chart.register(...registerables, annotationPlugin);
     ReactiveFormsModule,
     MatSelectModule,
     MatButtonModule,
-    NgIf,
     MatIconModule,
     DataMessageComponent
   ],

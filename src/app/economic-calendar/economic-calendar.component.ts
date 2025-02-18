@@ -11,8 +11,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatSelectModule} from "@angular/material/select";
 import {TimeFormatPipe} from "../model/time-format.pipe";
 import {MatIconModule} from "@angular/material/icon";
-import {NgForOf, NgIf, NgStyle} from "@angular/common";
-import {FlexLayoutModule, FlexModule} from "@angular/flex-layout";
+import {NgClass, NgForOf, NgIf, NgStyle} from "@angular/common";
 import {MatToolbarModule} from "@angular/material/toolbar";
 
 
@@ -32,9 +31,8 @@ import {MatToolbarModule} from "@angular/material/toolbar";
     NgStyle,
     MatToolbarModule,
     NgForOf,
-    FlexModule,
     NgIf,
-    FlexLayoutModule
+    NgClass,
   ],
   styleUrls: ['./economic-calendar.component.css']
 })

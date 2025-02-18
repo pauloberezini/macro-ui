@@ -5,13 +5,15 @@ import moment from 'moment';
 import 'chart.js';
 import 'chartjs-adapter-moment';
 import {DataMessageComponent} from "../util/data-message/data-message.component";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-economic-data',
   templateUrl: './economic-data.component.html',
   standalone: true,
   imports: [
-    DataMessageComponent
+    DataMessageComponent,
+    NgIf
   ],
   styleUrls: ['./economic-data.component.css']
 })

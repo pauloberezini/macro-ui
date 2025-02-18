@@ -5,6 +5,7 @@ import {Observable, of} from 'rxjs';
 import {StockDataService} from "../../services/stock-data.service";
 import {StockSuggestion} from "../../model/stock-suggestion";
 import {MatInputModule} from "@angular/material/input";
+import {NgForOf, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-search-bar',
@@ -12,7 +13,9 @@ import {MatInputModule} from "@angular/material/input";
   standalone: true,
   imports: [
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgForOf,
+    NgIf
   ],
   styleUrls: ['./search-bar.component.css']
 })

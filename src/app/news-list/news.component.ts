@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { StockDataService } from '../services/stock-data.service';
 import { Meta } from "@angular/platform-browser";
 import { Article } from "../model/article";
-import {MediaObserver, MediaChange, ExtendedModule} from '@angular/flex-layout';
 import { Subscription } from 'rxjs';
 import {PieChartComponent} from "../pie-chart/pie-chart.component";
 import {SentimentLineChartComponent} from "../sentiment-line-chart/sentiment-line-chart.component";
@@ -12,6 +11,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {DateFormatPipe} from "../model/date-format-pipe";
 import {TruncatePipe} from "../model/truncate-pipe";
+import {NgClass, NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-news',
@@ -24,9 +24,10 @@ import {TruncatePipe} from "../model/truncate-pipe";
     MatIconModule,
     MatCardModule,
     MatExpansionModule,
-    ExtendedModule,
     DateFormatPipe,
-    TruncatePipe
+    TruncatePipe,
+    NgClass,
+    NgForOf
   ],
   styleUrls: ['./news.component.css']
 })
@@ -39,8 +40,7 @@ export class NewsComponent implements OnInit {
 
   constructor(
     private metaTagService: Meta,
-    private stockDataService: StockDataService,
-    private mediaObserver: MediaObserver
+    private stockDataService: StockDataService
   ) { }
 
   ngOnInit(): void {
@@ -63,10 +63,5 @@ export class NewsComponent implements OnInit {
       this.sentimentData = data;
     });
 
-
-    this.mediaSub = this.mediaObserver.asObservable().subscribe((changes: MediaChange[]) => {
-      const change = changes.find(c => c.mqAlias === 'xs');
-      this.truncateLength = change ? 70 : 100;
-    });
   }
 }

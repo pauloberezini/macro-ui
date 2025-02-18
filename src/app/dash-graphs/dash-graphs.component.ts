@@ -12,6 +12,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {FormsModule} from "@angular/forms";
 import {MatCardModule} from "@angular/material/card";
 import {MatToolbarModule} from "@angular/material/toolbar";
+import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'dash-graphs',
@@ -21,7 +22,8 @@ import {MatToolbarModule} from "@angular/material/toolbar";
     MatSelectModule,
     FormsModule,
     MatCardModule,
-    MatToolbarModule
+    MatToolbarModule,
+    NgForOf
   ],
   styleUrls: ['./dash-graphs.component.css']
 })

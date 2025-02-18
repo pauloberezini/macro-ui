@@ -3,7 +3,6 @@ import {Chart} from "chart.js/auto";
 import {StockDataService} from "../services/stock-data.service";
 import {NewsSentiment} from "../model/news-sentiment";
 import {Observable} from "rxjs";
-import {FlexModule} from "@angular/flex-layout";
 import {MatCardModule} from "@angular/material/card";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
@@ -16,11 +15,9 @@ import {DataMessageComponent} from "../util/data-message/data-message.component"
   templateUrl: './pie-chart.component.html',
   standalone: true,
   imports: [
-    FlexModule,
     MatCardModule,
     MatToolbarModule,
     MatIconModule,
-    NgIf,
     MatListModule,
     DataMessageComponent
   ],

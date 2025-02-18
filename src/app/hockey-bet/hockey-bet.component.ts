@@ -8,6 +8,7 @@ import {MatRadioModule} from "@angular/material/radio";
 import {TeamCardComponent} from "./team-card/team-card.component";
 import {FormsModule} from "@angular/forms";
 import {MatTableModule} from "@angular/material/table";
+import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'hockey-bet',
@@ -18,7 +19,8 @@ import {MatTableModule} from "@angular/material/table";
     MatRadioModule,
     TeamCardComponent,
     FormsModule,
-    MatTableModule
+    MatTableModule,
+    NgForOf
   ],
   styleUrls: ['./hockey-bet.component.css']
 })

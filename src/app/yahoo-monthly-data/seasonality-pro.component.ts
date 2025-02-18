@@ -7,6 +7,7 @@ import {DateFormatPipe} from "../model/date-format-pipe";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatSelectModule} from "@angular/material/select";
 import {FormsModule} from "@angular/forms";
+import {NgIf} from "@angular/common";
 
 
 @Component({
@@ -16,7 +17,8 @@ import {FormsModule} from "@angular/forms";
   imports: [
     MatDividerModule,
     MatSelectModule,
-    FormsModule
+    FormsModule,
+    NgIf
   ],
   styleUrls: ['./seasonality-pro.component.css']
 })
