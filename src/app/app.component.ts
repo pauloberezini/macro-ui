@@ -4,6 +4,8 @@ import {SignInComponent} from "./login/sign-in/sign-in.component";
 import {MatDialog} from "@angular/material/dialog";
 import {JoinComponent} from "./login/join/join.component";
 import {AuthService} from "./services/auth.service";
+import {Router, RouterOutlet} from "@angular/router";
+import {MatIconModule} from "@angular/material/icon";
 
 export interface StockData {
   date: string;
@@ -18,6 +20,11 @@ export interface StockData {
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
+  standalone: true,
+  imports: [
+    RouterOutlet,
+    MatIconModule
+  ],
   styleUrls: ['./app.component.css']
 })
 
@@ -25,7 +32,7 @@ export class AppComponent implements OnInit {
   isCollapsed = true;
   isLoggedIn: boolean = false;
 
-  constructor(private metaTagService: Meta, private dialog: MatDialog, private authService: AuthService) {
+  constructor(private metaTagService: Meta, private dialog: MatDialog, private authService: AuthService, private router: Router) {
   }
 
   ngOnInit() {
@@ -84,5 +91,33 @@ export class AppComponent implements OnInit {
       console.log('Sign In dialog was closed', result);
       // You can handle dialog result here if needed
     });
+  }
+
+  goToHome() {
+    this.router.navigate(['/']);
+  }
+
+  goToSeasonality() {
+    this.router.navigate(['/app-seasonality']);
+  }
+
+  goToStockAnomaly() {
+    this.router.navigate(['/app-stock-anomaly']);
+  }
+
+  goToInsiders() {
+    this.router.navigate(['/insiders']);
+  }
+
+  goToNews() {
+    this.router.navigate(['/app-news']);
+  }
+
+  goToDashGraphs() {
+    this.router.navigate(['/dash-graphs']);
+  }
+
+  goToAbout() {
+    this.router.navigate(['/app-supported-by']);
   }
 }

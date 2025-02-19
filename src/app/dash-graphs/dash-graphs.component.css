@@ -1,27 +1,38 @@
-/*.flex-item {*/
-/*  flex-grow: 1;*/
-/*  flex-basis: calc(50% - 20px); !* Subtracting margins *!*/
-/*  border: 1px solid black;*/
-/*  margin: 10px;*/
-/*  padding: 10px;*/
-/*  text-align: center;*/
-/*  box-sizing: border-box; !* Ensures that padding and border are included in width calculations *!*/
-/*}*/
-
-/*.flex-container {*/
-/*  display: flex;*/
-/*  justify-content: space-around;*/
-/*  flex-wrap: wrap; !* Allow items to wrap onto the next line *!*/
-/*}*/
-
-.flex-container {
+/* Main Toolbar */
+.toolbar-row {
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
 }
 
+/* Button Container (Aligns Buttons to the Right) */
+.button-container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Flex Container (Grid Layout) */
+.flex-container {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping for smaller screens */
+  justify-content: space-around;
+  gap: 10px; /* Replaces fxLayoutGap */
+}
+
+/* Flex Items (Responsive Grid Items) */
 .flex-item {
+  width: 100%; /* Default: Full width */
   padding: 10px;
   text-align: center;
-  box-sizing: border-box; /* This ensures padding does not affect overall width */
+  box-sizing: border-box;
+}
+
+/* Medium Screens (Greater than XS - Above Mobile Size) */
+@media (min-width: 600px) {
+  .flex-item {
+    width: calc(50% - 10px); /* Replaces fxFlex.gt-xs="50%" */
+  }
 }

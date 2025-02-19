@@ -1,44 +1,51 @@
-<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="6px" fxFlexFill>
-  <mat-card fxFlex="100%">
-    <mat-toolbar fxLayout="column" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutAlign.xs="start stretch">
-      <mat-toolbar-row fxHide.xs>
-        <span class="example-spacer">Economic calendar</span>
+<!-- Main container: Uses CSS Grid for layout -->
+<div class="container">
+
+  <!-- 📌 First Column: Economic Calendar -->
+  <mat-card class="card">
+    <mat-toolbar>
+      <mat-toolbar-row>
+        <span class="example-spacer">Economic Calendar</span>
       </mat-toolbar-row>
     </mat-toolbar>
 
-    <div *ngIf="selectedOption === '2'">
-      <mat-card-actions align="start">
-        <mat-form-field>
-          <mat-label>Select Currencies</mat-label>
-          <mat-select (selectionChange)="filterData()" name="country" [(ngModel)]="selectedCountry" multiple>
-            <mat-option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</mat-option>
-          </mat-select>
-        </mat-form-field>
+    <!-- Currency and Volatility Filters -->
+    <mat-card-actions class="filter-actions">
+      <mat-form-field>
+        <mat-label>Select Currencies</mat-label>
+        <mat-select (selectionChange)="filterData()" name="country" [(ngModel)]="selectedCountry" multiple>
+          <mat-option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>Volatility</mat-label>
-          <mat-select (selectionChange)="filterData()" name="volatility" [(ngModel)]="volatility" multiple>
-            <mat-option *ngFor="let volatility of volatilisesSymbolic; let i = index"
-                        [value]="volatilises[i]">
-              {{ volatility }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </mat-card-actions>
-    </div>
+      <mat-form-field>
+        <mat-label>Volatility</mat-label>
+        <mat-select (selectionChange)="filterData()" name="volatility" [(ngModel)]="volatility" multiple>
+          <mat-option *ngFor="let volatility of volatilisesSymbolic; let i = index"
+                      [value]="volatilises[i]">
+            {{ volatility }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-card-actions>
 
+    <!-- 📌 Table Content -->
     <mat-card-content class="scrollable-table-container">
       <table mat-table [dataSource]="newsCollection" matSort #empTbSort="matSort">
+
+        <!-- Time Column -->
         <ng-container matColumnDef="time">
           <th mat-header-cell *matHeaderCellDef>Time</th>
           <td mat-cell *matCellDef="let news">{{ news.time | timeFormat: 0 }}</td>
         </ng-container>
 
+        <!-- Currency Column -->
         <ng-container matColumnDef="country">
           <th mat-header-cell *matHeaderCellDef>Currency</th>
           <td mat-cell *matCellDef="let news">{{ news.country }}</td>
         </ng-container>
 
+        <!-- Volatility Column -->
         <ng-container matColumnDef="volatility">
           <th mat-header-cell *matHeaderCellDef>Volatility</th>
           <td mat-cell *matCellDef="let news">
@@ -57,34 +64,42 @@
           </td>
         </ng-container>
 
+        <!-- Event Name Column -->
         <ng-container matColumnDef="eventName">
           <th mat-header-cell *matHeaderCellDef>Event Name</th>
           <td mat-cell *matCellDef="let news">{{ news.eventName }}</td>
         </ng-container>
 
+        <!-- Actual Info Column -->
         <ng-container matColumnDef="actualInfo">
           <th mat-header-cell *matHeaderCellDef>Actual</th>
           <td mat-cell *matCellDef="let news" [ngStyle]="{
-      'background-color': getBackgroundColor(news.actualInfo, news.forecastInfo)
-    }">
+            'background-color': getBackgroundColor(news.actualInfo, news.forecastInfo)
+          }">
             {{ news.actualInfo.trim() }}
           </td>
         </ng-container>
 
+        <!-- Forecast Info Column -->
         <ng-container matColumnDef="forecastInfo">
           <th mat-header-cell *matHeaderCellDef>Forecast</th>
           <td mat-cell *matCellDef="let news">{{ news.forecastInfo }}</td>
         </ng-container>
 
+        <!-- Previous Info Column -->
         <ng-container matColumnDef="previousInfo">
           <th mat-header-cell *matHeaderCellDef>Previous</th>
           <td mat-cell *matCellDef="let news">{{ news.previousInfo }}</td>
         </ng-container>
 
+        <!-- Header Row -->
         <tr mat-header-row
             *matHeaderRowDef="['time', 'country', 'volatility', 'eventName', 'actualInfo', 'forecastInfo', 'previousInfo']; sticky: true">
         </tr>
-        <tr mat-row (click)="onMacroNewsClick(row)"
+
+        <!-- Data Rows -->
+        <tr mat-row
+            (click)="onMacroNewsClick(row)"
             [ngClass]="{ 'selected-row': selectedRow === row, 'hovered-row': row.isHovered }"
             (mouseover)="onMouseOver(row)"
             (mouseleave)="onMouseLeave(row)"
@@ -93,12 +108,13 @@
       </table>
     </mat-card-content>
   </mat-card>
-  <mat-card fxFlex="50%" fxFlex.xs="100%">
+
+  <!-- 📌 Second Column: Historical Data -->
+  <mat-card class="card">
     <mat-toolbar>
       <mat-toolbar-row>
-        <span class="example-spacer">Historical data</span>
+        <span class="example-spacer">Historical Data</span>
       </mat-toolbar-row>
-
     </mat-toolbar>
 
     <div class="centered-content">

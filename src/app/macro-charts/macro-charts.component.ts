@@ -1,5 +1,4 @@
 import {Component, ElementRef, OnInit, signal, ViewChild} from '@angular/core';
-import {FlexModule} from "@angular/flex-layout";
 import {MatCardModule} from "@angular/material/card";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -12,7 +11,7 @@ import {debounceTime, distinctUntilChanged, map, switchMap} from "rxjs/operators
 import {MatSelectModule} from "@angular/material/select";
 import {MatButtonModule} from "@angular/material/button";
 import {StockDataService} from "../services/stock-data.service";
-import * as moment from "moment/moment";
+import moment from "moment/moment";
 import {MatIconModule} from "@angular/material/icon";
 import {Chart, registerables} from "chart.js/auto";
 import annotationPlugin from "chartjs-plugin-annotation";
@@ -24,7 +23,6 @@ Chart.register(...registerables, annotationPlugin);
   selector: 'app-macro-charts',
   standalone: true,
   imports: [
-    FlexModule,
     MatCardModule,
     AsyncPipe,
     FormsModule,
@@ -36,7 +34,6 @@ Chart.register(...registerables, annotationPlugin);
     ReactiveFormsModule,
     MatSelectModule,
     MatButtonModule,
-    NgIf,
     MatIconModule,
     DataMessageComponent
   ],

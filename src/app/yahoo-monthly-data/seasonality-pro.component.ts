@@ -4,11 +4,22 @@ import {MatDialog} from '@angular/material/dialog';
 import {Chart, ChartType} from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import {DateFormatPipe} from "../model/date-format-pipe";
+import {MatDividerModule} from "@angular/material/divider";
+import {MatSelectModule} from "@angular/material/select";
+import {FormsModule} from "@angular/forms";
+import {NgIf} from "@angular/common";
 
 
 @Component({
   selector: 'app-line-chart',
   templateUrl: './seasonality-pro.component.html',
+  standalone: true,
+  imports: [
+    MatDividerModule,
+    MatSelectModule,
+    FormsModule,
+    NgIf
+  ],
   styleUrls: ['./seasonality-pro.component.css']
 })
 export class SeasonalityPro implements AfterViewInit, OnInit, OnChanges {

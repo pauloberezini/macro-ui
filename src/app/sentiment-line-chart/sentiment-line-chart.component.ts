@@ -2,7 +2,6 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/cor
 import { Chart, ChartConfiguration, ChartType, registerables } from 'chart.js';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import {MatButtonModule} from "@angular/material/button";
-import {FlexModule} from "@angular/flex-layout";
 import {MatCardModule} from "@angular/material/card";
 import {MatIconModule} from "@angular/material/icon";
 import {MatToolbarModule} from "@angular/material/toolbar";
@@ -15,7 +14,6 @@ Chart.register(...registerables, zoomPlugin); // Register Chart.js plugins
   standalone: true,
   imports: [
     MatButtonModule,
-    FlexModule,
     MatCardModule,
     MatIconModule,
     MatToolbarModule

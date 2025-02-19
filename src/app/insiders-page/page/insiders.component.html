@@ -6,34 +6,30 @@
 
 <!-- Search Bar -->
 <app-search-bar (suggestionSelected)="handleSuggestion($event)"></app-search-bar>
-<div fxLayout="row" style="width: 100%; height: 100vh;">
 
-  <!-- Main Content -->
-  <div fxFlex="70">
+<!-- Main Layout -->
+<div class="main-container">
+
+  <!-- Left Side (Trading View + Insider Transactions) -->
+  <div class="left-side">
     <!-- Flex container with two rows -->
-    <div fxLayout="column" style="height: 100%; overflow: hidden;">
+    <div class="left-container">
       <!-- Row 1: Trading View -->
-      <div fxFlex="30" fxLayout="row" fxLayoutAlign="center center">
+      <div class="trading-view">
         <app-trading-view-chart style="height: 100%; width: 100%;"
-                          [symbol]="selectedSuggestion"
-                          [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
+                                [symbol]="selectedSuggestion"
+                                [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
         </app-trading-view-chart>
       </div>
       <!-- Row 2: Insider Transactions -->
-      <div fxFlex="100"
-           [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
+      <div class="insider-transactions" [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
         <div class="container">
           <mat-toolbar>
             <mat-toolbar-row>
               <span>Insiders Transactions</span>
             </mat-toolbar-row>
           </mat-toolbar>
-          <table
-            mat-table
-            [dataSource]="data"
-            matSort
-            class="mat-elevation-z8"
-            style="width: 100%;">
+          <table mat-table [dataSource]="data" matSort class="mat-elevation-z8 full-width">
             <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>
                 {{ column | camelCaseSplit | titlecase }}
@@ -53,22 +49,21 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
-  <!-- Right Side Column -->
-  <div fxFlex="30" fxLayout="column" style="height: 100%;">
+
+  <!-- Right Side (Company Profile + Fundamental Data) -->
+  <div class="right-side">
     <!-- First Cell: Company Profile -->
-    <div style="overflow: hidden;" [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
+    <div class="company-profile" [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
       <app-company-profile style="height: 100%; width: 100%;" [symbol]="selectedSuggestion"></app-company-profile>
     </div>
 
     <!-- Second Cell: Fundamental Data -->
-    <div fxFlex="100" style="height: 100%; overflow: hidden;"
-         [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
+    <div class="fundamental-data" [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
       <app-fundamental-data style="height: 100%; width: 100%;" [symbol]="selectedSuggestion"></app-fundamental-data>
-
     </div>
+
     <!-- Copyright Positioned at the Bottom -->
     <div class="tradingview-widget-copyright">
       <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
@@ -76,6 +71,5 @@
       </a>
     </div>
   </div>
-
 
 </div>

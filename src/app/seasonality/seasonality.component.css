@@ -1,11 +1,31 @@
+/* 📌 Use CSS Grid to replace fxLayout */
+.chart-container {
+  display: grid;
+  grid-template-columns: 60% 30%; /* Desktop: First column 60%, Second column 30% */
+  gap: 10px; /* Space between columns */
+  width: 100%;
+}
+
+/* Responsive Layout for Mobile (One Column) */
+@media (max-width: 600px) {
+  .chart-container {
+    grid-template-columns: 1fr; /* Mobile: Full width stacked layout */
+  }
+}
+
+/* Ensure Full Height for mat-grid-tile Content */
 mat-grid-tile-content {
   height: 100%;
 }
 
+/* Material Button Toggle Group */
 mat-button-toggle-group {
   margin-left: 12px;
 }
-/* Mobile Phones */
+
+/* Responsive Design Adjustments */
+
+/* 📌 Mobile Phones */
 @media screen and (max-width: 600px) {
   mat-grid-tile {
     padding: 5px;
@@ -15,7 +35,7 @@ mat-button-toggle-group {
   }
 }
 
-/* Tablets */
+/* 📌 Tablets */
 @media screen and (min-width: 601px) and (max-width: 960px) {
   mat-grid-tile {
     padding: 10px;
@@ -25,7 +45,7 @@ mat-button-toggle-group {
   }
 }
 
-/* Desktops */
+/* 📌 Desktops */
 @media screen and (min-width: 961px) {
   mat-grid-tile {
     height: 100%;
