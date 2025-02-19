@@ -63,8 +63,9 @@ html, body, mat-sidenav-container, mat-sidenav-content {
 
 
 .flat-button {
+  color: var(--dark-gray);
   background-color: var(--light-gray); /* Makes the button background transparent */
-  border: 0.5px solid gray; /* Sets the border */
+  border: 1px solid gray; /* Sets the border */
   padding: 5px 15px; /* Some padding for the button content */
   transition: background-color 0.3s; /* Optional: smooth transition for hover effect */
   cursor: pointer; /* Makes it clear it's a clickable button */

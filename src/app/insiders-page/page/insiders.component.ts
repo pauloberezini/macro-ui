@@ -1,15 +1,16 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
-import {StockDataService} from "../../services/stock-data.service";
-import {InsiderData} from '../../model/InsiderData';
-import {MatSort} from "@angular/material/sort";
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { StockDataService } from '../../services/stock-data.service';
+import { InsiderData } from '../../model/InsiderData';
+import { MatSort } from "@angular/material/sort";
 import {MatTableDataSource, MatTableModule} from "@angular/material/table";
-import {FundamentalDataComponent} from "../fundamental-data/fundamental-data.component";
+import { MatPaginator } from "@angular/material/paginator";
 import {SearchBarComponent} from "../search-bar/search-bar.component";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {TradingViewChartComponent} from "../chart/trading-view-chart.component";
 import {CamelCasePipe} from "../../model/truncate-pipe";
-import {NgIf, TitleCasePipe} from "@angular/common";
+import {NgForOf, NgIf, TitleCasePipe} from "@angular/common";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {FundamentalDataComponent} from "../fundamental-data/fundamental-data.component";
 import {CompanyProfileComponent} from "../company-profile/company-profile.component";
 
 @Component({
@@ -17,7 +18,6 @@ import {CompanyProfileComponent} from "../company-profile/company-profile.compon
   templateUrl: './insiders.component.html',
   styleUrls: ['./insiders.component.css'],
   imports: [
-    FundamentalDataComponent,
     SearchBarComponent,
     MatToolbarModule,
     TradingViewChartComponent,
@@ -25,33 +25,26 @@ import {CompanyProfileComponent} from "../company-profile/company-profile.compon
     CamelCasePipe,
     TitleCasePipe,
     MatProgressSpinnerModule,
+    FundamentalDataComponent,
     CompanyProfileComponent,
-    NgIf
+    NgIf,
+    NgForOf
   ],
   standalone: true
 })
 export class InsidersComponent implements AfterViewInit {
 
   public data = new MatTableDataSource<InsiderData>([]);
-
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
-
-  ngAfterViewInit(): void {
-    this.data.sort = this.sort;
-  }
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   selectedSuggestion: string = '';
-
-  handleSuggestion(suggestion: string): void {
-    this.selectedSuggestion = suggestion; // Handle the selected suggestion
-    this.getInsidersData(); // Get the insiders data
-  }
+  isLoading = false; // Prevents duplicate API calls
 
   displayedColumns: string[] = [
     'title',
     'symbol',
     'filingDate',
-    // 'reportingName', no data from API
     'transactionDate',
     'transactionCode',
     'amount',
@@ -61,31 +54,43 @@ export class InsidersComponent implements AfterViewInit {
     'relationship'
   ];
 
-  constructor(
-    private stockDataService: StockDataService,
-  ) {
+  constructor(private stockDataService: StockDataService) {}
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      if (this.sort) this.data.sort = this.sort;
+      if (this.paginator) this.data.paginator = this.paginator;
+    });
+  }
+
+  handleSuggestion(suggestion: string): void {
+    if (suggestion !== this.selectedSuggestion) {
+      this.selectedSuggestion = suggestion;
+      this.getInsidersData();
+    }
   }
 
   getInsidersData(): void {
-    this.data.data = []; // Clear the existing data
+    if (!this.selectedSuggestion || this.isLoading) return;
+
+    this.isLoading = true;
+    this.data.data = []; // Clear previous data
 
     this.stockDataService.getInsidersDataForStock(this.selectedSuggestion).subscribe({
       next: (response) => {
+        this.isLoading = false;
         if (response && response.length > 0) {
-          // Sort the data by transactionDate in descending order
-          const sortedData = response.sort((a, b) => {
-            return new Date(b.transactionDate).getTime() - new Date(a.transactionDate).getTime();
-          });
-          this.data.data = sortedData;
+          this.data.data = response.sort((a, b) =>
+            new Date(b.transactionDate).getTime() - new Date(a.transactionDate).getTime()
+          );
         } else {
           console.warn('No data received for symbol:', this.selectedSuggestion);
         }
       },
       error: (error) => {
+        this.isLoading = false;
         console.error('Error fetching insider data:', error);
       },
     });
   }
-
-
 }

@@ -1,75 +1,101 @@
-/* Article Date Styling */
+/* Main Container (Two Columns) */
+.container {
+  display: flex;
+  height: 100vh;
+  gap: 10px;
+}
+
+/* Left Side (Charts) */
+.charts-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Takes 50% width */
+  gap: 10px;
+}
+
+/* Each Chart Takes Half of the Left Side */
+.chart {
+  height: 70%;
+  background-color: #f9f9f9; /* Just for visibility */
+}
+
+/* Right Side (Last News - Takes Full Height) */
+.news-container {
+  flex: 1; /* Takes 50% width */
+  display: flex;
+  flex-direction: column;
+}
+
+/* News Scroller */
+.news-scroller {
+  flex-grow: 1;
+  overflow-y: auto;
+  max-height: 100%;
+  scrollbar-color: #888 #f1f1f1;
+  scrollbar-width: thin;
+}
+
+.news-scroller::-webkit-scrollbar {
+  width: 10px;
+}
+
+.news-scroller::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.news-scroller::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+.news-scroller::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* News Card */
+.news-article-card {
+  margin-bottom: 10px;
+}
+
+/* Article Header */
+.article-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Article Date */
 .article-date {
   font-size: 0.85em;
-  flex: none;
   color: #666;
 }
 
-/* Header Content Height */
-.header-content {
-  height: 5vh;
-}
-
-/* Article Title Styling */
-.article-title {
-  /* Uncomment this line if you want margin adjustment */
-  /* margin-right: 10px; */
-}
-
-/* Sentiment Indicator Dot Styling */
+/* Sentiment Indicator */
 .sentiment-indicator {
-  flex: none;
-  width: 12px;         /* Size of the dot */
-  height: 12px;        /* Size of the dot */
-  border-radius: 50%;  /* Make it round */
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
   display: inline-block;
-  margin-right: 5px;   /* Add some space before the title */
+  margin-right: 5px;
 }
 
-/* Sentiment Colors */
 .sentiment-indicator.positive {
-  background-color: #4CAF50; /* Green for positive sentiment */
+  background-color: #4CAF50;
 }
 
 .sentiment-indicator.neutral {
-  background-color: #2196F3; /* Blue for neutral sentiment */
+  background-color: #2196F3;
 }
 
 .sentiment-indicator.negative {
-  background-color: #F44336; /* Red for negative sentiment */
+  background-color: #F44336;
 }
 
 /* Button Styling */
 .mat-stroked-button {
-  margin-top: 10px; /* Space between the button and content */
+  margin-top: 10px;
 }
 
-/* News Scroller Styling */
-.news-scroller {
-  max-height: 100vh; /* Set the maximum height of the scroller */
-  overflow-y: auto;  /* Enables vertical scroll */
-  scrollbar-color: #888 #f1f1f1; /* For Firefox compatibility */
-  scrollbar-width: thin;         /* Narrow scrollbar for Firefox */
-}
-
-/* Custom Scrollbar for WebKit browsers */
-.news-scroller::-webkit-scrollbar {
-  width: 10px; /* Set the width of the scrollbar */
-}
-
-.news-scroller::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Track color */
-}
-
-.news-scroller::-webkit-scrollbar-thumb {
-  background: #888; /* Thumb color */
-}
-
-.news-scroller::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Thumb hover color */
-}
-
-/* Article Card Styling */
-.news-article-card {
-  margin-bottom: 10px; /* Adds spacing between each article */
+/* Toolbar */
+.example-spacer {
+  flex-grow: 1;
 }

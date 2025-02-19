@@ -28,10 +28,10 @@ import {MatToolbarModule} from "@angular/material/toolbar";
     TimeFormatPipe,
     MatSortModule,
     MatIconModule,
-    NgStyle,
     MatToolbarModule,
     NgForOf,
     NgIf,
+    NgStyle,
     NgClass,
   ],
   styleUrls: ['./economic-calendar.component.css']

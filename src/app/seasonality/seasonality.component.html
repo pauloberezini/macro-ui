@@ -1,15 +1,13 @@
-<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="6px" fxFlexFill>
+<div class="chart-container">
 
-
-  <div fxFlex="60%">
+  <!-- 📌 First Column: Chart (60% width on desktop, full width on mobile) -->
+  <div class="chart-column">
     <app-chart-year-component (valueChanged)="handleValueChanged($event)"></app-chart-year-component>
-
   </div>
 
-
-  <div fxFlex="30%">
+  <!-- 📌 Second Column: Dynamic Content (30% width on desktop, full width on mobile) -->
+  <div class="dynamic-column">
     <ng-template #dynamicInsert></ng-template>
   </div>
-
 
 </div>

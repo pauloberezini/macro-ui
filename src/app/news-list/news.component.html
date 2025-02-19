@@ -1,51 +1,40 @@
-<div fxLayout="column" fxFlexFill>
-
-  <!-- Top Section: Historical Sentiment Line Chart and Last News -->
-  <div fxLayout="row" fxLayoutGap="6px" style="height: 55vh;">
-
-    <!-- Historical Sentiment Line Chart -->
-    <app-sentiment-line-chart [sentimentData]="sentimentData" [title-chart]="'Historical sentiment daily data'"
-                              fxFlex="50%"></app-sentiment-line-chart>
-
-    <!-- Last News Section -->
-    <div fxFlex="50%">
-      <mat-toolbar>
-        <mat-toolbar-row>
-          <mat-icon>newspaper</mat-icon>
-          <span class="example-spacer">Last News</span>
-        </mat-toolbar-row>
-      </mat-toolbar>
-      <div class="news-scroller">
-        <mat-card *ngFor="let article of articles" class="news-article-card">
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <div fxLayout="row" fxLayoutGap="6px" fxLayoutAlign="start center">
-                <span class="article-date">{{ article.publishedAt | dateFormat }}</span>
-                <span class="sentiment-indicator" [ngClass]="article.sentiment"></span>
-                <span class="article-title">{{ article.title | truncate:truncateLength }}</span>
-              </div>
-            </mat-expansion-panel-header>
-            <mat-card-content>
-              <p>{{ article.description }}</p>
-              <a mat-stroked-button [href]="article.url" target="_blank">Read more...</a>
-            </mat-card-content>
-          </mat-expansion-panel>
-        </mat-card>
-      </div>
+<div class="container">
+  <!-- Left Side (Charts) -->
+  <div class="charts-container">
+    <!-- Historical Sentiment Daily Data -->
+    <div class="chart">
+      <app-sentiment-line-chart [sentimentData]="sentimentData" [title-chart]="'Historical Sentiment Daily Data'"></app-sentiment-line-chart>
+    </div>
+    <!-- AI Monthly News Sentiment -->
+    <div class="chart">
+      <app-pie-chart [period]="'monthly'" [title-chart]="'AI Monthly News Sentiment'"></app-pie-chart>
     </div>
   </div>
 
-  <!-- Bottom Section: Combined Daily and Monthly Sentiment Charts in One Cell, Additional Section -->
-  <div fxLayout="row" fxLayoutGap="6px" style="height: 40vh;">
-
-<!--    &lt;!&ndash; Combined Daily and Monthly Sentiment Charts &ndash;&gt;-->
-<!--    <div fxFlex="50%" fxLayout="column" fxLayoutGap="6px">-->
-<!--      <app-pie-chart [period]="'daily'" [title-chart]="'AI Daily News Sentiment'" fxFlex="50%"></app-pie-chart>-->
-<!--    </div>-->
-
-    <!-- Additional Section (60% width) -->
-    <div fxFlex="100%">
-      <app-pie-chart [period]="'monthly'" [title-chart]="'AI Monthly News Sentiment'" fxFlex="50%"></app-pie-chart>
+  <!-- Right Side (Last News - Takes full height) -->
+  <div class="news-container">
+    <mat-toolbar>
+      <mat-toolbar-row>
+        <mat-icon>newspaper</mat-icon>
+        <span class="example-spacer">Last News</span>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <div class="news-scroller">
+      <mat-card *ngFor="let article of articles" class="news-article-card">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <div class="article-header">
+              <span class="article-date">{{ article.publishedAt | dateFormat }}</span>
+              <span class="sentiment-indicator" [ngClass]="article.sentiment"></span>
+              <span class="article-title">{{ article.title | truncate:truncateLength }}</span>
+            </div>
+          </mat-expansion-panel-header>
+          <mat-card-content>
+            <p>{{ article.description }}</p>
+            <a mat-stroked-button [href]="article.url" target="_blank">Read more...</a>
+          </mat-card-content>
+        </mat-expansion-panel>
+      </mat-card>
     </div>
   </div>
 </div>

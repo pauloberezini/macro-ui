@@ -1,27 +1,21 @@
+/* Use CSS Grid to ensure proper layout */
 .container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns on large screens */
+  gap: 10px; /* Space between columns */
+  width: 100%;
 }
 
-@media (max-width: 599px) {
-  .mat-table {
-    overflow-x: auto;
-  }
-
-  /* Optional: Hide less important columns on smaller screens */
-  .hide-on-mobile {
-    display: none;
-  }
+/* Ensure the cards take full height */
+.card {
+  padding: 16px;
+  min-height: 400px;
 }
 
+/* Responsive Layout: One column on mobile */
 @media (max-width: 600px) {
-  .mat-cell, .mat-header-cell {
-    padding: 8px; /* Reduce padding on smaller screens */
-  }
-
-  .less-important-column {
-    display: none; /* Hide less important columns on smaller screens */
+  .container {
+    grid-template-columns: 1fr; /* Stack items on small screens */
   }
 }
 
@@ -32,7 +26,6 @@
 table {
   width: 100%; /* Ensures the table expands to the width of its container */
 }
-
 
 .mat-mdc-radio-button.mat-accent {
   --mdc-radio-disabled-selected-icon-color: var(--logo-blue);

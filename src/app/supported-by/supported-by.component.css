@@ -1,0 +1,34 @@
+/* Main Container (Replaces fxLayout="row") */
+.card-container {
+  display: flex;
+  flex-direction: row; /* Default: side-by-side cards */
+  gap: 6px; /* Replaces fxLayoutGap="6px" */
+  width: 100%;
+}
+
+/* Card Styling */
+.full-width {
+  width: calc(50% - 3px); /* Replaces fxFlex="100%" for larger screens */
+  box-sizing: border-box;
+}
+
+/* Supporters & Thanks Section */
+.supporters, .thanks {
+  padding-top: 20px;
+}
+
+/* Align Buttons to the Right */
+.button-align {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Responsive (Mobile-Friendly) */
+@media (max-width: 600px) {
+  .card-container {
+    flex-direction: column; /* Replaces fxLayout.xs="column" */
+  }
+  .full-width {
+    width: 100%; /* Cards become full-width on small screens */
+  }
+}
