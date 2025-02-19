@@ -1,8 +1,73 @@
-.insiders-container {
-  padding: 16px;
+/* Main Container (Two-column layout) */
+.main-container {
+  display: flex;
   width: 100%;
+  height: 100vh;
 }
 
+/* Left Side: Trading View & Insider Transactions */
+.left-side {
+  flex: 7; /* Equivalent to fxFlex="70" */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Right Side: Company Profile & Fundamental Data */
+.right-side {
+  flex: 3; /* Equivalent to fxFlex="30" */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Left Container (Trading View & Insider Transactions) */
+.left-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Trading View */
+.trading-view {
+  flex: 3; /* Equivalent to fxFlex="30" */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Insider Transactions */
+.insider-transactions {
+  flex: 1; /* Equivalent to fxFlex="100" */
+  overflow: hidden;
+}
+
+/* Company Profile */
+.company-profile {
+  flex: 1; /* Equivalent to fxFlex="100" */
+  overflow: hidden;
+}
+
+/* Fundamental Data */
+.fundamental-data {
+  flex: 1; /* Equivalent to fxFlex="100" */
+  overflow: hidden;
+}
+
+/* Copyright Section */
+.tradingview-widget-copyright {
+  text-align: center;
+  margin-top: auto;
+}
+
+/* Supporters & Loading Indicator */
+.supporters, .thanks {
+  padding-top: 20px;
+}
+
+/* Loading Indicator */
 .loading-indicator {
   display: flex;
   justify-content: center;
@@ -17,18 +82,15 @@
   color: gray;
 }
 
-.filter-field {
-  margin-bottom: 16px;
-  width: 100%;
-}
+/* Responsive (Mobile-Friendly) */
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column; /* Stack columns vertically */
+  }
 
-.full-width {
-  width: 100%;
-}
-
-.no-data {
-  text-align: center;
-  font-size: 16px;
-  color: gray;
-  margin-top: 20px;
+  .left-side,
+  .right-side {
+    flex: 1;
+    width: 100%;
+  }
 }

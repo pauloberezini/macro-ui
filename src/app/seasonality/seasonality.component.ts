@@ -14,6 +14,10 @@ export interface Tile {
 @Component({
   selector: 'app-seasonality',
   templateUrl: './seasonality.component.html',
+  standalone: true,
+  imports: [
+    ChartYearComponentComponent
+  ],
   styleUrls: ['./seasonality.component.css']
 })
 
@@ -66,7 +70,7 @@ export class SeasonalityComponent implements OnInit {
 
     this.cdRef.detectChanges();
 
-    const componentMap = {
+    const componentMap: Record<string, () => Promise<Type<any>>> = {
       'GAS': () => import('../dynamic-component/gas/gas.component').then(m => m.GasComponent),
       // Add other mappings...
     };

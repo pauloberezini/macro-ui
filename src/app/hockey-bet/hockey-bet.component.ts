@@ -3,10 +3,25 @@ import {HockeyTeamStats} from "../model/hockey-teams-stats";
 import {SelectionModel} from "@angular/cdk/collections";
 import {StockDataService} from "../services/stock-data.service";
 import {Observable} from "rxjs";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatRadioModule} from "@angular/material/radio";
+import {TeamCardComponent} from "./team-card/team-card.component";
+import {FormsModule} from "@angular/forms";
+import {MatTableModule} from "@angular/material/table";
+import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'hockey-bet',
   templateUrl: './hockey-bet.component.html',
+  standalone: true,
+  imports: [
+    MatCheckboxModule,
+    MatRadioModule,
+    TeamCardComponent,
+    FormsModule,
+    MatTableModule,
+    NgForOf
+  ],
   styleUrls: ['./hockey-bet.component.css']
 })
 export class HockeyBetComponent {

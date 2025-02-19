@@ -2,15 +2,16 @@
   <span>Dashboard macro data graphs</span>
 </mat-toolbar>
 
-<mat-toolbar-row fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign.xs="start stretch">
-  <mat-card-actions align="end" fxFlex>
-    <button style="margin-right: 5px" (click)="addGraph()" mat-raised-button class="flat-button">Add Graph</button>
-    <button (click)="cleanAll()" mat-raised-button class="flat-button">Clean all</button>
+<mat-toolbar-row class="toolbar-row">
+  <mat-card-actions class="button-container">
+    <button style="margin-right: 5px" (click)="addGraph()" class="flat-button">Add Graph</button>
+    <button (click)="cleanAll()" class="flat-button">Clean all</button>
   </mat-card-actions>
 </mat-toolbar-row>
 
-<div class="flex-container" fxLayout="row" fxLayoutWrap="wrap">
-  <div *ngFor="let item of flexItems; let i = index" class="flex-item" fxFlex="100%" fxFlex.gt-xs="50%">
+<!-- Dashboard Grid -->
+<div class="flex-container">
+  <div *ngFor="let item of flexItems; let i = index" class="flex-item">
     <mat-form-field appearance="fill">
       <mat-label>Select Component</mat-label>
       <mat-select [(ngModel)]="item.selectedComponent" (selectionChange)="loadComponent(i, $event.value)">

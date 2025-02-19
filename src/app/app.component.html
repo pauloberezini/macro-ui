@@ -7,51 +7,38 @@
      fxLayoutGap="20px">
 
   <!-- Left (Logo) -->
-  <div cdkMenuItem routerLink="/" class="berezini-logo">
+  <div routerLink="/" class="berezini-logo">
     Berezini Partners
   </div>
 
+
   <!-- Middle (Main Menu Items) -->
   <div fxLayout="row" class="menu-items">
-    <button class="main-menu-item" cdkMenuItem routerLink="/"
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page">
+    <button class="main-menu-item" (click)="goToHome()">
       <mat-icon class="menu-icon">event_note</mat-icon>
       Events
     </button>
-    <button class="main-menu-item" cdkMenuItem routerLink="/app-seasonality"
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page">
+    <button class="main-menu-item" (click)="goToSeasonality()">
       <mat-icon class="menu-icon">show_chart</mat-icon>
       Seasonality
     </button>
-    <button class="main-menu-item" cdkMenuItem routerLink="/app-stock-anomaly"
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page">
+    <button class="main-menu-item" (click)="goToStockAnomaly()">
       <mat-icon class="menu-icon">show_chart</mat-icon>
       Anomaly
     </button>
-    <button class="main-menu-item" cdkMenuItem routerLink="/insiders"
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page">
+    <button class="main-menu-item" (click)="goToInsiders()">
       <mat-icon class="menu-icon">goat</mat-icon>
       Insiders
     </button>
-    <button class="main-menu-item" cdkMenuItem routerLink="/app-news"
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page">
+    <button class="main-menu-item" (click)="goToNews()">
       <mat-icon class="menu-icon">pie_chart</mat-icon>
       News
     </button>
-    <button class="main-menu-item" cdkMenuItem routerLink="/dash-graphs"
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page">
+    <button class="main-menu-item" (click)="goToDashGraphs()">
       <mat-icon class="menu-icon">multiline_chart</mat-icon>
       Dash Graphs
     </button>
-    <button class="main-menu-item" cdkMenuItem routerLink="/app-supported-by"
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page">
+    <button class="main-menu-item" (click)="goToAbout()">
       <mat-icon class="menu-icon">info</mat-icon>
       About
     </button>
@@ -60,16 +47,16 @@
   <!-- Right (Sign In / Join Berezini) -->
   @if (!isLoggedIn) {
     <div fxLayout="row" fxLayoutGap="10px" class="auth-buttons">
-      <button class="main-menu-item" cdkMenuItem (click)="openSignInPopup()">
+      <button class="main-menu-item" (click)="openSignInPopup()">
         Sign In
       </button>
-      <button class="main-menu-item join-button" cdkMenuItem (click)="openJoinPopup()">
+      <button class="main-menu-item join-button" (click)="openJoinPopup()">
         Join Berezini
       </button>
     </div>
   } @else {
     <div fxLayout="row" fxLayoutGap="10px" class="auth-buttons">
-      <button class="main-menu-item" cdkMenuItem (click)="logout()">
+      <button class="main-menu-item" (click)="logout()">
         Logout
       </button>
     </div>
