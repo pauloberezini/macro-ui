@@ -21,9 +21,9 @@ import {MatInputModule} from "@angular/material/input";
   selector: 'app-stock-anomaly',
   standalone: true,
   templateUrl: './stock-anomaly.component.html',
-  imports: [NgIf, FormsModule, MatToolbarModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule]
+  imports: [FormsModule, MatToolbarModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule]
 })
-export class StockAnomalyComponent implements AfterViewInit {
+export class StockAnomalyComponent {
   @ViewChild('chartCanvas') chartRef!: ElementRef<HTMLCanvasElement>;
   public chart: any;
 
@@ -32,11 +32,6 @@ export class StockAnomalyComponent implements AfterViewInit {
   anomaly_count: number;
 
   constructor(private stockService: StockAnalysisService, private cdr: ChangeDetectorRef) { }
-
-
-  ngAfterViewInit() {
-    // this.initChart([], [], []); // Initialize an empty chart
-  }
 
   analyzeStock() {
     this.stockService.analyzeStock(this.ticker()).subscribe({
