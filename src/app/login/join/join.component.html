@@ -2,15 +2,15 @@
   <mat-card class="join-card">
     <mat-card-title>Join Berezini</mat-card-title>
     <mat-card-content>
-      <form [formGroup]="joinForm" (ngSubmit)="onSubmit()">
+
+      <!-- Show the form only if registration is not successful -->
+      <form *ngIf="!isRegistered" [formGroup]="joinForm" (ngSubmit)="onSubmit()">
         <!-- Name / Nickname Field -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Name / Nickname *</mat-label>
           <input matInput placeholder="Enter your name or nickname" formControlName="name">
           @if (joinForm.get('name')?.hasError('required')) {
-            <mat-error>
-              Name / Nickname is required.
-            </mat-error>
+            <mat-error>Name / Nickname is required.</mat-error>
           }
         </mat-form-field>
 
@@ -19,9 +19,7 @@
           <mat-label>Email *</mat-label>
           <input matInput placeholder="Enter your email" formControlName="email" type="email">
           @if (joinForm.get('email')?.hasError('required')) {
-            <mat-error>
-              Email is required.
-            </mat-error>
+            <mat-error>Email is required.</mat-error>
           }
         </mat-form-field>
 
@@ -30,9 +28,7 @@
           <mat-label>Password *</mat-label>
           <input matInput placeholder="Enter your password" formControlName="password" type="password">
           @if (joinForm.get('password')?.hasError('required')) {
-            <mat-error>
-              Password is required.
-            </mat-error>
+            <mat-error>Password is required.</mat-error>
           }
         </mat-form-field>
 
@@ -41,6 +37,13 @@
           Join Berezini
         </button>
       </form>
+
+      <!-- Success Message & Close Button -->
+      <div *ngIf="isRegistered" class="success-container">
+        <p class="success-message">{{ message }}</p>
+        <button mat-raised-button color="primary" (click)="closeDialog()">Close</button>
+      </div>
+
     </mat-card-content>
   </mat-card>
 </div>

@@ -48,3 +48,20 @@ button[mat-raised-button] {
   from { opacity: 0; transform: scale(0.95); }
   to { opacity: 1; transform: scale(1); }
 }
+
+.error-message {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}
+.success-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.success-message {
+  color: green;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}

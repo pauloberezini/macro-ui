@@ -23,6 +23,6 @@ export class RegistrationService {
 
   registerUser(data: RegistrationDTO): Observable<any> {
     // Assuming your backend registration endpoint is /api/registration/register
-    return this.http.post(`${this.baseUrl}/register`, data);
+    return this.http.post(`${this.baseUrl}/register`, data, { responseType: 'text' as 'json' });
   }
 }
