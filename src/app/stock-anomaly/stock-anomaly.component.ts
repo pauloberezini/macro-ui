@@ -28,13 +28,12 @@ export class StockAnomalyComponent {
   public chart: any;
 
   stockSymbol: string = 'BTC-USD';
-  ticker: WritableSignal<string> = signal(this.stockSymbol);
   anomaly_count: number;
 
   constructor(private stockService: StockAnalysisService, private cdr: ChangeDetectorRef) { }
 
   analyzeStock() {
-    this.stockService.analyzeStock(this.ticker()).subscribe({
+    this.stockService.analyzeStock(this.stockSymbol).subscribe({
       next: (data: StockAnalysisModel) => {
         console.log('Received stock data:', data);
 
