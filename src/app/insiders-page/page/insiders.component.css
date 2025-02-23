@@ -32,7 +32,7 @@
 
 /* Trading View */
 .trading-view {
-  flex: 3; /* Equivalent to fxFlex="30" */
+  flex: 1; /* Equivalent to fxFlex="30" */
   display: flex;
   align-items: center;
   justify-content: center;
