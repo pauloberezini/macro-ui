@@ -6,6 +6,8 @@ import {JoinComponent} from "./login/join/join.component";
 import {AuthService} from "./services/auth.service";
 import {Router, RouterOutlet} from "@angular/router";
 import {MatIconModule} from "@angular/material/icon";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {NgIf} from "@angular/common";
 
 export interface StockData {
   date: string;
@@ -23,7 +25,9 @@ export interface StockData {
   standalone: true,
   imports: [
     RouterOutlet,
-    MatIconModule
+    MatIconModule,
+    MatSidenavModule,
+    NgIf
   ],
   styleUrls: ['./app.component.css']
 })

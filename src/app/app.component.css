@@ -1,48 +1,21 @@
-.main-menu {
-  display: block;
-  flex-direction: column;
-  max-width: 10vw;
-  border-right: solid 1px rgb(208, 208, 208);
-  background-color: var(--dark-gray);
-  padding: 6px 0;
-}
-
-.menu-toggle {
-  position: absolute;
-  color: var(--dark-gray);
-  background-color: transparent;
-  top: 16px;
-  left: 15px;
-  z-index: 1050;
-  /*background-color: transparent;*/
-  border: none;
-  cursor: pointer;
-}
-
-.app-container {
-  position: relative;
-  /*min-height: 100vh;*/
-}
-/************************************/
-/* GENERAL BUTTON STYLES            */
-/************************************/
+/* GENERAL BUTTON STYLES */
 .main-menu-item {
-  color: rgba(26,26,26,.5);
-  background-color: transparent;
-  cursor: pointer;
-  border: none;
-  font-weight: 700;
-  user-select: none;
-  line-height: 36px;
-  padding: 0 16px;
-
-  /* Horizontal alignment of icon + text */
   display: flex;
   align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  /* Prevent shrinking that might cause overflow issues */
+  flex-shrink: 0;
+  white-space: nowrap;
+  color: rgba(26, 26, 26, 0.5);
+  padding: 8px 16px;
 }
+
 mat-card {
-  margin: 16px; /* Add a uniform margin around all mat-cards */
-  box-sizing: border-box; /* Ensure padding and borders are included in the element's total width and height */
+  margin: 16px; /* Uniform margin around all mat-cards */
+  box-sizing: border-box;
 }
 
 /* Icon next to text */
@@ -52,7 +25,6 @@ mat-card {
 
 /* Hover & active states */
 .main-menu-item:hover {
-  background-color: unset; /* or change to a highlight color if desired */
   color: var(--logo-blue);
 }
 
@@ -60,65 +32,82 @@ mat-card {
   color: var(--logo-blue);
 }
 
-/************************************/
-/* HORIZONTAL NAV WRAPPER           */
-/************************************/
+/* HORIZONTAL NAV WRAPPER */
 .top-nav {
-  position: sticky; /* Make the header sticky */
-  top: 0; /* Stick to the top of the viewport */
-  z-index: 1000; /* Ensure it stays above other content */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: var(--light-gray);
   padding: 8px 16px;
   border-bottom: 1px solid rgb(208, 208, 208);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for a floating effect */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Prevent horizontal scrolling */
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-
-/************************************/
-/* LOGO                             */
-/************************************/
-
+/* LOGO */
 .berezini-logo {
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 2rem;        /* adjust size as needed */
-  font-weight: 1700;       /* or 400, 600, etc. */
-  color: var(--logo-blue);            /* choose your brand color */
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--logo-blue);
+  /* Ensure it does not force extra width */
+  flex-shrink: 0;
 }
 
+/* MENU ITEMS (horizontal) */
+.menu-items {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  /* Allow it to take available space */
+  flex: 1 1 auto;
+  overflow: hidden;
+  white-space: nowrap;
+}
 
+/* SIGN IN & JOIN BUTTONS */
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
 
-/* Keep your media queries if you still want the logo to resize */
-@media screen and (max-width: 600px) {
-  .berezini-logo {
-    width: 80px;
-    height: 30px;
-  }
+.join-button {
+  border: 1px solid var(--logo-blue);
+  color: var(--logo-blue);
+}
+
+/* CONTENT AREA */
+.content-area {
+  padding: 16px;
 }
 
 /* Responsive Design: Mobile Adjustments */
 @media screen and (max-width: 768px) {
   .top-nav {
     flex-direction: column; /* Stack items vertically */
-    align-items: stretch; /* Align items to fill the width */
+    align-items: stretch;   /* Full width */
     padding: 8px 12px;
   }
 
   .berezini-logo {
-    font-size: 1.5rem; /* Reduce logo size */
-    text-align: center; /* Center-align the logo */
+    font-size: 1.5rem;  /* Reduce logo size */
+    text-align: center;
   }
 
   .menu-items {
     flex-direction: column; /* Stack menu items vertically */
-    gap: 8px; /* Add spacing between items */
-    align-items: stretch; /* Stretch to full width */
+    gap: 8px;
+    align-items: stretch;
   }
 
   .main-menu-item {
-    justify-content: center; /* Center-align text and icons */
+    justify-content: center; /* Center text and icons */
     padding: 8px;
   }
 
@@ -132,45 +121,37 @@ mat-card {
     width: 100%; /* Make "Join" button full width */
   }
 }
+
+/* Additional adjustments for medium screens */
 @media screen and (max-width: 1024px) {
   .berezini-logo {
     width: 100px;
     height: 40px;
   }
 }
-/************************************/
-/* MENU ITEMS (horizontal)          */
-/************************************/
-.menu-items {
-  display: flex;
-  align-items: center;
 
-  /* The fxLayoutGap in HTML helps, but you can also set a fallback here */
-  /*gap: 20px;*/
+/* Optionally, you can include this if you want a mobile menu toggle instead */
+.menu-toggle {
+  position: absolute;
+  color: var(--dark-gray);
+  background-color: transparent;
+  top: 16px;
+  left: 15px;
+  z-index: 1050;
+  border: none;
+  cursor: pointer;
 }
 
-/************************************/
-/* SIGN IN & JOIN BUTTONS           */
-/************************************/
-.auth-buttons {
-  display: flex;
-  gap: 10px; /* spacing between Sign In & Join buttons */
+/* If you decide to implement a vertical mobile menu, you might use this style */
+.main-menu {
+  display: block;
+  flex-direction: column;
+  max-width: 10vw;
+  border-right: solid 1px rgb(208, 208, 208);
+  background-color: var(--dark-gray);
+  padding: 6px 0;
 }
 
-.join-button {
-  /* If you want a distinct style, e.g. */
-  border: 1px solid var(--logo-blue);
-  color: var(--logo-blue);
-  /* etc. */
-}
-
-/************************************/
-/* CONTENT AREA BELOW THE NAV       */
-/************************************/
-.content-area {
-  /* Remain full width, or whatever your layout requires */
-  width: 100%;
-  /* If you want padding from the nav:
-     padding-top: 60px;
-  */
+.app-container {
+  position: relative;
 }

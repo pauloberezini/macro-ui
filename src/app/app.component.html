@@ -1,19 +1,12 @@
-<!-- app.component.html -->
-
-<!-- Top Nav -->
-<div class="top-nav"
-     fxLayout="row"
-     fxLayoutAlign="space-between center"
-     fxLayoutGap="20px">
-
+<!-- Top Navigation -->
+<div class="top-nav">
   <!-- Left (Logo) -->
-  <div routerLink="/" class="berezini-logo">
+  <div class="berezini-logo" routerLink="/">
     Berezini Partners
   </div>
 
-
-  <!-- Middle (Main Menu Items) -->
-  <div fxLayout="row" class="menu-items">
+  <!-- Middle (Menu Items) -->
+  <div class="menu-items">
     <button class="main-menu-item" (click)="goToHome()">
       <mat-icon class="menu-icon">event_note</mat-icon>
       Events
@@ -44,30 +37,19 @@
     </button>
   </div>
 
-  <!-- Right (Sign In / Join Berezini) -->
-  @if (!isLoggedIn) {
-    <div fxLayout="row" fxLayoutGap="10px" class="auth-buttons">
-      <button class="main-menu-item" (click)="openSignInPopup()">
-        Sign In
-      </button>
-      <button class="main-menu-item join-button" (click)="openJoinPopup()">
-        Join Berezini
-      </button>
+  <!-- Right (Auth Buttons) -->
+  <div class="auth-buttons" *ngIf="!isLoggedIn; else loggedIn">
+    <button class="main-menu-item" (click)="openSignInPopup()">Sign In</button>
+    <button class="main-menu-item join-button" (click)="openJoinPopup()">Join Berezini</button>
+  </div>
+  <ng-template #loggedIn>
+    <div class="auth-buttons">
+      <button class="main-menu-item" (click)="logout()">Logout</button>
     </div>
-  } @else {
-    <div fxLayout="row" fxLayoutGap="10px" class="auth-buttons">
-      <button class="main-menu-item" (click)="logout()">
-        Logout
-      </button>
-    </div>
-  }
-
-
+  </ng-template>
 </div>
 
-<!-- Content Area -->
-<div class="content-area" fxLayout="row">
-  <div fxFlex="100">
-    <router-outlet></router-outlet>
-  </div>
+<!-- Main Content Area -->
+<div class="content-area">
+  <router-outlet></router-outlet>
 </div>
