@@ -1,18 +1,13 @@
+// In spinner.service.ts
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class SpinnerService {
-  public loading$: Observable<boolean>;
-  private _loading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private loadingSubject = new BehaviorSubject<boolean>(false);
+  public loading$ = this.loadingSubject.asObservable();
 
-  public constructor() {
-    this.loading$ = this._loading$.asObservable();
-  }
-
-  set(loading: boolean) {
-    this._loading$.next(loading);
+  set(loading: boolean): void {
+    this.loadingSubject.next(loading);
   }
 }

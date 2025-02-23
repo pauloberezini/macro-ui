@@ -8,7 +8,7 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 import {StockAnalysisModel, StockAnalysisService} from '../services/stock-analysis.service';
-import {NgIf} from '@angular/common';
+import {AsyncPipe, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import Chart from 'chart.js/auto';
 import {MatToolbarModule} from "@angular/material/toolbar";
@@ -16,12 +16,15 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
+import {Observable} from "rxjs";
+import {SpinnerService} from "../services/spinner/spinner.component";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-stock-anomaly',
   standalone: true,
   templateUrl: './stock-anomaly.component.html',
-  imports: [FormsModule, MatToolbarModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule]
+  imports: [FormsModule, MatToolbarModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, AsyncPipe, NgIf, MatProgressSpinnerModule]
 })
 export class StockAnomalyComponent {
   @ViewChild('chartCanvas') chartRef!: ElementRef<HTMLCanvasElement>;
@@ -29,10 +32,19 @@ export class StockAnomalyComponent {
 
   stockSymbol: string = 'BTC-USD';
   anomaly_count: number;
+  isAnalyzing: boolean = false;
+  loading$: Observable<boolean>; // Observable for spinner state
 
-  constructor(private stockService: StockAnalysisService, private cdr: ChangeDetectorRef) { }
+  constructor(private stockService: StockAnalysisService, public spinnerService: SpinnerService, private cdr: ChangeDetectorRef) {
+    this.spinnerService.loading$.subscribe(loading => console.log('Spinner state:', loading));
+    this.loading$ = this.spinnerService.loading$;
+  }
 
   analyzeStock() {
+    if (this.isAnalyzing) return; // Prevent multiple clicks
+
+    this.isAnalyzing = true; // Disable button before request
+
     this.stockService.analyzeStock(this.stockSymbol).subscribe({
       next: (data: StockAnalysisModel) => {
         console.log('Received stock data:', data);
@@ -40,11 +52,11 @@ export class StockAnomalyComponent {
         try {
           if (data.graph_data?.data?.length) {
             this.anomaly_count = data.anomaly_count;
-            const mainTrace = data.graph_data.data.find((trace: { name: string; }) => trace.name === "Test MSE");
-            const thresholdTrace = data.graph_data.data.find((trace: { name: string; }) => trace.name === "Threshold");
+            const mainTrace = data.graph_data.data.find((trace: { name: string }) => trace.name === 'Test MSE');
+            const thresholdTrace = data.graph_data.data.find((trace: { name: string }) => trace.name === 'Threshold');
 
             if (!mainTrace || !mainTrace.x || !mainTrace.y) {
-              console.error("Invalid mainTrace data");
+              console.error('Invalid mainTrace data');
               return;
             }
 
@@ -53,18 +65,16 @@ export class StockAnomalyComponent {
             );
 
             const yValues = mainTrace.y.filter((v: number) => v !== null && !isNaN(v)); // Remove NaN values
-            const thresholdYValues = thresholdTrace && thresholdTrace.y.length
-              ? new Array(yValues.length).fill(thresholdTrace.y[0])
-              : [];
+            const thresholdYValues =
+              thresholdTrace && thresholdTrace.y.length ? new Array(yValues.length).fill(thresholdTrace.y[0]) : [];
 
-            console.log("Processed X values:", xValues);
-            console.log("Processed Y values:", yValues);
-            console.log("Threshold Y values:", thresholdYValues);
+            console.log('Processed X values:', xValues);
+            console.log('Processed Y values:', yValues);
+            console.log('Threshold Y values:', thresholdYValues);
 
             this.updateChart(xValues, yValues, thresholdYValues);
 
-            // Manually trigger change detection after updating chart data
-            this.cdr.detectChanges();
+            this.cdr.detectChanges(); // Manually trigger change detection
           } else {
             console.error('Invalid graph_data:', data.graph_data);
           }
@@ -74,7 +84,10 @@ export class StockAnomalyComponent {
       },
       error: (err: any) => {
         console.error('Error fetching stock data:', err);
-      }
+      },
+      complete: () => {
+        this.isAnalyzing = false; // Re-enable button after request completes
+      },
     });
   }
 

@@ -17,6 +17,7 @@ import { HockeyBetComponent } from "./app/hockey-bet/hockey-bet.component";
 import {jwtInterceptor} from "./app/login/interceptors/jwt.interceptor";
 import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
 import {StockAnomalyComponent} from "./app/stock-anomaly/stock-anomaly.component";
+import {apiInterceptor} from "./app/services/spinner/apiInterceptor";
 
 const routes: Routes = [
   { path: '', component: EconomicCalendarComponent },
@@ -39,9 +40,7 @@ bootstrapApplication(AppComponent, {
     provideAnimationsAsync(),
     provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(
-      withInterceptors([jwtInterceptor]) // ✅ Register JwtInterceptor properly!
+      withInterceptors([jwtInterceptor,apiInterceptor])
     )
   ]
 }).catch(err => console.error(err));
-
-

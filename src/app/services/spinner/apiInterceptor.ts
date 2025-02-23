@@ -1,21 +1,22 @@
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Observable, finalize } from "rxjs";
-import { SpinnerService } from "./spinner.component";
+import { HttpInterceptorFn, HttpRequest, HttpHandlerFn, HttpEvent } from '@angular/common/http';
+import { finalize } from 'rxjs/operators';
+import { inject } from '@angular/core';
+import {SpinnerService} from "./spinner.component";
 
-@Injectable()
-export class ApiInterceptor implements HttpInterceptor {
-  constructor(private spinnerService: SpinnerService) {}
+export const apiInterceptor: HttpInterceptorFn = (
+  req: HttpRequest<any>,
+  next: HttpHandlerFn
+) => {
+  console.log('[ApiInterceptor] Request intercepted:', req.url);
 
-  intercept(
-    request: HttpRequest<unknown>,
-    next: HttpHandler
-  ): Observable<HttpEvent<unknown>> {
-    this.spinnerService.set(true);
-    return next.handle(request).pipe(
-      finalize(() => {
-        this.spinnerService.set(false);
-      })
-    );
-  }
-}
+  // Use Angular's inject() to obtain the SpinnerService instance
+  const spinnerService = inject(SpinnerService);
+  spinnerService.set(true);
+
+  return next(req).pipe(
+    finalize(() => {
+      console.log('[ApiInterceptor] Request completed, turning spinner OFF');
+      spinnerService.set(false);
+    })
+  );
+};
