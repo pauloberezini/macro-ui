@@ -33,10 +33,15 @@ export interface StockData {
 })
 
 export class AppComponent implements OnInit {
+  mobileMenuOpen = false;
   isCollapsed = true;
   isLoggedIn: boolean = false;
 
   constructor(private metaTagService: Meta, private dialog: MatDialog, private authService: AuthService, private router: Router) {
+  }
+
+  toggleMobileMenu(): void {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
   }
 
   ngOnInit() {

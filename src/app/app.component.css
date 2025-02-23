@@ -1,38 +1,4 @@
-/* GENERAL BUTTON STYLES */
-.main-menu-item {
-  display: flex;
-  align-items: center;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-weight: 700;
-  /* Prevent shrinking that might cause overflow issues */
-  flex-shrink: 0;
-  white-space: nowrap;
-  color: rgba(26, 26, 26, 0.5);
-  padding: 8px 16px;
-}
-
-mat-card {
-  margin: 16px; /* Uniform margin around all mat-cards */
-  box-sizing: border-box;
-}
-
-/* Icon next to text */
-.menu-icon {
-  margin-right: 8px;
-}
-
-/* Hover & active states */
-.main-menu-item:hover {
-  color: var(--logo-blue);
-}
-
-.main-menu-item.active {
-  color: var(--logo-blue);
-}
-
-/* HORIZONTAL NAV WRAPPER */
+/* TOP NAVIGATION BAR */
 .top-nav {
   position: sticky;
   top: 0;
@@ -44,7 +10,6 @@ mat-card {
   padding: 8px 16px;
   border-bottom: 1px solid rgb(208, 208, 208);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  /* Prevent horizontal scrolling */
   overflow: hidden;
   white-space: nowrap;
 }
@@ -55,22 +20,47 @@ mat-card {
   font-size: 2rem;
   font-weight: 700;
   color: var(--logo-blue);
-  /* Ensure it does not force extra width */
   flex-shrink: 0;
 }
 
-/* MENU ITEMS (horizontal) */
+/* DESKTOP MENU: shown on wider screens */
+.desktop-menu {
+  display: flex;
+  align-items: center;
+}
+
 .menu-items {
   display: flex;
   align-items: center;
   gap: 20px;
-  /* Allow it to take available space */
   flex: 1 1 auto;
   overflow: hidden;
   white-space: nowrap;
 }
 
-/* SIGN IN & JOIN BUTTONS */
+/* GENERAL MENU ITEM STYLES */
+.main-menu-item {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  flex-shrink: 0;
+  white-space: nowrap;
+  color: rgba(26, 26, 26, 0.5);
+  padding: 8px 16px;
+}
+
+.main-menu-item:hover {
+  color: var(--logo-blue);
+}
+
+.menu-icon {
+  margin-right: 8px;
+}
+
+/* AUTH BUTTONS */
 .auth-buttons {
   display: flex;
   gap: 10px;
@@ -82,76 +72,98 @@ mat-card {
   color: var(--logo-blue);
 }
 
+/* MOBILE MENU TOGGLE: shown on mobile screens only */
+.mobile-menu-toggle {
+  display: none;
+  cursor: pointer;
+}
+
+/* MOBILE MENU OVERLAY */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;  /* Ensure it starts from the left */
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6); /* Adjust opacity as needed */
+  z-index: 1100;
+  display: flex;
+  justify-content: flex-start; /* Align menu on the left side */
+}
+
+/* MOBILE MENU */
+.mobile-menu {
+  background-color: #f7f7f7; /* Light background for contrast */
+  width: 80%;
+  max-width: 300px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+
+/* Mobile menu header (logo + close button) */
+.mobile-menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Mobile Menu Items */
+.mobile-menu-item {
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 12px 0;
+  font-size: 1.2rem;
+  color: rgba(26, 26, 26, 0.5);
+  width: 100%;
+}
+
+.mobile-menu-item:hover {
+  color: var(--logo-blue);
+}
+
+/* MOBILE AUTH BUTTONS */
+.mobile-auth-buttons {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 /* CONTENT AREA */
 .content-area {
   padding: 16px;
 }
 
-/* Responsive Design: Mobile Adjustments */
+/* RESPONSIVE STYLES */
 @media screen and (max-width: 768px) {
+  /* Hide desktop menus on mobile */
+  .desktop-menu {
+    display: none;
+  }
+  /* Show the mobile menu toggle */
+  .mobile-menu-toggle {
+    display: block;
+  }
+
   .top-nav {
-    flex-direction: column; /* Stack items vertically */
-    align-items: stretch;   /* Full width */
-    padding: 8px 12px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .berezini-logo {
-    font-size: 1.5rem;  /* Reduce logo size */
-    text-align: center;
+    font-size: 1.5rem;
   }
-
-  .menu-items {
-    flex-direction: column; /* Stack menu items vertically */
-    gap: 8px;
-    align-items: stretch;
-  }
-
-  .main-menu-item {
-    justify-content: center; /* Center text and icons */
-    padding: 8px;
-  }
-
-  .auth-buttons {
-    flex-direction: column; /* Stack buttons vertically */
-    gap: 10px;
-    align-items: stretch;
-  }
-
-  .join-button {
-    width: 100%; /* Make "Join" button full width */
-  }
-}
-
-/* Additional adjustments for medium screens */
-@media screen and (max-width: 1024px) {
-  .berezini-logo {
-    width: 100px;
-    height: 40px;
-  }
-}
-
-/* Optionally, you can include this if you want a mobile menu toggle instead */
-.menu-toggle {
-  position: absolute;
-  color: var(--dark-gray);
-  background-color: transparent;
-  top: 16px;
-  left: 15px;
-  z-index: 1050;
-  border: none;
-  cursor: pointer;
-}
-
-/* If you decide to implement a vertical mobile menu, you might use this style */
-.main-menu {
-  display: block;
-  flex-direction: column;
-  max-width: 10vw;
-  border-right: solid 1px rgb(208, 208, 208);
-  background-color: var(--dark-gray);
-  padding: 6px 0;
-}
-
-.app-container {
-  position: relative;
 }

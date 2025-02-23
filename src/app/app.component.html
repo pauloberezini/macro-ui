@@ -1,12 +1,12 @@
-<!-- Top Navigation -->
+<!-- Top Navigation Bar -->
 <div class="top-nav">
-  <!-- Left (Logo) -->
+  <!-- Logo -->
   <div class="berezini-logo" routerLink="/">
     Berezini Partners
   </div>
 
-  <!-- Middle (Menu Items) -->
-  <div class="menu-items">
+  <!-- Desktop Menu: visible on wider screens -->
+  <div class="menu-items desktop-menu">
     <button class="main-menu-item" (click)="goToHome()">
       <mat-icon class="menu-icon">event_note</mat-icon>
       Events
@@ -37,16 +37,48 @@
     </button>
   </div>
 
-  <!-- Right (Auth Buttons) -->
-  <div class="auth-buttons" *ngIf="!isLoggedIn; else loggedIn">
+  <!-- Auth Buttons (always visible, adjust as needed) -->
+  <div class="auth-buttons desktop-menu" *ngIf="!isLoggedIn; else loggedIn">
     <button class="main-menu-item" (click)="openSignInPopup()">Sign In</button>
     <button class="main-menu-item join-button" (click)="openJoinPopup()">Join Berezini</button>
   </div>
   <ng-template #loggedIn>
-    <div class="auth-buttons">
+    <div class="auth-buttons desktop-menu">
       <button class="main-menu-item" (click)="logout()">Logout</button>
     </div>
   </ng-template>
+
+  <!-- Mobile Menu Toggle: visible on mobile screens only -->
+  <div class="mobile-menu-toggle" (click)="toggleMobileMenu()">
+    <mat-icon>menu</mat-icon>
+  </div>
+</div>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu-overlay" *ngIf="mobileMenuOpen">
+  <div class="mobile-menu">
+    <div class="mobile-menu-header">
+      <span class="berezini-logo" routerLink="/" (click)="toggleMobileMenu()">Bereznini Partners</span>
+      <button class="close-button" (click)="toggleMobileMenu()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <button class="mobile-menu-item" (click)="goToHome(); toggleMobileMenu()">Events</button>
+    <button class="mobile-menu-item" (click)="goToSeasonality(); toggleMobileMenu()">Seasonality</button>
+    <button class="mobile-menu-item" (click)="goToStockAnomaly(); toggleMobileMenu()">Anomaly</button>
+    <button class="mobile-menu-item" (click)="goToInsiders(); toggleMobileMenu()">Insiders</button>
+    <button class="mobile-menu-item" (click)="goToNews(); toggleMobileMenu()">News</button>
+    <button class="mobile-menu-item" (click)="goToDashGraphs(); toggleMobileMenu()">Dash Graphs</button>
+    <button class="mobile-menu-item" (click)="goToAbout(); toggleMobileMenu()">About</button>
+    <!-- Auth Buttons on Mobile -->
+    <div class="mobile-auth-buttons" *ngIf="!isLoggedIn; else mobileLoggedIn">
+      <button class="mobile-menu-item" (click)="openSignInPopup(); toggleMobileMenu()">Sign In</button>
+      <button class="mobile-menu-item" (click)="openJoinPopup(); toggleMobileMenu()">Join Berezini</button>
+    </div>
+    <ng-template #mobileLoggedIn>
+      <button class="mobile-menu-item" (click)="logout(); toggleMobileMenu()">Logout</button>
+    </ng-template>
+  </div>
 </div>
 
 <!-- Main Content Area -->
