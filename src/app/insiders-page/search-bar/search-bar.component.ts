@@ -1,11 +1,11 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormControl, ReactiveFormsModule} from '@angular/forms';
-import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
-import {Observable, of} from 'rxjs';
-import {StockDataService} from "../../services/stock-data.service";
-import {StockSuggestion} from "../../model/stock-suggestion";
-import {MatInputModule} from "@angular/material/input";
-import {NgForOf, NgIf} from "@angular/common";
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { StockDataService } from '../../services/stock-data.service';
+import { StockSuggestion } from '../../model/stock-suggestion';
+import { MatInputModule } from '@angular/material/input';
+import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-search-bar',
@@ -15,57 +15,65 @@ import {NgForOf, NgIf} from "@angular/common";
     MatInputModule,
     ReactiveFormsModule,
     NgForOf,
-    NgIf
+    NgIf,
+    AsyncPipe
   ],
   styleUrls: ['./search-bar.component.css']
 })
 export class SearchBarComponent implements OnInit {
   searchControl = new FormControl('');
-  suggestions: StockSuggestion[] = [];
+  suggestions$: Observable<StockSuggestion[]> = of([]);
   @Output() suggestionSelected = new EventEmitter<string>();
-  showNoResults: boolean = false;
+
+  // Flag to control visibility of suggestions list
+  showSuggestions = false;
+
   constructor(private service: StockDataService) {}
 
   ngOnInit(): void {
-    this.searchControl.valueChanges
-      .pipe(
-        debounceTime(300), // Wait 300ms after the user stops typing
-        distinctUntilChanged(), // Only trigger if the value has changed
-        switchMap((query) => this.fetchSuggestions(query))
-      )
-      .subscribe((suggestions) => {
-        this.suggestions = suggestions;
-        if (suggestions.length === 0) {
-          this.showNoResults = true;
-        }
-        else
-        {
-          this.showNoResults = false;
-        }
-      })
-    ;
+    this.suggestions$ = this.searchControl.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap(query => this.fetchSuggestions(query))
+    );
   }
 
   fetchSuggestions(query: string): Observable<StockSuggestion[]> {
-    if (!query.trim()) {
+    const trimmed = query.trim();
+    if (!trimmed) {
       return of([]); // Return an empty array if the query is empty
     }
-
-    return this.service.suggest(query);
+    return this.service.suggest(trimmed);
   }
 
   onSuggestionClick(suggestion: StockSuggestion): void {
+    // Emit the selected ticker
     this.suggestionSelected.emit(suggestion.ticker);
-    this.suggestions = [];
+    // Optionally update the input with a formatted value
     this.searchControl.setValue(this.nameToDisplay(suggestion), { emitEvent: false });
+    // Hide suggestions after selection
+    this.showSuggestions = false;
   }
 
-   nameToDisplay(suggestion: StockSuggestion) : string {
-    return suggestion.ticker + " (" + suggestion.title + ")";
+  nameToDisplay(suggestion: StockSuggestion): string {
+    return `${suggestion.ticker} (${suggestion.title})`;
   }
 
   clearInput(): void {
-    this.searchControl.setValue('', { emitEvent: false }); // Clear the input
-    this.suggestions = []; // Clear the suggestions
+    this.searchControl.setValue('');
+    this.showSuggestions = false;
+  }
+
+  onFocus(): void {
+    this.showSuggestions = true;
+  }
+
+  onBlur(): void {
+    // Use a short timeout to allow a mousedown event on a suggestion to register before hiding the list
+    setTimeout(() => (this.showSuggestions = false), 200);
+  }
+
+  trackByTicker(index: number, suggestion: StockSuggestion): string {
+    return suggestion.ticker;
   }
 }

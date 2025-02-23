@@ -1,27 +1,35 @@
 <div class="search-bar">
   <mat-form-field>
     <mat-label>Enter a stock symbol</mat-label>
-    <input name="stock"  type="text"
-           [formControl]="searchControl" matInput placeholder="Enter a stock symbol" value="APPL">
+    <input
+      type="text"
+      matInput
+      [formControl]="searchControl"
+      placeholder="Enter a stock symbol"
+      (focus)="onFocus()"
+      (blur)="onBlur()">
   </mat-form-field>
+
   <button
     *ngIf="searchControl.value"
     class="clear-button"
     (click)="clearInput()"
-    aria-label="Clear search"
-  >
+    aria-label="Clear search">
     ✕
   </button>
-  <ul *ngIf="suggestions.length > 0 || searchControl.value" class="suggestions-list">
-    <li
-      *ngFor="let suggestion of suggestions"
-      class="suggestion-item"
-      (click)="onSuggestionClick(suggestion)"
-    >
-      {{ nameToDisplay(suggestion) }}
-    </li>
-    <li *ngIf="showNoResults" class="no-results-item">
-      {{ 'No results found' }}
-    </li>
+
+  <!-- Show suggestions only when flag is true -->
+  <ul *ngIf="showSuggestions" class="suggestions-list">
+    <ng-container *ngIf="suggestions$ | async as suggestions">
+      <li
+        *ngFor="let suggestion of suggestions; trackBy: trackByTicker"
+        class="suggestion-item"
+        (mousedown)="onSuggestionClick(suggestion)">
+        {{ nameToDisplay(suggestion) }}
+      </li>
+      <li *ngIf="suggestions.length === 0" class="no-results-item">
+        No results found
+      </li>
+    </ng-container>
   </ul>
 </div>

@@ -3,14 +3,6 @@
   width: 300px;
 }
 
-.search-input {
-  width: 100%;
-  padding: 8px 30px 8px 8px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
 .clear-button {
   position: absolute;
   right: 10px;
