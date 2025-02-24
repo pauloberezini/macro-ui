@@ -19,12 +19,13 @@ import {MatInputModule} from "@angular/material/input";
 import {Observable} from "rxjs";
 import {SpinnerService} from "../services/spinner/spinner.component";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatGridListModule} from "@angular/material/grid-list";
 
 @Component({
   selector: 'app-stock-anomaly',
   standalone: true,
   templateUrl: './stock-anomaly.component.html',
-  imports: [FormsModule, MatToolbarModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, AsyncPipe, NgIf, MatProgressSpinnerModule]
+  imports: [FormsModule, MatToolbarModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, AsyncPipe, NgIf, MatProgressSpinnerModule, MatGridListModule]
 })
 export class StockAnomalyComponent {
   @ViewChild('chartCanvas') chartRef!: ElementRef<HTMLCanvasElement>;
@@ -94,7 +95,7 @@ export class StockAnomalyComponent {
 
   initChart(labels: string[], data: number[], thresholdData: number[]) {
     if (this.chart) {
-      this.chart.destroy(); // Destroy the previous instance before creating a new one
+      this.chart.destroy(); // Destroy previous chart instance before creating a new one
       this.chart = null;
     }
 
@@ -103,7 +104,7 @@ export class StockAnomalyComponent {
 
     if (!ctx) return;
 
-    // Completely reset the canvas before rendering a new chart
+    // Reset canvas before rendering new chart
     canvas.width = canvas.width;
     canvas.height = canvas.height;
 
@@ -119,37 +120,38 @@ export class StockAnomalyComponent {
           {
             label: 'Test MSE',
             data: data,
-            borderColor: 'rgb(54, 162, 235)',
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderWidth: 2,
-            pointBackgroundColor: 'rgb(54, 162, 235)',
-            tension: 0.4,
-            fill: 'start'
+            borderColor: 'rgb(54, 162, 235)', // Blue line for Test MSE
+            borderWidth: 2, // Visible line thickness
+            pointRadius: 0, // Remove dots for a clean line
+            tension: 0.4, // Make it slightly curved (or set to 0 for a straight line)
+            fill: false // No fill under the line
           },
           {
             label: 'Threshold',
             data: thresholdData,
-            borderColor: 'rgb(255, 99, 132)',
-            borderDash: [5, 5],
-            borderWidth: 2,
-            fill: false
+            borderColor: 'rgb(255, 99, 132)', // Red line for Threshold
+            borderWidth: 2, // Make it bold
+            borderDash: [], // Ensure a solid line
+            pointRadius: 0, // Remove points for a smooth straight line
+            tension: 0, // Keep it perfectly straight
+            fill: false // No fill under the line
           }
         ]
       },
       options: {
         responsive: true,
-        interaction: {intersect: false},
-        animation: {duration: 0},
+        interaction: { intersect: false },
+        animation: { duration: 0 },
         scales: {
           x: {
-            grid: {color: 'rgba(0, 0, 0, 0.1)'},
-            ticks: {autoSkip: true, maxTicksLimit: 12}
+            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+            ticks: { autoSkip: true, maxTicksLimit: 12 }
           },
           y: {
-            grid: {color: 'rgba(0, 0, 0, 0.1)'},
-            beginAtZero: true, // Ensure the Y-axis starts at zero
-            min: minY - 2, // Force Y-axis lower bound
-            max: maxY + 2 // Force Y-axis upper bound
+            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+            beginAtZero: true,
+            min: minY - 2, // Ensure Y-axis starts below the min value
+            max: maxY + 2 // Ensure Y-axis ends above the max value
           }
         },
         plugins: {
@@ -159,11 +161,12 @@ export class StockAnomalyComponent {
               label: (context) => `MSE: ${context.parsed.y}`
             }
           },
-          legend: {labels: {font: {size: 14}}}
+          legend: { labels: { font: { size: 14 } } }
         }
       }
     });
   }
+
 
   updateChart(labels: string[], data: number[], thresholdData: number[]) {
     this.initChart(labels, data, thresholdData);
