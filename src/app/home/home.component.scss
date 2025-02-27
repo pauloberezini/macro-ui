@@ -1,0 +1,40 @@
+.hero-section {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(45deg, #3f51b5, #2196f3);
+  color: white;
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .lead {
+    font-size: 1.2rem;
+    opacity: 0.9;
+  }
+}
+
+.feature-grid {
+  padding: 2rem;
+
+  .feature-card {
+    padding: 2rem;
+    text-align: center;
+    mat-icon {
+      font-size: 3rem;
+      height: 3rem;
+      width: 3rem;
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.cta-section {
+  text-align: center;
+  padding: 2rem;
+  button {
+    font-size: 1.1rem;
+    padding: 1rem 2rem;
+  }
+}

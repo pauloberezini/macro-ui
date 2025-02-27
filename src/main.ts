@@ -18,6 +18,7 @@ import {jwtInterceptor} from "./app/login/interceptors/jwt.interceptor";
 import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
 import {StockAnomalyComponent} from "./app/stock-anomaly/stock-anomaly.component";
 import {apiInterceptor} from "./app/services/spinner/apiInterceptor";
+import {HomeComponent} from "./app/home/home.component";
 
 const routes: Routes = [
   { path: '', component: EconomicCalendarComponent },
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'insiders', component: InsidersComponent },
   { path: 'dash-graphs', component: DashGraphsComponent },
   { path: 'app-gas', component: GasComponent },
+  { path: 'app-home', component: HomeComponent },
   { path: 'app-stock-anomaly', component: StockAnomalyComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'hockey-bet', component: HockeyBetComponent }

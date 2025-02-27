@@ -13,6 +13,7 @@ import {InsidersComponent} from "./insiders-page/page/insiders.component";
 import {EconomicCalendarComponent} from "./economic-calendar/economic-calendar.component";
 import {HockeyBetComponent} from "./hockey-bet/hockey-bet.component";
 import {ResetPasswordComponent} from "./login/reset-password/reset-password.component";
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   { path: '', component: EconomicCalendarComponent, canActivate: [AuthGuard] },
@@ -23,7 +24,7 @@ const routes: Routes = [
   { path: 'app-news', component: NewsComponent, canActivate: [AuthGuard] },
   { path: 'insiders', component: InsidersComponent, canActivate: [AuthGuard] },
   { path: 'hockey-bet', component: HockeyBetComponent },
-
+  { path: 'app-home', component: HomeComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'sign-in', component: SignInComponent },
   { path: 'access-denied', component: AccessDeniedComponent },
