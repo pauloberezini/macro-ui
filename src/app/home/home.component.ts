@@ -51,4 +51,11 @@ export class HomeComponent {
   goToLegal() {
     this.router.navigate(['/legal']);
   }
+
+  goToAboutUs() {
+    this.router.navigate(['/app-supported-by']);
+  }
+  goToTerms() {
+    this.router.navigate(['/terms']);
+  }
 }
