@@ -13,7 +13,7 @@ import {Router} from "@angular/router";
     MatIconModule,
     MatCardModule
   ],
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
 
