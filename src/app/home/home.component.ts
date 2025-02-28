@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatIconModule } from "@angular/material/icon";
 import { MatCardModule } from "@angular/material/card";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,10 @@ import { MatCardModule } from "@angular/material/card";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
+
+  constructor(private router: Router) {
+  }
+
   testimonials = [
     {
       text: 'The most comprehensive macroeconomic analysis platform we\'ve used...',
@@ -41,4 +46,9 @@ export class HomeComponent {
     revenue: 12000000,
     growthRate: 35
   };
+
+
+  goToLegal() {
+    this.router.navigate(['/legal']);
+  }
 }

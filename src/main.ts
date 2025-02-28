@@ -19,6 +19,7 @@ import {provideAnimationsAsync} from "@angular/platform-browser/animations/async
 import {StockAnomalyComponent} from "./app/stock-anomaly/stock-anomaly.component";
 import {apiInterceptor} from "./app/services/spinner/apiInterceptor";
 import {HomeComponent} from "./app/home/home.component";
+import {LegalComponent} from "./app/pages/legal/legal.component";
 
 const routes: Routes = [
   { path: '', component: EconomicCalendarComponent },
@@ -34,7 +35,8 @@ const routes: Routes = [
   { path: 'app-home', component: HomeComponent },
   { path: 'app-stock-anomaly', component: StockAnomalyComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'hockey-bet', component: HockeyBetComponent }
+  { path: 'hockey-bet', component: HockeyBetComponent },
+  { path: 'legal', component: LegalComponent }
 ];
 
 bootstrapApplication(AppComponent, {

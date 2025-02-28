@@ -14,6 +14,7 @@ import {EconomicCalendarComponent} from "./economic-calendar/economic-calendar.c
 import {HockeyBetComponent} from "./hockey-bet/hockey-bet.component";
 import {ResetPasswordComponent} from "./login/reset-password/reset-password.component";
 import { HomeComponent } from './home/home.component';
+import {LegalComponent} from "./pages/legal/legal.component";
 
 const routes: Routes = [
   { path: '', component: EconomicCalendarComponent, canActivate: [AuthGuard] },
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'sign-in', component: SignInComponent },
   { path: 'access-denied', component: AccessDeniedComponent },
+  { path: 'legal', component: LegalComponent },
   { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent }
 ];
