@@ -105,6 +105,9 @@ export class AppComponent implements OnInit {
   goToHome() {
     this.router.navigate(['/']);
   }
+  goToEvents() {
+    this.router.navigate(['/app-economic-calendar']);
+  }
 
   goToSeasonality() {
     this.router.navigate(['/app-seasonality']);

@@ -7,11 +7,11 @@
 
   <!-- Desktop Menu: visible on wider screens -->
   <div class="menu-items desktop-menu">
-    <button class="main-menu-item" (click)="goToHomeF()">
+    <button class="main-menu-item" (click)="goToHome()">
       <mat-icon class="menu-icon">home</mat-icon>
       Home
     </button>
-    <button class="main-menu-item" (click)="goToHome()">
+    <button class="main-menu-item" (click)="goToEvents()">
       <mat-icon class="menu-icon">event_note</mat-icon>
       Events
     </button>
@@ -67,7 +67,7 @@
         <mat-icon>close</mat-icon>
       </button>
     </div>
-    <button class="mobile-menu-item" (click)="goToHome(); toggleMobileMenu()">Events</button>
+    <button class="mobile-menu-item" (click)="goToEvents(); toggleMobileMenu()">Events</button>
     <button class="mobile-menu-item" (click)="goToSeasonality(); toggleMobileMenu()">Seasonality</button>
     <button class="mobile-menu-item" (click)="goToStockAnomaly(); toggleMobileMenu()">Anomaly</button>
     <button class="mobile-menu-item" (click)="goToInsiders(); toggleMobileMenu()">Insiders</button>

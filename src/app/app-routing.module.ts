@@ -17,7 +17,7 @@ import { HomeComponent } from './home/home.component';
 import {LegalComponent} from "./pages/legal/legal.component";
 
 const routes: Routes = [
-  { path: '', component: EconomicCalendarComponent, canActivate: [AuthGuard] },
+  { path: 'app-economic-calendar', component: EconomicCalendarComponent, canActivate: [AuthGuard] },
   { path: 'app-seasonality', component: SeasonalityComponent, canActivate: [AuthGuard] },
   { path: 'app-stock-anomaly', component: StockAnomalyComponent, canActivate: [AuthGuard] },
   { path: 'app-supported-by', component: SupportedByComponent, canActivate: [AuthGuard] },
@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'app-news', component: NewsComponent, canActivate: [AuthGuard] },
   { path: 'insiders', component: InsidersComponent, canActivate: [AuthGuard] },
   { path: 'hockey-bet', component: HockeyBetComponent },
-  { path: 'app-home', component: HomeComponent },
+  { path: '', component: HomeComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'sign-in', component: SignInComponent },
   { path: 'access-denied', component: AccessDeniedComponent },

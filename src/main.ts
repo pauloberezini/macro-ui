@@ -22,7 +22,7 @@ import {HomeComponent} from "./app/home/home.component";
 import {LegalComponent} from "./app/pages/legal/legal.component";
 
 const routes: Routes = [
-  { path: '', component: EconomicCalendarComponent },
+  { path: 'app-economic-calendar', component: EconomicCalendarComponent },
   { path: 'app-news', component: NewsComponent },
   { path: 'app-line-chart', component: SeasonalityPro },
   { path: 'seasonality', component: MacroContainerComponent },
@@ -32,12 +32,13 @@ const routes: Routes = [
   { path: 'insiders', component: InsidersComponent },
   { path: 'dash-graphs', component: DashGraphsComponent },
   { path: 'app-gas', component: GasComponent },
-  { path: 'app-home', component: HomeComponent },
+  { path: '', component: HomeComponent },
   { path: 'app-stock-anomaly', component: StockAnomalyComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'hockey-bet', component: HockeyBetComponent },
   { path: 'legal', component: LegalComponent }
 ];
+
 
 bootstrapApplication(AppComponent, {
   providers: [
