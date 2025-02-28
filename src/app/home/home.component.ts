@@ -58,4 +58,7 @@ export class HomeComponent {
   goToTerms() {
     this.router.navigate(['/terms']);
   }
+  goToPrivacyPolicy() {
+    this.router.navigate(['/privacy-policy']);
+  }
 }

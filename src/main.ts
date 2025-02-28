@@ -21,6 +21,7 @@ import {apiInterceptor} from "./app/services/spinner/apiInterceptor";
 import {HomeComponent} from "./app/home/home.component";
 import {LegalComponent} from "./app/pages/legal/legal.component";
 import {TermsComponent} from "./app/pages/terms/terms.component";
+import {PrivacyPolicyComponent} from "./app/pages/privacy-policy/privacy-policy.component";
 
 const routes: Routes = [
   { path: 'app-economic-calendar', component: EconomicCalendarComponent },
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'hockey-bet', component: HockeyBetComponent },
   { path: 'legal', component: LegalComponent },
+  { path: 'privacy-policy', component: PrivacyPolicyComponent },
   { path: 'terms', component: TermsComponent }
 ];
 
