@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {MatGridListModule} from "@angular/material/grid-list";
-import {MatIconModule} from "@angular/material/icon";
-import {MatCardModule} from "@angular/material/card";
+import { MatGridListModule } from "@angular/material/grid-list";
+import { MatIconModule } from "@angular/material/icon";
+import { MatCardModule } from "@angular/material/card";
 
 @Component({
   selector: 'app-home',
@@ -34,5 +34,11 @@ export class HomeComponent {
     countries: 57,
     indicators: 2340,
     updatesDaily: 1200000
+  };
+
+  marketingData = {
+    users: 500000,
+    revenue: 12000000,
+    growthRate: 35
   };
 }
