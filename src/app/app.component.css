@@ -141,11 +141,6 @@
   gap: 10px;
 }
 
-/* CONTENT AREA */
-.content-area {
-  padding: 16px;
-}
-
 /* RESPONSIVE STYLES */
 @media screen and (max-width: 768px) {
   /* Hide desktop menus on mobile */

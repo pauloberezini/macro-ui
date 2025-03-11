@@ -3,6 +3,7 @@ import { MatGridListModule } from "@angular/material/grid-list";
 import { MatIconModule } from "@angular/material/icon";
 import { MatCardModule } from "@angular/material/card";
 import {Router} from "@angular/router";
+import {AnimatedBackgroundComponent} from "../animated-background/animated-background.component";
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,8 @@ import {Router} from "@angular/router";
   imports: [
     MatGridListModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    AnimatedBackgroundComponent
   ],
   styleUrls: ['./home.component.css']
 })
