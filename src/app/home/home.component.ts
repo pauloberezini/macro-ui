@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { MatGridListModule } from "@angular/material/grid-list";
-import { MatIconModule } from "@angular/material/icon";
-import { MatCardModule } from "@angular/material/card";
+import {AfterViewInit, Component, ElementRef, HostListener} from '@angular/core';
+import {MatGridListModule} from "@angular/material/grid-list";
+import {MatIconModule} from "@angular/material/icon";
+import {MatCardModule} from "@angular/material/card";
 import {Router} from "@angular/router";
 import {AnimatedBackgroundComponent} from "../animated-background/animated-background.component";
 
@@ -17,10 +17,13 @@ import {AnimatedBackgroundComponent} from "../animated-background/animated-backg
   ],
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements AfterViewInit {
+  private slides: NodeListOf<HTMLElement>;
 
-  constructor(private router: Router) {
+
+  constructor(private router: Router, private elRef: ElementRef) {
   }
+
 
   testimonials = [
     {
@@ -57,10 +60,28 @@ export class HomeComponent {
   goToAboutUs() {
     this.router.navigate(['/app-supported-by']);
   }
+
   goToTerms() {
     this.router.navigate(['/terms']);
   }
+
   goToPrivacyPolicy() {
     this.router.navigate(['/privacy-policy']);
   }
+
+  ngAfterViewInit(): void {
+    // Select all elements with an id ending in "-slide"
+    this.slides = this.elRef.nativeElement.querySelectorAll('[id$="-slide"]');
+  }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll(): void {
+    const scrollY = window.scrollY;
+    // Adjust the speed factor to control the animation speed
+    const speedFactor = 0.5;
+    this.slides.forEach((slide: HTMLElement) => {
+      slide.style.backgroundPosition = `center ${-scrollY * speedFactor}px`;
+    });
+  }
 }
+

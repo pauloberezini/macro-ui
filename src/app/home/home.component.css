@@ -322,3 +322,12 @@
     max-width: 100px;
   }
 }
+
+/* Apply to any element with an id ending in "-slide" */
+[id$="-slide"] {
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
