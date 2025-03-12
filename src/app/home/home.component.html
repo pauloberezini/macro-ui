@@ -1,83 +1,92 @@
 <app-animated-background></app-animated-background>
 <!-- Hero Section -->
-<div class="hero">
-  <div class="hero-content">
-    <h1>Macro Economic Insights Platform</h1>
-    <p class="hero-description">Trusted by 850+ financial institutions across 45 countries</p>
+<div id="first-slide">
+  <div class="hero">
+    <div class="hero-content">
+      <h1>Macro Economic Insights Platform</h1>
+      <p class="hero-description">Trusted by 850+ financial institutions across 45 countries</p>
 
-    <div class="hero-statistics">
-      <div class="stat-box">
-        <div class="stat-box-value">1.2M+</div>
-        <div class="stat-label">Daily Data Points Analyzed</div>
+      <div class="hero-statistics">
+        <div class="stat-box">
+          <div class="stat-box-value">1.2M+</div>
+          <div class="stat-label">Daily Data Points Analyzed</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-box-value">94%</div>
+          <div class="stat-label">Forecast Accuracy</div>
+        </div>
       </div>
-      <div class="stat-box">
-        <div class="stat-box-value">94%</div>
-        <div class="stat-label">Forecast Accuracy</div>
+
+      <!-- Call to Action Section -->
+      <div class="call-to-action">
+        <a class="homepage-button" routerLink="/dashboard">Explore Dashboard</a>
+        <a class="secondary-button" routerLink="/pricing">Pricing Plans</a>
       </div>
-    </div>
 
-    <!-- Call to Action Section -->
-    <div class="call-to-action">
-      <a class="homepage-button" routerLink="/dashboard">Explore Dashboard</a>
-      <a class="secondary-button" routerLink="/pricing">Pricing Plans</a>
     </div>
-
   </div>
 </div>
 
-<section class="partners">
-  <h2>Our Trusted Partners</h2>
-  <div class="partner-logos">
-    <a href="https://www.tradingview.com/chart/?aff_id=150248&utm_source=creative&utm_lang=EN" target="_blank">
-      <img style="
+
+<div id="second-slide">
+  <!-- Marketing Stats Section -->
+  <div class="marketing-stats">
+    <h2>Our Growth Over the Years</h2>
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-box-value">500K+</div>
+        <div class="stat-label">Active Users</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box-value">$12M</div>
+        <div class="stat-label">Annual Revenue</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box-value">35%</div>
+        <div class="stat-label">Yearly Revenue Growth</div>
+      </div>
+    </div>
+  </div>
+
+  <section class="partners">
+    <h2>Our Trusted Partners</h2>
+    <div class="partner-logos">
+      <a href="https://www.tradingview.com/chart/?aff_id=150248&utm_source=creative&utm_lang=EN" target="_blank">
+        <img style="
 			background-image: url(https://s3.tradingview.com/pub/referrals/creatives/WT/EN/468x60Banner.jpg);
 			@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
 			    background-image: url(https://s3.tradingview.com/pub/referrals/creatives/WT/EN/936x120Banner.jpg);
 			}
 		" width="468" height="60" border="0"/>
-    </a>
-  </div>
-</section>
+      </a>
+    </div>
+  </section>
+</div>
 
 
-<!-- Marketing Stats Section -->
-<div class="marketing-stats">
-  <h2>Our Growth Over the Years</h2>
-  <div class="stats-grid">
-    <div class="stat-box">
-      <div class="stat-box-value">500K+</div>
-      <div class="stat-label">Active Users</div>
+<div id="third-slide">
+  <!-- Features Section -->
+  <div class="features">
+    <div class="feature-card">
+      <mat-icon>public</mat-icon>
+      <h3>Global Coverage</h3>
+      <p>Track economic indicators across 50+ countries</p>
     </div>
-    <div class="stat-box">
-      <div class="stat-box-value">$12M</div>
-      <div class="stat-label">Annual Revenue</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-box-value">35%</div>
-      <div class="stat-label">Yearly Revenue Growth</div>
+    <div class="feature-card">
+      <mat-icon>insights</mat-icon>
+      <h3>Advanced Analytics</h3>
+      <p>AI-powered anomaly detection and predictive modeling</p>
     </div>
   </div>
 </div>
 
-<!-- Features Section -->
-<div class="features">
-  <div class="feature-card">
-    <mat-icon>public</mat-icon>
-    <h3>Global Coverage</h3>
-    <p>Track economic indicators across 50+ countries</p>
+<div id="fourth-slide">
+  <!-- Free Trial Section -->
+  <div class="free-trial">
+    <h2>Start Your Free Trial Today</h2>
+    <p>Experience our platform with a 14-day free trial. No credit card required!</p>
+    <a class="free-trial-button" routerLink="/signup">Start Free Trial</a>
   </div>
-  <div class="feature-card">
-    <mat-icon>insights</mat-icon>
-    <h3>Advanced Analytics</h3>
-    <p>AI-powered anomaly detection and predictive modeling</p>
-  </div>
-</div>
-
-<!-- Free Trial Section -->
-<div class="free-trial">
-  <h2>Start Your Free Trial Today</h2>
-  <p>Experience our platform with a 14-day free trial. No credit card required!</p>
-  <a class="free-trial-button" routerLink="/signup">Start Free Trial</a>
 </div>
 
 <!-- Footer Section -->
