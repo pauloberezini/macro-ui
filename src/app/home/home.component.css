@@ -1,4 +1,3 @@
-
 /* ========== Hero Section ========== */
 .hero {
   text-align: center;
@@ -254,6 +253,7 @@
 .footer-column ul li a:hover {
   color: var(--light-green);
 }
+
 .footer {
   position: relative;
   z-index: 10;
@@ -275,6 +275,7 @@
     margin-bottom: 1.5rem;
   }
 }
+
 .partners {
   position: relative;
   color: var(--light-gray);
@@ -314,6 +315,7 @@
 .partner-logos img:hover {
   filter: grayscale(0%);
 }
+
 .partner-logos img {
   /*max-width: 150px;*/
   /*height: auto;*/
@@ -344,6 +346,7 @@ html, body {
   align-items: center;
   justify-content: center;
 }
+
 .hero-content {
   display: grid;
   grid-template-rows: 1fr 1fr;

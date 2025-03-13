@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, HostListener} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
@@ -18,11 +18,13 @@ import {MatSidenavContainer, MatSidenavModule} from "@angular/material/sidenav";
   ],
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
+  private originalBodyOverflow: string = '';
+
   private slides: NodeListOf<HTMLElement>;
 
 
-  constructor(private router: Router, private elRef: ElementRef) {
+  constructor(private router: Router, private elRef: ElementRef,private renderer: Renderer2) {
   }
 
 
@@ -83,6 +85,18 @@ export class HomeComponent implements AfterViewInit {
     this.slides.forEach((slide: HTMLElement) => {
       slide.style.backgroundPosition = `center ${-scrollY * speedFactor}px`;
     });
+  }
+
+  ngOnInit(): void {
+    // Save the current body overflow style
+    this.originalBodyOverflow = document.body.style.overflow;
+    // Override body overflow to block auto scrolling
+    this.renderer.setStyle(document.body, 'overflow', 'hidden');
+  }
+
+  ngOnDestroy(): void {
+    // Restore the original overflow style when the component is destroyed
+    this.renderer.setStyle(document.body, 'overflow', this.originalBodyOverflow);
   }
 }
 
