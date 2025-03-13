@@ -41,7 +41,7 @@
 /* Insider Transactions */
 .insider-transactions {
   flex: 1; /* Equivalent to fxFlex="100" */
-  overflow: hidden;
+  overflow: auto;
 }
 
 /* Company Profile */
