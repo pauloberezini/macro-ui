@@ -158,7 +158,7 @@
 /* ========== Free Trial Section ========== */
 .free-trial {
   text-align: center;
-  padding: 5rem 2rem;
+  padding: 15rem 2rem;
   color: var(--light-gray);
   position: relative;
   overflow: hidden;
@@ -173,7 +173,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: #5e6166;
   opacity: 0.4;
   z-index: -1; /* Sends background behind content */
 }
@@ -255,6 +254,10 @@
 .footer-column ul li a:hover {
   color: var(--light-green);
 }
+.footer {
+  position: relative;
+  z-index: 10;
+}
 
 /* ========== Responsive Design ========== */
 @media (max-width: 768px) {
@@ -288,7 +291,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: #5e6166;
   opacity: 0.4;
   z-index: -1;
 }
@@ -323,11 +325,44 @@
   }
 }
 
-/* Apply to any element with an id ending in "-slide" */
-[id$="-slide"] {
-  background-size: cover;
-  background-position: center;
-  min-height: 100vh;
-  padding: 2rem;
+html, body {
+  height: 100%;
+  margin: 0;
+  scroll-behavior: smooth;
 }
 
+.scroll-container {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+}
+
+[id$="-slide"] {
+  scroll-snap-align: center;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-content {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+/* Override for the fourth slide */
+.last-slide {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Pushes first and last items to the ends */
+  align-items: stretch; /* Overrides align-items: center from the global rule */
+  min-height: 90vh;
+  scroll-snap-align: start; /* Optionally change from center to start */
+}
+
+/* Additional footer rule (if needed) */
+.footer {
+  padding-bottom: 2rem; /* Adjust as needed */
+  margin-top: auto;
+}

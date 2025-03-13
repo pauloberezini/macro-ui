@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: space-between;
   background-color: var(--light-gray);
-  padding: 8px 16px;
+  /*padding: 8px 16px;*/
   border-bottom: 1px solid rgb(208, 208, 208);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -16,7 +16,8 @@
 
 /* LOGO */
 .berezini-logo {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: math;
+  padding-left: 12px;
   font-size: 2rem;
   font-weight: 700;
   color: var(--logo-blue);
@@ -141,6 +142,7 @@
   gap: 10px;
 }
 
+
 /* RESPONSIVE STYLES */
 @media screen and (max-width: 768px) {
   /* Hide desktop menus on mobile */
@@ -154,6 +156,7 @@
 
   .top-nav {
     flex-direction: row;
+    padding: 8px 16px;
     justify-content: space-between;
     align-items: center;
   }
