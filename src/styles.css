@@ -313,3 +313,22 @@ button:hover {
   text-decoration: none;
   cursor:pointer;
 }
+.action-button {
+  display: inline-block;
+  font-size: 1rem;
+  padding: 6px 12px;
+  border-radius: 5px;
+  border: 1px solid var(--light-gray);
+  background-color: transparent;
+  color: var(--light-gray);
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.action-button:hover {
+  background-color: var(--light-gray);
+  color: var(--dark-gray);
+}

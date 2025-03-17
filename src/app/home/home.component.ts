@@ -4,7 +4,6 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
 import {Router} from "@angular/router";
 import {AnimatedBackgroundComponent} from "../animated-background/animated-background.component";
-import {MatSidenavContainer, MatSidenavModule} from "@angular/material/sidenav";
 
 @Component({
   selector: 'app-home',

@@ -41,7 +41,7 @@ export class StockAnomalyComponent {
     this.loading$ = this.spinnerService.loading$;
   }
 
-  analyzeStock() {
+  loadData() {
     if (this.isAnalyzing) return; // Prevent multiple clicks
 
     this.isAnalyzing = true; // Disable button before request
