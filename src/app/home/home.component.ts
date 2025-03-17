@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
 
   addFavoriteStock(suggestion: StockSuggestion): void {
     this.userFavoritesService.addUserFavoriteStock(suggestion)
-        .subscribe((stock) => this.favoriteStocks.push(stock));
+        .subscribe((stock) => this.loadFavoriteStocks());
   }
 
   removeFavoriteStock(stock: FavoriteStock): void {
