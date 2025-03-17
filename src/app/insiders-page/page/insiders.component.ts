@@ -1,9 +1,9 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { StockDataService } from '../../services/stock-data.service';
-import { InsiderData } from '../../model/InsiderData';
-import { MatSort } from "@angular/material/sort";
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {StockDataService} from '../../services/stock-data.service';
+import {InsiderData} from '../../model/InsiderData';
+import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource, MatTableModule} from "@angular/material/table";
-import { MatPaginator } from "@angular/material/paginator";
+import {MatPaginator} from "@angular/material/paginator";
 import {SearchBarComponent} from "../search-bar/search-bar.component";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {TradingViewChartComponent} from "../chart/trading-view-chart.component";
@@ -12,6 +12,7 @@ import {NgForOf, NgIf, TitleCasePipe} from "@angular/common";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {FundamentalDataComponent} from "../fundamental-data/fundamental-data.component";
 import {CompanyProfileComponent} from "../company-profile/company-profile.component";
+import {StockSuggestion} from "../../model/stock-suggestion";
 
 @Component({
   selector: 'insiders',
@@ -63,9 +64,9 @@ export class InsidersComponent implements AfterViewInit {
     });
   }
 
-  handleSuggestion(suggestion: string): void {
-    if (suggestion !== this.selectedSuggestion) {
-      this.selectedSuggestion = suggestion;
+  handleSuggestion(suggestion: StockSuggestion): void {
+    if (suggestion.ticker !== this.selectedSuggestion) {
+      this.selectedSuggestion = suggestion.ticker;
       this.getInsidersData();
     }
   }

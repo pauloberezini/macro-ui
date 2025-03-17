@@ -1,8 +1,12 @@
-import { Component } from '@angular/core';
-import { MatGridListModule } from "@angular/material/grid-list";
-import { MatIconModule } from "@angular/material/icon";
-import { MatCardModule } from "@angular/material/card";
+import {Component, OnInit} from '@angular/core';
+import {MatGridListModule} from "@angular/material/grid-list";
+import {MatIconModule} from "@angular/material/icon";
+import {MatCardModule} from "@angular/material/card";
 import {Router} from "@angular/router";
+import {UserFavoritesService} from '../services/user.favorites.service';
+import {NgForOf, NgIf} from "@angular/common";
+import {SearchBarComponent} from "../insiders-page/search-bar/search-bar.component";
+import {FavoriteStock, StockSuggestion} from "../model/stock-suggestion";
 
 @Component({
   selector: 'app-home',
@@ -11,13 +15,26 @@ import {Router} from "@angular/router";
   imports: [
     MatGridListModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    NgForOf,
+    NgIf,
+    SearchBarComponent
   ],
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  favoriteStocks: FavoriteStock[] = [];
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private userFavoritesService: UserFavoritesService) {}
+
+  addFavoriteStock(suggestion: StockSuggestion): void {
+    this.userFavoritesService.addUserFavoriteStock(suggestion)
+        .subscribe((stock) => this.favoriteStocks.push(stock));
+  }
+
+  removeFavoriteStock(stock: FavoriteStock): void {
+    this.userFavoritesService.removeUserFavoriteStock(stock)
+        .subscribe(() => this.favoriteStocks = this.favoriteStocks.filter(s => s !== stock));
   }
 
   testimonials = [
@@ -35,6 +52,7 @@ export class HomeComponent {
     }
   ];
 
+
   currentStats = {
     countries: 57,
     indicators: 2340,
@@ -47,6 +65,18 @@ export class HomeComponent {
     growthRate: 35
   };
 
+  ngOnInit(): void {
+    this.loadFavoriteStocks();
+  }
+
+  loadFavoriteStocks(): void {
+    this.userFavoritesService.getUserFavoriteStocks().subscribe(
+      (stocks) => {
+        console.log(stocks);
+        this.favoriteStocks = stocks;
+      }
+    );
+  }
 
   goToLegal() {
     this.router.navigate(['/legal']);
@@ -55,9 +85,11 @@ export class HomeComponent {
   goToAboutUs() {
     this.router.navigate(['/app-supported-by']);
   }
+
   goToTerms() {
     this.router.navigate(['/terms']);
   }
+
   goToPrivacyPolicy() {
     this.router.navigate(['/privacy-policy']);
   }

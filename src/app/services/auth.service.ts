@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { environment } from "../../environments/environment";
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
+import {environment} from "../../environments/environment";
 
 export interface LoginRequest {
   email: string;
@@ -10,6 +10,7 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
+  userId: string;
   token: string;
   message: string;
 }
@@ -31,8 +32,6 @@ export class AuthService {
   login(loginRequest: LoginRequest): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(this.baseUrl, loginRequest).pipe(
       tap((response: LoginResponse) => {
-        // Store the token on successful login
-        localStorage.setItem('token', response.token);
         // Update the login status
         this.loggedInSubject.next(true);
       })

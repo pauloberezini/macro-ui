@@ -1,10 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
-import { StockDataService } from '../../services/stock-data.service';
-import { StockSuggestion } from '../../model/stock-suggestion';
-import { MatInputModule } from '@angular/material/input';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormControl, ReactiveFormsModule} from '@angular/forms';
+import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
+import {StockDataService} from '../../services/stock-data.service';
+import {StockSuggestion} from '../../model/stock-suggestion';
+import {MatInputModule} from '@angular/material/input';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
 
 @Component({
@@ -23,7 +23,7 @@ import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
 export class SearchBarComponent implements OnInit {
   searchControl = new FormControl('');
   suggestions$: Observable<StockSuggestion[]> = of([]);
-  @Output() suggestionSelected = new EventEmitter<string>();
+  @Output() suggestionSelected = new EventEmitter<StockSuggestion>();
 
   // Flag to control visibility of suggestions list
   showSuggestions = false;
@@ -48,7 +48,7 @@ export class SearchBarComponent implements OnInit {
 
   onSuggestionClick(suggestion: StockSuggestion): void {
     // Emit the selected ticker
-    this.suggestionSelected.emit(suggestion.ticker);
+    this.suggestionSelected.emit(suggestion);
     // Optionally update the input with a formatted value
     this.searchControl.setValue(this.nameToDisplay(suggestion), { emitEvent: false });
     // Hide suggestions after selection
