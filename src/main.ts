@@ -22,6 +22,7 @@ import {HomeComponent} from "./app/home/home.component";
 import {LegalComponent} from "./app/pages/legal/legal.component";
 import {TermsComponent} from "./app/pages/terms/terms.component";
 import {PrivacyPolicyComponent} from "./app/pages/privacy-policy/privacy-policy.component";
+import {ProfileComponent} from "./app/profile/profile.component";
 
 const routes: Routes = [
   { path: 'app-economic-calendar', component: EconomicCalendarComponent },
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'app-seasonality', component: SeasonalityComponent },
   { path: 'app-chart-year-component', component: ChartYearComponentComponent },
   { path: 'app-supported-by', component: SupportedByComponent },
+  { path: 'app-profile', component: ProfileComponent },
   { path: 'insiders', component: InsidersComponent },
   { path: 'dash-graphs', component: DashGraphsComponent },
   { path: 'app-gas', component: GasComponent },

@@ -17,12 +17,14 @@ import { HomeComponent } from './home/home.component';
 import {LegalComponent} from "./pages/legal/legal.component";
 import {TermsComponent} from "./pages/terms/terms.component";
 import {PrivacyPolicyComponent} from "./pages/privacy-policy/privacy-policy.component";
+import {ProfileComponent} from "./profile/profile.component";
 
 const routes: Routes = [
   { path: 'app-economic-calendar', component: EconomicCalendarComponent, canActivate: [AuthGuard] },
   { path: 'app-seasonality', component: SeasonalityComponent, canActivate: [AuthGuard] },
   { path: 'app-stock-anomaly', component: StockAnomalyComponent, canActivate: [AuthGuard] },
   { path: 'app-supported-by', component: SupportedByComponent, canActivate: [AuthGuard] },
+  { path: 'app-profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'dash-graphs', component: DashGraphsComponent, canActivate: [AuthGuard] },
   { path: 'app-news', component: NewsComponent, canActivate: [AuthGuard] },
   { path: 'insiders', component: InsidersComponent, canActivate: [AuthGuard] },

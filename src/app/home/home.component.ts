@@ -1,12 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
 import {Router} from "@angular/router";
-import {UserFavoritesService} from '../services/user.favorites.service';
 import {NgForOf, NgIf} from "@angular/common";
 import {SearchBarComponent} from "../insiders-page/search-bar/search-bar.component";
-import {FavoriteStock, StockSuggestion} from "../model/stock-suggestion";
 
 @Component({
   selector: 'app-home',
@@ -22,19 +20,9 @@ import {FavoriteStock, StockSuggestion} from "../model/stock-suggestion";
   ],
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
-  favoriteStocks: FavoriteStock[] = [];
+export class HomeComponent {
 
-  constructor(private router: Router, private userFavoritesService: UserFavoritesService) {}
-
-  addFavoriteStock(suggestion: StockSuggestion): void {
-    this.userFavoritesService.addUserFavoriteStock(suggestion)
-        .subscribe((stock) => this.loadFavoriteStocks());
-  }
-
-  removeFavoriteStock(stock: FavoriteStock): void {
-    this.userFavoritesService.removeUserFavoriteStock(stock)
-        .subscribe(() => this.favoriteStocks = this.favoriteStocks.filter(s => s !== stock));
+  constructor(private router: Router) {
   }
 
   testimonials = [
@@ -64,19 +52,6 @@ export class HomeComponent implements OnInit {
     revenue: 12000000,
     growthRate: 35
   };
-
-  ngOnInit(): void {
-    this.loadFavoriteStocks();
-  }
-
-  loadFavoriteStocks(): void {
-    this.userFavoritesService.getUserFavoriteStocks().subscribe(
-      (stocks) => {
-        console.log(stocks);
-        this.favoriteStocks = stocks;
-      }
-    );
-  }
 
   goToLegal() {
     this.router.navigate(['/legal']);

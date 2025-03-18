@@ -4,25 +4,6 @@
     <h1>Macro Economic Insights Platform</h1>
     <p class="hero-description">Trusted by 850+ financial institutions across 45 countries</p>
 
-    <div *ngIf="favoriteStocks.length > 0">
-      <h2>Your Favorite Stocks</h2>
-      <mat-grid-list cols="3" rowHeight="2:1">
-        <mat-grid-tile *ngFor="let stock of favoriteStocks">
-            <mat-card>
-                <mat-icon (click)="removeFavoriteStock(stock)" fontIcon="close"></mat-icon>
-                <mat-card-header>
-                    <mat-card-title>{{ stock.stockCik.ticker }}</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <p>{{ stock.stockCik.title }}</p>
-                </mat-card-content>
-            </mat-card>
-        </mat-grid-tile>
-      </mat-grid-list>
-    </div>
-
-      <app-search-bar (suggestionSelected)="addFavoriteStock($event)"></app-search-bar>
-
     <div class="hero-statistics">
       <div class="stat-box">
         <div class="stat-box-value">1.2M+</div>
