@@ -1,0 +1,11 @@
+:host {
+  position: fixed;       /* Fixes the background in place */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;           /* Ensures it sits behind your content */
+  background: linear-gradient(135deg, #026670, #102f77, #E0FBFC);
+  background-repeat: no-repeat;
+  background-size: cover;
+}

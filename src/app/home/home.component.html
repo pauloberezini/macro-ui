@@ -1,115 +1,157 @@
-<!-- Hero Section -->
-<div class="hero">
-  <div class="hero-content">
-    <h1>Macro Economic Insights Platform</h1>
-    <p class="hero-description">Trusted by 850+ financial institutions across 45 countries</p>
+<app-animated-background></app-animated-background>
 
-    <div class="hero-statistics">
-      <div class="stat-box">
-        <div class="stat-box-value">1.2M+</div>
-        <div class="stat-label">Daily Data Points Analyzed</div>
+<div class="scroll-container">
+  <div id="first-slide">
+    <div class="hero">
+      <div class="hero-content">
+        <h1>Macro Economic Insights Platform</h1>
+        <p class="hero-description">Trusted by 850+ financial institutions across 45 countries</p>
+
+        <div class="hero-statistics">
+          <div class="stat-box">
+            <div class="stat-box-value">1.2M+</div>
+
+            <div class="stat-label">Daily Data Points Analyzed</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-value">94%</div>
+            <div class="stat-label">Forecast Accuracy</div>
+          </div>
+        </div>
+
+        <p class="hero-description">Unlock powerful market insights. Make smarter financial decisions.</p>
+        <!-- Call to Action Section -->
+        <div class="hero-statistics">
+          <a class="homepage-button" routerLink="/dashboard">Explore Dashboard</a>
+          <a class="homepage-button" routerLink="/pricing">Pricing Plans</a>
+        </div>
+
       </div>
-      <div class="stat-box">
-        <div class="stat-box-value">94%</div>
-        <div class="stat-label">Forecast Accuracy</div>
+    </div>
+  </div>
+
+
+  <div id="second-slide">
+    <!-- Marketing Stats Section -->
+    <div class="hero">
+      <div class="hero-content">
+        <h1>Our Growth Over the Years</h1>
+        <p class="hero-description">
+          In just a few years, we've empowered over 10K active users, achieved $12M+ in annual revenue, and sustained a 35% growth rate—backed by 1+ TB of comprehensive market data.
+        </p>
+        <div class="hero-statistics">
+          <div class="stat-box">
+            <div class="stat-box-value">10K+</div>
+            <div class="stat-label">Active Users</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-value">$12M</div>
+            <div class="stat-label">Annual Revenue</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-value">35%</div>
+            <div class="stat-label">Yearly Revenue Growth</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-value">1+ TB</div>
+            <div class="stat-label">Market Data</div>
+          </div>
+        </div>
+
       </div>
+
+
+    </div>
+  </div>
+
+
+  <section id="third-slide" class="features">
+    <div class="feature-card">
+      <mat-icon>event_note</mat-icon>
+      <h3>Your Ultimate Economic Calendar</h3>
+      <p>Track key economic events in real-time. Customize filters, receive high-impact alerts, and analyze historical trends to refine your trading strategy.</p>
     </div>
 
-    <!-- Call to Action Section -->
-    <div class="call-to-action">
-      <a class="homepage-button" routerLink="/dashboard">Explore Dashboard</a>
-      <a class="secondary-button" routerLink="/pricing">Pricing Plans</a>
+    <div class="feature-card">
+      <mat-icon>trending_up</mat-icon>
+      <h3>Unlock Market Cycles with Seasonal Analytics</h3>
+      <p>Identify predictable market patterns with historical data. Optimize entry and exit points for strategic trading decisions.</p>
     </div>
 
+    <div class="feature-card">
+      <mat-icon>insights</mat-icon>
+      <h3>AI-Powered Anomaly Detection</h3>
+      <p>Detect market disruptions before they impact your portfolio. Stay ahead with AI-driven trading insights.</p>
+    </div>
+
+    <div class="feature-card">
+      <mat-icon>visibility</mat-icon>
+      <h3>Follow the Smart Money with Insider Trades</h3>
+      <p>Analyze SEC insider transactions in real-time. Spot opportunities before the market reacts.</p>
+    </div>
+
+    <div class="feature-card">
+      <mat-icon>article</mat-icon>
+      <h3>AI-Driven Market News</h3>
+      <p>Stay informed with AI-powered sentiment analysis. Understand the market mood before it moves.</p>
+    </div>
+  </section>
+
+  <div class="last-slide" id="fourth-slide">
+    <!-- Free Trial Section -->
+    <div class="free-trial">
+      <h2>Start Your Free Trial Today</h2>
+      <p>Experience our platform with a 14-day free trial. No credit card required!</p>
+      <a class="free-trial-button" routerLink="/signup">Start Free Trial</a>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+<!--      <div class="hero">-->
+<!--        <div class="hero-content">-->
+<!--          <section class="partners">-->
+<!--            <h2>Our Trusted Partners</h2>-->
+<!--            <div class="partner-logos">-->
+<!--              <a href="https://www.tradingview.com/chart/?aff_id=150248&utm_source=creative&utm_lang=EN" target="_blank">-->
+<!--                <img src="https://s3.tradingview.com/pub/referrals/creatives/WT/EN/468x60Banner.jpg" width="468" height="60" border="0"/>-->
+<!--              </a>-->
+<!--            </div>-->
+<!--          </section>-->
+<!--        </div>-->
+<!--      </div>-->
+      <div class="footer-column">
+        <h3>Service & Info</h3>
+        <ul>
+          <li><a (click)="goToAboutUs()" class="hyper-link">About Us</a></li>
+          <li><a (click)="goToTerms()" class="hyper-link">Terms & Conditions</a></li>
+          <li><a (click)="goToPrivacyPolicy()" class="hyper-link">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Payment</h3>
+        <ul>
+          <li><a href="/pricing">Pricing Plans</a></li>
+          <li><a href="/billing">Billing Information</a></li>
+          <li><a href="/security">Payment Security</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Support</h3>
+        <ul>
+          <li><a href="/faq">FAQ</a></li>
+          <li><a href="/blog">Community Blog</a></li>
+          <li><a href="https://t.me/bereziniPartnersChat" target="_blank">Live Chat Support</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Copyright</h3>
+        <ul>
+          <li>© 2025 Berezini Partners</li>
+          <li>All Rights Reserved</li>
+          <li><a (click)="goToLegal()" class="hyper-link">Legal Disclaimer</a></li>
+        </ul>
+      </div>
+    </footer>
   </div>
 </div>
 
-<!-- Marketing Stats Section -->
-<div class="marketing-stats">
-  <h2>Our Growth Over the Years</h2>
-  <div class="stats-grid">
-    <div class="stat-box">
-      <div class="stat-box-value">500K+</div>
-      <div class="stat-label">Active Users</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-box-value">$12M</div>
-      <div class="stat-label">Annual Revenue</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-box-value">35%</div>
-      <div class="stat-label">Yearly Revenue Growth</div>
-    </div>
-  </div>
-</div>
-
-<!-- Features Section -->
-<div class="features">
-  <div class="feature-card">
-    <mat-icon>public</mat-icon>
-    <h3>Global Coverage</h3>
-    <p>Track economic indicators across 50+ countries</p>
-  </div>
-  <div class="feature-card">
-    <mat-icon>insights</mat-icon>
-    <h3>Advanced Analytics</h3>
-    <p>AI-powered anomaly detection and predictive modeling</p>
-  </div>
-</div>
-
-<!-- Free Trial Section -->
-<div class="free-trial">
-  <h2>Start Your Free Trial Today</h2>
-  <p>Experience our platform with a 14-day free trial. No credit card required!</p>
-  <a class="free-trial-button" routerLink="/signup">Start Free Trial</a>
-</div>
-
-<!-- Footer Section -->
-<footer class="footer">
-  <!-- Service & Info -->
-  <div class="footer-column">
-    <h3>Service & Info</h3>
-    <ul>
-      <li><a (click)="goToAboutUs()" class="hyper-link">About Us</a></li>
-      <li><a (click)="goToTerms()" class="hyper-link">Terms & Conditions</a></li>
-      <li><a (click)="goToPrivacyPolicy()" class="hyper-link">Privacy Policy</a></li>
-      <li><a (click)="goToAboutUs()" class="hyper-link">Contact Us</a></li>
-    </ul>
-  </div>
-
-  <!-- Payment -->
-  <div class="footer-column">
-    <h3>Payment</h3>
-    <ul>
-      <li><a href="/pricing">Pricing Plans</a></li>
-      <li><a href="/billing">Billing Information</a></li>
-<!--      <li><a href="/refunds">Refund Policy</a></li>-->
-      <li><a href="/security">Payment Security</a></li>
-    </ul>
-  </div>
-
-  <!-- Support -->
-  <div class="footer-column">
-    <h3>Support</h3>
-    <ul>
-      <li><a href="/faq">FAQ</a></li>
-      <li><a href="/blog">Community Blog</a></li>
-      <li><a href="https://t.me/bereziniPartnersChat" target="_blank">Live Chat Support</a></li>
-    </ul>
-  </div>
-
-  <!-- Copyright -->
-  <div class="footer-column">
-    <h3>Copyright</h3>
-    <ul>
-      <li>© 2025 Berezini Partners</li>
-      <li>All Rights Reserved</li>
-      <li><a (click)="goToLegal()" class="hyper-link">Legal Disclaimer</a></li>
-    </ul>
-  </div>
-</footer>
-
-<!-- Footer Copyright Text -->
-<div class="footer-copyright">
-  © 2025 Berezini Partners. All Rights Reserved.
-</div>

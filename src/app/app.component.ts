@@ -8,6 +8,7 @@ import {Router, RouterOutlet} from "@angular/router";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {NgIf} from "@angular/common";
+import {AnimatedBackgroundComponent} from "./animated-background/animated-background.component";
 
 export interface StockData {
   date: string;

@@ -1,10 +1,9 @@
-import {Component} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
 import {Router} from "@angular/router";
-import {NgForOf, NgIf} from "@angular/common";
-import {SearchBarComponent} from "../insiders-page/search-bar/search-bar.component";
+import {AnimatedBackgroundComponent} from "../animated-background/animated-background.component";
 
 @Component({
   selector: 'app-home',
@@ -14,16 +13,19 @@ import {SearchBarComponent} from "../insiders-page/search-bar/search-bar.compone
     MatGridListModule,
     MatIconModule,
     MatCardModule,
-    NgForOf,
-    NgIf,
-    SearchBarComponent
+    AnimatedBackgroundComponent
   ],
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
+  private originalBodyOverflow: string = '';
 
-  constructor(private router: Router) {
+  private slides: NodeListOf<HTMLElement>;
+
+
+  constructor(private router: Router, private elRef: ElementRef,private renderer: Renderer2) {
   }
+
 
   testimonials = [
     {
@@ -40,7 +42,6 @@ export class HomeComponent {
     }
   ];
 
-
   currentStats = {
     countries: 57,
     indicators: 2340,
@@ -52,6 +53,7 @@ export class HomeComponent {
     revenue: 12000000,
     growthRate: 35
   };
+
 
   goToLegal() {
     this.router.navigate(['/legal']);
@@ -68,4 +70,32 @@ export class HomeComponent {
   goToPrivacyPolicy() {
     this.router.navigate(['/privacy-policy']);
   }
+
+  ngAfterViewInit(): void {
+    // Select all elements with an id ending in "-slide"
+    this.slides = this.elRef.nativeElement.querySelectorAll('[id$="-slide"]');
+  }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll(): void {
+    const scrollY = window.scrollY;
+    // Adjust the speed factor to control the animation speed
+    const speedFactor = 0.5;
+    this.slides.forEach((slide: HTMLElement) => {
+      slide.style.backgroundPosition = `center ${-scrollY * speedFactor}px`;
+    });
+  }
+
+  ngOnInit(): void {
+    // Save the current body overflow style
+    this.originalBodyOverflow = document.body.style.overflow;
+    // Override body overflow to block auto scrolling
+    this.renderer.setStyle(document.body, 'overflow', 'hidden');
+  }
+
+  ngOnDestroy(): void {
+    // Restore the original overflow style when the component is destroyed
+    this.renderer.setStyle(document.body, 'overflow', this.originalBodyOverflow);
+  }
 }
+

@@ -1,24 +1,23 @@
-/* Hero Section */
+/* ========== Hero Section ========== */
 .hero {
   text-align: center;
   padding: 4rem 2rem;
-  background: linear-gradient(45deg, var(--dark-green), var(--logo-blue));
   color: var(--light-gray);
   position: relative;
   overflow: hidden;
-
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .hero-description {
-    font-size: 1.2rem;
-    opacity: 0.9;
-  }
 }
 
-/* Stats Section */
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero-description {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* ========== Stats Section ========== */
 .hero-statistics,
 .marketing-stats .stats-grid {
   display: grid;
@@ -28,7 +27,6 @@
   justify-content: center;
 }
 
-/* Individual Stat Box */
 .stat-box {
   background: rgba(255, 255, 255, 0.1);
   padding: 1.5rem;
@@ -37,68 +35,57 @@
   text-align: center;
   color: var(--light-green);
   transition: 0.3s ease-in-out;
-  border: 1px solid var(--medium-green);
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.2);
-  }
-
-  .stat-box-value {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: var(--light-green);
-  }
-
-  .stat-label {
-    font-size: 1rem;
-    opacity: 0.9;
-    color: var(--light-gray);
-  }
 }
 
-/* Marketing Section */
+.stat-box:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.stat-box-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 1rem;
+  opacity: 0.9;
+  color: var(--light-gray);
+}
+
+/* ========== Marketing Section ========== */
 .marketing-stats {
-  background: var(--dark-gray);
   color: var(--light-gray);
   text-align: center;
   padding: 3rem 2rem;
   margin-top: 3rem;
-  border-top: 4px solid var(--logo-blue);
-
-  h2 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-  }
 }
 
-/* Call to Action */
+.marketing-stats h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ========== Call to Action ========== */
 .call-to-action {
   text-align: center;
   padding: 2rem;
-
-  button {
-    font-size: 1.1rem;
-    padding: 1rem 2rem;
-    background-color:  var(--medium-green);
-    color: var(--light-gray);
-    border: none;
-    transition: 0.3s ease-in-out;
-  }
-
-  button:hover {
-    background-color: var(--medium-green);
-  }
 }
 
-@keyframes gradientShift {
-  0% { background-position: 0% 50% }
-  50% { background-position: 100% 50% }
-  100% { background-position: 0% 50% }
+.call-to-action button {
+  font-size: 1.1rem;
+  padding: 1rem 2rem;
+  background-color: var(--medium-green);
+  color: var(--light-gray);
+  border: none;
+  transition: 0.3s ease-in-out;
 }
 
+.call-to-action button:hover {
+  background-color: var(--light-green);
+}
 
-/* Features Section */
+/* ========== Features Section ========== */
 .features {
   padding: 2rem;
   display: grid;
@@ -107,7 +94,6 @@
   justify-content: center;
 }
 
-/* Feature Card */
 .feature-card {
   background: var(--light-green);
   color: var(--dark-gray);
@@ -116,65 +102,33 @@
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
-  }
-
-  mat-icon {
-    font-size: 3rem;
-    height: 3rem;
-    width: 3rem;
-    margin-bottom: 1rem;
-    color: var(--medium-green);
-  }
-
-  h3 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  p {
-    font-size: 1rem;
-    color: var(--dark-gray);
-  }
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .features {
-    grid-template-columns: 1fr;
-  }
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
 }
 
-/* Homepage Buttons */
-.homepage-button {
-  display: inline-block;
-  font-size: 1.1rem;
-  padding: 12px 24px;
-  border-radius: 5px;
-  border: 2px solid var(--light-gray);
-  background-color: transparent;
-  color: var(--light-gray);
-  text-transform: uppercase;
-  font-weight: bold;
-  transition: all 0.3s ease-in-out;
-  text-decoration: none;
-  cursor: pointer;
-
-  &:hover {
-    background-color: var(--medium-green);
-    border-color: var(--medium-green);
-  }
-
-  &:focus {
-    outline: none;
-    box-shadow: 0px 0px 10px rgba(0, 188, 212, 0.4);
-  }
+.feature-card mat-icon {
+  font-size: 3rem;
+  height: 3rem;
+  width: 3rem;
+  margin-bottom: 1rem;
+  color: var(--medium-green);
 }
 
-/* Secondary Button */
+.feature-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.feature-card p {
+  font-size: 1rem;
+  color: var(--dark-gray);
+}
+
+/* ========== Buttons ========== */
+.homepage-button,
 .secondary-button {
   display: inline-block;
   font-size: 1.1rem;
@@ -188,81 +142,46 @@
   transition: all 0.3s ease-in-out;
   text-decoration: none;
   cursor: pointer;
-
-  &:hover {
-    background-color: var(--medium-green);
-    border-color: var(--medium-green);
-  }
-
-  &:focus {
-    outline: none;
-    box-shadow: 0px 0px 10px rgba(0, 188, 212, 0.4);
-  }
 }
 
-/* Centering Buttons in CTA Section */
-.call-to-action {
-  text-align: center;
-  padding: 2rem;
-
-  .homepage-button,
-  .secondary-button {
-    margin: 0 10px;
-  }
+.homepage-button:hover {
+  background-color: var(--light-gray);
+  color: var(--dark-gray);
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .call-to-action {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .homepage-button,
-  .secondary-button {
-    width: 80%;
-    margin-bottom: 10px;
-  }
+.secondary-button:hover {
+  background-color: var(--medium-green);
+  border-color: var(--medium-green);
 }
 
-/* Free Trial Section */
+/* ========== Free Trial Section ========== */
 .free-trial {
   text-align: center;
-  padding: 5rem 2rem;
-  background: linear-gradient(45deg, var(--dark-green), var(--logo-blue));
+  padding: 15rem 2rem;
   color: var(--light-gray);
   position: relative;
   overflow: hidden;
-  animation: backgroundShift 10s infinite alternate ease-in-out;
-}
-
-/* Background Animation */
-@keyframes backgroundShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Section Fade-In Animation */
-.free-trial {
-  opacity: 0;
-  transform: translateY(20px);
   animation: fadeIn 1.5s ease-in-out forwards;
 }
 
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
+/* Background with opacity */
+.free-trial::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.4;
+  z-index: -1; /* Sends background behind content */
 }
 
-/* Free Trial Heading */
+
 .free-trial h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
 }
 
-/* Free Trial Description */
 .free-trial p {
   font-size: 1.2rem;
   opacity: 0.9;
@@ -282,9 +201,6 @@
   text-transform: uppercase;
   text-decoration: none;
   transition: all 0.3s ease-in-out;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
 }
 
@@ -294,65 +210,32 @@
   box-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
 }
 
-/* Button Glow Effect */
-.free-trial-button::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 10%, transparent 80%);
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.free-trial-button:hover::before {
-  opacity: 1;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .free-trial {
-    padding: 4rem 1.5rem;
-  }
-}
-
-/* Footer Section */
+/* ========== Footer Section ========== */
 .footer {
-  background: var(--dark-gray);
+  /*background: var(--dark-gray);*/
   color: var(--light-gray);
-  padding: 3rem 2rem;
+  padding: 0.5rem;
   text-align: center;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: flex-start;
-  animation: fadeInUp 1.5s ease-in-out;
 }
 
-/* Fade-in Animation */
-@keyframes fadeInUp {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-/* Footer Column */
 .footer-column {
   flex: 1;
   min-width: 200px;
   margin: 1rem;
 }
 
-/* Footer Headings */
 .footer-column h3 {
-  font-size: 1.5rem;
+  font-size: 0.8rem;
   margin-bottom: 1rem;
   color: var(--light-green);
 }
 
-/* Footer Links */
 .footer-column ul {
+  font-size: 0.6rem;
   list-style: none;
   padding: 0;
 }
@@ -371,16 +254,18 @@
   color: var(--light-green);
 }
 
-/* Copyright Section */
-.footer-copyright {
-  text-align: center;
-  margin-top: 2rem;
-  font-size: 0.9rem;
-  opacity: 0.7;
+.footer {
+  position: relative;
+  z-index: 10;
 }
 
-/* Responsive Footer for Mobile */
+/* ========== Responsive Design ========== */
 @media (max-width: 768px) {
+  .features,
+  .hero-statistics {
+    grid-template-columns: 1fr;
+  }
+
   .footer {
     flex-direction: column;
     text-align: center;
@@ -391,4 +276,96 @@
   }
 }
 
+.partners {
+  position: relative;
+  color: var(--light-gray);
+  text-align: center;
+  padding: 3rem 2rem;
+  animation: fadeIn 1.5s ease-in-out forwards;
+}
 
+/* Background with opacity */
+.partners::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.4;
+  z-index: -1;
+}
+
+
+.partner-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.partner-logos img {
+  /*height: 50px; !* Adjust based on the API logos *!*/
+  /*max-width: 150px;*/
+  filter: grayscale(50%);
+  transition: filter 0.3s ease-in-out;
+}
+
+.partner-logos img:hover {
+  filter: grayscale(0%);
+}
+
+.partner-logos img {
+  /*max-width: 150px;*/
+  /*height: auto;*/
+}
+
+@media (max-width: 768px) {
+  .partner-logos img {
+    max-width: 100px;
+  }
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
+.scroll-container {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+}
+
+[id$="-slide"] {
+  scroll-snap-align: center;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-content {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+/* Override for the fourth slide */
+.last-slide {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Pushes first and last items to the ends */
+  align-items: stretch; /* Overrides align-items: center from the global rule */
+  min-height: 90vh;
+  scroll-snap-align: start; /* Optionally change from center to start */
+}
+
+/* Additional footer rule (if needed) */
+.footer {
+  padding-bottom: 2rem; /* Adjust as needed */
+  margin-top: auto;
+}

@@ -3,6 +3,15 @@
     <mat-toolbar-row>
       <span>Stock Anomaly</span>
     </mat-toolbar-row>
+    <mat-toolbar-row>
+      <span class="button-bar" style="margin-right: auto;display: flex; gap: 10px;">
+        <button class="action-button" (click)="stockSymbol = 'GC=F'; loadData()">Gold</button>
+        <button class="action-button" (click)="stockSymbol = 'GC.1'; loadData()">Gold COMEX</button>
+        <button class="action-button" (click)="stockSymbol = 'SI=F'; loadData()">Silver</button>
+        <button class="action-button" (click)="stockSymbol = 'ES=F'; loadData()">S&P500</button>
+        <button class="action-button" (click)="stockSymbol = 'BTC-USD'; loadData()">BTC</button>
+      </span>
+    </mat-toolbar-row>
   </mat-toolbar>
 
   <!-- Input and Button (Outside the Grid) -->
@@ -12,7 +21,7 @@
   </mat-form-field>
 
   <p>Anomalies: {{ anomaly_count }}</p>
-  <button (click)="analyzeStock()" mat-raised-button class="flat-button">Analyze</button>
+  <button (click)="loadData()" mat-raised-button class="flat-button">Analyze</button>
 
   <!-- Grid List (Only for Chart) -->
   <mat-grid-list cols="2" rowHeight="100vh">

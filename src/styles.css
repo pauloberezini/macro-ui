@@ -281,80 +281,7 @@ button:hover {
   justify-content: center;
   z-index: 1000; /* ensures it sits above other content */
 }
-/*SPINNER*/
-/* Hero Section */
-.hero {
-  text-align: center;
-  padding: 4rem 2rem;
-  background: linear-gradient(45deg, var(--dark-green), var(--logo-blue));
-  color: var(--light-gray);
-  position: relative;
-  overflow: hidden;
 
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .hero-description {
-    font-size: 1.2rem;
-    opacity: 0.9;
-  }
-}
-
-/* Stats Section */
-.hero-statistics,
-.marketing-stats .stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  margin: 3rem 0;
-  justify-content: center;
-}
-
-/* Individual Stat Box */
-.stat-box {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 1.5rem;
-  border-radius: 8px;
-  backdrop-filter: blur(5px);
-  text-align: center;
-  color: var(--light-green);
-  transition: 0.3s ease-in-out;
-  border: 1px solid var(--medium-green);
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.2);
-  }
-
-  .stat-box-value {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: var(--light-green);
-  }
-
-  .stat-label {
-    font-size: 1rem;
-    opacity: 0.9;
-    color: var(--light-gray);
-  }
-}
-
-/* Marketing Section */
-.marketing-stats {
-  background: var(--dark-gray);
-  color: var(--light-gray);
-  text-align: center;
-  padding: 3rem 2rem;
-  margin-top: 3rem;
-  border-top: 4px solid var(--logo-blue);
-
-  h2 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-  }
-}
 
 /* Call to Action */
 .call-to-action {
@@ -385,4 +312,23 @@ button:hover {
   color: var(--light-green);
   text-decoration: none;
   cursor:pointer;
+}
+.action-button {
+  display: inline-block;
+  font-size: 1rem;
+  padding: 6px 12px;
+  border-radius: 5px;
+  border: 1px solid var(--light-gray);
+  background-color: transparent;
+  color: var(--light-gray);
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.action-button:hover {
+  background-color: var(--light-gray);
+  color: var(--dark-gray);
 }
