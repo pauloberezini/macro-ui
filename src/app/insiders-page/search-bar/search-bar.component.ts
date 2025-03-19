@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
@@ -23,10 +23,12 @@ import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
 export class SearchBarComponent implements OnInit {
   searchControl = new FormControl('');
   suggestions$: Observable<StockSuggestion[]> = of([]);
+
   @Output() suggestionSelected = new EventEmitter<StockSuggestion>();
 
   // Flag to control visibility of suggestions list
   showSuggestions = false;
+  @Input() clearOnClick!: boolean;
 
   constructor(private service: StockDataService) {}
 
@@ -53,6 +55,8 @@ export class SearchBarComponent implements OnInit {
     this.searchControl.setValue(this.nameToDisplay(suggestion), { emitEvent: false });
     // Hide suggestions after selection
     this.showSuggestions = false;
+    if(this.clearOnClick === true)
+      this.clearInput();
   }
 
   nameToDisplay(suggestion: StockSuggestion): string {

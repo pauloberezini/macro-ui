@@ -1,26 +1,45 @@
 import {Component, OnInit} from '@angular/core';
-import {FavoriteStock, StockSuggestion} from "../model/stock-suggestion";
+import {FavoriteStock, StockSuggestion} from "../../model/stock-suggestion";
 import {Router} from "@angular/router";
-import {UserFavoritesService} from "../services/user.favorites.service";
-import {MatGridList, MatGridTile} from "@angular/material/grid-list";
-import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
-import {MatIcon} from "@angular/material/icon";
-import {SearchBarComponent} from "../insiders-page/search-bar/search-bar.component";
-import {NgForOf, NgIf} from "@angular/common";
+import {UserFavoritesService} from "../../services/user.favorites.service";
+import {MatCard} from "@angular/material/card";
+import {SearchBarComponent} from "../../insiders-page/search-bar/search-bar.component";
+import {NgForOf, TitleCasePipe} from "@angular/common";
+import {CamelCasePipe} from "../../model/truncate-pipe";
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
+  MatTable
+} from "@angular/material/table";
+import {MatSort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-profile',
   imports: [
-    MatGridList,
-    MatGridTile,
     MatCard,
-    MatIcon,
-    MatCardTitle,
-    MatCardHeader,
-    MatCardContent,
     SearchBarComponent,
     NgForOf,
-    NgIf
+    CamelCasePipe,
+    MatCell,
+    MatCellDef,
+    MatHeaderCell,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRow,
+    MatRowDef,
+    MatTable,
+    TitleCasePipe,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatSort,
+    MatCard
   ],
   standalone: true,
   templateUrl: './profile.component.html',
@@ -28,6 +47,15 @@ import {NgForOf, NgIf} from "@angular/common";
 })
 export class ProfileComponent implements OnInit {
   favoriteStocks: FavoriteStock[] = [];
+
+  public get tableStocks() {
+    return this.favoriteStocks.map((f)=> f.stockCik);
+  }
+
+  displayedColumns: string[] = [
+    'title',
+    'ticker'
+  ];
 
   constructor(private router: Router, private userFavoritesService: UserFavoritesService) {
   }
