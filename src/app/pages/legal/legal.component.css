@@ -47,6 +47,8 @@
 }
 
 /* Responsive Adjustments */
+
+
 @media (max-width: 768px) {
   .legal-disclaimer {
     padding: 1.5rem;

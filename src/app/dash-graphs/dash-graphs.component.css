@@ -36,3 +36,22 @@
     width: calc(50% - 10px); /* Replaces fxFlex.gt-xs="50%" */
   }
 }
+
+/* Mobile Devices (max-width: 768px) */
+@media (max-width: 768px) {
+  .toolbar-row {
+    flex-direction: column; /* Stack items vertically on mobile */
+    align-items: stretch; /* Stretch items to full width */
+    gap: 5px; /* Reduce gap on mobile */
+  }
+
+  .button-container {
+    justify-content: center; /* Center buttons on mobile */
+  }
+
+  .flex-container {
+    flex-direction: column; /* Stack items vertically on mobile */
+    gap: 5px; /* Reduce gap on mobile */
+  }
+
+}

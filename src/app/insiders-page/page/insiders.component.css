@@ -82,7 +82,7 @@
   color: gray;
 }
 
-/* Responsive (Mobile-Friendly) */
+/* Responsive (Mobile-Friendly) */ 
 @media (max-width: 768px) {
   .main-container {
     flex-direction: column; /* Stack columns vertically */
@@ -93,4 +93,22 @@
     flex: 1;
     width: 100%;
   }
+
+    .trading-view,
+  .insider-transactions,
+  .company-profile,
+  .fundamental-data{
+    flex: none;
+  }
+
+  .loading-indicator span {
+    font-size: 12px;
+  }
+
+
+    .supporters, .thanks {
+        padding-top: 10px;
+    }
+
+
 }

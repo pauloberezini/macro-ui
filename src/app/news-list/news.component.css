@@ -1,8 +1,20 @@
 /* Main Container (Two Columns) */
 .container {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
   gap: 10px;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; /* Stack elements vertically on mobile */
+    height: auto; /* Adjust height dynamically */
+  }
+
+  .charts-container, .news-container {
+    flex: 1 1 auto; /* Take up full width on mobile */
+  }
 }
 
 /* Left Side (Charts) */
@@ -14,9 +26,15 @@
 }
 
 /* Each Chart Takes Half of the Left Side */
+@media (min-width: 769px) {
+  .chart {
+    height: 70%;
+    background-color: #f9f9f9; /* Just for visibility */
+  }
+}
+
 .chart {
-  height: 70%;
-  background-color: #f9f9f9; /* Just for visibility */
+  min-height: 200px; /* Ensures a minimum height for charts on mobile */
 }
 
 /* Right Side (Last News - Takes Full Height) */
@@ -31,6 +49,7 @@
   flex-grow: 1;
   overflow-y: auto;
   max-height: 100%;
+  min-height: 200px;
   scrollbar-color: #888 #f1f1f1;
   scrollbar-width: thin;
 }
@@ -55,6 +74,13 @@
 .news-article-card {
   margin-bottom: 10px;
 }
+@media (max-width: 768px) {
+  .news-article-card {
+    margin-bottom: 5px; /* Reduce margin for mobile */
+    padding: 5px;
+  }
+}
+
 
 /* Article Header */
 .article-header {
@@ -65,7 +91,12 @@
 
 /* Article Date */
 .article-date {
-  font-size: 0.85em;
+  font-size: 0.75em;
+  color: #666;
+}
+@media (max-width: 768px) {
+  .article-date {
+  font-size: 0.7em; /* Smaller font for mobile */
   color: #666;
 }
 
@@ -76,6 +107,12 @@
   border-radius: 50%;
   display: inline-block;
   margin-right: 5px;
+}
+@media (max-width: 768px) {
+  .sentiment-indicator {
+    width: 10px; /* Smaller size for mobile */
+    height: 10px;
+  }
 }
 
 .sentiment-indicator.positive {
@@ -93,6 +130,11 @@
 /* Button Styling */
 .mat-stroked-button {
   margin-top: 10px;
+}
+@media (max-width: 768px) {
+  .mat-stroked-button {
+    margin-top: 5px; /* Reduce margin for mobile */
+  }
 }
 
 /* Toolbar */

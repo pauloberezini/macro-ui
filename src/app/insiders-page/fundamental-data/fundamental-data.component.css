@@ -5,22 +5,36 @@
   justify-content: center;
   align-items: center;
 }
-
 .tradingview-widget-container__widget {
   height: 100%; /* Inherit height from the parent container */
   width: 100%;  /* Inherit width from the parent container */
   overflow: hidden; /* Remove any unwanted scrollbars */
+}
+.tradingview-widget-copyright {
+  text-align: center; /* Center-aligns the text */
+  margin-top: auto;   /* Ensures it stays at the bottom */
 }
 .widget-container {
   display: flex;
   flex-direction: column;
   height: 100%; /* Full height */
 }
-
 .widget-content {
   flex: 1; /* Pushes the copyright down */
 }
-
+.tradingview-widget-copyright {
+  text-align: center;
+  font-size: 0.8rem; 
+}
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  .tradingview-widget-container {
+    height: 400px;
+  }
+  .tradingview-widget-copyright {
+    font-size: 0.7rem;
+  }
+}
 .tradingview-widget-copyright {
   text-align: center; /* Center-aligns the text */
   margin-top: auto;   /* Ensures it stays at the bottom */

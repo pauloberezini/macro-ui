@@ -3,3 +3,10 @@
   height: 100%;
 }
 
+@media (max-width: 768px) {
+  .economic-data-component {
+    font-size: 14px; 
+    padding: 10px;
+  }
+}
+

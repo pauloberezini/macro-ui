@@ -3,6 +3,12 @@
   width: 300px;
 }
 
+@media (max-width: 768px) {
+  .search-bar {
+    width: 100%;
+  }
+}
+
 .clear-button {
   position: absolute;
   right: 10px;
@@ -32,6 +38,11 @@
   max-height: 200px;
   overflow-y: auto;
   z-index: 1000;
+}
+@media (max-width: 768px) {
+    .suggestions-list {
+        max-height: 150px; 
+    }
 }
 
 .suggestion-item {

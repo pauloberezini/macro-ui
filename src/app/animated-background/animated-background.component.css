@@ -9,3 +9,11 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  :host {
+    /* Adjustments for mobile view can go here */
+    /* For example, you might want to change background colors or sizes */
+  }
+}

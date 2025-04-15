@@ -2,6 +2,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .cards-container {
+    flex-direction: column; /* Stack cards vertically on mobile */
+    align-items: stretch; /* Stretch cards to full width */
+    width: 100%;
+  }
 }
 
 .team-card {
@@ -10,10 +19,25 @@
   display: flex; /* Added to make the card itself a flex container */
   flex-direction: column; /* Stack the children of the card vertically */
 }
+@media (max-width: 768px) {
+  .team-card {
+      flex: 0 0 100%; /* Make each card take full width */
+      margin: 10px 0; /* Adjust margins for mobile view */
+  }
+}
 
 /* Aligns the entire content of the first card to the right */
 .cards-container mat-card:first-child {
   align-items: flex-end; /* Aligns children of the flex container to the right */
+}
+
+@media (max-width: 768px) {
+  .cards-container mat-card:first-child {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
 }
 
 .mat-mdc-row .mat-mdc-cell {
@@ -47,4 +71,15 @@
 }
 .mat-mdc-table .mdc-data-table__row {
   height: 30px;
+}
+
+@media (max-width: 768px) {
+  .demo-table .mat-column-number,
+  .demo-table .mat-column-team,
+  .demo-table .mat-column-goalsAverage,
+  .demo-table .mat-column-loosesAverage {
+      width: auto; /* Allow columns to take up necessary space */
+  }
+
+  .mat-mdc-table .mdc-data-table__row{ height: auto;}
 }

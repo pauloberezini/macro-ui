@@ -1,26 +1,51 @@
 /* Use CSS Grid to ensure proper layout */
 .container {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Two equal columns on large screens */
+  grid-template-columns: repeat(2, 1fr); /* Two equal columns on large screens */
   gap: 10px; /* Space between columns */
   width: 100%;
+  padding: 10px;
 }
 
 /* Ensure the cards take full height */
 .card {
   padding: 16px;
   min-height: 400px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* General adjustments for mobile */
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr; /* Stack items on small screens */
+    padding: 5px;
+  }
+
+  .card {
+    padding: 10px;
+    min-height: auto; /* Adjust as needed for smaller screens */
+    margin-bottom: 10px;
+  }
+
+  table {
+    font-size: 14px; /* Reduce font size on mobile */
+  }
 }
 
 /* Responsive Layout: One column on mobile */
 @media (max-width: 600px) {
   .container {
     grid-template-columns: 1fr; /* Stack items on small screens */
+    padding: 5px;
   }
 }
 
 .scrollable-table-container {
   overflow-x: auto; /* Enables horizontal scrolling */
+  margin-bottom: 10px;
 }
 
 table {

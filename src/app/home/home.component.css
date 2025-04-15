@@ -210,12 +210,6 @@
   box-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
 }
 
-/* ========== Footer Section ========== */
-.footer {
-  /*background: var(--dark-gray);*/
-  color: var(--light-gray);
-  padding: 0.5rem;
-  text-align: center;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -257,6 +251,13 @@
 .footer {
   position: relative;
   z-index: 10;
+}
+
+/* ========== Footer Section ========== */
+.footer {
+  color: var(--light-gray);
+  padding: 0.5rem;
+  text-align: center;
 }
 
 /* ========== Responsive Design ========== */
@@ -368,4 +369,54 @@ html, body {
 .footer {
   padding-bottom: 2rem; /* Adjust as needed */
   margin-top: auto;
+}
+
+
+/* Mobile Specific Styles */
+@media (max-width: 768px) {
+  /* Hero Section */
+  .hero {
+    padding: 2rem 1rem;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
+  /* Stats Section */
+  .hero-statistics,
+  .marketing-stats .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .stat-box {
+    padding: 1rem;
+  }
+
+  .stat-box-value {
+    font-size: 2rem;
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
+  }
+
+  /* Marketing Section */
+  .marketing-stats h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Features Section */
+  .features {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+
 }

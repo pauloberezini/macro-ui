@@ -1,3 +1,9 @@
 .pie-container {
   height: 300px;
 }
+
+@media (max-width: 768px) {
+  .pie-container {
+    height: 200px; /* Adjust height for mobile */
+  }
+}

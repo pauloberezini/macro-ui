@@ -1,6 +1,7 @@
 html, body, mat-sidenav-container, mat-sidenav-content {
   height: 100%;
   margin: 0;
+  width: 100%;
   font-size: 100%;
   font-family: Arial, sans-serif;
 
@@ -18,12 +19,6 @@ html, body, mat-sidenav-container, mat-sidenav-content {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-@media (max-width: 600px) {
-  html {
-    font-size: 80%;
-  }
 }
 
 :root {
@@ -114,7 +109,7 @@ body {
   color: var(--dark-gray);
 }
 
-.mat-mdc-tab:not(.mat-mdc-tab-disabled) .mdc-tab-indicator__content--underline, .mat-mdc-tab-link:not(.mat-mdc-tab-disabled) .mdc-tab-indicator__content--underline {
+.mat-mdc-tab:not(.mat-mdc-tab-disabled) .mdc-tab-indicator__content--underline, .mat-mdc-tab-link:not(.mat-mdc-tab-disabled) .mdc-tab-indicator__content--underline, .mat-mdc-tab-link:not(.mat-mdc-tab-disabled) .mdc-tab-indicator__content--underline {
   border-color: var(--logo-blue) !important;
 }
 
@@ -126,8 +121,7 @@ body {
 ::ng-deep .mat-grid-tile.left-menue {
   left: 0px;
   width: 20vw !important;
-  margin-top: 0px;
-  padding-top: calc((25% - 5px) * 2 + 10px);
+  padding-top: calc((25% - 5px) * 2 + 10px);  margin-top: 0px;
 }
 
 .menu-container {
@@ -146,7 +140,6 @@ body {
 }
 
 .no-data {
-  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -199,16 +192,6 @@ button:hover {
   font-size: 0.75em;
 }
 
-/* Styles for 14-inch screens */
-@media only screen and (min-width: 14in) and (max-width: 15in) {
-  table {
-    width: 100%;
-  }
-
-  th, td {
-    padding: 12px;
-  }
-}
 
 
 .mat-mdc-progress-spinner {
@@ -331,4 +314,44 @@ button:hover {
 .action-button:hover {
   background-color: var(--light-gray);
   color: var(--dark-gray);
+}
+
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  html {
+    font-size: 90%; /* Slightly smaller base font size */
+  }
+
+  body {
+    padding: 10px; /* Add padding to the body to prevent content from touching the edges */
+  }
+
+  .menu-container {
+    flex-direction: column; /* Stack menu items vertically on mobile */
+  }
+
+  .menu-container > * {
+    width: 100%; /* Make each menu item full width */
+    margin-bottom: 10px; /* Add spacing between menu items */
+  }
+
+  .main-menu-home {
+    flex-direction: column; /* Stack items vertically in the main menu on mobile */
+  }
+
+  .mat-mdc-row .mat-mdc-cell,
+  .mat-mdc-header-cell {
+    padding: 0 5px; /* Reduce padding on table cells */
+  }
+
+  .no-data p {
+    font-size: 16px; /* Reduce font size in no-data message */
+  }
+  .mat-tab-group {
+    flex-direction: column !important;
+  }
+  .mat-grid-tile.left-menue{
+    width: 100% !important;
+  }
 }

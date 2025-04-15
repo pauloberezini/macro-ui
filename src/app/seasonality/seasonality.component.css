@@ -4,10 +4,17 @@
   grid-template-columns: 60% 30%; /* Desktop: First column 60%, Second column 30% */
   gap: 10px; /* Space between columns */
   width: 100%;
+  
+}
+/* Responsive Layout for Mobile (One Column) */
+@media (max-width: 768px) {
+    .chart-container {
+      grid-template-columns: 1fr; /* Mobile: Full width stacked layout */
+      gap: 5px;
+    }
 }
 
 /* Responsive Layout for Mobile (One Column) */
-@media (max-width: 600px) {
   .chart-container {
     grid-template-columns: 1fr; /* Mobile: Full width stacked layout */
   }
@@ -26,9 +33,12 @@ mat-button-toggle-group {
 /* Responsive Design Adjustments */
 
 /* 📌 Mobile Phones */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   mat-grid-tile {
     padding: 5px;
+    margin-bottom: 5px;
+    
+    
   }
   .mat-form-field {
     width: 100%;

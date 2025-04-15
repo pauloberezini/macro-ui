@@ -7,3 +7,10 @@
   height: calc(100% - 32px);
   width: 100%;
 }
+
+@media (max-width: 768px) {
+  .tradingview-widget-container__widget {
+    height: calc(100% - 16px);
+  }
+}
+}
