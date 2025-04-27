@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {FavoriteStock, StockSuggestion} from "../../model/stock-suggestion";
-import {Router} from "@angular/router";
-import {UserFavoritesService} from "../../services/user.favorites.service";
-import {MatCard} from "@angular/material/card";
-import {SearchBarComponent} from "../../insiders-page/search-bar/search-bar.component";
-import {NgForOf, TitleCasePipe} from "@angular/common";
-import {CamelCasePipe} from "../../model/truncate-pipe";
+import { Component, OnInit } from '@angular/core';
+import { StockSuggestion } from "../../model/stock-suggestion";
+import { Router } from "@angular/router";
+import { UserFavoritesService } from "../../services/user.favorites.service";
+import { MatCard } from "@angular/material/card";
+import { SearchBarComponent } from "../../insiders-page/search-bar/search-bar.component";
+import { NgForOf, TitleCasePipe } from "@angular/common";
+import { CamelCasePipe } from "../../model/truncate-pipe";
 import {
   MatCell,
   MatCellDef,
@@ -18,7 +18,8 @@ import {
   MatRowDef,
   MatTable
 } from "@angular/material/table";
-import {MatSort} from "@angular/material/sort";
+import { MatSort } from "@angular/material/sort";
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-profile',
@@ -39,20 +40,26 @@ import {MatSort} from "@angular/material/sort";
     MatColumnDef,
     MatHeaderCellDef,
     MatSort,
-    MatCard
+    MatCard,
+    MatIcon
   ],
   standalone: true,
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent implements OnInit {
-  favoriteStocks: FavoriteStock[] = [];
+  favoriteStocks: StockSuggestion[] = [];
 
   public get tableStocks() {
-    return this.favoriteStocks.map((f)=> f.stockCik);
+    return this.favoriteStocks.map((s, index)=>
+    {
+      s.position = index + 1;
+      return s;
+    });
   }
 
   displayedColumns: string[] = [
+    'position',
     'title',
     'ticker'
   ];
@@ -79,7 +86,7 @@ export class ProfileComponent implements OnInit {
       .subscribe((stock) => this.loadFavoriteStocks());
   }
 
-  removeFavoriteStock(stock: FavoriteStock): void {
+  removeFavoriteStock(stock: StockSuggestion): void {
     this.userFavoritesService.removeUserFavoriteStock(stock)
       .subscribe(() => this.favoriteStocks = this.favoriteStocks.filter(s => s !== stock));
   }

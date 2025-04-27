@@ -1,10 +1,7 @@
 export interface StockSuggestion {
+  position?: number;
+  id: number;
   ticker: string;
   title: string;
-  cik_str: string;
-}
-
-export interface FavoriteStock {
-    id: number;
-    stockCik: StockSuggestion;
+  cik: string;
 }
