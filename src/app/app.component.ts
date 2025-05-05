@@ -134,8 +134,7 @@ export class AppComponent implements OnInit {
     this.router.navigate(['/app-supported-by']);
   }
 
-  goToHomeF() {
-    this.router.navigate(['/app-home']);
-
+  profile() {
+    this.router.navigate(['/app-profile']);
   }
 }

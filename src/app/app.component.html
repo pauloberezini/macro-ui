@@ -44,12 +44,16 @@
 
   <!-- Auth Buttons (always visible, adjust as needed) -->
   <div class="auth-buttons desktop-menu" *ngIf="!isLoggedIn; else loggedIn">
-    <button class="main-menu-item" (click)="openSignInPopup()">Sign In</button>
-    <button class="main-menu-item join-button" (click)="openJoinPopup()">Join Berezini</button>
+    <button class="main-menu-item" (click)="openSignInPopup()">Log In</button>
+    <button class="main-menu-item join-button" (click)="openJoinPopup()">Sign Up Free</button>
   </div>
   <ng-template #loggedIn>
     <div class="auth-buttons desktop-menu">
       <button class="main-menu-item" (click)="logout()">Logout</button>
+    </div>
+    <div class="auth-buttons desktop-menu">
+      <button class="main-menu-item" (click)="profile()">
+        <span class="material-icons">account_circle</span></button>
     </div>
   </ng-template>
 

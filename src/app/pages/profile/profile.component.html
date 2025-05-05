@@ -1,0 +1,49 @@
+<div class="container">
+
+    <!-- 📌 First Column: Economic Calendar -->
+    <mat-card class="card">
+        <app-search-bar
+                [clearOnClick]=true
+                (suggestionSelected)="addFavoriteStock($event)"></app-search-bar>
+
+        <!--<div *ngIf="favoriteStocks.length > 0">-->
+        <!--  <h2>Your Favorite Stocks</h2>-->
+        <!--  <mat-grid-list cols="3" rowHeight="2:1">-->
+        <!--    <mat-grid-tile *ngFor="let stock of favoriteStocks">-->
+        <!--      <mat-card>-->
+        <!--        <mat-icon (click)="removeFavoriteStock(stock)" fontIcon="close"></mat-icon>-->
+        <!--        <mat-card-header>-->
+        <!--          <mat-card-title>{{ stock.stockCik.ticker }}</mat-card-title>-->
+        <!--        </mat-card-header>-->
+        <!--        <mat-card-content>-->
+        <!--          <p>{{ stock.stockCik.title }}</p>-->
+        <!--        </mat-card-content>-->
+        <!--      </mat-card>-->
+        <!--    </mat-grid-tile>-->
+        <!--  </mat-grid-list>-->
+        <!--</div>-->
+        <table mat-table [dataSource]="tableStocks" matSort class="mat-elevation-z8 full-width">
+            <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+                <th mat-header-cell *matHeaderCellDef>
+                    {{ column | camelCaseSplit | titlecase }}
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element[column] }}
+                </td>
+            </ng-container>
+
+            <!-- Delete Column -->
+            <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef> Delete </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-icon (click)="removeFavoriteStock(element)" class="delete-icon" fontIcon="delete"></mat-icon>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns.concat('delete')"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns.concat('delete');"></tr>
+        </table>
+
+    </mat-card>
+    <mat-card class="card>"></mat-card>
+</div>

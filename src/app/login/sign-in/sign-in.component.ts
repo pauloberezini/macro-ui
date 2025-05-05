@@ -1,14 +1,13 @@
-import { Component, OnInit, Optional } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatDialogRef } from '@angular/material/dialog';
-import { AuthService, LoginRequest, LoginResponse } from '../../services/auth.service';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
+import {Component, OnInit, Optional} from '@angular/core';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MatDialogRef} from '@angular/material/dialog';
+import {AuthService, LoginRequest, LoginResponse} from '../../services/auth.service';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatCardModule} from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-sign-in',
@@ -68,6 +67,7 @@ export class SignInComponent implements OnInit {
       this.authService.login(credentials).subscribe({
         next: (response: LoginResponse) => {
           console.log('Login successful', response);
+          localStorage.setItem('userId', response.userId);
           localStorage.setItem('token', response.token);
           localStorage.setItem('lastEmail', email);
           if (savePassword) {

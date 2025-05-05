@@ -1,0 +1,44 @@
+/* Use CSS Grid to ensure proper layout */
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns on large screens */
+    gap: 10px; /* Space between columns */
+    width: 100%;
+}
+
+/* Ensure the cards take full height */
+.card {
+    padding: 16px;
+    min-height: 400px;
+}
+
+/* Responsive Layout: One column on mobile */
+@media (max-width: 600px) {
+    .container {
+        grid-template-columns: 1fr; /* Stack items on small screens */
+    }
+}
+
+.scrollable-table-container {
+    overflow-x: auto; /* Enables horizontal scrolling */
+}
+
+table {
+    width: 100%; /* Ensures the table expands to the width of its container */
+}
+
+.mat-mdc-radio-button.mat-accent {
+    --mdc-radio-disabled-selected-icon-color: var(--logo-blue);
+    --mdc-radio-disabled-unselected-icon-color: var(--logo-blue);
+    --mdc-radio-unselected-focus-icon-color: var(--logo-blue);
+    --mdc-radio-unselected-hover-icon-color: var(--logo-blue);
+    --mdc-radio-unselected-icon-color: var(--logo-blue);
+    --mdc-radio-unselected-pressed-icon-color: var(--logo-blue);
+    --mdc-radio-selected-focus-icon-color: var(--logo-blue);
+    --mdc-radio-selected-hover-icon-color: var(--logo-blue);
+    --mdc-radio-selected-icon-color: var(--logo-blue);
+    --mdc-radio-selected-pressed-icon-color: var(--logo-blue);
+    --mat-mdc-radio-ripple-color: var(--logo-blue);
+    --mat-mdc-radio-checked-ripple-color: var(--logo-blue);
+    --mat-radio-checked-ripple-color: unset;
+}

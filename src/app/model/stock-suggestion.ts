@@ -1,5 +1,7 @@
 export interface StockSuggestion {
+  position?: number;
+  id: number;
   ticker: string;
   title: string;
-  cik_str: string;
+  cik: string;
 }
