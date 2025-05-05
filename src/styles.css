@@ -120,7 +120,7 @@ body {
 
 ::ng-deep .mat-grid-tile.left-menue {
   left: 0px;
-  width: 20vw !important;
+  /*width: 20vw !important;*/
   padding-top: calc((25% - 5px) * 2 + 10px);  margin-top: 0px;
 }
 

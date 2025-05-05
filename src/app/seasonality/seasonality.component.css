@@ -4,7 +4,7 @@
   grid-template-columns: 60% 30%; /* Desktop: First column 60%, Second column 30% */
   gap: 10px; /* Space between columns */
   width: 100%;
-  
+
 }
 /* Responsive Layout for Mobile (One Column) */
 @media (max-width: 768px) {
@@ -12,7 +12,7 @@
       grid-template-columns: 1fr; /* Mobile: Full width stacked layout */
       gap: 5px;
     }
-}
+
 
 /* Responsive Layout for Mobile (One Column) */
   .chart-container {
@@ -37,8 +37,8 @@ mat-button-toggle-group {
   mat-grid-tile {
     padding: 5px;
     margin-bottom: 5px;
-    
-    
+
+
   }
   .mat-form-field {
     width: 100%;

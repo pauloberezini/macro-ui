@@ -87,9 +87,8 @@
 
 /* ========== Features Section ========== */
 .features {
-  padding: 2rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
   justify-content: center;
 }
@@ -97,11 +96,18 @@
 .feature-card {
   background: var(--light-green);
   color: var(--dark-gray);
+  margin-top: 1rem;
   padding: 2rem;
   text-align: center;
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+  flex: 1 1 300px; /* Ensures each card takes at least 300px, grows evenly */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 20rem/* Ensures card stretches */
 }
 
 .feature-card:hover {
@@ -164,7 +170,6 @@
   animation: fadeIn 1.5s ease-in-out forwards;
 }
 
-/* Background with opacity */
 .free-trial::before {
   content: "";
   position: absolute;
@@ -173,9 +178,8 @@
   width: 100%;
   height: 100%;
   opacity: 0.4;
-  z-index: -1; /* Sends background behind content */
+  z-index: -1;
 }
-
 
 .free-trial h2 {
   font-size: 2rem;
@@ -189,7 +193,6 @@
   margin: 0 auto 2rem;
 }
 
-/* Glowing Call-to-Action Button */
 .free-trial-button {
   display: inline-block;
   font-size: 1.2rem;
@@ -210,16 +213,21 @@
   box-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
 }
 
+/* ========== Footer Section ========== */
+.footer {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 2rem 1rem;
+  background: var(--dark-gray);
+  color: var(--light-gray);
 }
 
 .footer-column {
-  flex: 1;
-  min-width: 200px;
-  margin: 1rem;
+  flex: 1 1 200px;
+  margin: 0 1rem;
 }
 
 .footer-column h3 {
@@ -230,7 +238,7 @@
 
 .footer-column ul {
   font-size: 0.6rem;
-  list-style: none;
+  list-style: none; /* default off */
   padding: 0;
 }
 
@@ -248,35 +256,7 @@
   color: var(--light-green);
 }
 
-.footer {
-  position: relative;
-  z-index: 10;
-}
-
-/* ========== Footer Section ========== */
-.footer {
-  color: var(--light-gray);
-  padding: 0.5rem;
-  text-align: center;
-}
-
-/* ========== Responsive Design ========== */
-@media (max-width: 768px) {
-  .features,
-  .hero-statistics {
-    grid-template-columns: 1fr;
-  }
-
-  .footer {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .footer-column {
-    margin-bottom: 1.5rem;
-  }
-}
-
+/* ========== Partners Section ========== */
 .partners {
   position: relative;
   color: var(--light-gray);
@@ -285,7 +265,6 @@
   animation: fadeIn 1.5s ease-in-out forwards;
 }
 
-/* Background with opacity */
 .partners::before {
   content: "";
   position: absolute;
@@ -297,7 +276,6 @@
   z-index: -1;
 }
 
-
 .partner-logos {
   display: flex;
   justify-content: center;
@@ -307,8 +285,6 @@
 }
 
 .partner-logos img {
-  /*height: 50px; !* Adjust based on the API logos *!*/
-  /*max-width: 150px;*/
   filter: grayscale(50%);
   transition: filter 0.3s ease-in-out;
 }
@@ -317,17 +293,7 @@
   filter: grayscale(0%);
 }
 
-.partner-logos img {
-  /*max-width: 150px;*/
-  /*height: auto;*/
-}
-
-@media (max-width: 768px) {
-  .partner-logos img {
-    max-width: 100px;
-  }
-}
-
+/* ========== Scroll & Slides ========== */
 html, body {
   height: 100%;
   margin: 0;
@@ -359,64 +325,75 @@ html, body {
 .last-slide {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Pushes first and last items to the ends */
-  align-items: stretch; /* Overrides align-items: center from the global rule */
+  justify-content: space-between;
+  align-items: stretch;
   min-height: 90vh;
-  scroll-snap-align: start; /* Optionally change from center to start */
+  scroll-snap-align: start;
 }
 
-/* Additional footer rule (if needed) */
-.footer {
-  padding-bottom: 2rem; /* Adjust as needed */
+.last-slide .footer {
   margin-top: auto;
+  padding-bottom: 2rem;
 }
 
-
-/* Mobile Specific Styles */
+/* ========== Responsive Design ========== */
 @media (max-width: 768px) {
-  /* Hero Section */
+  /* Stack footer into one column */
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .footer-column {
+    flex: none;
+    width: 100%;
+    margin: 1rem 0;
+  }
+
+  /* (Optional) restore bullet style for mobile lists */
+  .footer-column ul {
+    list-style: disc inside;
+    padding-left: 1rem;
+  }
+
+  /* Other mobile tweaks... */
+  .features,
+  .hero-statistics {
+    grid-template-columns: 1fr;
+  }
   .hero {
     padding: 2rem 1rem;
   }
-
   .hero h1 {
     font-size: 2rem;
   }
-
   .hero-description {
     font-size: 1rem;
   }
-
-  /* Stats Section */
   .hero-statistics,
   .marketing-stats .stats-grid {
-    grid-template-columns: 1fr;
     gap: 1rem;
   }
-
   .stat-box {
     padding: 1rem;
   }
-
   .stat-box-value {
     font-size: 2rem;
   }
-
   .stat-label {
     font-size: 0.9rem;
   }
-
-  /* Marketing Section */
   .marketing-stats h2 {
     font-size: 1.8rem;
     margin-bottom: 1rem;
   }
-
-  /* Features Section */
   .features {
-    grid-template-columns: 1fr;
     gap: 1rem;
   }
-
-
+  #third-slide {
+    display: block !important;
+    padding-top: 2rem;
+  }
+  .partner-logos img {
+    max-width: 100px;
+  }
 }
