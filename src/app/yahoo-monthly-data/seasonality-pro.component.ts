@@ -4,10 +4,13 @@ import {MatDialog} from '@angular/material/dialog';
 import {Chart, ChartType} from 'chart.js/auto';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import {DateFormatPipe} from "../model/date-format-pipe";
-import {MatDividerModule} from "@angular/material/divider";
+import {MatDivider, MatDividerModule} from "@angular/material/divider";
 import {MatSelectModule} from "@angular/material/select";
 import {FormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
+import {MatInputModule} from "@angular/material/input";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatButton} from "@angular/material/button";
 
 
 @Component({
@@ -15,10 +18,16 @@ import {NgIf} from "@angular/common";
   templateUrl: './seasonality-pro.component.html',
   standalone: true,
   imports: [
-    MatDividerModule,
-    MatSelectModule,
+    MatFormFieldModule,   // ← provides <mat-form-field> and control‐wrapping
+    MatInputModule,       // ← gives you the `matInput` directive
+    MatSelectModule,      // ← the `mat-select` control
     FormsModule,
-    NgIf
+    NgIf,
+    MatDivider,
+    MatButton
+  ],
+  providers: [
+    DateFormatPipe
   ],
   styleUrls: ['./seasonality-pro.component.css']
 })
@@ -28,9 +37,9 @@ export class SeasonalityPro implements AfterViewInit, OnInit, OnChanges {
 
   public chart: any;
   chartStyle: string = 'bar';
-  stockSymbol: string = 'GBPUSD=X';
-  fromYear: number = 2000;
+  stockSymbol: string = 'AAPL';
   currentYear: number = new Date().getFullYear();
+  fromYear: number = this.currentYear - 15;
   toYear: number = this.currentYear - 1;
   seasonality: any = [];
   seasonalityAvg: any = [];
@@ -42,12 +51,13 @@ export class SeasonalityPro implements AfterViewInit, OnInit, OnChanges {
   data: any;
   canvasId: string;
   earliestDate: string;
+  messageText: string = '';
 
 
   constructor(
     private stockDataService: StockDataService,
     public dialog: MatDialog,
-    private datefromat: DateFormatPipe
+    private dateformat: DateFormatPipe
   ) {
   }
 
@@ -76,7 +86,7 @@ export class SeasonalityPro implements AfterViewInit, OnInit, OnChanges {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         datasets: [
           {
-            label: this.stockSymbol + ' Data Beginning from: ' + this.datefromat.transform(this.earliestDate),
+            label: this.stockSymbol + ' Data Beginning from: ' + this.dateformat.transform(this.earliestDate),
             data: this.getAverageValues(this.seasonalityAvg),
             backgroundColor: 'blue'
           }
@@ -95,7 +105,7 @@ export class SeasonalityPro implements AfterViewInit, OnInit, OnChanges {
                 // backgroundColor: 'rgba(0, 0, 0, 0.05)', // low opacity
                 content: 'macro.berezini.com',
                 font: {
-                  size: 80,
+                  size: 50,
                   style: 'normal',
                   family: 'Fantasy'
                 },
@@ -118,19 +128,34 @@ export class SeasonalityPro implements AfterViewInit, OnInit, OnChanges {
     return averages;
   }
 
+
   getData(): void {
     this.data = [];
-    this.stockDataService.getStockData(this.stockSymbol, this.fromYear, this.toYear).subscribe((response: any) => {
-      debugger
-      this.data = response.data;
-      this.earliestDate = this.data[0].date;
-      this.loadDailyData();
-      this.loadMonthlyData();
-    });
+    this.messageText = ''; // Сбрасываем сообщение перед запросом данных
+
+    this.stockDataService.getStockData(this.stockSymbol, this.fromYear, this.toYear).subscribe(
+      (response: any) => {
+        this.data = response.data;
+        if (!this.data || this.data.length === 0) {
+          this.messageText = "No data received for the selected range.";
+          return;
+        }
+        this.earliestDate = this.data[this.data.length-1].date;
+        this.loadDailyData();
+        this.loadMonthlyData();
+      },
+      (error) => {
+        this.messageText = "Error fetching data. Please try again later.";
+        console.error(error);
+      }
+    );
   }
+
 
   loadDailyData(): void {
     const seasonalityAvg = new Map();
+    const monthCount = new Map();
+
     for (const dailyData of this.data) {
       const [year, month] = dailyData.date.split('-');
       const monthKey = `${month}`;
@@ -140,15 +165,21 @@ export class SeasonalityPro implements AfterViewInit, OnInit, OnChanges {
           month: this.getMonthName(month),
           average: 0
         });
+        monthCount.set(monthKey, 0);
       }
 
-      seasonalityAvg.get(monthKey).average += ((dailyData.close - dailyData.open) * 100) / dailyData.open;
+      const change = ((dailyData.close - dailyData.open) * 100) / dailyData.open;
+      seasonalityAvg.get(monthKey).average += change;
+      monthCount.set(monthKey, monthCount.get(monthKey) + 1);
     }
-    for (const map of seasonalityAvg) {
-      map[1].average = map[1].average / (this.toYear - this.fromYear);
+
+    for (const [month, data] of seasonalityAvg) {
+      data.average = data.average / monthCount.get(month);
     }
+
     this.seasonalityAvg = Array.from(seasonalityAvg.values());
   }
+
 
   loadMonthlyData(): void {
     const arr = new Array();
