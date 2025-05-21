@@ -74,6 +74,7 @@
 .news-article-card {
   margin-bottom: 10px;
 }
+
 @media (max-width: 768px) {
   .news-article-card {
     margin-bottom: 5px; /* Reduce margin for mobile */
@@ -94,50 +95,54 @@
   font-size: 0.75em;
   color: #666;
 }
+
 @media (max-width: 768px) {
   .article-date {
-  font-size: 0.7em; /* Smaller font for mobile */
-  color: #666;
-}
+    font-size: 0.7em; /* Smaller font for mobile */
+    color: #666;
+  }
 
-/* Sentiment Indicator */
-.sentiment-indicator {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  display: inline-block;
-  margin-right: 5px;
-}
-@media (max-width: 768px) {
+  /* Sentiment Indicator */
   .sentiment-indicator {
-    width: 10px; /* Smaller size for mobile */
-    height: 10px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
   }
-}
 
-.sentiment-indicator.positive {
-  background-color: #4CAF50;
-}
+  @media (max-width: 768px) {
+    .sentiment-indicator {
+      width: 10px; /* Smaller size for mobile */
+      height: 10px;
+    }
+  }
 
-.sentiment-indicator.neutral {
-  background-color: #2196F3;
-}
+  .sentiment-indicator.positive {
+    background-color: #4CAF50;
+  }
 
-.sentiment-indicator.negative {
-  background-color: #F44336;
-}
+  .sentiment-indicator.neutral {
+    background-color: #2196F3;
+  }
 
-/* Button Styling */
-.mat-stroked-button {
-  margin-top: 10px;
-}
-@media (max-width: 768px) {
+  .sentiment-indicator.negative {
+    background-color: #F44336;
+  }
+
+  /* Button Styling */
   .mat-stroked-button {
-    margin-top: 5px; /* Reduce margin for mobile */
+    margin-top: 10px;
   }
-}
 
-/* Toolbar */
-.example-spacer {
-  flex-grow: 1;
+  @media (max-width: 768px) {
+    .mat-stroked-button {
+      margin-top: 5px; /* Reduce margin for mobile */
+    }
+  }
+
+  /* Toolbar */
+  .example-spacer {
+    flex-grow: 1;
+  }
 }
