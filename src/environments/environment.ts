@@ -1,9 +1,10 @@
 export const environment = {
   production: false,
-  url: 'https://server.berezini.com',
-  baseUrl: 'https://server.berezini.com/historical-data',
-  baseUrlAllDaily: 'https://server.berezini.com/historical-data/daily/all',
-  baseUrlYearAllDaily: 'https://server.berezini.com/historical-data/year/allDys',
-  baseUrlAlpha: 'https://server.berezini.com/alpha/historical-data',
-  baseUrlDynamicData: 'https://server.berezini.com/alpha/historical-data/dynamic/economic'
+  url: 'http://localhost:8089',
+  baseUrl: 'http://localhost:8089/historical-data',
+  seasonal: 'http://localhost:8089/seasonal-data',
+  baseUrlAllDaily: 'http://localhost:8089/historical-data/daily/all',
+  baseUrlYearAllDaily: 'http://localhost:8089/historical-data/year/allDys',
+  baseUrlAlpha: 'http://localhost:8089/alpha/historical-data',
+  baseUrlDynamicData: 'http://localhost:8089/alpha/historical-data/dynamic/economic'
 };

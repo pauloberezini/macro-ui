@@ -26,7 +26,8 @@ export class StockDataService {
   private baseUrlDynamicData = environment.baseUrlDynamicData; // Use the environment variable
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getStockData(symbol: string, fromYear: number, toYear: number): Observable<StockData[]> {
     const url = `${this.baseUrl}/${symbol}/${fromYear}/${toYear}`;
@@ -43,6 +44,7 @@ export class StockDataService {
 
     return this.http.post<any>(url, body);
   }
+
 // Add this method to StockDataService
   getSentimentSummary(): Observable<any[]> {
     const url = `${this.url}/api/sentiment/summary`;
@@ -75,16 +77,11 @@ export class StockDataService {
     return this.http.get<StockData[]>(url);
   }
 
-  getStockAlphaData25(stockName: string,election: string): Observable<StockData[]> {
-    const url = `${this.baseUrl}/25/${stockName}/${election}`;
-    return this.http.get<StockData[]>(url);
-  }
-
-
   getStockAllDailyData(symbol: string, monthNumber: string): Observable<StockData[]> {
     const url = `${this.baseUrlAllDaily}/${symbol}/${monthNumber}`;
     return this.http.get<StockData[]>(url);
   }
+
   getStockYearAllDaily(symbol: string): Observable<StockData[]> {
     const url = `${this.baseUrlYearAllDaily}/${symbol}`;
     return this.http.get<StockData[]>(url);
@@ -94,6 +91,7 @@ export class StockDataService {
     const url = `${this.url}/getNews`;
     return this.http.get<EventDto[]>(url);
   }
+
   getMarketNews(): Observable<Article[]> {
     const url = `${this.url}/api/news/business-news`;
     return this.http.get<Article[]>(url);
@@ -117,6 +115,23 @@ export class StockDataService {
 
   suggest(query: string): Observable<StockSuggestion[]> {
     const url = `${this.url}/api/insiders/autosuggest`;
-    return this.http.get<StockSuggestion[]>(url, { params: new HttpParams().set('query', query) });
+    return this.http.get<StockSuggestion[]>(url, {params: new HttpParams().set('query', query)});
+  }
+
+  getStockAlphaData25(stockName: string, election: string): Observable<StockData[]> {
+    const url = `${this.baseUrl}/25/${stockName}/${election}`;
+    return this.http.get<StockData[]>(url);
+  }
+
+
+  getSeasonalData(stockName: string): Observable<StockData[]> {
+    const url = `${environment.seasonal}/${stockName}`;
+    return this.http.get<StockData[]>(url);
+  }
+
+  getCurrentYearData(stockName: string): Observable<StockData[]> {
+    const url = `${environment.seasonal}/current-year/${stockName}`;
+    return this.http.get<StockData[]>(url);
   }
 }
+``

@@ -8,6 +8,7 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {FormsModule} from "@angular/forms";
 import {MatSelectModule} from "@angular/material/select";
 import {MatToolbarModule} from "@angular/material/toolbar";
+import {StockData} from "../model/stock-data";
 
 @Component({
   selector: 'app-chart-year-component',
@@ -25,11 +26,13 @@ export class ChartYearComponentComponent implements OnInit {
   @Output() valueChanged = new EventEmitter<string>();
 
   public chart: any;
+  public chartSeasonal: any;
+  canvasId: string;
+  canvasIdSeasonal: string;
   resizeEvent = new Subject<void>();
 
-  public election: string = 'elec';
+  public election: string = 'regular';
   public stockName: string = 'SP500';
-  canvasId: string;
 
   stockSymbols: string[] = [
     "AUDUSD", "BRENT", "BTCUSD", "COPPER", "CORN", "DAX",
@@ -38,6 +41,38 @@ export class ChartYearComponentComponent implements OnInit {
     "SILVER", "SOYBEANS", "SP500", "USDCAD", "USDCHF", "USDJPY",
     "WHEAT", "WTI"
   ];
+
+  getMarketstackSymbol(symbol: string): string {
+    const symbolMapMarket: Record<string, string> = {
+      AUDUSD: "FXA",
+      BRENT: "BNO",
+      BTCUSD: "GBTC",
+      COPPER: "CPER",
+      CORN: "CORN",
+      DAX: "DAX",
+      DOW_JONES: "DIA",
+      DXY: "UUP",
+      EURUSD: "FXE",
+      GAS: "UNG",
+      GASOLINE: "UGA",
+      GBPUSD: "FXB",
+      GOLD: "GLD",
+      NASDAQ_100: "QQQ",
+      NIKKEI_225: "EWJ",
+      NZDUSD: "BNZ",
+      PLATINUM: "PPLT",
+      SILVER: "SLV",
+      SOYBEANS: "SOYB",
+      SP500: "SPY",
+      USDCAD: "FXC",
+      USDCHF: "FXF",
+      USDJPY: "FXY",
+      WHEAT: "WEAT",
+      WTI: "USO",
+    };
+    return symbolMapMarket[symbol] || symbol;
+  }
+
 
   values: number[] = [];
 
@@ -51,14 +86,17 @@ export class ChartYearComponentComponent implements OnInit {
 
   ngOnInit(): void {
     this.canvasId = 'chart-year-component-' + Math.random().toString(36).substring(2, 15);
+    this.canvasIdSeasonal = 'chart-year-component-seasonal-' + Math.random().toString(36).substring(2, 15);
     this.createChart();
-
+    this.createSeasonalChart();
   }
 
   async getData() {
     this.createChart();
+    this.createSeasonalChart();
     this.valueChanged.emit(this.stockName);
   }
+
 
   ngOnDestroy() {
     this.resizeEvent.unsubscribe();
@@ -85,10 +123,95 @@ export class ChartYearComponentComponent implements OnInit {
     return dailyLabels;
   }
 
+  createSeasonalChart() {
+    const marketstackSymbol = this.getMarketstackSymbol(this.stockName);
+
+    this.stockDataService.getSeasonalData(marketstackSymbol).subscribe((seasonalResponse: any) => {
+      const seasonalData = seasonalResponse.data;
+      // Sort by date
+      seasonalData.sort((a: { date: string | number | Date; }, b: { date: string | number | Date; }) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+      const seasonalDataFormatted = seasonalData.map((item: { date: string; value: any; }) => ({
+        x: '2023' + item.date.slice(4, 10), // '2023-MM-DD'
+        y: item.value
+      }));
+
+      const seasonalLabel = marketstackSymbol + ' 15 years regular';
+
+      this.stockDataService.getCurrentYearData(marketstackSymbol).subscribe((actualResponse: any) => {
+        const actualData = actualResponse.data;
+        // Sort by date
+        actualData.sort((a: { date: string | number | Date; }, b: { date: string | number | Date; }) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+        // Normalize
+        const actualStart = actualData[0]?.value || 0;
+        const actualNormalized = actualData.map((item: { date: string; value: number; }) => ({
+          x: '2023' + item.date.slice(4, 10),
+          y: item.value - actualStart
+        }));
+
+        if (this.chartSeasonal) {
+          this.chartSeasonal.destroy();
+        }
+        Chart.register(annotationPlugin);
+
+        this.chartSeasonal = new Chart(this.canvasIdSeasonal, {
+          type: 'line',
+          data: {
+            datasets: [
+              {
+                label: seasonalLabel,
+                data: seasonalDataFormatted,
+                borderColor: 'rgb(54, 162, 235)',
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderWidth: 1,
+                pointBackgroundColor: 'rgb(54, 162, 235)',
+                tension: 0.4,
+                pointStyle: false,
+                fill: false
+              },
+              {
+                label: marketstackSymbol + ' Actual ' + (new Date().getFullYear()),
+                data: actualNormalized,
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderWidth: 2,
+                pointBackgroundColor: 'rgb(255, 99, 132)',
+                tension: 0.4,
+                pointStyle: false,
+                fill: false
+              }
+            ]
+          },
+          options: {
+            aspectRatio: 2.5,
+            scales: {
+              x: {
+                type: 'time',
+                time: {
+                  unit: 'month',
+                  displayFormats: {month: 'MMM'}
+                },
+                grid: {color: 'rgba(0, 0, 0, 0.1)'},
+                ticks: {autoSkip: true, maxTicksLimit: 12}
+              },
+              y: {
+                grid: {color: 'rgba(0, 0, 0, 0.1)'}
+              }
+            },
+            plugins: {
+              legend: {labels: {font: {size: 14}}}
+            }
+          }
+        });
+      });
+    });
+  }
+
+
 
   createChart() {
     this.stockDataService.getStockAlphaData25(this.stockName, this.election).subscribe((response: any) => {
-      let responseLabel: string = response.data[0].name;
       let responseValues: any [] = [];
       response.data.forEach((item: any) => {
         responseValues.push(item.value);
@@ -96,8 +219,6 @@ export class ChartYearComponentComponent implements OnInit {
       });
       this.values = responseValues;
       const dailyLabels = this.generateDailyLabels(2023)
-      const tempData = Array.from({length: 365}, () => Math.floor(Math.random() * 20) + 10);
-      const cloudData = Array.from({length: 365}, () => Math.floor(Math.random() * 100));
 
       // this.stockDataService.getStockYearAllDaily('GBPUSD').subscribe((response: any) => {
       if (this.chart) {
@@ -105,8 +226,8 @@ export class ChartYearComponentComponent implements OnInit {
       }
       Chart.register(annotationPlugin);
 
-      let years: string = this.stockName + ' ' +response.data[0].rangeValue + ' years';
-      if(this.election != 'regular'){
+      let years: string = this.stockName + ' ' + response.data[0].rangeValue + ' years';
+      if (this.election != 'regular') {
         years = this.stockName + ' ' + 6 + ' years';
       }
 
@@ -181,22 +302,22 @@ export class ChartYearComponentComponent implements OnInit {
           },
           plugins: {
             annotation: {
-              annotations: {
-                watermark: {
-                  type: 'label',
-                  position: 'center',
-                  color: 'rgba(0, 0, 0, 0.2)',
-                  opacity: 0.05,
-                  // backgroundColor: 'rgba(0, 0, 0, 0.05)', // low opacity
-                  content: 'macro.berezini.com',
-                  font: {
-                    size: 100,
-                    style: 'normal',
-                    family: 'Fantasy'
-                  },
-                  textAlign: 'center'
-                }
-              }
+              // annotations: {
+              //   watermark: {
+              //     type: 'label',
+              //     position: 'center',
+              //     color: 'rgba(0, 0, 0, 0.2)',
+              //     opacity: 0.05,
+              //     // backgroundColor: 'rgba(0, 0, 0, 0.05)', // low opacity
+              //     content: 'macro.berezini.com',
+              //     font: {
+              //       size: 100,
+              //       style: 'normal',
+              //       family: 'Fantasy'
+              //     },
+              //     textAlign: 'center'
+              //   }
+              // }
             },
             tooltip: {
               callbacks: {
@@ -210,7 +331,7 @@ export class ChartYearComponentComponent implements OnInit {
 
                   // Format date to month & day only, e.g., “Aug 13”
                   // Using built-in toLocaleDateString for quickness:
-                  return dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                  return dateObj.toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
                 },
                 label: context => {
                   const dateObject = new Date(context.parsed.x);
