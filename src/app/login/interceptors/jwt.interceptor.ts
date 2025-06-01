@@ -1,22 +1,55 @@
-import { HttpInterceptorFn } from '@angular/common/http';
-import { HttpRequest, HttpHandlerFn, HttpEvent } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { inject } from '@angular/core';
+import { HttpInterceptorFn, HttpRequest, HttpHandlerFn, HttpEvent, HttpErrorResponse, HttpClient } from '@angular/common/http';
+import { Observable, throwError, from } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
 
 export const jwtInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> => {
-  console.log("🚀 Interceptor Executed - Checking Request:", req.url);
+  const http = inject(HttpClient);
 
   const token = localStorage.getItem('token');
-
+  let authReq = req;
   if (token) {
-    req = req.clone({
+    authReq = req.clone({
       setHeaders: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       }
     });
-    console.log("✅ Modified Request with Token:", req);
-  } else {
-    console.warn("⚠️ No Token Found - Sending Request Without Authorization Header");
   }
 
-  return next(req);
+  return next(authReq).pipe(
+    catchError((error: HttpErrorResponse) => {
+      if (error.status === 401) {
+        // Try to refresh token
+        const refreshToken = localStorage.getItem('refreshToken');
+        if (!refreshToken) {
+          // No refresh token, redirect to login or show error
+          localStorage.removeItem('token');
+          return throwError(() => error);
+        }
+
+        // Call /auth/refresh with the refresh token
+        return http.post<{ accessToken: string }>('/auth/refresh', { refreshToken }).pipe(
+          switchMap(response => {
+            // Save new token
+            localStorage.setItem('token', response.accessToken);
+            // Retry original request with new token
+            const retryReq = req.clone({
+              setHeaders: {
+                Authorization: `Bearer ${response.accessToken}`,
+              }
+            });
+            return next(retryReq);
+          }),
+          catchError(err => {
+            // Refresh failed, log out user
+            localStorage.removeItem('token');
+            localStorage.removeItem('refreshToken');
+            // Optionally redirect to login page here
+            return throwError(() => err);
+          })
+        );
+      }
+      return throwError(() => error);
+    })
+  );
 };

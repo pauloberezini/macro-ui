@@ -7,15 +7,12 @@ export const apiInterceptor: HttpInterceptorFn = (
   req: HttpRequest<any>,
   next: HttpHandlerFn
 ) => {
-  console.log('[ApiInterceptor] Request intercepted:', req.url);
 
-  // Use Angular's inject() to obtain the SpinnerService instance
   const spinnerService = inject(SpinnerService);
   spinnerService.set(true);
 
   return next(req).pipe(
     finalize(() => {
-      console.log('[ApiInterceptor] Request completed, turning spinner OFF');
       spinnerService.set(false);
     })
   );
