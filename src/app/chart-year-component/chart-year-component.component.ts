@@ -133,7 +133,7 @@ export class ChartYearComponentComponent implements OnInit {
     }
 
 
-    this.stockDataService.getSeasonalData(marketstackSymbol).subscribe((seasonalResponse: any) => {
+    this.stockDataService.getSeasonalData(marketstackSymbol,  this.election).subscribe((seasonalResponse: any) => {
       const seasonalData = seasonalResponse.data;
       // Sort by date
       seasonalData.sort((a: { date: string | number | Date; }, b: {
