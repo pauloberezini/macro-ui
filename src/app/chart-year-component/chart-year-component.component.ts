@@ -9,6 +9,7 @@ import {FormsModule} from "@angular/forms";
 import {MatSelectModule} from "@angular/material/select";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {StockData} from "../model/stock-data";
+import {MatInput} from "@angular/material/input";
 
 @Component({
   selector: 'app-chart-year-component',
@@ -18,7 +19,8 @@ import {StockData} from "../model/stock-data";
     MatButtonToggleModule,
     FormsModule,
     MatSelectModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatInput
   ],
   styleUrls: ['./chart-year-component.component.css']
 })
@@ -75,6 +77,7 @@ export class ChartYearComponentComponent implements OnInit {
 
 
   values: number[] = [];
+  ticker: string;
 
   constructor(public stockDataService: StockDataService) {
     this.resizeEvent.pipe(
@@ -88,12 +91,12 @@ export class ChartYearComponentComponent implements OnInit {
     this.canvasId = 'chart-year-component-' + Math.random().toString(36).substring(2, 15);
     this.canvasIdSeasonal = 'chart-year-component-seasonal-' + Math.random().toString(36).substring(2, 15);
     this.createChart();
-    this.createSeasonalChart();
+    this.createSeasonalChart('dropdown');
   }
 
-  async getData() {
+  async getData(source: string) {
     this.createChart();
-    this.createSeasonalChart();
+    this.createSeasonalChart(source);
     this.valueChanged.emit(this.stockName);
   }
 
@@ -123,13 +126,25 @@ export class ChartYearComponentComponent implements OnInit {
     return dailyLabels;
   }
 
-  createSeasonalChart() {
-    const marketstackSymbol = this.getMarketstackSymbol(this.stockName);
+  createSeasonalChart(source: string) {
+    let marketstackSymbol: string;
+    if (source === 'dropdown') {
+      this.ticker = this.getMarketstackSymbol(this.stockName);
+      marketstackSymbol = this.getMarketstackSymbol(this.stockName);
+    } else if (source === 'input') {
+      marketstackSymbol = this.ticker
+    }
+    if (!marketstackSymbol) {
+      return;
+    }
+
 
     this.stockDataService.getSeasonalData(marketstackSymbol).subscribe((seasonalResponse: any) => {
       const seasonalData = seasonalResponse.data;
       // Sort by date
-      seasonalData.sort((a: { date: string | number | Date; }, b: { date: string | number | Date; }) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      seasonalData.sort((a: { date: string | number | Date; }, b: {
+        date: string | number | Date;
+      }) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
       const seasonalDataFormatted = seasonalData.map((item: { date: string; value: any; }) => ({
         x: '2023' + item.date.slice(4, 10), // '2023-MM-DD'
@@ -141,7 +156,9 @@ export class ChartYearComponentComponent implements OnInit {
       this.stockDataService.getCurrentYearData(marketstackSymbol).subscribe((actualResponse: any) => {
         const actualData = actualResponse.data;
         // Sort by date
-        actualData.sort((a: { date: string | number | Date; }, b: { date: string | number | Date; }) => new Date(a.date).getTime() - new Date(b.date).getTime());
+        actualData.sort((a: { date: string | number | Date; }, b: {
+          date: string | number | Date;
+        }) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
         // Normalize
         const actualStart = actualData[0]?.value || 0;
@@ -207,7 +224,6 @@ export class ChartYearComponentComponent implements OnInit {
       });
     });
   }
-
 
 
   createChart() {
