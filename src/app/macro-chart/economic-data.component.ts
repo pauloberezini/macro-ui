@@ -2,7 +2,6 @@ import {Component, ElementRef, Input, SimpleChanges, ViewChild} from '@angular/c
 import {StockDataService} from '../services/stock-data.service';
 import {Chart, ChartType} from 'chart.js/auto';
 import moment from 'moment';
-import 'chart.js';
 import 'chartjs-adapter-moment';
 import {DataMessageComponent} from "../util/data-message/data-message.component";
 import {NgIf} from "@angular/common";
