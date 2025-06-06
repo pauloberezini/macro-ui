@@ -3,20 +3,22 @@
     <span>Seasonal trading pattern analytics</span>
   </mat-toolbar-row>
 </mat-toolbar>
-<section>
+<app-loader *ngIf="isLoading"></app-loader>
+<section style="display: flex; align-items: center; gap: 20px;">
+  <!-- Материальный селект (выпадающий список) -->
   <mat-form-field>
     <mat-label>Enter a stock symbol</mat-label>
     <mat-select (selectionChange)="getData('dropdown')" [(value)]="stockName" name="stock">
-      @for (symbol of stockSymbols; track symbol) {
-        <mat-option [value]="symbol">{{ symbol }}</mat-option>
-      }
+      <mat-option *ngFor="let symbol of stockSymbols" [value]="symbol">{{ symbol }}</mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field>
-    <mat-label>Enter a stock symbol</mat-label>
-    <input name="stock"  (keyup.enter)="getData('input')" [(ngModel)]="ticker" matInput placeholder="Enter a stock symbol" value="GBPUSD=X">
-  </mat-form-field>
+
+  <!-- Кастомный компонент для ввода -->
+  <div>
+    <app-search-bar  [clearOnDropdown]="clearOnDropdown" (suggestionSelected)="handleSuggestion($event)"></app-search-bar>
+  </div>
 </section>
+
 
 <section>
   <mat-button-toggle-group (change)="getData('dropdown')" [(ngModel)]="election" aria-label="Font Style">

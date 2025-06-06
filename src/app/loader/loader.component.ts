@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-loader',
@@ -8,6 +9,9 @@ import { Component } from '@angular/core';
     </div>
   `,
   standalone: true,
+  imports: [
+    NgIf
+  ],
   styleUrls: ['./loader.component.css']
 })
 export class LoaderComponent {

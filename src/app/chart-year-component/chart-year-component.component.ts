@@ -8,8 +8,13 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {FormsModule} from "@angular/forms";
 import {MatSelectModule} from "@angular/material/select";
 import {MatToolbarModule} from "@angular/material/toolbar";
-import {StockData} from "../model/stock-data";
 import {MatInput} from "@angular/material/input";
+import {SearchBarComponent} from "../insiders-page/search-bar/search-bar.component";
+import {StockSuggestion} from "../model/stock-suggestion";
+import {MatTableDataSource} from "@angular/material/table";
+import {InsiderData} from "../model/InsiderData";
+import {LoaderComponent} from "../loader/loader.component";
+import {NgForOf, NgIf} from "@angular/common";
 
 
 @Component({
@@ -21,12 +26,17 @@ import {MatInput} from "@angular/material/input";
     FormsModule,
     MatSelectModule,
     MatToolbarModule,
-    MatInput
+    SearchBarComponent,
+    LoaderComponent,
+    NgIf,
+    NgForOf
   ],
   styleUrls: ['./chart-year-component.component.css']
 })
 export class ChartYearComponentComponent implements OnInit {
   @Output() valueChanged = new EventEmitter<string>();
+  public data = new MatTableDataSource<InsiderData>([]);
+  isLoading = false; // Prevents duplicate API calls
 
   public chart: any;
   public chartSeasonal: any;
@@ -36,6 +46,7 @@ export class ChartYearComponentComponent implements OnInit {
 
   public election: string = 'regular';
   public stockName: string = 'SP500';
+  clearOnDropdown: boolean = false;
 
   stockSymbols: string[] = [
     "AUDUSD", "BRENT", "BTCUSD", "COPPER", "CORN", "DAX",
@@ -78,7 +89,7 @@ export class ChartYearComponentComponent implements OnInit {
 
 
   values: number[] = [];
-  ticker: string;
+  selectedSuggestion: string;
 
   constructor(public stockDataService: StockDataService) {
     this.resizeEvent.pipe(
@@ -95,8 +106,20 @@ export class ChartYearComponentComponent implements OnInit {
   }
 
   async getData(source: string) {
+    if (source === 'dropdown') {
+      this.clearOnDropdown = true; // Set flag to clear the input in SearchBar component
+    } else {
+      this.clearOnDropdown = false; // No clearing needed for other sources
+    }
     this.createSeasonalChart(source);
     this.valueChanged.emit(this.stockName);
+  }
+
+  handleSuggestion(suggestion: StockSuggestion): void {
+    if (suggestion.ticker !== this.selectedSuggestion) {
+      this.selectedSuggestion = suggestion.ticker;
+      this.createSeasonalChart(null);
+    }
   }
 
 
@@ -127,13 +150,13 @@ export class ChartYearComponentComponent implements OnInit {
 
   createSeasonalChart(source: string) {
     let marketstackSymbol: string = this.getTicker(source);
-
+    console.log('Selected marketstack symbol:', marketstackSymbol);
     if (!marketstackSymbol) {
       return;
     }
 
 
-    this.stockDataService.getSeasonalData(marketstackSymbol,  this.election).subscribe((seasonalResponse: any) => {
+    this.stockDataService.getSeasonalData(marketstackSymbol, this.election).subscribe((seasonalResponse: any) => {
       const seasonalData = seasonalResponse.data;
       // Sort by date
       seasonalData.sort((a: { date: string | number | Date; }, b: {
@@ -221,10 +244,10 @@ export class ChartYearComponentComponent implements OnInit {
 
   getTicker(source: string) {
     if (source === 'dropdown') {
-      this.ticker = this.getMarketstackSymbol(this.stockName);
+      this.selectedSuggestion = this.getMarketstackSymbol(this.stockName);
     }
-    if (this.ticker && this.ticker.length > 0) {
-      return this.ticker;
+    if (this.selectedSuggestion && this.selectedSuggestion.length > 0) {
+      return this.selectedSuggestion;
     } else {
       return this.getMarketstackSymbol(this.stockName);
     }

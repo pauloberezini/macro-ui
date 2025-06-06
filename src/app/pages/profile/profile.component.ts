@@ -63,6 +63,7 @@ export class ProfileComponent implements OnInit {
     'title',
     'ticker'
   ];
+  clearOnDropdown: boolean = false;
 
   constructor(private router: Router, private userFavoritesService: UserFavoritesService) {
   }

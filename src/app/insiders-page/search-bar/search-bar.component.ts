@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormControl, ReactiveFormsModule} from '@angular/forms';
-import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
-import {Observable, of} from 'rxjs';
-import {StockDataService} from '../../services/stock-data.service';
-import {StockSuggestion} from '../../model/stock-suggestion';
-import {MatInputModule} from '@angular/material/input';
-import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { StockDataService } from '../../services/stock-data.service';
+import { StockSuggestion } from '../../model/stock-suggestion';
+import { MatInputModule } from '@angular/material/input';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-search-bar',
@@ -25,10 +25,10 @@ export class SearchBarComponent implements OnInit {
   suggestions$: Observable<StockSuggestion[]> = of([]);
 
   @Output() suggestionSelected = new EventEmitter<StockSuggestion>();
+  @Input() clearOnDropdown: boolean = false; // Receive the clearOnDropdown flag from parent
 
   // Flag to control visibility of suggestions list
   showSuggestions = false;
-  @Input() clearOnClick!: boolean;
 
   constructor(private service: StockDataService) {}
 
@@ -51,12 +51,11 @@ export class SearchBarComponent implements OnInit {
   onSuggestionClick(suggestion: StockSuggestion): void {
     // Emit the selected ticker
     this.suggestionSelected.emit(suggestion);
+
     // Optionally update the input with a formatted value
     this.searchControl.setValue(this.nameToDisplay(suggestion), { emitEvent: false });
     // Hide suggestions after selection
     this.showSuggestions = false;
-    if(this.clearOnClick === true)
-      this.clearInput();
   }
 
   nameToDisplay(suggestion: StockSuggestion): string {
@@ -64,8 +63,11 @@ export class SearchBarComponent implements OnInit {
   }
 
   clearInput(): void {
-    this.searchControl.setValue('');
-    this.showSuggestions = false;
+    // Clear the input field only if clearOnDropdown is true
+    if (this.clearOnDropdown) {
+      this.searchControl.setValue('');
+      this.showSuggestions = false;
+    }
   }
 
   onFocus(): void {
@@ -79,5 +81,12 @@ export class SearchBarComponent implements OnInit {
 
   trackByTicker(index: number, suggestion: StockSuggestion): string {
     return suggestion.ticker;
+  }
+
+  ngOnChanges() {
+    // If the flag is set, clear the input
+    if (this.clearOnDropdown) {
+      this.clearInput();
+    }
   }
 }
