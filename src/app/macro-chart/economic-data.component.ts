@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {StockDataService} from '../services/stock-data.service';
 import {Chart, ChartType} from 'chart.js/auto';
 import moment from 'moment';
@@ -16,7 +16,7 @@ import {NgIf} from "@angular/common";
   ],
   styleUrls: ['./economic-data.component.css']
 })
-export class EconomicDataComponent {
+export class EconomicDataComponent implements OnInit {
   @Input() selectedRowData: any;
   showChart: boolean = false;
   @Input() economicType!: string;
@@ -96,6 +96,10 @@ export class EconomicDataComponent {
 
 
     let canvas = this.atrChart.nativeElement;
+    // Удалить предыдущие размеры canvas, чтобы Chart.js мог адаптироваться
+    canvas.removeAttribute('width');
+    canvas.removeAttribute('height');
+
 
 
     this.chart = new Chart(canvas, {
@@ -108,6 +112,8 @@ export class EconomicDataComponent {
         }]
       },
       options: {
+        responsive: true, // Эта опция обеспечивает адаптивность графика
+        maintainAspectRatio: false, // Отключаем поддержание соотношения сторон
         plugins: {
           tooltip: {
             callbacks: {
@@ -141,14 +147,27 @@ export class EconomicDataComponent {
           }
         }
       }
-
     });
+
+    // Force a resize of the chart after it's created
+    this.chart.resize();
   }
 
   ngOnInit(): void {
-    // this.getData();
-    // getEconomicData
+    window.addEventListener('resize', this.onResize.bind(this));
   }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('resize', this.onResize.bind(this));
+  }
+
+  onResize(): void {
+    if (this.chart) {
+      this.chart.resize();
+    }
+  }
+
+
 
   getData(): void {
 
