@@ -35,7 +35,7 @@
           <mat-icon matPrefix>whatshot</mat-icon>
           <mat-select (selectionChange)="filterData()" name="volatility" [(ngModel)]="volatility" multiple>
             <mat-option *ngFor="let volatility of volatilisesSymbolic; let i = index" [value]="volatilises[i]">
-              <span class="volatility-option">{{ volatility }} {{ volatilises[i] }}</span>
+              <span class="volatility-option">{{ volatility }}</span>
             </mat-option>
           </mat-select>
           <mat-hint>Filter by impact level</mat-hint>
