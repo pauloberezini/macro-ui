@@ -20,6 +20,7 @@ import {
 } from "@angular/material/table";
 import { MatSort } from "@angular/material/sort";
 import { MatIcon } from '@angular/material/icon';
+import {ProfileAiInfoComponent} from "../profile-ai-info/profile-ai-info.component";
 
 @Component({
   selector: 'app-profile',
@@ -41,7 +42,8 @@ import { MatIcon } from '@angular/material/icon';
     MatHeaderCellDef,
     MatSort,
     MatCard,
-    MatIcon
+    MatIcon,
+    ProfileAiInfoComponent
   ],
   standalone: true,
   templateUrl: './profile.component.html',
