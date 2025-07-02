@@ -1,209 +1,125 @@
 /* Use CSS Grid to ensure proper layout */
 .container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Two equal columns on large screens */
-  gap: 10px; /* Space between columns */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
   width: 100%;
-  padding: 10px;
+  height: calc(100vh - 20px);
+  overflow: hidden;
 }
 
-/* Ensure the cards take full height */
+/* Basic card styling */
 .card {
   padding: 16px;
-  min-height: 400px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Today's Events Styling - Enhanced Modern Design */
-.today-event {
-  background-color: rgba(16, 47, 119, 0.08) !important;
-  border-left: 5px solid transparent !important;
-  border-image: linear-gradient(to bottom, var(--logo-blue) 0%, var(--dark-green) 50%, var(--logo-blue) 100%) 1;
-  border-radius: 0 8px 8px 0;
-  position: relative;
-  box-shadow: 
-    0 2px 8px rgba(16, 47, 119, 0.1),
-    -5px 0 0 0 var(--logo-blue),
-    -7px 0 12px rgba(16, 47, 119, 0.4);
-  animation: today-glow 4s ease-in-out infinite;
+/* Card content areas */
+.filter-section,
+.table-section,
+.chart-section {
+  flex-shrink: 0;
 }
 
-/* Enhanced today glow animation */
-@keyframes today-glow {
-  0%, 100% {
-    box-shadow: 
-      0 2px 8px rgba(16, 47, 119, 0.1), 
-      -5px 0 0 0 var(--logo-blue),
-      -7px 0 12px rgba(16, 47, 119, 0.4);
-  }
-  50% {
-    box-shadow: 
-      0 4px 16px rgba(16, 47, 119, 0.2), 
-      -5px 0 0 0 var(--logo-blue),
-      -7px 0 20px rgba(16, 47, 119, 0.3);
-  }
+.table-section {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Enhanced hover state for today's events */
-.today-event:hover,
-.today-event.hovered-row {
-  background-color: rgba(16, 47, 119, 0.15) !important;
-  box-shadow: 
-    0 6px 20px rgba(16, 47, 119, 0.2), 
-    -6px 0 0 0 var(--logo-blue),
-    -8px 0 30px rgba(16, 47, 119, 0.3);
-  transform: translateY(-2px) translateX(2px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border-left: 6px solid var(--logo-blue) !important;
+.chart-section {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Enhanced selection state for today's events */
-.today-event.selected-row {
-  background-color: rgba(16, 47, 119, 0.25) !important;
-  border-left: 6px solid var(--dark-green) !important;
-  box-shadow: 
-    0 8px 24px rgba(16, 47, 119, 0.3), 
-    -6px 0 0 0 var(--dark-green),
-    inset 0 1px 0 rgba(224, 251, 252, 0.2);
-  transform: translateX(4px);
+.chart-container {
+  flex: 1;
+  overflow: hidden;
 }
 
-/* Improved TODAY badge */
-.today-event td:first-child {
-  position: relative;
-  overflow: visible;
+/* Simple filter section */
+.filter-section {
+  padding: 16px;
+  margin-bottom: 16px;
 }
 
-.today-event td:first-child::after {
-  content: '📅 TODAY';
-  position: absolute;
-  top: -8px;
-  right: -12px;
-  background: linear-gradient(45deg, var(--logo-blue), var(--dark-green));
-  color: var(--light-gray);
-  font-size: 9px;
-  font-weight: 700;
-  padding: 4px 8px;
-  border-radius: 12px;
-  letter-spacing: 0.5px;
-  box-shadow: 0 2px 8px rgba(16, 47, 119, 0.3);
-  z-index: 10;
-  white-space: nowrap;
-  animation: badge-pulse 2s ease-in-out infinite;
-  border: 1px solid rgba(224, 251, 252, 0.2);
+.filter-controls {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  flex-wrap: wrap;
 }
 
-@keyframes badge-pulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.9;
-  }
-  50% {
-    transform: scale(1.05);
-    opacity: 1;
-  }
+.filter-field {
+  min-width: 200px;
 }
 
-/* Enhanced time column for today's events */
-.today-event td:first-child {
+.refresh-btn {
+  color: var(--logo-blue);
+  margin-bottom: 8px;
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Loading states */
+.loading-container {
+  padding: 40px;
+  text-align: center;
+}
+
+.loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.error-container,
+.empty-container {
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--dark-gray);
+}
+
+.error-icon,
+.empty-icon,
+.select-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+/* Simple table info */
+.table-header {
+  padding: 8px 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.results-count {
   font-weight: 600;
   color: var(--logo-blue);
 }
 
-/* Add subtle highlight to all cells in today's row */
-.today-event td {
-  border-top: 1px solid rgba(16, 47, 119, 0.1);
-  border-bottom: 1px solid rgba(16, 47, 119, 0.1);
-  transition: all 0.3s ease;
+.last-updated {
+  font-size: 12px;
+  color: #666;
+  margin-left: 16px;
 }
 
-/* Special styling for volatility icons in today's events */
-.today-event .mat-icon {
-  filter: drop-shadow(0 1px 3px rgba(16, 47, 119, 0.3));
-}
-
-/* General adjustments for mobile */
-@media (max-width: 768px) {
-  .container {
-    grid-template-columns: 1fr; /* Stack items on small screens */
-    padding: 5px;
-  }
-
-  .card {
-    padding: 10px;
-    min-height: auto; /* Adjust as needed for smaller screens */
-    margin-bottom: 10px;
-  }
-
-  table {
-    font-size: 14px; /* Reduce font size on mobile */
-  }
-
-  /* Adjust today indicator for mobile */
-  .today-event td:first-child::after {
-    content: '📅';
-    font-size: 12px;
-    padding: 2px 4px;
-    top: -6px;
-    right: -8px;
-    background: linear-gradient(45deg, var(--logo-blue), var(--dark-green));
-    box-shadow: 0 2px 6px rgba(16, 47, 119, 0.3);
-  }
-
-  .today-event:hover,
-  .today-event.hovered-row {
-    transform: translateY(-1px) translateX(1px);
-    box-shadow: 
-      0 4px 12px rgba(16, 47, 119, 0.15), 
-      -4px 0 0 0 var(--logo-blue);
-  }
-}
-
-/* Responsive Layout: One column on mobile */
-@media (max-width: 600px) {
-  .container {
-    grid-template-columns: 1fr; /* Stack items on small screens */
-    padding: 5px;
-  }
-
-  .today-event td:first-child::after {
-    content: '📅';
-    font-size: 10px;
-    padding: 1px 3px;
-    background: linear-gradient(45deg, var(--logo-blue), var(--dark-green));
-    box-shadow: 0 1px 4px rgba(16, 47, 119, 0.3);
-  }
-}
-
-.scrollable-table-container {
-  overflow-x: auto; /* Enables horizontal scrolling */
-  margin-bottom: 10px;
-}
-
-table {
-  width: 100%; /* Ensures the table expands to the width of its container */
-}
-
-.mat-mdc-radio-button.mat-accent {
-  --mdc-radio-disabled-selected-icon-color: var(--logo-blue);
-  --mdc-radio-disabled-unselected-icon-color: var(--logo-blue);
-  --mdc-radio-unselected-focus-icon-color: var(--logo-blue);
-  --mdc-radio-unselected-hover-icon-color: var(--logo-blue);
-  --mdc-radio-unselected-icon-color: var(--logo-blue);
-  --mdc-radio-unselected-pressed-icon-color: var(--logo-blue);
-  --mdc-radio-selected-focus-icon-color: var(--logo-blue);
-  --mdc-radio-selected-hover-icon-color: var(--logo-blue);
-  --mdc-radio-selected-icon-color: var(--logo-blue);
-  --mdc-radio-selected-pressed-icon-color: var(--logo-blue);
-  --mat-mdc-radio-ripple-color: var(--logo-blue);
-  --mat-mdc-radio-checked-ripple-color: var(--logo-blue);
-  --mat-radio-checked-ripple-color: unset;
-}
-
-/* Volatility Icons - Display in one line */
+/* Volatility Icons */
 .volatility-icons {
   display: flex;
   align-items: center;
@@ -215,129 +131,153 @@ table {
   font-size: 18px;
   width: 18px;
   height: 18px;
-  line-height: 18px;
 }
 
-/* Enhanced Table Styling for Better UX */
+/* Basic table styling */
 table {
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
 }
 
-/* Header Styling */
 .mat-mdc-header-cell {
   background-color: var(--dark-gray) !important;
   color: var(--light-gray) !important;
   font-weight: 600 !important;
-  font-size: 14px !important;
-  padding: 12px 8px !important;
+  padding: 8px !important;
   border-bottom: 2px solid var(--logo-blue) !important;
-  position: sticky;
-  top: 0;
-  z-index: 100;
 }
 
-/* Cell Styling */
 .mat-mdc-cell {
-  padding: 12px 8px !important;
-  font-size: 13px !important;
-  line-height: 1.4;
+  padding: 8px !important;
+  font-size: 12px !important;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
-  transition: all 0.2s ease;
-  vertical-align: middle;
 }
 
-/* Row Styling */
 .mat-mdc-row {
-  transition: all 0.2s ease;
   cursor: pointer;
 }
 
 .mat-mdc-row:hover {
   background-color: var(--light-gray) !important;
-  transform: translateX(2px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Column Specific Styling */
-.mat-column-time {
-  min-width: 100px;
-  max-width: 120px;
+/* Column styling */
+.time-display {
   font-weight: 500;
   color: var(--logo-blue);
 }
 
-.mat-column-country {
-  min-width: 80px;
-  max-width: 100px;
-  text-align: center;
-  font-weight: 500;
-}
-
-.mat-column-volatility {
-  min-width: 100px;
-  max-width: 120px;
-  text-align: center;
-}
-
-.mat-column-eventName {
-  min-width: 200px;
-  font-weight: 500;
-}
-
-.mat-column-actualInfo,
-.mat-column-forecastInfo,
-.mat-column-previousInfo {
-  min-width: 80px;
-  max-width: 100px;
-  text-align: center;
-  font-weight: 500;
-}
-
-/* Data Value Styling */
-.mat-column-actualInfo .mat-mdc-cell,
-.mat-column-forecastInfo .mat-mdc-cell,
-.mat-column-previousInfo .mat-mdc-cell {
-  font-family: 'Courier New', monospace;
-  background-color: rgba(240, 240, 240, 0.5);
+.currency-badge {
+  background: var(--logo-blue);
+  color: var(--light-gray);
+  padding: 2px 6px;
   border-radius: 4px;
-  margin: 2px;
+  font-size: 11px;
+  font-weight: 600;
 }
 
-/* Scrollable Container Enhancement */
+.event-name {
+  font-weight: 500;
+}
+
+.data-value {
+  font-family: 'Courier New', monospace;
+  font-weight: 500;
+}
+
+/* Today's Events - Simple */
+.today-event {
+  background-color: rgba(16, 47, 119, 0.08) !important;
+  border-left: 4px solid var(--logo-blue) !important;
+}
+
+.today-event:hover {
+  background-color: rgba(16, 47, 119, 0.15) !important;
+}
+
+.today-event td:first-child::after {
+  content: '📅 TODAY';
+  position: absolute;
+  top: -6px;
+  right: 0;
+  background: var(--logo-blue);
+  color: var(--light-gray);
+  font-size: 8px;
+  font-weight: 600;
+  padding: 2px 4px;
+  border-radius: 8px;
+  z-index: 10;
+}
+
+.today-event td:first-child {
+  position: relative;
+  font-weight: 600;
+  color: var(--logo-blue);
+}
+
+/* Scrollable table */
 .scrollable-table-container {
   overflow-x: auto;
   overflow-y: auto;
-  max-height: 70vh;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
-/* Responsive Table Improvements */
+/* Mobile responsive */
 @media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+    height: calc(100vh - 10px);
+  }
+
+  .card {
+    padding: 10px;
+  }
+
+  .filter-controls {
+    flex-direction: column;
+  }
+
+  .filter-field {
+    min-width: auto;
+  }
+
   .mat-mdc-cell {
-    padding: 8px 6px !important;
-    font-size: 12px !important;
+    padding: 6px !important;
+    font-size: 11px !important;
   }
-  
-  .mat-mdc-header-cell {
-    padding: 10px 6px !important;
-    font-size: 13px !important;
-  }
-  
+
   .volatility-icons mat-icon {
     font-size: 16px;
     width: 16px;
     height: 16px;
   }
-  
-  .mat-column-eventName {
-    min-width: 150px;
+
+  .today-event td:first-child::after {
+    content: '📅';
+    font-size: 10px;
+    padding: 1px 3px;
   }
-  
-  .scrollable-table-container {
-    max-height: 60vh;
+
+  .error-container,
+  .empty-container {
+    padding: 24px 12px;
   }
+
+  .error-icon,
+  .empty-icon,
+  .select-icon {
+    font-size: 36px;
+  }
+}
+
+.no-selection-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  text-align: center;
+  color: var(--dark-gray);
 }

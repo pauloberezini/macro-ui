@@ -11,8 +11,11 @@ import {MatCardModule} from "@angular/material/card";
 import {MatSelectModule} from "@angular/material/select";
 import {TimeFormatPipe} from "../model/time-format.pipe";
 import {MatIconModule} from "@angular/material/icon";
-import {NgClass, NgForOf, NgIf, NgStyle} from "@angular/common";
+import {NgClass, NgForOf, NgIf, NgStyle, DatePipe} from "@angular/common";
 import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatButtonModule} from "@angular/material/button";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 
 @Component({
@@ -29,36 +32,45 @@ import {MatToolbarModule} from "@angular/material/toolbar";
     MatSortModule,
     MatIconModule,
     MatToolbarModule,
+    MatProgressSpinnerModule,
+    MatButtonModule,
+    MatTooltipModule,
     NgForOf,
     NgIf,
     NgStyle,
     NgClass,
+    DatePipe,
   ],
   styleUrls: ['./economic-calendar.component.css']
 })
 export class EconomicCalendarComponent implements OnInit, AfterViewInit {
   private refreshClick = new Subject();
   private destroy$ = new Subject();
+  
+  // Data properties
   allNews: EventDto[];
-
+  newsCollection: MatTableDataSource<EventDto>;
+  selectedRow: any;
+  
+  // UI State properties
+  isLoading: boolean = false;
+  hasError: boolean = false;
+  lastUpdated: Date = new Date();
   canRefresh = true;
 
-  newsCollection: MatTableDataSource<EventDto>;
+  // Filter properties
   selectedOption: string = '2';
   toppings = new FormControl('');
   currencies: string[] = ['USD', 'EUR', 'GBP', 'CAD', 'JPY', 'AUD', 'CHF', 'NZD', 'CNY', 'IDR', 'HKD', 'BRL', 'MXN', 'KRW', 'ZAR', 'NOK', 'SGD', 'INR'];
   selectedCountry: string[] = ['USD'];
-
-
   volatilisesSymbolic: string[] = ['🔥', '🔥🔥', '🔥🔥🔥'];
   volatilises: string[] = ['*', '**', '***'];
   volatility: string[] = ['***'];
 
-  selectedRow: any;
   @ViewChild(MatSort) empTbSort!: MatSort;
 
-
   constructor(private stockDataService: StockDataService) {
+    this.newsCollection = new MatTableDataSource<EventDto>([]);
   }
 
   ngOnInit(): void {
@@ -76,7 +88,6 @@ export class EconomicCalendarComponent implements OnInit, AfterViewInit {
     });
   }
 
-
   onMouseOver(row: any) {
     row.isHovered = true;
   }
@@ -90,36 +101,57 @@ export class EconomicCalendarComponent implements OnInit, AfterViewInit {
   }
 
   loadData(): void {
-    if (this.canRefresh) {
-      this.stockDataService.getHighNews().subscribe((data: EventDto[]) => {
-        console.log("Raw API Data:", data);
+    if (this.canRefresh && !this.isLoading) {
+      this.isLoading = true;
+      this.hasError = false;
+      
+      this.stockDataService.getHighNews().subscribe({
+        next: (data: EventDto[]) => {
+          console.log("Raw API Data:", data);
 
-        const volatilityMapping: Record<string, string> = {
-          '*': '*',
-          '**': '**',
-          '***': '***'
-        };
+          const volatilityMapping: Record<string, string> = {
+            '*': '*',
+            '**': '**',
+            '***': '***'
+          };
 
-        this.allNews = data.map(event => ({
-          ...event,
-          volatility: volatilityMapping[event.volatility?.trim()] || '*', // Default to '*'
-        }));
+          this.allNews = data.map(event => ({
+            ...event,
+            volatility: volatilityMapping[event.volatility?.trim()] || '*',
+          }));
 
-        console.log("Processed Data:", this.allNews);
+          console.log("Processed Data:", this.allNews);
 
-        this.newsCollection = new MatTableDataSource<EventDto>(this.allNews);
+          this.newsCollection = new MatTableDataSource<EventDto>(this.allNews);
 
-        setTimeout(() => {
-          if (this.empTbSort) {
-            this.newsCollection.sort = this.empTbSort;
-          }
-        });
+          setTimeout(() => {
+            if (this.empTbSort) {
+              this.newsCollection.sort = this.empTbSort;
+            }
+          });
 
-        this.filterData();
+          this.filterData();
+          this.lastUpdated = new Date();
+          this.isLoading = false;
+        },
+        error: (error) => {
+          console.error('Error loading data:', error);
+          this.hasError = true;
+          this.isLoading = false;
+        }
       });
 
       this.refreshClick.next(1);
     }
+  }
+
+  /**
+   * Clear all active filters and show all data
+   */
+  clearFilters(): void {
+    this.selectedCountry = [...this.currencies];
+    this.volatility = [...this.volatilises];
+    this.filterData();
   }
 
   getBackgroundColor(actualInfo: string, forecastInfo: string): string {

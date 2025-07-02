@@ -2,130 +2,224 @@
 <div class="container">
 
   <!-- 📌 First Column: Economic Calendar -->
-  <mat-card class="card">
-    <mat-toolbar>
-      <mat-toolbar-row>
-        <span class="example-spacer">Economic Calendar</span>
-      </mat-toolbar-row>
-    </mat-toolbar>
+  <mat-card class="card economic-calendar-card" elevation="3">
+    <mat-card-header class="card-header">
+      <div mat-card-avatar class="calendar-icon">
+        <mat-icon>event</mat-icon>
+      </div>
+      <mat-card-title>Economic Calendar</mat-card-title>
+      <mat-card-subtitle>Live economic events and data releases</mat-card-subtitle>
+    </mat-card-header>
 
-    <!-- Currency and Volatility Filters -->
-    <mat-card-actions class="filter-actions">
-      <mat-form-field>
-        <mat-label>Select Currencies</mat-label>
-        <mat-select (selectionChange)="filterData()" name="country" [(ngModel)]="selectedCountry" multiple>
-          <mat-option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</mat-option>
-        </mat-select>
-      </mat-form-field>
+    <!-- Enhanced Filter Section -->
+    <mat-card-content class="filter-section">
+      <div class="filter-header">
+        <mat-icon class="filter-icon">filter_list</mat-icon>
+        <span class="filter-title">Filter Events</span>
+      </div>
+      
+      <div class="filter-controls">
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Select Currencies</mat-label>
+          <mat-icon matPrefix>language</mat-icon>
+          <mat-select (selectionChange)="filterData()" name="country" [(ngModel)]="selectedCountry" multiple>
+            <mat-option *ngFor="let currency of currencies" [value]="currency">
+              <span class="currency-option">{{ currency }}</span>
+            </mat-option>
+          </mat-select>
+          <mat-hint>Choose one or more currencies</mat-hint>
+        </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Volatility</mat-label>
-        <mat-select (selectionChange)="filterData()" name="volatility" [(ngModel)]="volatility" multiple>
-          <mat-option *ngFor="let volatility of volatilisesSymbolic; let i = index"
-                      [value]="volatilises[i]">
-            {{ volatility }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-card-actions>
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Volatility Level</mat-label>
+          <mat-icon matPrefix>whatshot</mat-icon>
+          <mat-select (selectionChange)="filterData()" name="volatility" [(ngModel)]="volatility" multiple>
+            <mat-option *ngFor="let volatility of volatilisesSymbolic; let i = index" [value]="volatilises[i]">
+              <span class="volatility-option">{{ volatility }} {{ volatilises[i] }}</span>
+            </mat-option>
+          </mat-select>
+          <mat-hint>Filter by impact level</mat-hint>
+        </mat-form-field>
+
+        <button mat-icon-button class="refresh-btn" (click)="loadData()" [disabled]="isLoading" 
+                matTooltip="Refresh data" aria-label="Refresh economic data">
+          <mat-icon [class.spinning]="isLoading">refresh</mat-icon>
+        </button>
+      </div>
+    </mat-card-content>
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="loading-container">
+      <div class="loading-content">
+        <mat-progress-spinner diameter="40" mode="indeterminate"></mat-progress-spinner>
+        <p class="loading-text">Loading economic events...</p>
+      </div>
+      <!-- Skeleton Loader -->
+      <div class="skeleton-table">
+        <div class="skeleton-row" *ngFor="let item of [1,2,3,4,5]">
+          <div class="skeleton-cell" *ngFor="let cell of [1,2,3,4,5,6,7]"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="hasError && !isLoading" class="error-container">
+      <mat-icon class="error-icon">error_outline</mat-icon>
+      <h3>Unable to Load Data</h3>
+      <p>There was an issue loading the economic calendar. Please try again.</p>
+      <button mat-raised-button color="primary" (click)="loadData()">
+        <mat-icon>refresh</mat-icon>
+        Try Again
+      </button>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!isLoading && !hasError && newsCollection?.data?.length === 0" class="empty-container">
+      <mat-icon class="empty-icon">event_busy</mat-icon>
+      <h3>No Events Found</h3>
+      <p>No economic events match your current filter criteria.</p>
+      <button mat-button color="primary" (click)="clearFilters()">
+        <mat-icon>clear_all</mat-icon>
+        Clear Filters
+      </button>
+    </div>
 
     <!-- 📌 Table Content -->
-    <mat-card-content class="scrollable-table-container">
-      <table mat-table [dataSource]="newsCollection" matSort #empTbSort="matSort">
+    <mat-card-content *ngIf="!isLoading && !hasError && newsCollection?.data?.length > 0" class="table-section">
+      <div class="table-header">
+        <div class="table-info">
+          <span class="results-count">{{ newsCollection.data.length }} events found</span>
+          <span class="last-updated">Last updated: {{ lastUpdated | date:'short' }}</span>
+        </div>
+      </div>
 
-        <!-- Time Column -->
-        <ng-container matColumnDef="time">
-          <th mat-header-cell *matHeaderCellDef>Time</th>
-          <td mat-cell *matCellDef="let news">{{ news.time | timeFormat: 0 }}</td>
-        </ng-container>
+      <div class="scrollable-table-container compact-mode">
+        <table mat-table [dataSource]="newsCollection" matSort #empTbSort="matSort" 
+               class="economic-table" role="table" aria-label="Economic Calendar Events">
 
-        <!-- Currency Column -->
-        <ng-container matColumnDef="country">
-          <th mat-header-cell *matHeaderCellDef>Currency</th>
-          <td mat-cell *matCellDef="let news">{{ news.country }}</td>
-        </ng-container>
+          <!-- Time Column -->
+          <ng-container matColumnDef="time">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Time</th>
+            <td mat-cell *matCellDef="let news">
+              <span class="time-display">{{ news.time | timeFormat: 0 }}</span>
+            </td>
+          </ng-container>
 
-        <!-- Volatility Column -->
-        <ng-container matColumnDef="volatility">
-          <th mat-header-cell *matHeaderCellDef>Volatility</th>
-          <td mat-cell *matCellDef="let news">
-            <div class="volatility-icons">
-              <ng-container *ngIf="news.volatility === '***'">
-                <mat-icon color="warn">whatshot</mat-icon>
-                <mat-icon color="warn">whatshot</mat-icon>
-                <mat-icon color="warn">whatshot</mat-icon>
-              </ng-container>
-              <ng-container *ngIf="news.volatility === '**'">
-                <mat-icon color="warn">whatshot</mat-icon>
-                <mat-icon color="warn">whatshot</mat-icon>
-              </ng-container>
-              <ng-container *ngIf="news.volatility === '*'">
-                <mat-icon color="warn">whatshot</mat-icon>
-              </ng-container>
-            </div>
-          </td>
-        </ng-container>
+          <!-- Currency Column -->
+          <ng-container matColumnDef="country">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Currency</th>
+            <td mat-cell *matCellDef="let news">
+              <span class="currency-badge">{{ news.country }}</span>
+            </td>
+          </ng-container>
 
-        <!-- Event Name Column -->
-        <ng-container matColumnDef="eventName">
-          <th mat-header-cell *matHeaderCellDef>Event Name</th>
-          <td mat-cell *matCellDef="let news">{{ news.eventName }}</td>
-        </ng-container>
+          <!-- Volatility Column -->
+          <ng-container matColumnDef="volatility">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Volatility</th>
+            <td mat-cell *matCellDef="let news">
+              <div class="volatility-icons" [attr.aria-label]="'Impact level: ' + news.volatility">
+                <ng-container *ngIf="news.volatility === '***'">
+                  <mat-icon color="warn">whatshot</mat-icon>
+                  <mat-icon color="warn">whatshot</mat-icon>
+                  <mat-icon color="warn">whatshot</mat-icon>
+                </ng-container>
+                <ng-container *ngIf="news.volatility === '**'">
+                  <mat-icon color="warn">whatshot</mat-icon>
+                  <mat-icon color="warn">whatshot</mat-icon>
+                </ng-container>
+                <ng-container *ngIf="news.volatility === '*'">
+                  <mat-icon color="warn">whatshot</mat-icon>
+                </ng-container>
+              </div>
+            </td>
+          </ng-container>
 
-        <!-- Actual Info Column -->
-        <ng-container matColumnDef="actualInfo">
-          <th mat-header-cell *matHeaderCellDef>Actual</th>
-          <td mat-cell *matCellDef="let news" [ngStyle]="{
-            'background-color': getBackgroundColor(news.actualInfo, news.forecastInfo)
-          }">
-            {{ news.actualInfo.trim() }}
-          </td>
-        </ng-container>
+          <!-- Event Name Column -->
+          <ng-container matColumnDef="eventName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Event Name</th>
+            <td mat-cell *matCellDef="let news">
+              <span class="event-name" [matTooltip]="news.eventName">{{ news.eventName }}</span>
+            </td>
+          </ng-container>
 
-        <!-- Forecast Info Column -->
-        <ng-container matColumnDef="forecastInfo">
-          <th mat-header-cell *matHeaderCellDef>Forecast</th>
-          <td mat-cell *matCellDef="let news">{{ news.forecastInfo }}</td>
-        </ng-container>
+          <!-- Actual Info Column -->
+          <ng-container matColumnDef="actualInfo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Actual</th>
+            <td mat-cell *matCellDef="let news" class="data-cell"
+                [ngStyle]="{'background-color': getBackgroundColor(news.actualInfo, news.forecastInfo)}"
+                [attr.aria-label]="'Actual value: ' + news.actualInfo">
+              <span class="data-value">{{ news.actualInfo.trim() }}</span>
+            </td>
+          </ng-container>
 
-        <!-- Previous Info Column -->
-        <ng-container matColumnDef="previousInfo">
-          <th mat-header-cell *matHeaderCellDef>Previous</th>
-          <td mat-cell *matCellDef="let news">{{ news.previousInfo }}</td>
-        </ng-container>
+          <!-- Forecast Info Column -->
+          <ng-container matColumnDef="forecastInfo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Forecast</th>
+            <td mat-cell *matCellDef="let news" class="data-cell"
+                [attr.aria-label]="'Forecast value: ' + news.forecastInfo">
+              <span class="data-value">{{ news.forecastInfo }}</span>
+            </td>
+          </ng-container>
 
-        <!-- Header Row -->
-        <tr mat-header-row
-            *matHeaderRowDef="['time', 'country', 'volatility', 'eventName', 'actualInfo', 'forecastInfo', 'previousInfo']; sticky: true">
-        </tr>
+          <!-- Previous Info Column -->
+          <ng-container matColumnDef="previousInfo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Previous</th>
+            <td mat-cell *matCellDef="let news" class="data-cell"
+                [attr.aria-label]="'Previous value: ' + news.previousInfo">
+              <span class="data-value">{{ news.previousInfo }}</span>
+            </td>
+          </ng-container>
 
-        <!-- Data Rows -->
-        <tr mat-row
-            (click)="onMacroNewsClick(row)"
-            [ngClass]="{ 
-              'selected-row': selectedRow === row, 
-              'hovered-row': row.isHovered,
-              'today-event': isEventToday(row.time)
-            }"
-            (mouseover)="onMouseOver(row)"
-            (mouseleave)="onMouseLeave(row)"
-            *matRowDef="let row; columns: ['time', 'country', 'volatility', 'eventName', 'actualInfo', 'forecastInfo', 'previousInfo']">
-        </tr>
-      </table>
+          <!-- Header Row -->
+          <tr mat-header-row
+              *matHeaderRowDef="['time', 'country', 'volatility', 'eventName', 'actualInfo', 'forecastInfo', 'previousInfo']; sticky: true">
+          </tr>
+
+          <!-- Data Rows -->
+          <tr mat-row
+              (click)="onMacroNewsClick(row)"
+              [ngClass]="{ 
+                'selected-row': selectedRow === row, 
+                'hovered-row': row.isHovered,
+                'today-event': isEventToday(row.time)
+              }"
+              (mouseover)="onMouseOver(row)"
+              (mouseleave)="onMouseLeave(row)"
+              [attr.aria-selected]="selectedRow === row"
+              role="row"
+              tabindex="0"
+              (keydown.enter)="onMacroNewsClick(row)"
+              (keydown.space)="onMacroNewsClick(row)"
+              *matRowDef="let row; columns: ['time', 'country', 'volatility', 'eventName', 'actualInfo', 'forecastInfo', 'previousInfo']">
+          </tr>
+        </table>
+      </div>
     </mat-card-content>
   </mat-card>
 
   <!-- 📌 Second Column: Historical Data -->
-  <mat-card class="card">
-    <mat-toolbar>
-      <mat-toolbar-row>
-        <span class="example-spacer">Historical Data</span>
-      </mat-toolbar-row>
-    </mat-toolbar>
+  <mat-card class="card historical-data-card" elevation="3">
+    <mat-card-header class="card-header">
+      <div mat-card-avatar class="chart-icon">
+        <mat-icon>insert_chart</mat-icon>
+      </div>
+      <mat-card-title>Historical Analysis</mat-card-title>
+      <mat-card-subtitle>
+        {{ selectedRow ? 'Data for: ' + selectedRow.eventName : 'Select an event to view historical data' }}
+      </mat-card-subtitle>
+    </mat-card-header>
 
-    <div class="centered-content">
-      <app-economic-data [economicType]="'INFLATION'" [selectedRowData]="selectedRow"></app-economic-data>
-    </div>
+    <mat-card-content class="chart-section">
+      <div *ngIf="!selectedRow" class="no-selection-state">
+        <mat-icon class="select-icon">touch_app</mat-icon>
+        <h3>Select an Event</h3>
+        <p>Click on any event in the calendar to view its historical data and trends.</p>
+      </div>
+
+      <div *ngIf="selectedRow" class="chart-container">
+        <app-economic-data [economicType]="'INFLATION'" [selectedRowData]="selectedRow"></app-economic-data>
+      </div>
+    </mat-card-content>
   </mat-card>
 
 </div>
