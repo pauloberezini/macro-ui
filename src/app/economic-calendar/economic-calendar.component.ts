@@ -172,4 +172,27 @@ export class EconomicCalendarComponent implements OnInit, AfterViewInit {
       this.newsCollection.sort = this.empTbSort;
     }
   }
+
+  /**
+   * Check if the event is happening today
+   * @param eventTime - The time of the event
+   * @returns true if the event is today, false otherwise
+   */
+  isEventToday(eventTime: string): boolean {
+    if (!eventTime) return false;
+    
+    try {
+      const today = new Date();
+      const eventDate = new Date(eventTime);
+      
+      return (
+        eventDate.getDate() === today.getDate() &&
+        eventDate.getMonth() === today.getMonth() &&
+        eventDate.getFullYear() === today.getFullYear()
+      );
+    } catch (error) {
+      console.warn('Invalid date format:', eventTime);
+      return false;
+    }
+  }
 }
