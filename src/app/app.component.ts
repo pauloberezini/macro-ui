@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, HostListener} from '@angular/core';
 import {Meta} from "@angular/platform-browser";
 import {SignInComponent} from "./login/sign-in/sign-in.component";
 import {MatDialog} from "@angular/material/dialog";
@@ -8,6 +8,7 @@ import {Router, RouterOutlet} from "@angular/router";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {NgIf} from "@angular/common";
+import {RouterLink, RouterLinkActive} from "@angular/router";
 import {AnimatedBackgroundComponent} from "./animated-background/animated-background.component";
 
 export interface StockData {
@@ -28,7 +29,9 @@ export interface StockData {
     RouterOutlet,
     MatIconModule,
     MatSidenavModule,
-    NgIf
+    NgIf,
+    RouterLink,
+    RouterLinkActive
   ],
   styleUrls: ['./app.component.css']
 })
@@ -43,6 +46,75 @@ export class AppComponent implements OnInit {
 
   toggleMobileMenu(): void {
     this.mobileMenuOpen = !this.mobileMenuOpen;
+    
+    // Manage body scroll when mobile menu is open
+    if (this.mobileMenuOpen) {
+      document.body.classList.add('mobile-menu-open');
+      // Focus management - focus the close button when menu opens
+      setTimeout(() => {
+        const closeButton = document.querySelector('.close-button') as HTMLElement;
+        if (closeButton) {
+          closeButton.focus();
+        }
+      }, 100);
+    } else {
+      document.body.classList.remove('mobile-menu-open');
+      // Return focus to menu toggle button
+      setTimeout(() => {
+        const menuToggle = document.querySelector('.mobile-menu-toggle') as HTMLElement;
+        if (menuToggle) {
+          menuToggle.focus();
+        }
+      }, 100);
+    }
+  }
+
+  closeMobileMenuOnOverlay(event: Event): void {
+    // Close menu when clicking on overlay background
+    if (event.target === event.currentTarget) {
+      this.toggleMobileMenu();
+    }
+  }
+
+  @HostListener('keydown.escape', ['$event'])
+  onEscapeKey(event: KeyboardEvent): void {
+    if (this.mobileMenuOpen) {
+      this.toggleMobileMenu();
+      event.preventDefault();
+    }
+  }
+
+  @HostListener('keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent): void {
+    // Trap focus within mobile menu when it's open
+    if (this.mobileMenuOpen && (event.key === 'Tab')) {
+      this.trapFocus(event);
+    }
+  }
+
+  private trapFocus(event: KeyboardEvent): void {
+    const mobileMenu = document.querySelector('.mobile-menu');
+    if (!mobileMenu) return;
+
+    const focusableElements = mobileMenu.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const firstElement = focusableElements[0] as HTMLElement;
+    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+    if (event.shiftKey) {
+      // Shift + Tab
+      if (document.activeElement === firstElement) {
+        lastElement.focus();
+        event.preventDefault();
+      }
+    } else {
+      // Tab
+      if (document.activeElement === lastElement) {
+        firstElement.focus();
+        event.preventDefault();
+      }
+    }
   }
 
   ngOnInit() {
@@ -103,6 +175,9 @@ export class AppComponent implements OnInit {
     });
   }
 
+  // These methods are no longer needed since we're using routerLink
+  // but keeping them commented in case you need them for any special logic
+  /*
   goToHome() {
     this.router.navigate(['/']);
   }
@@ -137,4 +212,5 @@ export class AppComponent implements OnInit {
   profile() {
     this.router.navigate(['/app-profile']);
   }
+  */
 }

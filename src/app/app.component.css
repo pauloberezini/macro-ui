@@ -22,6 +22,13 @@
   font-weight: 700;
   color: var(--logo-blue);
   flex-shrink: 0;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.berezini-logo:hover {
+  color: var(--logo-blue);
+  opacity: 0.8;
 }
 
 /* DESKTOP MENU: shown on wider screens */
@@ -37,6 +44,9 @@
   flex: 1 1 auto;
   overflow: hidden;
   white-space: nowrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 /* GENERAL MENU ITEM STYLES */
@@ -51,10 +61,26 @@
   white-space: nowrap;
   color: rgba(26, 26, 26, 0.5);
   padding: 8px 16px;
+  text-decoration: none;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: inherit;
 }
 
 .main-menu-item:hover {
   color: var(--logo-blue);
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.main-menu-item:focus-visible {
+  outline: 2px solid var(--logo-blue);
+  outline-offset: 2px;
+}
+
+.main-menu-item.active {
+  color: var(--logo-blue);
+  background-color: rgba(0, 123, 255, 0.1);
 }
 
 .menu-icon {
@@ -69,14 +95,33 @@
 }
 
 .join-button {
-  border: 1px solid var(--logo-blue);
+  border: 1px solid var(--logo-blue) !important;
   color: var(--logo-blue);
+}
+
+.join-button:hover {
+  background-color: var(--logo-blue);
+  color: white;
 }
 
 /* MOBILE MENU TOGGLE: shown on mobile screens only */
 .mobile-menu-toggle {
   display: none;
   cursor: pointer;
+  background: none;
+  border: none;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.mobile-menu-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.mobile-menu-toggle:focus-visible {
+  outline: 2px solid var(--logo-blue);
+  outline-offset: 2px;
 }
 
 /* MOBILE MENU OVERLAY */
@@ -90,6 +135,16 @@
   z-index: 1100;
   display: flex;
   justify-content: flex-start; /* Align menu on the left side */
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* MOBILE MENU */
@@ -102,8 +157,18 @@
   flex-direction: column;
   padding: 16px;
   overflow-y: auto;
+  transform: translateX(-100%);
+  animation: slideIn 0.3s ease forwards;
 }
 
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
 
 /* Mobile menu header (logo + close button) */
 .mobile-menu-header {
@@ -117,6 +182,27 @@
   background: none;
   border: none;
   cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.close-button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.close-button:focus-visible {
+  outline: 2px solid var(--logo-blue);
+  outline-offset: 2px;
+}
+
+/* Mobile Menu List */
+.mobile-menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Mobile Menu Items */
@@ -128,10 +214,26 @@
   font-size: 1.2rem;
   color: rgba(26, 26, 26, 0.5);
   width: 100%;
+  text-decoration: none;
+  display: block;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  border-radius: 4px;
+  font-family: inherit;
 }
 
 .mobile-menu-item:hover {
   color: var(--logo-blue);
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.mobile-menu-item:focus-visible {
+  outline: 2px solid var(--logo-blue);
+  outline-offset: 2px;
+}
+
+.mobile-menu-item.active {
+  color: var(--logo-blue);
+  background-color: rgba(0, 123, 255, 0.1);
 }
 
 /* MOBILE AUTH BUTTONS */
@@ -142,6 +244,10 @@
   gap: 10px;
 }
 
+/* Prevent body scroll when mobile menu is open */
+body.mobile-menu-open {
+  overflow: hidden;
+}
 
 /* RESPONSIVE STYLES */
 @media screen and (max-width: 768px) {
@@ -169,4 +275,21 @@
   .berezini-logo {
     font-size: 1.5rem;
   }
+}
+
+/* Skip link for screen readers */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--logo-blue);
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 2000;
+}
+
+.skip-link:focus {
+  top: 6px;
 }
