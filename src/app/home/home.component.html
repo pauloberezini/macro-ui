@@ -1,157 +1,207 @@
 <app-animated-background></app-animated-background>
 
-<div class="scroll-container">
-  <div id="first-slide">
-    <div class="hero">
-      <div class="hero-content">
-        <h1>Macro Economic Insights Platform</h1>
-        <p class="hero-description">Trusted by 850+ financial institutions across 45 countries</p>
-
-        <div class="hero-statistics">
-          <div class="stat-box">
-            <div class="stat-box-value">1.2M+</div>
-
-            <div class="stat-label">Daily Data Points Analyzed</div>
+<!-- Hero Slider Section -->
+<section class="hero-slider">
+  <div class="slider-container">
+    <div class="slide" 
+         *ngFor="let slide of heroSlides; let i = index" 
+         [class.active]="currentSlide === i"
+         [class.prev]="currentSlide === (i - 1 + heroSlides.length) % heroSlides.length"
+         [class.next]="currentSlide === (i + 1) % heroSlides.length">
+      <div class="slide-content">
+        <div class="slide-text">
+          <h1 class="slide-title">{{ slide.title }}</h1>
+          <p class="slide-description">{{ slide.description }}</p>
+          <div class="slide-stats" *ngIf="slide.stats">
+            <div class="stat-item" *ngFor="let stat of slide.stats">
+              <span class="stat-number">{{ stat.number }}</span>
+              <span class="stat-label">{{ stat.label }}</span>
+            </div>
           </div>
-          <div class="stat-box">
-            <div class="stat-box-value">94%</div>
-            <div class="stat-label">Forecast Accuracy</div>
+          <div class="slide-actions">
+            <button class="btn btn-primary" (click)="handleSlideAction(slide)">
+              {{ slide.primaryAction.text }}
+            </button>
+            <a class="btn btn-secondary" [routerLink]="slide.secondaryAction.link" *ngIf="slide.secondaryAction">
+              {{ slide.secondaryAction.text }}
+            </a>
           </div>
         </div>
+      </div>
+    </div>
+    
+    <!-- Slider Controls -->
+    <div class="slider-nav">
+      <button class="nav-btn prev-btn" (click)="previousSlide()" aria-label="Previous slide">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <div class="slider-dots">
+        <button 
+          class="dot" 
+          *ngFor="let slide of heroSlides; let i = index"
+          [class.active]="currentSlide === i"
+          (click)="goToSlide(i)"
+          [attr.aria-label]="'Go to slide ' + (i + 1)">
+        </button>
+      </div>
+      <button class="nav-btn next-btn" (click)="nextSlide()" aria-label="Next slide">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+  </div>
+</section>
 
-        <p class="hero-description">Unlock powerful market insights. Make smarter financial decisions.</p>
-        <!-- Call to Action Section -->
-        <div class="hero-statistics">
-          <a class="homepage-button" routerLink="/dashboard">Explore Dashboard</a>
-          <a class="homepage-button" routerLink="/pricing">Pricing Plans</a>
+<!-- Features Overview Section -->
+<section class="features-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Powerful Tools for Smart Trading</h2>
+      <p>Everything you need to make informed financial decisions</p>
+    </div>
+    
+    <div class="features-grid">
+      <div class="feature-card" *ngFor="let feature of features">
+        <div class="feature-icon">
+          <mat-icon>{{ feature.icon }}</mat-icon>
         </div>
-
+        <h3>{{ feature.title }}</h3>
+        <p>{{ feature.description }}</p>
+        <a class="feature-link" [routerLink]="feature.route">
+          Learn More <mat-icon>arrow_forward</mat-icon>
+        </a>
       </div>
     </div>
   </div>
+</section>
 
-
-  <div id="second-slide">
-    <!-- Marketing Stats Section -->
-    <div class="hero">
-      <div class="hero-content">
-        <h1>Our Growth Over the Years</h1>
-        <p class="hero-description">
-          In just a few years, we've empowered over 10K active users, achieved $12M+ in annual revenue, and sustained a 35% growth rate—backed by 1+ TB of comprehensive market data.
-        </p>
-        <div class="hero-statistics">
-          <div class="stat-box">
-            <div class="stat-box-value">10K+</div>
-            <div class="stat-label">Active Users</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-box-value">$12M</div>
-            <div class="stat-label">Annual Revenue</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-box-value">35%</div>
-            <div class="stat-label">Yearly Revenue Growth</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-box-value">1+ TB</div>
-            <div class="stat-label">Market Data</div>
+<!-- Testimonials Slider -->
+<section class="testimonials-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Trusted by Financial Professionals</h2>
+      <p>See what our clients say about our platform</p>
+    </div>
+    
+    <div class="testimonials-slider">
+      <div class="testimonial-container">
+        <div class="testimonial" 
+             *ngFor="let testimonial of testimonials; let i = index"
+             [class.active]="currentTestimonial === i">
+          <div class="testimonial-content">
+            <div class="quote-icon">
+              <mat-icon>format_quote</mat-icon>
+            </div>
+            <blockquote>{{ testimonial.quote }}</blockquote>
+            <div class="testimonial-author">
+              <div class="author-info">
+                <h4>{{ testimonial.name }}</h4>
+                <p>{{ testimonial.position }}</p>
+                <div class="company">{{ testimonial.company }}</div>
+              </div>
+            </div>
           </div>
         </div>
-
       </div>
-
-
+      
+      <div class="testimonial-nav">
+        <button class="nav-btn" (click)="previousTestimonial()" aria-label="Previous testimonial">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <div class="testimonial-dots">
+          <button 
+            class="dot" 
+            *ngFor="let testimonial of testimonials; let i = index"
+            [class.active]="currentTestimonial === i"
+            (click)="goToTestimonial(i)"
+            [attr.aria-label]="'Go to testimonial ' + (i + 1)">
+          </button>
+        </div>
+        <button class="nav-btn" (click)="nextTestimonial()" aria-label="Next testimonial">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
+</section>
 
-
-  <section id="third-slide" class="features">
-    <div class="feature-card">
-      <mat-icon>event_note</mat-icon>
-      <h3>Your Ultimate Economic Calendar</h3>
-      <p>Track key economic events in real-time. Customize filters, receive high-impact alerts, and analyze historical trends to refine your trading strategy.</p>
+<!-- Call to Action Section -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-content">
+      <h2>Ready to Transform Your Trading Strategy?</h2>
+      <p>Join thousands of professionals who trust our platform for their financial insights</p>
+      <div class="cta-buttons">
+        <button class="btn btn-primary btn-large" (click)="openJoinPopup()">
+          Start Free Trial
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+        <a class="btn btn-outline" routerLink="/demo">
+          Watch Demo
+          <mat-icon>play_arrow</mat-icon>
+        </a>
+      </div>
+      <div class="cta-features">
+        <div class="feature-item">
+          <mat-icon>check_circle</mat-icon>
+          <span>14-day free trial</span>
+        </div>
+        <div class="feature-item">
+          <mat-icon>check_circle</mat-icon>
+          <span>No credit card required</span>
+        </div>
+        <div class="feature-item">
+          <mat-icon>check_circle</mat-icon>
+          <span>Cancel anytime</span>
+        </div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <div class="feature-card">
-      <mat-icon>trending_up</mat-icon>
-      <h3>Unlock Market Cycles with Seasonal Analytics</h3>
-      <p>Identify predictable market patterns with historical data. Optimize entry and exit points for strategic trading decisions.</p>
-    </div>
-
-    <div class="feature-card">
-      <mat-icon>insights</mat-icon>
-      <h3>AI-Powered Anomaly Detection</h3>
-      <p>Detect market disruptions before they impact your portfolio. Stay ahead with AI-driven trading insights.</p>
-    </div>
-
-    <div class="feature-card">
-      <mat-icon>visibility</mat-icon>
-      <h3>Follow the Smart Money with Insider Trades</h3>
-      <p>Analyze SEC insider transactions in real-time. Spot opportunities before the market reacts.</p>
-    </div>
-
-    <div class="feature-card">
-      <mat-icon>article</mat-icon>
-      <h3>AI-Driven Market News</h3>
-      <p>Stay informed with AI-powered sentiment analysis. Understand the market mood before it moves.</p>
-    </div>
-  </section>
-
-  <div class="last-slide" id="fourth-slide">
-    <!-- Free Trial Section -->
-    <div class="free-trial">
-      <h2>Start Your Free Trial Today</h2>
-      <p>Experience our platform with a 14-day free trial. No credit card required!</p>
-      <a class="free-trial-button" routerLink="/signup">Start Free Trial</a>
-    </div>
-
-    <!-- Footer Section -->
-    <footer class="footer">
-<!--      <div class="hero">-->
-<!--        <div class="hero-content">-->
-<!--          <section class="partners">-->
-<!--            <h2>Our Trusted Partners</h2>-->
-<!--            <div class="partner-logos">-->
-<!--              <a href="https://www.tradingview.com/chart/?aff_id=150248&utm_source=creative&utm_lang=EN" target="_blank">-->
-<!--                <img src="https://s3.tradingview.com/pub/referrals/creatives/WT/EN/468x60Banner.jpg" width="468" height="60" border="0"/>-->
-<!--              </a>-->
-<!--            </div>-->
-<!--          </section>-->
-<!--        </div>-->
-<!--      </div>-->
-      <div class="footer-column">
-        <h3>Service & Info</h3>
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Company</h3>
         <ul>
-          <li><a (click)="goToAboutUs()" class="hyper-link">About Us</a></li>
-          <li><a (click)="goToTerms()" class="hyper-link">Terms & Conditions</a></li>
-          <li><a (click)="goToPrivacyPolicy()" class="hyper-link">Privacy Policy</a></li>
+          <li><a (click)="goToAboutUs()">About Us</a></li>
+          <li><a (click)="goToTerms()">Terms & Conditions</a></li>
+          <li><a (click)="goToPrivacyPolicy()">Privacy Policy</a></li>
+          <li><a (click)="goToLegal()">Legal Disclaimer</a></li>
         </ul>
       </div>
-      <div class="footer-column">
-        <h3>Payment</h3>
+      
+      <div class="footer-section">
+        <h3>Product</h3>
         <ul>
-          <li><a href="/pricing">Pricing Plans</a></li>
-          <li><a href="/billing">Billing Information</a></li>
-          <li><a href="/security">Payment Security</a></li>
+          <li><a routerLink="/app-economic-calendar">Economic Calendar</a></li>
+          <li><a routerLink="/app-seasonality">Seasonality</a></li>
+          <li><a routerLink="/app-stock-anomaly">Anomaly Detection</a></li>
+          <li><a routerLink="/insiders">Insider Trades</a></li>
         </ul>
       </div>
-      <div class="footer-column">
+      
+      <div class="footer-section">
         <h3>Support</h3>
         <ul>
           <li><a href="/faq">FAQ</a></li>
-          <li><a href="/blog">Community Blog</a></li>
-          <li><a href="https://t.me/bereziniPartnersChat" target="_blank">Live Chat Support</a></li>
+          <li><a href="/pricing">Pricing</a></li>
+          <li><a href="https://t.me/bereziniPartnersChat" target="_blank">Live Chat</a></li>
+          <li><a href="/blog">Blog</a></li>
         </ul>
       </div>
-      <div class="footer-column">
-        <h3>Copyright</h3>
-        <ul>
-          <li>© 2025 Berezini Partners</li>
-          <li>All Rights Reserved</li>
-          <li><a (click)="goToLegal()" class="hyper-link">Legal Disclaimer</a></li>
-        </ul>
+      
+      <div class="footer-section">
+        <h3>Connect</h3>
+        <div class="social-links">
+          <a href="#" aria-label="Twitter"><mat-icon>twitter</mat-icon></a>
+          <a href="#" aria-label="LinkedIn"><mat-icon>linkedin</mat-icon></a>
+          <a href="https://t.me/bereziniPartnersChat" target="_blank" aria-label="Telegram"><mat-icon>telegram</mat-icon></a>
+        </div>
+        <p class="copyright">© 2025 Berezini Partners. All rights reserved.</p>
       </div>
-    </footer>
+    </div>
   </div>
-</div>
+</footer>
 
