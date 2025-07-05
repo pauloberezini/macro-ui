@@ -1,40 +1,191 @@
-<div class="container">
-  <!-- Left Side (Charts) -->
-  <div class="charts-container">
-    <!-- Historical Sentiment Daily Data -->
-    <div class="chart">
-      <app-sentiment-line-chart [sentimentData]="sentimentData" [title-chart]="'Historical Sentiment Daily Data'"></app-sentiment-line-chart>
+<main class="news-hub">
+  <!-- Hero Section -->
+  <header class="hero-section">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="hero-title">
+          <span class="gradient-text">Market Intelligence</span>
+          <span class="subtitle">AI-Powered News & Sentiment Analysis</span>
+        </h1>
+        <p class="hero-description">
+          Real-time market sentiment tracking with AI-driven insights from the latest financial news
+        </p>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-card">
+          <mat-icon class="stat-icon">trending_up</mat-icon>
+          <span class="stat-number">{{articles.length}}</span>
+          <span class="stat-label">Articles Today</span>
+        </div>
+        <div class="stat-card">
+          <mat-icon class="stat-icon">psychology</mat-icon>
+          <span class="stat-number">AI</span>
+          <span class="stat-label">Powered</span>
+        </div>
+      </div>
     </div>
-    <!-- AI Monthly News Sentiment -->
-    <div class="chart">
-      <app-pie-chart [period]="'monthly'" [title-chart]="'AI Monthly News Sentiment'"></app-pie-chart>
-    </div>
+  </header>
+
+  <!-- Main Content Grid -->
+  <div class="content-grid">
+    <!-- Analytics Dashboard -->
+    <section class="analytics-dashboard">
+      <div class="dashboard-header">
+        <h2 class="dashboard-title">
+          <mat-icon>analytics</mat-icon>
+          Market Sentiment Dashboard
+        </h2>
+        <div class="time-indicator">
+          <mat-icon>schedule</mat-icon>
+          <span>Live Updates</span>
+        </div>
+      </div>
+      
+      <div class="charts-container">
+        <div class="chart-wrapper primary-chart">
+          <div class="chart-header">
+            <h3>Sentiment Trends</h3>
+            <span class="chart-subtitle">Historical Data</span>
+          </div>
+          <div class="chart-content">
+            <app-sentiment-line-chart 
+              [sentimentData]="sentimentData" 
+              [title-chart]="''"
+              aria-label="Historical sentiment trends visualization">
+            </app-sentiment-line-chart>
+          </div>
+        </div>
+        
+        <div class="chart-wrapper secondary-chart">
+          <div class="chart-header">
+            <h3>Distribution</h3>
+            <span class="chart-subtitle">This Month</span>
+          </div>
+          <div class="chart-content">
+            <app-pie-chart 
+              [period]="'monthly'" 
+              [title-chart]="''"
+              aria-label="Monthly sentiment distribution">
+            </app-pie-chart>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- News Feed -->
+    <section class="news-feed">
+      <div class="feed-header">
+        <div class="feed-title-group">
+          <h2 class="feed-title">
+            <mat-icon>newspaper</mat-icon>
+            Latest Market News
+          </h2>
+          <div class="feed-filters">
+            <button class="filter-chip active">All</button>
+            <button class="filter-chip">Positive</button>
+            <button class="filter-chip">Negative</button>
+            <button class="filter-chip">Neutral</button>
+          </div>
+        </div>
+        <div class="feed-actions">
+          <button mat-icon-button class="refresh-button" title="Refresh news">
+            <mat-icon>refresh</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="news-stream" *ngIf="articles.length > 0; else emptyState">
+        <article 
+          *ngFor="let article of articles; trackBy: trackByArticle; let i = index" 
+          class="news-item"
+          [class.featured]="i < 3"
+          role="article">
+          
+          <div class="news-card">
+            <!-- Article Header -->
+            <header class="article-header">
+              <div class="article-meta-row">
+                <time class="publish-time" [attr.datetime]="article.publishedAt">
+                  <mat-icon>schedule</mat-icon>
+                  {{ article.publishedAt | dateFormat }}
+                </time>
+                <div class="sentiment-indicator" [ngClass]="'sentiment-' + article.sentiment">
+                  <span class="sentiment-dot"></span>
+                  <span class="sentiment-text">{{ getSentimentLabel(article.sentiment) }}</span>
+                </div>
+              </div>
+            </header>
+
+            <!-- Article Content -->
+            <div class="article-body">
+              <h3 class="article-headline" [title]="article.title">
+                {{ article.title }}
+              </h3>
+              
+              <p class="article-excerpt" *ngIf="article.description">
+                {{ article.description | truncate:150 }}
+              </p>
+
+              <!-- Article Footer -->
+              <footer class="article-footer">
+                <div class="article-actions">
+                  <a 
+                    mat-stroked-button 
+                    [href]="article.url" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="read-article-btn"
+                    [attr.aria-label]="'Read full article: ' + article.title">
+                    <span>Read Article</span>
+                    <mat-icon>arrow_outward</mat-icon>
+                  </a>
+                </div>
+                
+                <div class="article-engagement">
+                  <button mat-icon-button class="engagement-btn" title="Save article">
+                    <mat-icon>bookmark_border</mat-icon>
+                  </button>
+                  <button mat-icon-button class="engagement-btn" title="Share article">
+                    <mat-icon>share</mat-icon>
+                  </button>
+                </div>
+              </footer>
+            </div>
+
+            <!-- Sentiment Badge Overlay -->
+            <div class="sentiment-badge-overlay" [ngClass]="'badge-' + article.sentiment">
+              <mat-icon class="sentiment-icon">
+                {{ getSentimentIcon(article.sentiment) }}
+              </mat-icon>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Empty State -->
+      <ng-template #emptyState>
+        <div class="empty-state">
+          <div class="empty-illustration">
+            <mat-icon class="empty-icon">article</mat-icon>
+            <div class="empty-animation"></div>
+          </div>
+          <div class="empty-content">
+            <h3 class="empty-title">No News Available</h3>
+            <p class="empty-message">
+              We're constantly monitoring the markets. New articles will appear here as they become available.
+            </p>
+            <button mat-stroked-button class="retry-button">
+              <mat-icon>refresh</mat-icon>
+              Check for Updates
+            </button>
+          </div>
+        </div>
+      </ng-template>
+    </section>
   </div>
 
-  <!-- Right Side (Last News - Takes full height) -->
-  <div class="news-container">
-    <mat-toolbar>
-      <mat-toolbar-row>
-        <mat-icon>newspaper</mat-icon>
-        <span class="example-spacer">Last News</span>
-      </mat-toolbar-row>
-    </mat-toolbar>
-    <div class="news-scroller">
-      <mat-card *ngFor="let article of articles" class="news-article-card">
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <div class="article-header">
-              <span class="article-date">{{ article.publishedAt | dateFormat }}</span>
-              <span class="sentiment-indicator" [ngClass]="article.sentiment"></span>
-              <span class="article-title">{{ article.title | truncate:truncateLength }}</span>
-            </div>
-          </mat-expansion-panel-header>
-          <mat-card-content>
-            <p>{{ article.description }}</p>
-            <a mat-stroked-button [href]="article.url" target="_blank">Read more...</a>
-          </mat-card-content>
-        </mat-expansion-panel>
-      </mat-card>
-    </div>
-  </div>
-</div>
+  <!-- Floating Action Button -->
+  <button mat-fab class="floating-action" title="Scroll to top">
+    <mat-icon>keyboard_arrow_up</mat-icon>
+  </button>
+</main>
