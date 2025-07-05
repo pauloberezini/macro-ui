@@ -68,19 +68,25 @@
               </div>
             </div>
             <div class="quick-stats">
-              <div class="stat-item positive">
+              <div class="stat-item positive" 
+                   [class.clickable]="getSentimentDistribution().positive > 0"
+                   (click)="getSentimentDistribution().positive > 0 && onFilterChange('positive')">
                 <div class="stat-dot positive-dot"></div>
-                <span class="stat-value">45%</span>
+                <span class="stat-value">{{ getSentimentDistribution().positive }}%</span>
                 <span class="stat-label">Positive</span>
               </div>
-              <div class="stat-item neutral">
+              <div class="stat-item neutral"
+                   [class.clickable]="getSentimentDistribution().neutral > 0"
+                   (click)="getSentimentDistribution().neutral > 0 && onFilterChange('neutral')">
                 <div class="stat-dot neutral-dot"></div>
-                <span class="stat-value">35%</span>
+                <span class="stat-value">{{ getSentimentDistribution().neutral }}%</span>
                 <span class="stat-label">Neutral</span>
               </div>
-              <div class="stat-item negative">
+              <div class="stat-item negative"
+                   [class.clickable]="getSentimentDistribution().negative > 0"
+                   (click)="getSentimentDistribution().negative > 0 && onFilterChange('negative')">
                 <div class="stat-dot negative-dot"></div>
-                <span class="stat-value">20%</span>
+                <span class="stat-value">{{ getSentimentDistribution().negative }}%</span>
                 <span class="stat-label">Negative</span>
               </div>
             </div>
@@ -125,14 +131,32 @@
             <mat-icon>newspaper</mat-icon>
             Latest Market News
           </h2>
-          <div class="feed-filters">
-            <button class="filter-chip active">All</button>
-            <button class="filter-chip">Positive</button>
-            <button class="filter-chip">Negative</button>
-            <button class="filter-chip">Neutral</button>
-          </div>
+                     <div class="feed-filters">
+             <button 
+               *ngFor="let filter of filterOptions"
+               class="filter-chip"
+               [class.active]="activeFilter === filter.key"
+               (click)="onFilterChange(filter.key)"
+               [attr.aria-label]="'Filter by ' + filter.label + ' sentiment'">
+               <mat-icon class="filter-icon">{{ filter.icon }}</mat-icon>
+               <span class="filter-label">{{ filter.label }}</span>
+               <span class="filter-count">{{ getFilterCount(filter.key) }}</span>
+             </button>
+           </div>
         </div>
         <div class="feed-actions">
+          <div class="news-stats" *ngIf="allArticles.length > 0">
+            <div class="stats-group">
+              <span class="news-count active-count">{{articles.length}}</span>
+              <span class="count-separator">/</span>
+              <span class="news-count total-count">{{allArticles.length}}</span>
+              <span class="count-label">articles</span>
+            </div>
+            <span class="filter-indicator" *ngIf="activeFilter !== 'all'">
+              <mat-icon class="filter-icon-small">filter_alt</mat-icon>
+              {{ activeFilter }}
+            </span>
+          </div>
           <button mat-icon-button class="refresh-button" title="Refresh news">
             <mat-icon>refresh</mat-icon>
           </button>
@@ -212,18 +236,38 @@
       <ng-template #emptyState>
         <div class="empty-state">
           <div class="empty-illustration">
-            <mat-icon class="empty-icon">article</mat-icon>
+            <mat-icon class="empty-icon">
+              {{ allArticles.length === 0 ? 'article' : 'filter_alt' }}
+            </mat-icon>
             <div class="empty-animation"></div>
           </div>
           <div class="empty-content">
-            <h3 class="empty-title">No News Available</h3>
-            <p class="empty-message">
+            <h3 class="empty-title">
+              {{ allArticles.length === 0 ? 'No News Available' : 'No ' + activeFilter + ' News Found' }}
+            </h3>
+            <p class="empty-message" *ngIf="allArticles.length === 0">
               We're constantly monitoring the markets. New articles will appear here as they become available.
             </p>
-            <button mat-stroked-button class="retry-button">
-              <mat-icon>refresh</mat-icon>
-              Check for Updates
-            </button>
+            <p class="empty-message" *ngIf="allArticles.length > 0">
+              No articles match the current {{ activeFilter }} sentiment filter. Try selecting a different filter or view all articles.
+            </p>
+            <div class="empty-actions">
+              <button 
+                *ngIf="allArticles.length === 0"
+                mat-stroked-button 
+                class="retry-button">
+                <mat-icon>refresh</mat-icon>
+                Check for Updates
+              </button>
+              <button 
+                *ngIf="allArticles.length > 0 && activeFilter !== 'all'"
+                mat-stroked-button 
+                class="show-all-button"
+                (click)="onFilterChange('all')">
+                <mat-icon>clear_all</mat-icon>
+                Show All Articles
+              </button>
+            </div>
           </div>
         </div>
       </ng-template>
@@ -231,7 +275,13 @@
   </div>
 
   <!-- Floating Action Button -->
-  <button mat-fab class="floating-action" title="Scroll to top">
+  <button 
+    mat-fab 
+    class="floating-action" 
+    title="Scroll to top" 
+    (click)="scrollToTop()"
+    [class.show]="showScrollToTop"
+    *ngIf="showScrollToTop">
     <mat-icon>keyboard_arrow_up</mat-icon>
   </button>
 </main>

@@ -14,6 +14,8 @@ import {DateFormatPipe} from "../model/date-format-pipe";
 import {TruncatePipe} from "../model/truncate-pipe";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
 
+export type SentimentFilter = 'all' | 'positive' | 'negative' | 'neutral';
+
 @Component({
   selector: 'app-news',
   templateUrl: './news.component.html',
@@ -37,9 +39,22 @@ import {NgClass, NgForOf, NgIf} from "@angular/common";
 export class NewsComponent implements OnInit, OnDestroy {
 
   articles: Article[] = [];
+  allArticles: Article[] = []; // Store original unfiltered articles
+  filteredArticles: Article[] = []; // Store filtered articles
   sentimentData: any[] = [];
   truncateLength: number = 100;
+  activeFilter: SentimentFilter = 'all';
+  showScrollToTop: boolean = false;
   private mediaSub: Subscription;
+  private scrollHandler: () => void;
+
+  // Filter options for the UI
+  filterOptions = [
+    { key: 'all' as SentimentFilter, label: 'All', icon: 'select_all' },
+    { key: 'positive' as SentimentFilter, label: 'Positive', icon: 'trending_up' },
+    { key: 'negative' as SentimentFilter, label: 'Negative', icon: 'trending_down' },
+    { key: 'neutral' as SentimentFilter, label: 'Neutral', icon: 'trending_flat' }
+  ];
 
   constructor(
     private metaTagService: Meta,
@@ -50,11 +65,15 @@ export class NewsComponent implements OnInit, OnDestroy {
     this.setMetaTags();
     this.loadNewsData();
     this.loadSentimentData();
+    this.setupScrollListener();
   }
 
   ngOnDestroy(): void {
     if (this.mediaSub) {
       this.mediaSub.unsubscribe();
+    }
+    if (this.scrollHandler) {
+      window.removeEventListener('scroll', this.scrollHandler);
     }
   }
 
@@ -73,7 +92,9 @@ export class NewsComponent implements OnInit, OnDestroy {
   private loadNewsData(): void {
     this.stockDataService.getMarketNews().subscribe({
       next: (data: any) => {
-        this.articles = data;
+        this.allArticles = data;
+        this.articles = [...data]; // Initialize filtered articles
+        this.applyFilter(this.activeFilter);
       },
       error: (error) => {
         console.error('Error loading news data:', error);
@@ -90,6 +111,50 @@ export class NewsComponent implements OnInit, OnDestroy {
         console.error('Error loading sentiment data:', error);
       }
     });
+  }
+
+  // Filter functionality
+  onFilterChange(filter: SentimentFilter): void {
+    this.activeFilter = filter;
+    this.applyFilter(filter);
+  }
+
+  private applyFilter(filter: SentimentFilter): void {
+    if (filter === 'all') {
+      this.articles = [...this.allArticles];
+    } else {
+      this.articles = this.allArticles.filter(article => 
+        article.sentiment?.toLowerCase() === filter.toLowerCase()
+      );
+    }
+  }
+
+  // Get sentiment distribution for quick stats
+  getSentimentDistribution() {
+    if (this.allArticles.length === 0) {
+      return { positive: 0, negative: 0, neutral: 0 };
+    }
+
+    const total = this.allArticles.length;
+    const positive = this.allArticles.filter(a => a.sentiment?.toLowerCase() === 'positive').length;
+    const negative = this.allArticles.filter(a => a.sentiment?.toLowerCase() === 'negative').length;
+    const neutral = this.allArticles.filter(a => a.sentiment?.toLowerCase() === 'neutral').length;
+
+    return {
+      positive: Math.round((positive / total) * 100),
+      negative: Math.round((negative / total) * 100),
+      neutral: Math.round((neutral / total) * 100)
+    };
+  }
+
+  // Get filter badge count
+  getFilterCount(filter: SentimentFilter): number {
+    if (filter === 'all') {
+      return this.allArticles.length;
+    }
+    return this.allArticles.filter(article => 
+      article.sentiment?.toLowerCase() === filter.toLowerCase()
+    ).length;
   }
 
   trackByArticle(index: number, article: Article): string {
@@ -120,5 +185,21 @@ export class NewsComponent implements OnInit, OnDestroy {
       default:
         return 'help';
     }
+  }
+
+  // Scroll to top functionality
+  scrollToTop(): void {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+
+  // Setup scroll listener to show/hide scroll to top button
+  private setupScrollListener(): void {
+    this.scrollHandler = () => {
+      this.showScrollToTop = window.pageYOffset > 300;
+    };
+    window.addEventListener('scroll', this.scrollHandler);
   }
 }
