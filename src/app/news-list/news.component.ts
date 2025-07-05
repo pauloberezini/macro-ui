@@ -10,11 +10,13 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatButtonModule} from "@angular/material/button";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {DateFormatPipe} from "../model/date-format-pipe";
 import {TruncatePipe} from "../model/truncate-pipe";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
 
 export type SentimentFilter = 'all' | 'positive' | 'negative' | 'neutral';
+export type ViewLayout = 'cards' | 'list' | 'grid' | 'compact';
 
 @Component({
   selector: 'app-news',
@@ -28,6 +30,7 @@ export type SentimentFilter = 'all' | 'positive' | 'negative' | 'neutral';
     MatCardModule,
     MatExpansionModule,
     MatButtonModule,
+    MatButtonToggleModule,
     DateFormatPipe,
     TruncatePipe,
     NgClass,
@@ -44,6 +47,7 @@ export class NewsComponent implements OnInit, OnDestroy {
   sentimentData: any[] = [];
   truncateLength: number = 100;
   activeFilter: SentimentFilter = 'all';
+  activeView: ViewLayout = 'cards';
   showScrollToTop: boolean = false;
   private mediaSub: Subscription;
   private scrollHandler: () => void;
@@ -54,6 +58,14 @@ export class NewsComponent implements OnInit, OnDestroy {
     { key: 'positive' as SentimentFilter, label: 'Positive', icon: 'trending_up' },
     { key: 'negative' as SentimentFilter, label: 'Negative', icon: 'trending_down' },
     { key: 'neutral' as SentimentFilter, label: 'Neutral', icon: 'trending_flat' }
+  ];
+
+  // View layout options
+  viewOptions = [
+    { key: 'cards' as ViewLayout, label: 'Cards', icon: 'view_agenda', tooltip: 'Detailed card view' },
+    { key: 'list' as ViewLayout, label: 'List', icon: 'view_list', tooltip: 'Compact list view' },
+    { key: 'grid' as ViewLayout, label: 'Grid', icon: 'view_module', tooltip: 'Grid layout' },
+    { key: 'compact' as ViewLayout, label: 'Compact', icon: 'view_headline', tooltip: 'Minimal view' }
   ];
 
   constructor(
@@ -129,6 +141,11 @@ export class NewsComponent implements OnInit, OnDestroy {
     }
   }
 
+  // View layout functionality
+  onViewChange(view: ViewLayout): void {
+    this.activeView = view;
+  }
+
   // Get sentiment distribution for quick stats
   getSentimentDistribution() {
     if (this.allArticles.length === 0) {
@@ -155,6 +172,21 @@ export class NewsComponent implements OnInit, OnDestroy {
     return this.allArticles.filter(article => 
       article.sentiment?.toLowerCase() === filter.toLowerCase()
     ).length;
+  }
+
+  // Get truncate length based on view
+  getTruncateLength(): number {
+    switch (this.activeView) {
+      case 'compact':
+        return 50;
+      case 'list':
+        return 100;
+      case 'grid':
+        return 120;
+      case 'cards':
+      default:
+        return 150;
+    }
   }
 
   trackByArticle(index: number, article: Article): string {

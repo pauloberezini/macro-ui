@@ -145,6 +145,22 @@
            </div>
         </div>
         <div class="feed-actions">
+          <div class="view-toggles">
+            <mat-button-toggle-group 
+              [value]="activeView" 
+              (change)="onViewChange($event.value)"
+              class="view-toggle-group">
+              <mat-button-toggle 
+                *ngFor="let view of viewOptions" 
+                [value]="view.key"
+                [title]="view.tooltip"
+                class="view-toggle">
+                <mat-icon>{{ view.icon }}</mat-icon>
+                <span class="view-label">{{ view.label }}</span>
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+          
           <div class="news-stats" *ngIf="allArticles.length > 0">
             <div class="stats-group">
               <span class="news-count active-count">{{articles.length}}</span>
@@ -157,20 +173,29 @@
               {{ activeFilter }}
             </span>
           </div>
+          
           <button mat-icon-button class="refresh-button" title="Refresh news">
             <mat-icon>refresh</mat-icon>
           </button>
         </div>
       </div>
 
-      <div class="news-stream" *ngIf="articles.length > 0; else emptyState">
+      <div class="news-stream" 
+           [class.view-cards]="activeView === 'cards'"
+           [class.view-list]="activeView === 'list'"
+           [class.view-grid]="activeView === 'grid'"
+           [class.view-compact]="activeView === 'compact'"
+           *ngIf="articles.length > 0; else emptyState">
+        
+        <!-- Cards View (Default) -->
         <article
           *ngFor="let article of articles; trackBy: trackByArticle; let i = index"
           class="news-item"
-          [class.featured]="i < 3"
+          [class.featured]="i < 3 && activeView === 'cards'"
           role="article">
 
-          <div class="news-card">
+          <!-- Cards Layout -->
+          <div class="news-card" *ngIf="activeView === 'cards'">
             <!-- Article Header -->
             <header class="article-header">
               <!-- Sentiment Badge Overlay -->
@@ -189,7 +214,6 @@
                   <span class="sentiment-text">{{ getSentimentLabel(article.sentiment) }}</span>
                 </div>
               </div>
-
             </header>
 
             <!-- Article Content -->
@@ -199,7 +223,7 @@
               </h3>
 
               <p class="article-excerpt" *ngIf="article.description">
-                {{ article.description | truncate:150 }}
+                {{ article.description | truncate:getTruncateLength() }}
               </p>
 
               <!-- Article Footer -->
@@ -227,8 +251,73 @@
                 </div>
               </footer>
             </div>
-
           </div>
+
+          <!-- List Layout -->
+          <div class="news-list-item" *ngIf="activeView === 'list'">
+            <div class="list-content">
+              <div class="list-main">
+                <h4 class="list-headline">{{ article.title }}</h4>
+                <p class="list-excerpt" *ngIf="article.description">
+                  {{ article.description | truncate:getTruncateLength() }}
+                </p>
+                <div class="list-meta">
+                  <time class="list-time">{{ article.publishedAt | dateFormat }}</time>
+                  <div class="list-sentiment" [ngClass]="'sentiment-' + article.sentiment">
+                    <mat-icon class="sentiment-icon-small">{{ getSentimentIcon(article.sentiment) }}</mat-icon>
+                    <span>{{ getSentimentLabel(article.sentiment) }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="list-actions">
+                <a [href]="article.url" target="_blank" class="list-link-btn" title="Read article">
+                  <mat-icon>arrow_outward</mat-icon>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Grid Layout -->
+          <div class="news-grid-item" *ngIf="activeView === 'grid'">
+            <div class="grid-content">
+              <div class="grid-header">
+                <div class="grid-sentiment" [ngClass]="'sentiment-' + article.sentiment">
+                  <mat-icon>{{ getSentimentIcon(article.sentiment) }}</mat-icon>
+                </div>
+                <time class="grid-time">{{ article.publishedAt | dateFormat }}</time>
+              </div>
+              <h4 class="grid-headline">{{ article.title }}</h4>
+              <p class="grid-excerpt" *ngIf="article.description">
+                {{ article.description | truncate:getTruncateLength() }}
+              </p>
+              <div class="grid-footer">
+                <a [href]="article.url" target="_blank" class="grid-link-btn">
+                  <span>Read</span>
+                  <mat-icon>arrow_outward</mat-icon>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Compact Layout -->
+          <div class="news-compact-item" *ngIf="activeView === 'compact'">
+            <div class="compact-content">
+              <div class="compact-indicator" [ngClass]="'sentiment-' + article.sentiment"></div>
+              <div class="compact-main">
+                <h5 class="compact-headline">{{ article.title }}</h5>
+                <div class="compact-meta">
+                  <time class="compact-time">{{ article.publishedAt | dateFormat }}</time>
+                  <span class="compact-sentiment">{{ getSentimentLabel(article.sentiment) }}</span>
+                </div>
+              </div>
+              <div class="compact-actions">
+                <a [href]="article.url" target="_blank" class="compact-link-btn" title="Read article">
+                  <mat-icon>open_in_new</mat-icon>
+                </a>
+              </div>
+            </div>
+          </div>
+
         </article>
       </div>
 
