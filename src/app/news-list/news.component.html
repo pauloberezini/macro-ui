@@ -56,17 +56,62 @@
           </div>
         </div>
 
-        <div class="chart-wrapper secondary-chart">
-          <div class="chart-header">
-            <h3>Distribution</h3>
-            <span class="chart-subtitle">This Month</span>
+                <div class="chart-wrapper sentiment-distribution">
+          <div class="distribution-header">
+            <div class="header-content">
+              <div class="header-icon">
+                <mat-icon>donut_large</mat-icon>
+              </div>
+              <div class="header-text">
+                <h3>Sentiment Distribution</h3>
+                <span class="period-badge">This Month</span>
+              </div>
+            </div>
+            <div class="quick-stats">
+              <div class="stat-item positive">
+                <div class="stat-dot positive-dot"></div>
+                <span class="stat-value">45%</span>
+                <span class="stat-label">Positive</span>
+              </div>
+              <div class="stat-item neutral">
+                <div class="stat-dot neutral-dot"></div>
+                <span class="stat-value">35%</span>
+                <span class="stat-label">Neutral</span>
+              </div>
+              <div class="stat-item negative">
+                <div class="stat-dot negative-dot"></div>
+                <span class="stat-value">20%</span>
+                <span class="stat-label">Negative</span>
+              </div>
+            </div>
           </div>
-          <div class="chart-content">
-            <app-pie-chart
-              [period]="'monthly'"
-              [title-chart]="''"
-              aria-label="Monthly sentiment distribution">
-            </app-pie-chart>
+          
+          <div class="chart-content-enhanced">
+            <div class="chart-container-wrapper">
+              <app-pie-chart 
+                [period]="'monthly'" 
+                [title-chart]="''"
+                aria-label="Monthly sentiment distribution">
+              </app-pie-chart>
+            </div>
+            
+            <div class="insights-panel">
+              <div class="insight-item">
+                <mat-icon class="insight-icon trend-up">trending_up</mat-icon>
+                <div class="insight-text">
+                  <span class="insight-title">Market Optimism</span>
+                  <span class="insight-desc">Positive sentiment up 12% this month</span>
+                </div>
+              </div>
+              
+              <div class="insight-item">
+                <mat-icon class="insight-icon pulse">psychology</mat-icon>
+                <div class="insight-text">
+                  <span class="insight-title">AI Confidence</span>
+                  <span class="insight-desc">High accuracy in sentiment detection</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
