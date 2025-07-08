@@ -9,17 +9,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogTitle, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { MatTooltip } from '@angular/material/tooltip';
-import { 
-  MatTable, 
-  MatHeaderCell, 
-  MatHeaderCellDef, 
-  MatCell, 
-  MatCellDef, 
-  MatColumnDef, 
-  MatHeaderRow, 
-  MatHeaderRowDef, 
-  MatRow, 
-  MatRowDef 
+import {
+  MatTable,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef
 } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { NgForOf, TitleCasePipe, NgIf } from '@angular/common';
@@ -60,12 +60,9 @@ interface DeleteConfirmDialogData {
     MatRow,
     MatRowDef,
     MatSort,
-    NgForOf,
     NgIf,
-    TitleCasePipe,
     SearchBarComponent,
-    ProfileAiInfoComponent,
-    CamelCasePipe
+    ProfileAiInfoComponent
   ],
   standalone: true,
   templateUrl: './profile.component.html',
@@ -85,14 +82,14 @@ export class ProfileComponent implements OnInit {
   readonly clearOnDropdown = signal<boolean>(false);
 
   // Computed values
-  readonly tableStocks = computed(() => 
+  readonly tableStocks = computed(() =>
     this.favoriteStocks().map((stock, index) => ({
       ...stock,
       position: index + 1
     }))
   );
 
-  readonly hasNoFavorites = computed(() => 
+  readonly hasNoFavorites = computed(() =>
     this.favoriteStocks().length === 0 && !this.isLoading()
   );
 
@@ -174,7 +171,7 @@ export class ProfileComponent implements OnInit {
         })
       )
       .subscribe(() => {
-        this.favoriteStocks.update(stocks => 
+        this.favoriteStocks.update(stocks =>
           stocks.filter(s => s.ticker !== stock.ticker)
         );
         this.showSuccessMessage(`${stock.title} removed from favorites`);
@@ -232,7 +229,7 @@ export class ProfileComponent implements OnInit {
     .dialog-container {
       padding: 8px;
     }
-    
+
     .dialog-title {
       display: flex;
       align-items: center;
@@ -240,34 +237,34 @@ export class ProfileComponent implements OnInit {
       color: var(--text-primary);
       margin-bottom: 16px;
     }
-    
+
     .warning-icon {
       color: var(--warning);
     }
-    
+
     .dialog-content {
       margin-bottom: 16px;
     }
-    
+
     .dialog-subtitle {
       color: var(--text-muted);
       font-size: 0.9rem;
       margin-top: 8px;
     }
-    
+
     .dialog-actions {
       gap: 8px;
     }
-    
+
     .cancel-button {
       color: var(--text-secondary);
     }
-    
+
     .confirm-button {
       background-color: var(--error);
       color: white;
     }
-    
+
     .confirm-button:hover {
       background-color: var(--error);
       opacity: 0.9;
