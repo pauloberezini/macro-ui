@@ -57,6 +57,11 @@ export class SignInComponent implements OnInit {
         this.infoMessage = params['message'];
       }
     });
+
+    // If opened as dialog, default to profile page
+    if (this.dialogRef && this.returnUrl === '/') {
+      this.returnUrl = '/app-profile';
+    }
   }
 
   onSubmit(): void {

@@ -171,7 +171,10 @@ export class AppComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('Sign In dialog was closed', result);
-      // You can handle dialog result here if needed
+      // Check if user is now logged in and redirect to profile if needed
+      if (this.authService.isLoggedIn()) {
+        this.router.navigate(['/app-profile']);
+      }
     });
   }
 
