@@ -1,19 +1,21 @@
 /* Profile Container */
 .profile-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: auto 1fr;
   gap: 24px;
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
+  height: 100vh;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 /* Profile Header */
 .profile-header {
   grid-column: 1 / -1;
+  grid-row: 1;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 0;
 }
 
 .profile-title {
@@ -48,12 +50,9 @@
   transform: translateY(-2px);
 }
 
-.favorites-card {
-  min-height: 500px;
-}
-
+.favorites-card,
 .ai-info-card {
-  min-height: 400px;
+  height: 100%;
 }
 
 /* Card Headers */
@@ -319,6 +318,7 @@
 @media (max-width: 768px) {
   .profile-container {
     grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr 1fr;
     gap: 16px;
     padding: 16px;
   }
@@ -388,7 +388,7 @@
 
   .favorites-card,
   .ai-info-card {
-    min-height: auto;
+    height: 100%;
     border-radius: 12px;
   }
 
