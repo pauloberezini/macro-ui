@@ -158,6 +158,7 @@ export class AppComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+    this.router.navigate(['/']);
   }
 
   openSignInPopup(): void {
