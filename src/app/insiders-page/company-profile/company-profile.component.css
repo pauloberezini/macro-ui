@@ -1,13 +1,66 @@
+/* ===== COMPANY PROFILE STYLING ===== */
+
+.company-profile-widget-container {
+  height: 100%;
+  width: 100%;
+  background: var(--background-primary);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
 .company-profile-widget-container__widget {
-  height: 30vh; /* 80% of the viewport height */
-  width: 100%;  /* Full width */
+  height: 100%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: var(--background-primary);
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
 }
 
+/* Widget Content Styling */
+.company-profile-widget-container iframe,
+.company-profile-widget-container > div {
+  border-radius: 8px;
+  border: none;
+  background: var(--background-primary);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
   .company-profile-widget-container__widget {
     height: auto;
+    min-height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .company-profile-widget-container__widget {
+    min-height: 200px;
+  }
+}
+
+/* Focus styles */
+.company-profile-widget-container:focus-within {
+  outline: 2px solid var(--accent-teal);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .company-profile-widget-container {
+    border: 2px solid var(--text-primary);
+  }
+}
+
+/* ===== DARK MODE SUPPORT ===== */
+@media (prefers-color-scheme: dark) {
+  .company-profile-widget-container,
+  .company-profile-widget-container__widget {
+    background: #1a1a1a;
   }
 }

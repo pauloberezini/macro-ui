@@ -1,78 +1,156 @@
-<mat-toolbar>
+<mat-toolbar class="modern-toolbar">
   <mat-toolbar-row>
-    <span>Insiders Data</span>
+    <mat-icon class="toolbar-icon">trending_up</mat-icon>
+    <span class="toolbar-title">Insiders Data</span>
+    <span class="example-spacer"></span>
+    <mat-chip-listbox class="status-chips">
+      <mat-chip-option *ngIf="selectedSuggestion.length > 0" class="selected-stock-chip">
+        {{ selectedSuggestion }}
+      </mat-chip-option>
+    </mat-chip-listbox>
   </mat-toolbar-row>
 </mat-toolbar>
+
 <div class="insiders-container">
-  <!-- Search Bar -->
-  <app-search-bar (suggestionSelected)="handleSuggestion($event)"></app-search-bar>
+  <!-- Search Section -->
+  <div class="search-section">
+    <div class="search-wrapper">
+      <h2 class="search-title">Stock Analysis Dashboard</h2>
+      <p class="search-subtitle">Search for insider trading data and company fundamentals</p>
+      <app-search-bar (suggestionSelected)="handleSuggestion($event)"></app-search-bar>
+    </div>
+  </div>
 
-  <!-- Main Layout -->
-  <div class="main-container">
-
-    <!-- Left Side (Trading View + Insider Transactions) -->
-    <div class="left-side">
-      <!-- Flex container with two rows -->
-      <div class="left-container">
-        <!-- Row 1: Trading View -->
-        <div class="trading-view">
-          <app-trading-view-chart style="height: 100%; width: 100%;"
-                                  [symbol]="selectedSuggestion"
-                                  [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
-          </app-trading-view-chart>
-        </div>
-        <!-- Row 2: Insider Transactions -->
-        <div class="insider-transactions" [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
-          <div class="container">
-            <mat-toolbar>
-              <mat-toolbar-row>
-                <span>Insiders Transactions</span>
-              </mat-toolbar-row>
-            </mat-toolbar>
-            <table mat-table [dataSource]="data" matSort class="mat-elevation-z8 full-width">
-              <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                  {{ column | camelCaseSplit | titlecase }}
-                </th>
-                <td mat-cell *matCellDef="let element">
-                  {{ element[column] }}
-                </td>
-              </ng-container>
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-          </div>
-          <div *ngIf="data?.data?.length === 0" class="data-loader">
-            <div class="spinner-container">
-              <mat-spinner></mat-spinner>
-              <span>Loading data, please wait...</span>
-            </div>
-          </div>
-        </div>
+  <!-- Main Content -->
+  <div class="main-content" *ngIf="selectedSuggestion.length > 0; else welcomeState">
+    <!-- Loading Overlay -->
+    <div class="spinner-overlay" *ngIf="isLoading">
+      <div class="loading-content">
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+        <span class="loading-text">Loading data...</span>
       </div>
     </div>
 
-    <!-- Right Side (Company Profile + Fundamental Data) -->
-    <div class="right-side">
-      <!-- First Cell: Company Profile -->
-      <div class="company-profile" [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
-        <app-company-profile style="height: 100%; width: 100%;" [symbol]="selectedSuggestion"></app-company-profile>
+    <!-- Main Layout -->
+    <div class="main-container">
+      <!-- Left Side (Trading View + Insider Transactions) -->
+      <div class="left-side">
+        <!-- Trading View Card -->
+        <mat-card class="chart-card">
+          <mat-card-header>
+            <mat-card-title>
+              <mat-icon>show_chart</mat-icon>
+              Price Chart
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="chart-content">
+            <app-trading-view-chart
+              [symbol]="selectedSuggestion"
+              class="trading-view-wrapper">
+            </app-trading-view-chart>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Insider Transactions Card -->
+        <mat-card class="transactions-card">
+          <mat-card-header>
+            <mat-card-title>
+              <mat-icon>business_center</mat-icon>
+              Insider Transactions
+            </mat-card-title>
+            <mat-card-subtitle *ngIf="data?.data?.length > 0">
+              {{ data.data.length }} transactions found
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content class="transactions-content">
+            <div class="table-wrapper">
+              <table mat-table [dataSource]="data" matSort class="modern-table">
+                <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    {{ column | camelCaseSplit | titlecase }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element[column] }}
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+              </table>
+            </div>
+
+            <div *ngIf="data?.data?.length === 0" class="no-data-state">
+              <mat-icon class="no-data-icon">hourglass_empty</mat-icon>
+              <h3>Loading Insider Data</h3>
+              <p>Please wait while we fetch the latest insider trading information...</p>
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </div>
+          </mat-card-content>
+        </mat-card>
       </div>
 
-      <!-- Second Cell: Fundamental Data -->
-      <div class="fundamental-data" [style.visibility]="selectedSuggestion.length != 0 ? 'visible' : 'hidden'">
-        <app-fundamental-data style="height: 100%; width: 100%;" [symbol]="selectedSuggestion"></app-fundamental-data>
-      </div>
+      <!-- Right Side (Company Profile + Fundamental Data) -->
+      <div class="right-side">
+        <!-- Company Profile Card -->
+        <mat-card class="profile-card">
+          <mat-card-header>
+            <mat-card-title>
+              <mat-icon>domain</mat-icon>
+              Company Profile
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="profile-content">
+            <app-company-profile [symbol]="selectedSuggestion"></app-company-profile>
+          </mat-card-content>
+        </mat-card>
 
-      <!-- Copyright Positioned at the Bottom -->
-      <div class="tradingview-widget-copyright">
-        <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
-          <span class="blue-text">Track all markets on TradingView</span>
+        <!-- Fundamental Data Card -->
+        <mat-card class="fundamentals-card">
+          <mat-card-header>
+            <mat-card-title>
+              <mat-icon>analytics</mat-icon>
+              Fundamental Data
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="fundamentals-content">
+            <app-fundamental-data [symbol]="selectedSuggestion"></app-fundamental-data>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-section">
+      <div class="tradingview-attribution">
+        <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank" class="attribution-link">
+          <mat-icon>open_in_new</mat-icon>
+          <span>Powered by TradingView</span>
         </a>
       </div>
     </div>
-    <div class="spinner-overlay" *ngIf="isLoading">
-      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-    </div>
   </div>
+
+  <!-- Welcome State -->
+  <ng-template #welcomeState>
+    <div class="welcome-state">
+      <div class="welcome-content">
+        <mat-icon class="welcome-icon">search</mat-icon>
+        <h2>Welcome to Insider Analysis</h2>
+        <p>Enter a stock symbol above to view insider trading data, company fundamentals, and price charts</p>
+        <div class="feature-list">
+          <div class="feature-item">
+            <mat-icon>trending_up</mat-icon>
+            <span>Real-time price charts</span>
+          </div>
+          <div class="feature-item">
+            <mat-icon>business_center</mat-icon>
+            <span>Insider trading transactions</span>
+          </div>
+          <div class="feature-item">
+            <mat-icon>analytics</mat-icon>
+            <span>Company fundamentals</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
 </div>

@@ -1,41 +1,119 @@
+/* ===== FUNDAMENTAL DATA STYLING ===== */
+
 .tradingview-widget-container {
-  height: 100%; /* Ensure full height for the widget container */
-  width: 100%;  /* Ensure full width for the widget container */
+  height: 100%;
+  width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  background: var(--background-primary);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
 }
+
 .tradingview-widget-container__widget {
-  height: 100%; /* Inherit height from the parent container */
-  width: 100%;  /* Inherit width from the parent container */
-  overflow: hidden; /* Remove any unwanted scrollbars */
+  flex: 1;
+  width: 100%;
+  overflow: hidden;
+  background: var(--background-primary);
+  border-radius: 8px;
+  position: relative;
 }
+
+/* Copyright/Attribution */
 .tradingview-widget-copyright {
-  text-align: center; /* Center-aligns the text */
-  margin-top: auto;   /* Ensures it stays at the bottom */
+  background: var(--background-secondary);
+  text-align: center;
+  padding: 0.5rem;
+  margin-top: auto;
+  font-size: 0.75rem;
+  border-top: 1px solid var(--border-light);
+  border-radius: 0 0 8px 8px;
 }
+
+.tradingview-widget-copyright a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.tradingview-widget-copyright a:hover {
+  color: var(--accent-teal);
+}
+
+/* Widget Container Structure */
 .widget-container {
   display: flex;
   flex-direction: column;
-  height: 100%; /* Full height */
+  height: 100%;
+  background: var(--background-primary);
+  border-radius: 8px;
+  overflow: hidden;
 }
+
 .widget-content {
-  flex: 1; /* Pushes the copyright down */
+  flex: 1;
+  overflow: hidden;
+  background: var(--background-primary);
 }
-.tradingview-widget-copyright {
-  text-align: center;
-  font-size: 0.8rem; 
+
+/* Widget Content Styling */
+.tradingview-widget-container iframe,
+.tradingview-widget-container > div {
+  border-radius: 8px;
+  border: none;
+  background: var(--background-primary);
 }
-/* Media query for mobile devices */
+
+/* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
   .tradingview-widget-container {
     height: 400px;
+    min-height: 300px;
   }
+
   .tradingview-widget-copyright {
     font-size: 0.7rem;
+    padding: 0.375rem;
   }
 }
-.tradingview-widget-copyright {
-  text-align: center; /* Center-aligns the text */
-  margin-top: auto;   /* Ensures it stays at the bottom */
+
+@media (max-width: 480px) {
+  .tradingview-widget-container {
+    height: 300px;
+    min-height: 250px;
+  }
+
+  .tradingview-widget-copyright {
+    font-size: 0.65rem;
+    padding: 0.25rem;
+  }
+}
+
+/* Focus styles */
+.tradingview-widget-container:focus-within {
+  outline: 2px solid var(--accent-teal);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .tradingview-widget-container {
+    border: 2px solid var(--text-primary);
+  }
+  
+  .tradingview-widget-copyright {
+    border-top: 2px solid var(--text-primary);
+  }
+}
+
+/* ===== DARK MODE SUPPORT ===== */
+@media (prefers-color-scheme: dark) {
+  .tradingview-widget-container,
+  .tradingview-widget-container__widget,
+  .widget-container,
+  .widget-content {
+    background: #1a1a1a;
+  }
 }

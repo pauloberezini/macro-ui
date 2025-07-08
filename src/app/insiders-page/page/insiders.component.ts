@@ -13,6 +13,10 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {FundamentalDataComponent} from "../fundamental-data/fundamental-data.component";
 import {CompanyProfileComponent} from "../company-profile/company-profile.component";
 import {StockSuggestion} from "../../model/stock-suggestion";
+import {MatCard, MatCardContent, MatCardHeader, MatCardTitle, MatCardSubtitle} from "@angular/material/card";
+import {MatIcon} from "@angular/material/icon";
+import {MatProgressBar} from "@angular/material/progress-bar";
+import {MatChipListbox, MatChipOption} from "@angular/material/chips";
 
 @Component({
   selector: 'insiders',
@@ -29,7 +33,16 @@ import {StockSuggestion} from "../../model/stock-suggestion";
     FundamentalDataComponent,
     CompanyProfileComponent,
     NgIf,
-    NgForOf
+    NgForOf,
+    MatCard,
+    MatCardHeader,
+    MatCardTitle,
+    MatCardSubtitle,
+    MatCardContent,
+    MatIcon,
+    MatProgressBar,
+    MatChipListbox,
+    MatChipOption
   ],
   standalone: true
 })

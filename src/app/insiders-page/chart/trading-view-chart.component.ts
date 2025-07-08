@@ -17,17 +17,24 @@ import {
 export class TradingViewChartComponent implements OnInit, OnChanges {
   private isInitialized = false; // Track if the component has been initialized
 
-  constructor(private el: ElementRef, private renderer: Renderer2) {}
+  constructor(private el: ElementRef, private renderer: Renderer2) {
+  }
 
   @Input() symbol: string = '';
 
   ngOnInit(): void {
+    console.log('TradingView Chart component initialized');
     this.isInitialized = true; // Mark the component as initialized
-    this.loadTradingViewScript();
+    if (this.symbol) {
+      this.loadTradingViewScript();
+    }
   }
 
-  ngOnChanges(_: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('TradingView Chart ngOnChanges called:', changes);
+
     if (!this.isInitialized) {
+      console.log('Component not initialized yet, skipping...');
       return; // Skip if the component has not been initialized
     }
 
@@ -36,8 +43,13 @@ export class TradingViewChartComponent implements OnInit, OnChanges {
       return;
     }
 
+    console.log('Loading TradingView chart for symbol:', this.symbol);
+
     const container = this.el.nativeElement.querySelector('.tradingview-widget-container__widget');
+    console.log('Container found:', !!container);
+
     if (container && container.firstChild) {
+      console.log('Removing existing script');
       this.renderer.removeChild(container, container.firstChild);
     }
 
@@ -45,13 +57,20 @@ export class TradingViewChartComponent implements OnInit, OnChanges {
   }
 
   loadTradingViewScript(): void {
-    console.log('Symbol passed to widget script:', this.symbol);
+    console.log('loadTradingViewScript called with symbol:', this.symbol);
+
+    const container = this.el.nativeElement.querySelector('.tradingview-widget-container__widget');
+    if (!container) {
+      console.error('TradingView container not found!');
+      return;
+    }
 
     const script = this.renderer.createElement('script');
     script.type = 'text/javascript';
     script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js';
     script.async = true;
-    script.text = JSON.stringify({
+
+    const config = {
       symbols: [[`${this.symbol}`]],
       chartOnly: false,
       width: '100%',
@@ -65,11 +84,21 @@ export class TradingViewChartComponent implements OnInit, OnChanges {
       autosize: true,
       dateRanges: ['12m|1D'],
       largeChartUrl: '',
-    });
+    };
 
-    const container = this.el.nativeElement.querySelector('.tradingview-widget-container__widget');
-    if (container) {
-      this.renderer.appendChild(container, script);
-    }
+    console.log('TradingView config:', config);
+    script.text = JSON.stringify(config);
+
+    console.log('Appending TradingView script to container');
+    this.renderer.appendChild(container, script);
+
+    // Add error handling
+    script.onerror = (error: Event) => {
+      console.error('Failed to load TradingView script:', error);
+    };
+
+    script.onload = () => {
+      console.log('TradingView script loaded successfully');
+    };
   }
 }

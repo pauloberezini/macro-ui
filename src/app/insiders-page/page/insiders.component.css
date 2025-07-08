@@ -1,114 +1,477 @@
-/* Main Container (Two-column layout) */
-.main-container {
+/* ===== MODERN DESIGN SYSTEM STYLING ===== */
+
+/* Main Container */
+.insiders-container {
+  background: linear-gradient(135deg, var(--background-secondary) 0%, var(--background-primary) 100%);
+  min-height: 100vh;
+  padding: 0;
+}
+
+/* Toolbar */
+.modern-toolbar {
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-light) 100%) !important;
+  color: var(--background-primary) !important;
+  box-shadow: 0 4px 20px rgba(16, 47, 119, 0.15);
+  position: relative;
+  z-index: 10;
+}
+
+.toolbar-icon {
+  margin-right: 12px;
+  color: var(--accent-teal) !important;
+}
+
+.toolbar-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+}
+
+.status-chips {
   display: flex;
-  width: 100%;
-  height: 100vh;
+  gap: 8px;
 }
 
-/* Left Side: Trading View & Insider Transactions */
-.left-side {
-  flex: 7; /* Equivalent to fxFlex="70" */
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow: hidden;
+.selected-stock-chip {
+  background-color: var(--accent-teal) !important;
+  color: var(--background-primary) !important;
+  font-weight: 600;
 }
 
-/* Right Side: Company Profile & Fundamental Data */
-.right-side {
-  flex: 3; /* Equivalent to fxFlex="30" */
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+/* Search Section */
+.search-section {
+  background: linear-gradient(135deg, var(--background-primary) 0%, var(--background-accent) 100%);
+  padding: 3rem 2rem;
+  border-bottom: 1px solid var(--border-light);
 }
 
-/* Left Container (Trading View & Insider Transactions) */
-.left-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow: hidden;
-}
-
-/* Trading View */
-.trading-view {
-  flex: 1; /* Equivalent to fxFlex="30" */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Insider Transactions */
-.insider-transactions {
-  flex: 1; /* Equivalent to fxFlex="100" */
-  overflow: auto;
-}
-
-/* Company Profile */
-.company-profile {
-  flex: 1; /* Equivalent to fxFlex="100" */
-  overflow: hidden;
-}
-
-/* Fundamental Data */
-.fundamental-data {
-  flex: 1; /* Equivalent to fxFlex="100" */
-  overflow: hidden;
-}
-
-/* Copyright Section */
-.tradingview-widget-copyright {
+.search-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
   text-align: center;
-  margin-top: auto;
 }
 
-/* Supporters & Loading Indicator */
-.supporters, .thanks {
-  padding-top: 20px;
+.search-title {
+  color: var(--text-primary);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.025em;
 }
 
-/* Loading Indicator */
-.loading-indicator {
+.search-subtitle {
+  color: var(--text-secondary);
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+/* Main Content */
+.main-content {
+  padding: 2rem;
+  position: relative;
+}
+
+.main-container {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Left Side */
+.left-side {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  margin-top: 20px;
+  gap: 2rem;
 }
 
-.loading-indicator span {
-  margin-top: 10px;
-  font-size: 14px;
-  color: gray;
+/* Card Styling */
+mat-card {
+  background: var(--background-primary) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 32px rgba(16, 47, 119, 0.08) !important;
+  border: 1px solid var(--border-light);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
 }
 
-/* Responsive (Mobile-Friendly) */ 
-@media (max-width: 768px) {
+mat-card:hover {
+  box-shadow: 0 12px 48px rgba(16, 47, 119, 0.12) !important;
+  transform: translateY(-2px);
+}
+
+mat-card-header {
+  background: linear-gradient(135deg, var(--background-secondary) 0%, var(--background-accent) 100%);
+  padding: 1.5rem !important;
+  border-bottom: 1px solid var(--border-light);
+}
+
+mat-card-title {
+  color: var(--text-primary) !important;
+  font-size: 1.125rem !important;
+  font-weight: 600 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px;
+}
+
+mat-card-title mat-icon {
+  color: var(--accent-teal);
+  font-size: 1.25rem;
+}
+
+mat-card-subtitle {
+  color: var(--text-secondary) !important;
+  font-size: 0.875rem !important;
+  margin-top: 0.25rem !important;
+}
+
+mat-card-content {
+  padding: 1.5rem !important;
+}
+
+/* Chart Card */
+.chart-card {
+  min-height: 500px;
+}
+
+.chart-content {
+  height: 450px;
+  position: relative;
+}
+
+.trading-view-wrapper {
+  height: 100%;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Transactions Card */
+.transactions-card {
+  flex: 1;
+}
+
+.transactions-content {
+  max-height: 600px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.table-wrapper {
+  flex: 1;
+  overflow: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border-light);
+}
+
+.modern-table {
+  width: 100%;
+  background: var(--background-primary);
+}
+
+.modern-table .mat-mdc-header-cell {
+  background: var(--background-secondary);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-bottom: 2px solid var(--accent-teal);
+}
+
+.modern-table .mat-mdc-cell {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.table-row {
+  transition: all 0.2s ease;
+}
+
+.table-row:hover {
+  background-color: var(--background-accent) !important;
+}
+
+/* No Data State */
+.no-data-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-secondary);
+}
+
+.no-data-icon {
+  font-size: 3rem;
+  color: var(--accent-teal);
+  margin-bottom: 1rem;
+}
+
+.no-data-state h3 {
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.no-data-state mat-progress-bar {
+  margin-top: 1.5rem;
+  border-radius: 4px;
+}
+
+/* Right Side */
+.right-side {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.profile-card, .fundamentals-card {
+  flex: 1;
+  min-height: 300px;
+}
+
+.profile-content, .fundamentals-content {
+  height: -webkit-fill-available;
+  overflow: hidden;
+}
+
+/* Loading Overlay */
+.spinner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  border-radius: 16px;
+}
+
+.loading-content {
+  text-align: center;
+  padding: 2rem;
+}
+
+.loading-text {
+  display: block;
+  margin-top: 1rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Welcome State */
+.welcome-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 2rem;
+}
+
+.welcome-content {
+  text-align: center;
+  max-width: 600px;
+}
+
+.welcome-icon {
+  color: var(--accent-teal);
+  margin-bottom: 2rem;
+}
+
+.welcome-content h2 {
+  color: var(--text-primary);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.welcome-content p {
+  color: var(--text-secondary);
+  font-size: 1.125rem;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+.feature-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: var(--background-secondary);
+  border-radius: 12px;
+  border: 1px solid var(--border-light);
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+  background: var(--background-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(16, 47, 119, 0.1);
+}
+
+.feature-item mat-icon {
+  color: var(--accent-teal);
+  font-size: 1.5rem;
+}
+
+.feature-item span {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* Footer */
+.footer-section {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: var(--background-secondary);
+  border-top: 1px solid var(--border-light);
+  border-radius: 16px 16px 0 0;
+}
+
+.tradingview-attribution {
+  text-align: center;
+}
+
+.attribution-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.3s ease;
+}
+
+.attribution-link:hover {
+  color: var(--accent-teal);
+}
+
+.attribution-link mat-icon {
+  font-size: 1rem;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1200px) {
   .main-container {
-    flex-direction: column; /* Stack columns vertically */
+    grid-template-columns: 1fr 350px;
+  }
+}
+
+@media (max-width: 992px) {
+  .main-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
-  .left-side,
   .right-side {
-    flex: 1;
-    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    display: grid;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .search-section {
+    padding: 2rem 1rem;
   }
 
-    .trading-view,
-  .insider-transactions,
-  .company-profile,
-  .fundamental-data{
-    flex: none;
+  .search-title {
+    font-size: 2rem;
   }
 
-  .loading-indicator span {
-    font-size: 12px;
+  .search-subtitle {
+    font-size: 1rem;
   }
 
+  .main-content {
+    padding: 1rem;
+  }
 
-    .supporters, .thanks {
-        padding-top: 10px;
-    }
+  .main-container {
+    gap: 1rem;
+  }
 
+  .right-side {
+    grid-template-columns: 1fr;
+    display: flex;
+  }
 
+  .chart-card {
+    min-height: 400px;
+  }
+
+  .chart-content {
+    height: 350px;
+  }
+
+  .feature-list {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-section {
+    padding: 1.5rem 0.75rem;
+  }
+
+  .main-content {
+    padding: 0.75rem;
+  }
+
+  mat-card-header {
+    padding: 1rem !important;
+  }
+
+  mat-card-content {
+    padding: 1rem !important;
+  }
+
+  .toolbar-title {
+    font-size: 1rem;
+  }
+
+  .profile-content, .fundamentals-content {
+    height: 200px;
+  }
+}
+
+/* ===== ACCESSIBILITY & ANIMATIONS ===== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus styles for accessibility */
+.attribution-link:focus,
+.feature-item:focus-within {
+  outline: 2px solid var(--accent-teal);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  mat-card {
+    border: 2px solid var(--text-primary) !important;
+  }
+
+  .modern-table .mat-mdc-header-cell {
+    border-bottom: 3px solid var(--text-primary);
+  }
 }
