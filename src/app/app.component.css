@@ -500,15 +500,15 @@ body.mobile-menu-open {
   .auth-section {
     display: none;
   }
-  
+
   .mobile-toggle {
     display: flex;
   }
-  
+
   .top-nav {
     min-height: 56px;
   }
-  
+
   .berezini-logo {
     font-size: 1.1rem;
   }
@@ -518,41 +518,9 @@ body.mobile-menu-open {
   .mobile-menu {
     width: 100vw;
   }
-  
+
   .mobile-nav-item {
     padding: 10px 16px;
     font-size: 0.95rem;
-  }
-}
-
-/* ===== LOADING STATES ===== */
-.btn:disabled::after,
-.mobile-auth-btn:disabled::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 14px;
-  height: 14px;
-  margin: -7px 0 0 -7px;
-  border: 2px solid transparent;
-  border-top: 2px solid currentColor;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* ===== ACCESSIBILITY ===== */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
   }
 }
