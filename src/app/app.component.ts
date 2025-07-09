@@ -1,15 +1,15 @@
-import {Component, OnInit, HostListener} from '@angular/core';
-import {Meta} from "@angular/platform-browser";
-import {SignInComponent} from "./login/sign-in/sign-in.component";
-import {MatDialog} from "@angular/material/dialog";
-import {JoinComponent} from "./login/join/join.component";
-import {AuthService} from "./services/auth.service";
-import {Router, RouterOutlet} from "@angular/router";
-import {MatIconModule} from "@angular/material/icon";
-import {MatSidenavModule} from "@angular/material/sidenav";
-import {NgIf} from "@angular/common";
-import {RouterLink, RouterLinkActive} from "@angular/router";
-import {AnimatedBackgroundComponent} from "./animated-background/animated-background.component";
+import { Component, OnInit, HostListener, signal } from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Meta } from '@angular/platform-browser';
+import { SignInComponent } from './login/sign-in/sign-in.component';
+import { MatDialog } from '@angular/material/dialog';
+import { JoinComponent } from './login/join/join.component';
+import { AuthService } from './services/auth.service';
+import { Router, RouterOutlet } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { NgIf } from '@angular/common';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 export interface StockData {
   date: string;
@@ -33,52 +33,108 @@ export interface StockData {
     RouterLink,
     RouterLinkActive
   ],
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  animations: [
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateX(-100%)' }),
+        animate('300ms cubic-bezier(0.4, 0, 0.2, 1)', style({ opacity: 1, transform: 'translateX(0)' }))
+      ]),
+      transition(':leave', [
+        animate('250ms cubic-bezier(0.4, 0, 0.2, 1)', style({ opacity: 0, transform: 'translateX(-100%)' }))
+      ])
+    ])
+  ]
 })
-
 export class AppComponent implements OnInit {
-  mobileMenuOpen = false;
+  // Reactive state management
+  readonly mobileMenuOpen = signal<boolean>(false);
+  readonly isLoggedIn = signal<boolean>(false);
+  readonly isLoading = signal<boolean>(false);
+  
+  // Legacy properties for compatibility
   isCollapsed = true;
-  isLoggedIn: boolean = false;
 
-  constructor(private metaTagService: Meta, private dialog: MatDialog, private authService: AuthService, private router: Router) {
+  constructor(
+    private metaTagService: Meta, 
+    private dialog: MatDialog, 
+    private authService: AuthService, 
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.setupMetaTags();
+    this.setupAuthStateTracking();
+  }
+
+  private setupMetaTags(): void {
+    this.metaTagService.addTags([
+      {
+        name: 'description',
+        content: 'Professional financial analysis platform by Berezini Partners. Access real-time market data, economic calendar, insider trading insights, and advanced analytics tools.'
+      },
+      {
+        name: 'keywords',
+        content: 'financial analysis, market data, economic calendar, insider trading, stock analysis, Berezini Partners, investment research, trading tools'
+      },
+      { property: 'og:title', content: 'Berezini Partners | Professional Financial Analysis Platform' },
+      {
+        property: 'og:description',
+        content: 'Advanced financial analysis tools and real-time market insights for professional traders and investors.'
+      },
+      { property: 'og:url', content: 'https://macro.berezini.com/' },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:image', content: 'https://macro.berezini.com/assets/images/economic-calendar-og-image.png' },
+    ]);
+  }
+
+  private setupAuthStateTracking(): void {
+    this.authService.isLoggedIn$.subscribe(status => {
+      this.isLoggedIn.set(status);
+    });
   }
 
   toggleMobileMenu(): void {
-    this.mobileMenuOpen = !this.mobileMenuOpen;
+    const isOpen = !this.mobileMenuOpen();
+    this.mobileMenuOpen.set(isOpen);
     
-    // Manage body scroll when mobile menu is open
-    if (this.mobileMenuOpen) {
+    // Manage body scroll and focus
+    if (isOpen) {
       document.body.classList.add('mobile-menu-open');
-      // Focus management - focus the close button when menu opens
-      setTimeout(() => {
-        const closeButton = document.querySelector('.close-button') as HTMLElement;
-        if (closeButton) {
-          closeButton.focus();
-        }
-      }, 100);
+      this.focusFirstMenuElement();
     } else {
       document.body.classList.remove('mobile-menu-open');
-      // Return focus to menu toggle button
-      setTimeout(() => {
-        const menuToggle = document.querySelector('.mobile-menu-toggle') as HTMLElement;
-        if (menuToggle) {
-          menuToggle.focus();
-        }
-      }, 100);
+      this.returnFocusToToggle();
     }
   }
 
   closeMobileMenuOnOverlay(event: Event): void {
-    // Close menu when clicking on overlay background
     if (event.target === event.currentTarget) {
       this.toggleMobileMenu();
     }
   }
 
+  private focusFirstMenuElement(): void {
+    setTimeout(() => {
+      const firstMenuItem = document.querySelector('.mobile-nav-item, .close-btn') as HTMLElement;
+      if (firstMenuItem) {
+        firstMenuItem.focus();
+      }
+    }, 100);
+  }
+
+  private returnFocusToToggle(): void {
+    setTimeout(() => {
+      const toggleButton = document.querySelector('.mobile-toggle') as HTMLElement;
+      if (toggleButton) {
+        toggleButton.focus();
+      }
+    }, 100);
+  }
+
   @HostListener('keydown.escape', ['$event'])
   onEscapeKey(event: KeyboardEvent): void {
-    if (this.mobileMenuOpen) {
+    if (this.mobileMenuOpen()) {
       this.toggleMobileMenu();
       event.preventDefault();
     }
@@ -86,8 +142,7 @@ export class AppComponent implements OnInit {
 
   @HostListener('keydown', ['$event'])
   onKeyDown(event: KeyboardEvent): void {
-    // Trap focus within mobile menu when it's open
-    if (this.mobileMenuOpen && (event.key === 'Tab')) {
+    if (this.mobileMenuOpen() && event.key === 'Tab') {
       this.trapFocus(event);
     }
   }
@@ -97,19 +152,17 @@ export class AppComponent implements OnInit {
     if (!mobileMenu) return;
 
     const focusableElements = mobileMenu.querySelectorAll(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]):not([disabled])'
     );
     const firstElement = focusableElements[0] as HTMLElement;
     const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
 
     if (event.shiftKey) {
-      // Shift + Tab
       if (document.activeElement === firstElement) {
         lastElement.focus();
         event.preventDefault();
       }
     } else {
-      // Tab
       if (document.activeElement === lastElement) {
         firstElement.focus();
         event.preventDefault();
@@ -117,104 +170,76 @@ export class AppComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-    this.metaTagService.addTags([
-      {
-        name: 'description',
-        content: 'Access the latest financial events and economic reports with the Berezini Partners Economic Calendar. Track key market-moving events in real-time.'
-      },
-      {
-        name: 'keywords',
-        content: 'economic calendar, financial events, market data, Berezini Partners, financial analysis, trading, forex, stocks, FOMC, unemployment rate, nonfarm payrolls'
-      },
-      {property: 'og:title', content: 'Economic Calendar | Berezini Partners'},
-      {
-        property: 'og:description',
-        content: 'Stay ahead in the market with Berezini Partners Economic Calendar. In-depth analysis and real-time updates on financial events around the globe.'
-      },
-      {property: 'og:url', content: 'https://macro.berezini.com/'},
-      {property: 'og:type', content: 'website'},
-      {property: 'og:image', content: 'https://macro.berezini.com/assets/images/economic-calendar-og-image.png'},
-    ]);
-    this.authService.isLoggedIn$.subscribe(status => {
-      this.isLoggedIn = status;
-    });
-  }
+  async openJoinPopup(): Promise<void> {
+    this.isLoading.set(true);
+    
+    try {
+      const dialogRef = this.dialog.open(JoinComponent, {
+        width: '400px',
+        maxWidth: '90vw',
+        panelClass: 'modern-dialog',
+        disableClose: false,
+        autoFocus: true,
+        restoreFocus: true
+      });
 
-  toggleMenu() {
-    this.isCollapsed = !this.isCollapsed;
-  }
-
-  openJoinPopup(): void {
-    const dialogRef = this.dialog.open(JoinComponent, {
-      width: '400px',
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
+      const result = await dialogRef.afterClosed().toPromise();
       console.log('Join dialog closed:', result);
-      // You can perform additional actions with the result if needed
-    });
+    } catch (error) {
+      console.error('Error opening join dialog:', error);
+    } finally {
+      this.isLoading.set(false);
+    }
   }
 
-  logout(): void {
-    this.authService.logout();
-    this.router.navigate(['/']);
+  async logout(): Promise<void> {
+    this.isLoading.set(true);
+    
+    try {
+      this.authService.logout();
+      await this.router.navigate(['/']);
+      
+      // Close mobile menu if open
+      if (this.mobileMenuOpen()) {
+        this.mobileMenuOpen.set(false);
+        document.body.classList.remove('mobile-menu-open');
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
+    } finally {
+      this.isLoading.set(false);
+    }
   }
 
-  openSignInPopup(): void {
-    const dialogRef = this.dialog.open(SignInComponent, {
-      width: '400px',  // Adjust the width as needed
-      // Optionally, pass data to the component:
-      // data: { anyData: 'your data' },
-      // Optionally, disable closing by clicking outside:
-      // disableClose: true,
-    });
+  async openSignInPopup(): Promise<void> {
+    this.isLoading.set(true);
+    
+    try {
+      const dialogRef = this.dialog.open(SignInComponent, {
+        width: '400px',
+        maxWidth: '90vw',
+        panelClass: 'modern-dialog',
+        disableClose: false,
+        autoFocus: true,
+        restoreFocus: true
+      });
 
-    dialogRef.afterClosed().subscribe((result) => {
+      const result = await dialogRef.afterClosed().toPromise();
       console.log('Sign In dialog was closed', result);
+      
       // Check if user is now logged in and redirect to profile if needed
       if (this.authService.isLoggedIn()) {
-        this.router.navigate(['/app-profile']);
+        await this.router.navigate(['/app-profile']);
       }
-    });
+    } catch (error) {
+      console.error('Error opening sign in dialog:', error);
+    } finally {
+      this.isLoading.set(false);
+    }
   }
 
-  // These methods are no longer needed since we're using routerLink
-  // but keeping them commented in case you need them for any special logic
-  /*
-  goToHome() {
-    this.router.navigate(['/']);
+  // Legacy method for compatibility
+  toggleMenu(): void {
+    this.isCollapsed = !this.isCollapsed;
   }
-  goToEvents() {
-    this.router.navigate(['/app-economic-calendar']);
-  }
-
-  goToSeasonality() {
-    this.router.navigate(['/app-seasonality']);
-  }
-
-  goToStockAnomaly() {
-    this.router.navigate(['/app-stock-anomaly']);
-  }
-
-  goToInsiders() {
-    this.router.navigate(['/insiders']);
-  }
-
-  goToNews() {
-    this.router.navigate(['/app-news']);
-  }
-
-  goToDashGraphs() {
-    this.router.navigate(['/dash-graphs']);
-  }
-
-  goToAbout() {
-    this.router.navigate(['/app-supported-by']);
-  }
-
-  profile() {
-    this.router.navigate(['/app-profile']);
-  }
-  */
 }

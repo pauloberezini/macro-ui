@@ -30,7 +30,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--light-gray);
+  background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+  color: white;
 }
 
 .slide.active {
@@ -52,18 +53,16 @@
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 700;
   margin-bottom: 1.5rem;
-  background: linear-gradient(135deg, var(--light-gray), var(--light-green));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: white;
   line-height: 1.2;
 }
 
 .slide-description {
   font-size: clamp(1.1rem, 2vw, 1.4rem);
   margin-bottom: 2rem;
-  opacity: 0.9;
+  opacity: 0.95;
   line-height: 1.6;
+  color: white;
 }
 
 .slide-stats {
@@ -81,13 +80,14 @@
   display: block;
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 700;
-  color: var(--light-green);
+  color: var(--accent-teal-light);
   margin-bottom: 0.5rem;
 }
 
 .stat-label {
   font-size: 1rem;
-  opacity: 0.8;
+  opacity: 0.9;
+  color: white;
 }
 
 .slide-actions {
@@ -149,7 +149,7 @@
 }
 
 .dot.active {
-  background: var(--light-green);
+  background: var(--accent-teal-light);
   transform: scale(1.2);
 }
 
@@ -172,12 +172,12 @@
 }
 
 .btn:focus {
-  outline: 2px solid var(--light-green);
+  outline: 2px solid var(--accent-teal-light);
   outline-offset: 2px;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--logo-blue), var(--light-green));
+  background: linear-gradient(135deg, var(--accent-teal), var(--accent-teal-light));
   color: white;
   box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
 }
@@ -189,24 +189,24 @@
 
 .btn-secondary {
   background: transparent;
-  color: var(--light-gray);
+  color: white;
   border: 2px solid rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
 }
 
 .btn-secondary:hover {
   background: rgba(255, 255, 255, 0.1);
-  border-color: var(--light-green);
+  border-color: var(--accent-teal-light);
 }
 
 .btn-outline {
   background: transparent;
-  color: var(--logo-blue);
-  border: 2px solid var(--logo-blue);
+  color: var(--accent-teal-light);
+  border: 2px solid var(--accent-teal-light);
 }
 
 .btn-outline:hover {
-  background: var(--logo-blue);
+  background: var(--accent-teal-light);
   color: white;
 }
 
@@ -218,14 +218,14 @@
 /* ========== Features Section ========== */
 .features-section {
   padding: 6rem 0;
-  background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.05) 0%, 
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.05) 0%,
     rgba(255, 255, 255, 0.02) 100%);
 }
 
 .section-header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 4rem ;
 }
 
 .section-header h2 {
@@ -268,7 +268,7 @@
   justify-content: center;
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, var(--logo-blue), var(--light-green));
+  background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
   border-radius: 50%;
   margin-bottom: 1.5rem;
 }
@@ -281,7 +281,7 @@
   font-size: 1.4rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: var(--dark-gray);
+  color: var(--primary-blue-dark);
 }
 
 .feature-card p {
@@ -294,22 +294,22 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--logo-blue);
+  color: var(--accent-teal);
   text-decoration: none;
   font-weight: 600;
   transition: all 0.2s ease;
 }
 
 .feature-link:hover {
-  color: var(--light-green);
+  color: var(--accent-teal-light);
   transform: translateX(4px);
 }
 
 /* ========== Testimonials Section ========== */
 .testimonials-section {
   padding: 6rem 0;
-  background: rgba(26, 26, 26, 0.95);
-  color: var(--light-gray);
+  background: linear-gradient(135deg, var(--primary-blue-dark), var(--primary-blue));
+  color: white;
 }
 
 .testimonials-slider {
@@ -353,7 +353,7 @@
 }
 
 .quote-icon mat-icon {
-  color: var(--light-green);
+  color: var(--accent-teal-light);
   opacity: 0.7;
 }
 
@@ -362,25 +362,28 @@ blockquote {
   font-style: italic;
   line-height: 1.6;
   margin: 0 0 2rem 0;
-  opacity: 0.9;
+  opacity: 0.95;
+  color: white;
 }
 
 .author-info h4 {
   font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: var(--light-green);
+  color: var(--accent-teal-light);
 }
 
 .author-info p {
   font-size: 1rem;
   opacity: 0.8;
   margin-bottom: 0.5rem;
+  color: white;
 }
 
 .company {
   font-size: 0.9rem;
   opacity: 0.7;
+  color: white;
 }
 
 .testimonial-nav {
@@ -399,9 +402,8 @@ blockquote {
 /* ========== CTA Section ========== */
 .cta-section {
   padding: 6rem 0;
-  background: linear-gradient(135deg, 
-    rgba(0, 123, 255, 0.1) 0%, 
-    rgba(40, 167, 69, 0.1) 100%);
+  background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
+  color: white;
 }
 
 .cta-content {
@@ -414,14 +416,14 @@ blockquote {
   font-size: clamp(2rem, 4vw, 2rem);
   font-weight: 700;
   margin-bottom: 1rem;
-  color: var(--light-gray);
+  color: white;
 }
 
 .cta-content p {
   font-size: 1.2rem;
   margin-bottom: 2rem;
-  opacity: 0.9;
-  color: var(--light-gray);
+  opacity: 0.95;
+  color: white;
 }
 
 .cta-buttons {
@@ -443,7 +445,7 @@ blockquote {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--light-green);
+  color: var(--accent-teal-light);
   font-weight: 500;
 }
 
@@ -468,7 +470,7 @@ blockquote {
   font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: var(--light-green);
+  color: var(--accent-teal-light);
 }
 
 .footer-section ul {
@@ -489,7 +491,7 @@ blockquote {
 }
 
 .footer-section a:hover {
-  color: var(--light-green);
+  color: var(--accent-teal-light);
 }
 
 .social-links {
@@ -510,7 +512,7 @@ blockquote {
 }
 
 .social-links a:hover {
-  background: var(--light-green);
+  background: var(--accent-teal-light);
   transform: translateY(-2px);
 }
 

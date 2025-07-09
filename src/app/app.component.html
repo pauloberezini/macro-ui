@@ -1,262 +1,332 @@
+<!-- Skip to content link for accessibility -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
 <!-- Top Navigation Bar -->
-<nav class="top-nav" role="navigation" aria-label="Main navigation">
+<header class="top-nav" role="banner">
   <!-- Logo -->
-  <div class="berezini-logo" routerLink="/">
-    Berezini Partners
+  <div class="logo-container">
+    <a routerLink="/" class="berezini-logo" aria-label="Berezini Partners - Go to homepage">
+    <span class="logo-icon" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+          <rect x="3" y="10" width="3" height="11" fill="currentColor"/>
+          <rect x="9" y="6" width="3" height="15" fill="currentColor"/>
+          <rect x="15" y="2" width="3" height="19" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="logo-text">Berezini Partners</span>
+    </a>
   </div>
 
-  <!-- Desktop Menu: visible on wider screens -->
-  <ul class="menu-items desktop-menu" role="menubar">
-    <li role="none">
-      <a class="main-menu-item" 
-         routerLink="/" 
-         routerLinkActive="active"
-         [routerLinkActiveOptions]="{exact: true}"
-         role="menuitem"
-         aria-label="Go to home page">
-        <mat-icon class="menu-icon" aria-hidden="true">home</mat-icon>
-        Home
-      </a>
-    </li>
-    <li role="none">
-      <a class="main-menu-item" 
-         routerLink="/app-economic-calendar"
-         routerLinkActive="active"
-         role="menuitem"
-         aria-label="Go to events page">
-        <mat-icon class="menu-icon" aria-hidden="true">event_note</mat-icon>
-        Events
-      </a>
-    </li>
-    <li role="none">
-      <a class="main-menu-item" 
-         routerLink="/app-seasonality"
-         routerLinkActive="active"
-         role="menuitem"
-         aria-label="Go to seasonality analysis">
-        <mat-icon class="menu-icon" aria-hidden="true">show_chart</mat-icon>
-        Seasonality
-      </a>
-    </li>
-    <li role="none">
-      <a class="main-menu-item" 
-         routerLink="/app-stock-anomaly"
-         routerLinkActive="active"
-         role="menuitem"
-         aria-label="Go to stock anomaly analysis">
-        <mat-icon class="menu-icon" aria-hidden="true">insights</mat-icon>
-        Anomaly
-      </a>
-    </li>
-    <li role="none">
-      <a class="main-menu-item" 
-         routerLink="/insiders"
-         routerLinkActive="active"
-         role="menuitem"
-         aria-label="Go to insiders information">
-        <mat-icon class="menu-icon" aria-hidden="true">goat</mat-icon>
-        Insiders
-      </a>
-    </li>
-    <li role="none">
-      <a class="main-menu-item" 
-         routerLink="/app-news"
-         routerLinkActive="active"
-         role="menuitem"
-         aria-label="Go to news section">
-        <mat-icon class="menu-icon" aria-hidden="true">pie_chart</mat-icon>
-        News
-      </a>
-    </li>
-    <li role="none">
-      <a class="main-menu-item" 
-         routerLink="/dash-graphs"
-         routerLinkActive="active"
-         role="menuitem"
-         aria-label="Go to dashboard graphs">
-        <mat-icon class="menu-icon" aria-hidden="true">multiline_chart</mat-icon>
-        Dash Graphs
-      </a>
-    </li>
-    <li role="none">
-      <a class="main-menu-item" 
-         routerLink="/app-supported-by"
-         routerLinkActive="active"
-         role="menuitem"
-         aria-label="Go to about page">
-        <mat-icon class="menu-icon" aria-hidden="true">info</mat-icon>
-        About
-      </a>
-    </li>
-  </ul>
+  <!-- Desktop Navigation -->
+  <nav class="desktop-nav" role="navigation" aria-label="Main navigation">
+    <ul class="nav-items" role="menubar">
+      <li role="none">
+        <a class="nav-item"
+           routerLink="/"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact: true}"
+           role="menuitem"
+           aria-label="Go to home page">
+          <mat-icon class="nav-icon" aria-hidden="true">home</mat-icon>
+          <span class="nav-text">Home</span>
+        </a>
+      </li>
+      <li role="none">
+        <a class="nav-item"
+           routerLink="/app-economic-calendar"
+           routerLinkActive="active"
+           role="menuitem"
+           aria-label="Go to economic events">
+          <mat-icon class="nav-icon" aria-hidden="true">event_note</mat-icon>
+          <span class="nav-text">Events</span>
+        </a>
+      </li>
+      <li role="none">
+        <a class="nav-item"
+           routerLink="/app-seasonality"
+           routerLinkActive="active"
+           role="menuitem"
+           aria-label="Go to seasonality analysis">
+          <mat-icon class="nav-icon" aria-hidden="true">show_chart</mat-icon>
+          <span class="nav-text">Seasonality</span>
+        </a>
+      </li>
+      <li role="none">
+        <a class="nav-item"
+           routerLink="/app-stock-anomaly"
+           routerLinkActive="active"
+           role="menuitem"
+           aria-label="Go to stock anomaly analysis">
+          <mat-icon class="nav-icon" aria-hidden="true">insights</mat-icon>
+          <span class="nav-text">Anomaly</span>
+        </a>
+      </li>
+      <li role="none">
+        <a class="nav-item"
+           routerLink="/insiders"
+           routerLinkActive="active"
+           role="menuitem"
+           aria-label="Go to insider trading information">
+          <mat-icon class="nav-icon" aria-hidden="true">trending_up</mat-icon>
+          <span class="nav-text">Insiders</span>
+        </a>
+      </li>
+      <li role="none">
+        <a class="nav-item"
+           routerLink="/app-news"
+           routerLinkActive="active"
+           role="menuitem"
+           aria-label="Go to market news">
+          <mat-icon class="nav-icon" aria-hidden="true">article</mat-icon>
+          <span class="nav-text">News</span>
+        </a>
+      </li>
+      <li role="none">
+        <a class="nav-item"
+           routerLink="/dash-graphs"
+           routerLinkActive="active"
+           role="menuitem"
+           aria-label="Go to analytics dashboard">
+          <mat-icon class="nav-icon" aria-hidden="true">dashboard</mat-icon>
+          <span class="nav-text">Analytics</span>
+        </a>
+      </li>
+      <li role="none">
+        <a class="nav-item"
+           routerLink="/app-supported-by"
+           routerLinkActive="active"
+           role="menuitem"
+           aria-label="Go to about page">
+          <mat-icon class="nav-icon" aria-hidden="true">info</mat-icon>
+          <span class="nav-text">About</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
 
-  <!-- Auth Buttons (always visible, adjust as needed) -->
-  <div class="auth-buttons desktop-menu" *ngIf="!isLoggedIn; else loggedIn">
-    <button class="main-menu-item" 
-            (click)="openSignInPopup()"
-            aria-label="Open sign in dialog">
-      Log In
-    </button>
-    <button class="main-menu-item join-button" 
-            (click)="openJoinPopup()"
-            aria-label="Open sign up dialog">
-      Sign Up Free
-    </button>
-  </div>
-  <ng-template #loggedIn>
-    <div class="auth-buttons desktop-menu">
-      <button class="main-menu-item" 
-              (click)="logout()"
-              aria-label="Logout from account">
-        Logout
+  <!-- Auth Section -->
+  <div class="auth-section">
+    <!-- Logged Out State -->
+    <div class="auth-buttons" *ngIf="!isLoggedIn(); else loggedInTemplate">
+      <button class="btn btn-secondary"
+              (click)="openSignInPopup()"
+              [disabled]="isLoading()"
+              aria-label="Open sign in dialog">
+        <mat-icon class="btn-icon" aria-hidden="true">login</mat-icon>
+        <span class="btn-text">Sign In</span>
+      </button>
+      <button class="btn btn-primary"
+              (click)="openJoinPopup()"
+              [disabled]="isLoading()"
+              aria-label="Create free account">
+        <mat-icon class="btn-icon" aria-hidden="true">person_add</mat-icon>
+        <span class="btn-text">Join Free</span>
       </button>
     </div>
-    <div class="auth-buttons desktop-menu">
-      <a class="main-menu-item" 
-         routerLink="/app-profile"
-         routerLinkActive="active"
-         aria-label="Go to user profile">
-        <span class="material-icons" aria-hidden="true">account_circle</span>
-      </a>
-    </div>
-  </ng-template>
 
-  <!-- Mobile Menu Toggle: visible on mobile screens only -->
-  <button class="mobile-menu-toggle" 
+    <!-- Logged In State -->
+    <ng-template #loggedInTemplate>
+      <div class="user-menu">
+        <a class="profile-link"
+           routerLink="/app-profile"
+           routerLinkActive="active"
+           aria-label="Go to your profile">
+          <mat-icon class="profile-icon" aria-hidden="true">account_circle</mat-icon>
+          <span class="profile-text">Profile</span>
+        </a>
+        <button class="btn btn-ghost"
+                (click)="logout()"
+                [disabled]="isLoading()"
+                aria-label="Sign out of your account">
+          <mat-icon class="btn-icon" aria-hidden="true">logout</mat-icon>
+          <span class="btn-text">Sign Out</span>
+        </button>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- Mobile Menu Toggle -->
+  <button class="mobile-toggle"
           (click)="toggleMobileMenu()"
-          [attr.aria-expanded]="mobileMenuOpen"
+          [attr.aria-expanded]="mobileMenuOpen()"
+          [class.active]="mobileMenuOpen()"
           aria-controls="mobile-menu"
           aria-label="Toggle navigation menu">
-    <mat-icon aria-hidden="true">menu</mat-icon>
+    <span class="hamburger-line"></span>
+    <span class="hamburger-line"></span>
+    <span class="hamburger-line"></span>
   </button>
-</nav>
+</header>
 
 <!-- Mobile Menu Overlay -->
-<div class="mobile-menu-overlay" 
-     *ngIf="mobileMenuOpen"
+<div class="mobile-overlay"
+     *ngIf="mobileMenuOpen()"
      id="mobile-menu"
      role="dialog"
      aria-modal="true"
-     aria-labelledby="mobile-menu-header"
+     aria-labelledby="mobile-menu-title"
      (click)="closeMobileMenuOnOverlay($event)">
-  <nav class="mobile-menu" 
-       role="navigation" 
+
+  <!-- Mobile Menu Content -->
+  <nav class="mobile-menu"
+       role="navigation"
        aria-label="Mobile navigation"
        (click)="$event.stopPropagation()">
-    <div class="mobile-menu-header" id="mobile-menu-header">
-      <span class="berezini-logo" routerLink="/" (click)="toggleMobileMenu()">Berezini Partners</span>
-      <button class="close-button" 
+
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+      <div class="mobile-logo" id="mobile-menu-title">
+            <span class="logo-icon" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+          <rect x="3" y="10" width="3" height="11" fill="currentColor"/>
+          <rect x="9" y="6" width="3" height="15" fill="currentColor"/>
+          <rect x="15" y="2" width="3" height="19" fill="currentColor"/>
+        </svg>
+      </span>
+        <span class="logo-text">Berezini Partners</span>
+      </div>
+      <button class="close-btn"
               (click)="toggleMobileMenu()"
-              aria-label="Close mobile menu">
+              aria-label="Close navigation menu">
         <mat-icon aria-hidden="true">close</mat-icon>
       </button>
     </div>
-    <ul role="menu" class="mobile-menu-list">
+
+    <!-- Mobile Navigation Items -->
+    <ul class="mobile-nav-list" role="menu">
       <li role="none">
-        <a class="mobile-menu-item" 
+        <a class="mobile-nav-item"
            routerLink="/"
            routerLinkActive="active"
            [routerLinkActiveOptions]="{exact: true}"
            role="menuitem"
            (click)="toggleMobileMenu()">
-          Home
+          <mat-icon class="mobile-nav-icon" aria-hidden="true">home</mat-icon>
+          <span class="mobile-nav-text">Home</span>
+          <mat-icon class="nav-arrow" aria-hidden="true">chevron_right</mat-icon>
         </a>
       </li>
       <li role="none">
-        <a class="mobile-menu-item" 
+        <a class="mobile-nav-item"
            routerLink="/app-economic-calendar"
            routerLinkActive="active"
            role="menuitem"
            (click)="toggleMobileMenu()">
-          Events
+          <mat-icon class="mobile-nav-icon" aria-hidden="true">event_note</mat-icon>
+          <span class="mobile-nav-text">Events</span>
+          <mat-icon class="nav-arrow" aria-hidden="true">chevron_right</mat-icon>
         </a>
       </li>
       <li role="none">
-        <a class="mobile-menu-item" 
+        <a class="mobile-nav-item"
            routerLink="/app-seasonality"
            routerLinkActive="active"
            role="menuitem"
            (click)="toggleMobileMenu()">
-          Seasonality
+          <mat-icon class="mobile-nav-icon" aria-hidden="true">show_chart</mat-icon>
+          <span class="mobile-nav-text">Seasonality</span>
+          <mat-icon class="nav-arrow" aria-hidden="true">chevron_right</mat-icon>
         </a>
       </li>
       <li role="none">
-        <a class="mobile-menu-item" 
+        <a class="mobile-nav-item"
            routerLink="/app-stock-anomaly"
            routerLinkActive="active"
            role="menuitem"
            (click)="toggleMobileMenu()">
-          Anomaly
+          <mat-icon class="mobile-nav-icon" aria-hidden="true">insights</mat-icon>
+          <span class="mobile-nav-text">Anomaly</span>
+          <mat-icon class="nav-arrow" aria-hidden="true">chevron_right</mat-icon>
         </a>
       </li>
       <li role="none">
-        <a class="mobile-menu-item" 
+        <a class="mobile-nav-item"
            routerLink="/insiders"
            routerLinkActive="active"
            role="menuitem"
            (click)="toggleMobileMenu()">
-          Insiders
+          <mat-icon class="mobile-nav-icon" aria-hidden="true">trending_up</mat-icon>
+          <span class="mobile-nav-text">Insiders</span>
+          <mat-icon class="nav-arrow" aria-hidden="true">chevron_right</mat-icon>
         </a>
       </li>
       <li role="none">
-        <a class="mobile-menu-item" 
+        <a class="mobile-nav-item"
            routerLink="/app-news"
            routerLinkActive="active"
            role="menuitem"
            (click)="toggleMobileMenu()">
-          News
+          <mat-icon class="mobile-nav-icon" aria-hidden="true">article</mat-icon>
+          <span class="mobile-nav-text">News</span>
+          <mat-icon class="nav-arrow" aria-hidden="true">chevron_right</mat-icon>
         </a>
       </li>
       <li role="none">
-        <a class="mobile-menu-item" 
+        <a class="mobile-nav-item"
            routerLink="/dash-graphs"
            routerLinkActive="active"
            role="menuitem"
            (click)="toggleMobileMenu()">
-          Dash Graphs
+          <mat-icon class="mobile-nav-icon" aria-hidden="true">dashboard</mat-icon>
+          <span class="mobile-nav-text">Analytics</span>
+          <mat-icon class="nav-arrow" aria-hidden="true">chevron_right</mat-icon>
         </a>
       </li>
       <li role="none">
-        <a class="mobile-menu-item" 
+        <a class="mobile-nav-item"
            routerLink="/app-supported-by"
            routerLinkActive="active"
            role="menuitem"
            (click)="toggleMobileMenu()">
-          About
+          <mat-icon class="mobile-nav-icon" aria-hidden="true">info</mat-icon>
+          <span class="mobile-nav-text">About</span>
+          <mat-icon class="nav-arrow" aria-hidden="true">chevron_right</mat-icon>
         </a>
       </li>
     </ul>
-    <!-- Auth Buttons on Mobile -->
-    <div class="mobile-auth-buttons" *ngIf="!isLoggedIn; else mobileLoggedIn">
-      <button class="mobile-menu-item" 
+
+    <!-- Mobile Auth Section -->
+    <div class="mobile-auth" *ngIf="!isLoggedIn(); else mobileLoggedInTemplate">
+      <button class="mobile-auth-btn secondary"
               (click)="openSignInPopup(); toggleMobileMenu()"
-              aria-label="Open sign in dialog">
-        Sign In
+              [disabled]="isLoading()"
+              aria-label="Sign in to your account">
+        <mat-icon aria-hidden="true">login</mat-icon>
+        <span>Sign In</span>
       </button>
-      <button class="mobile-menu-item" 
+      <button class="mobile-auth-btn primary"
               (click)="openJoinPopup(); toggleMobileMenu()"
-              aria-label="Join Berezini Partners">
-        Join Berezini
+              [disabled]="isLoading()"
+              aria-label="Create free account">
+        <mat-icon aria-hidden="true">person_add</mat-icon>
+        <span>Join Free</span>
       </button>
     </div>
-    <ng-template #mobileLoggedIn>
-      <button class="mobile-menu-item" 
-              (click)="logout(); toggleMobileMenu()"
-              aria-label="Logout from account">
-        Logout
-      </button>
-      <a class="mobile-menu-item" 
-         routerLink="/app-profile"
-         routerLinkActive="active"
-         (click)="toggleMobileMenu()"
-         aria-label="Go to user profile">
-        Profile
-      </a>
+
+    <ng-template #mobileLoggedInTemplate>
+      <div class="mobile-user-section">
+        <a class="mobile-profile-link"
+           routerLink="/app-profile"
+           routerLinkActive="active"
+           (click)="toggleMobileMenu()"
+           aria-label="Go to your profile">
+          <mat-icon aria-hidden="true">account_circle</mat-icon>
+          <span>Your Profile</span>
+          <mat-icon class="nav-arrow" aria-hidden="true">chevron_right</mat-icon>
+        </a>
+        <button class="mobile-auth-btn logout"
+                (click)="logout(); toggleMobileMenu()"
+                [disabled]="isLoading()"
+                aria-label="Sign out of your account">
+          <mat-icon aria-hidden="true">logout</mat-icon>
+          <span>Sign Out</span>
+        </button>
+      </div>
     </ng-template>
   </nav>
 </div>
 
 <!-- Main Content Area -->
-<div class="content-area">
+<main id="main-content" class="main-content" role="main">
   <router-outlet></router-outlet>
-</div>
+</main>
