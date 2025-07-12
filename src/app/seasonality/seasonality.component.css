@@ -1,66 +1,494 @@
-/* 📌 Use CSS Grid to replace fxLayout */
-.chart-container {
+/* ========================
+   SEASONALITY COMPONENT STYLES
+   ======================== */
+
+.seasonality-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--background-secondary) 0%, var(--background-accent) 100%);
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* ========================
+   HEADER SECTION
+   ======================== */
+
+.page-header {
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
+  color: var(--background-primary);
+  padding: 3rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="20" fill="url(%23grid)"/></svg>');
+  animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-10px); }
+}
+
+.header-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.page-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.title-icon {
+  font-size: 3rem;
+  height: 3rem;
+  width: 3rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.page-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ========================
+   MAIN CONTENT LAYOUT
+   ======================== */
+
+.main-content {
   display: grid;
-  grid-template-columns: 60% 30%; /* Desktop: First column 60%, Second column 30% */
-  gap: 10px; /* Space between columns */
-  width: 100%;
-
+  grid-template-columns: 1fr 400px;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: -2rem auto 2rem;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 1;
 }
-/* Responsive Layout for Mobile (One Column) */
+
+/* ========================
+   CHARTS SECTION
+   ======================== */
+
+.charts-section {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.charts-section.loading {
+  opacity: 0.7;
+  transform: translateY(10px);
+}
+
+.chart-card {
+  background: var(--background-primary);
+  border-radius: 16px;
+  box-shadow: 
+    0 4px 24px rgba(16, 47, 119, 0.08),
+    0 2px 8px rgba(2, 102, 112, 0.04);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.chart-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 32px rgba(16, 47, 119, 0.12),
+    0 4px 16px rgba(2, 102, 112, 0.08);
+}
+
+.chart-card mat-card-header {
+  background: linear-gradient(135deg, var(--background-accent) 0%, var(--background-secondary) 100%);
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.chart-card mat-card-title {
+  color: var(--primary-blue);
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.chart-card mat-card-subtitle {
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
+}
+
+.chart-card mat-card-content {
+  padding: 2rem;
+}
+
+/* ========================
+   ANALYSIS SIDEBAR
+   ======================== */
+
+.analysis-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.analysis-card {
+  background: var(--background-primary);
+  border-radius: 16px;
+  box-shadow: 
+    0 4px 24px rgba(16, 47, 119, 0.06),
+    0 2px 8px rgba(2, 102, 112, 0.03);
+  transition: all 0.3s ease;
+}
+
+.analysis-card mat-card-header {
+  padding: 1.5rem 1.5rem 0;
+}
+
+.analysis-card mat-card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary-blue);
+  font-weight: 600;
+}
+
+.analysis-card mat-card-title mat-icon {
+  color: var(--accent-teal);
+}
+
+.analysis-card mat-card-content {
+  padding: 1rem 1.5rem 1.5rem;
+}
+
+/* ========================
+   LOADING STATES
+   ======================== */
+
+.analysis-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.analysis-loading p {
+  margin-top: 1rem;
+  color: var(--text-secondary);
+}
+
+.page-loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  backdrop-filter: blur(4px);
+}
+
+.loading-content {
+  text-align: center;
+  padding: 2rem;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.loading-content h3 {
+  font-size: 1.5rem;
+  color: var(--primary-blue);
+  margin: 1.5rem 0 0.5rem;
+}
+
+.loading-content p {
+  color: var(--text-secondary);
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .page-loading-overlay {
+    background: rgba(0, 0, 0, 0.95);
+  }
+
+  .loading-content {
+    background: var(--background-primary);
+  }
+}
+
+/* ========================
+   EMPTY STATES
+   ======================== */
+
+.empty-analysis {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-secondary);
+}
+
+.empty-icon {
+  font-size: 4rem;
+  height: 4rem;
+  width: 4rem;
+  color: var(--border-medium);
+  margin-bottom: 1rem;
+}
+
+.empty-analysis h3 {
+  color: var(--text-primary);
+  margin: 1rem 0 0.5rem;
+}
+
+.empty-analysis p {
+  line-height: 1.6;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+/* ========================
+   STATS CARD
+   ======================== */
+
+.stats-card {
+  background: linear-gradient(135deg, var(--info-light) 0%, var(--background-primary) 100%);
+  border-radius: 12px;
+  border: 1px solid var(--border-light);
+}
+
+.stats-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  background: var(--background-primary);
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.stat-item:hover {
+  transform: translateX(4px);
+}
+
+.stat-icon {
+  color: var(--accent-teal);
+  font-size: 1.5rem;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.stat-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 1.1rem;
+  color: var(--primary-blue);
+  font-weight: 600;
+}
+
+/* ========================
+   ANIMATIONS
+   ======================== */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+.chart-card,
+.analysis-card,
+.stats-card {
+  animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.analysis-card {
+  animation-delay: 0.1s;
+}
+
+.stats-card {
+  animation-delay: 0.2s;
+}
+
+/* ========================
+   RESPONSIVE DESIGN
+   ======================== */
+
+@media (max-width: 1024px) {
+  .main-content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: -1rem;
+  }
+
+  .analysis-sidebar {
+    order: -1;
+  }
+
+  .stats-grid {
+    flex-direction: row;
+  }
+}
+
 @media (max-width: 768px) {
-    .chart-container {
-      grid-template-columns: 1fr; /* Mobile: Full width stacked layout */
-      gap: 5px;
-    }
+  .seasonality-container {
+    padding: 0;
+  }
 
+  .page-header {
+    padding: 2rem 1rem 3rem;
+  }
 
-/* Responsive Layout for Mobile (One Column) */
-  .chart-container {
-    grid-template-columns: 1fr; /* Mobile: Full width stacked layout */
+  .page-title {
+    font-size: 2rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .title-icon {
+    font-size: 2.5rem;
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+
+  .page-subtitle {
+    font-size: 1rem;
+  }
+
+  .main-content {
+    padding: 0 1rem;
+    gap: 1rem;
+    margin-top: -1rem;
+  }
+
+  .chart-card mat-card-content,
+  .analysis-card mat-card-content {
+    padding: 1rem;
+  }
+
+  .stats-grid {
+    flex-direction: column;
+  }
+
+  .loading-content {
+    margin: 1rem;
+    padding: 1.5rem;
   }
 }
 
-/* Ensure Full Height for mat-grid-tile Content */
-mat-grid-tile-content {
-  height: 100%;
-}
-
-/* Material Button Toggle Group */
-mat-button-toggle-group {
-  margin-left: 12px;
-}
-
-/* Responsive Design Adjustments */
-
-/* 📌 Mobile Phones */
-@media screen and (max-width: 768px) {
-  mat-grid-tile {
-    padding: 5px;
-    margin-bottom: 5px;
-
-
+@media (max-width: 480px) {
+  .page-header {
+    padding: 1.5rem 0.75rem 2.5rem;
   }
-  .mat-form-field {
-    width: 100%;
+
+  .page-title {
+    font-size: 1.75rem;
+  }
+
+  .main-content {
+    padding: 0 0.75rem;
+  }
+
+  .chart-card,
+  .analysis-card {
+    border-radius: 12px;
   }
 }
 
-/* 📌 Tablets */
-@media screen and (min-width: 601px) and (max-width: 960px) {
-  mat-grid-tile {
-    padding: 10px;
-  }
-  .mat-form-field {
-    width: 50%;
+/* ========================
+   ACCESSIBILITY ENHANCEMENTS
+   ======================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
-/* 📌 Desktops */
-@media screen and (min-width: 961px) {
-  mat-grid-tile {
-    height: 100%;
+@media (prefers-color-scheme: dark) {
+  .seasonality-container {
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary-blue-dark) 100%);
   }
-  .mat-form-field {
-    width: 25%;
+
+  .chart-card,
+  .analysis-card {
+    background: var(--text-primary);
+    color: var(--background-primary);
   }
+}
+
+/* Focus indicators for accessibility */
+.chart-card:focus-within,
+.analysis-card:focus-within,
+.stats-card:focus-within {
+  outline: 2px solid var(--accent-teal);
+  outline-offset: 2px;
 }

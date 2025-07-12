@@ -1,13 +1,99 @@
-<div class="chart-container">
-
-  <!-- 📌 First Column: Chart (60% width on desktop, full width on mobile) -->
-  <div class="chart-column">
-    <app-chart-year-component (valueChanged)="handleValueChanged($event)"></app-chart-year-component>
+<div class="seasonality-container">
+  <!-- Loading Overlay -->
+  <div *ngIf="isLoading$ | async" class="page-loading-overlay">
+    <div class="loading-content">
+      <mat-spinner diameter="60"></mat-spinner>
+      <h3>Analyzing Market Data</h3>
+      <p>Please wait while we process seasonal patterns...</p>
+    </div>
   </div>
 
-  <!-- 📌 Second Column: Dynamic Content (30% width on desktop, full width on mobile) -->
-  <div class="dynamic-column">
-    <ng-template #dynamicInsert></ng-template>
-  </div>
+  <!-- Header Section -->
+  <header class="page-header">
+    <div class="header-content">
+      <h1 class="page-title">
+        <mat-icon class="title-icon">trending_up</mat-icon>
+        Seasonal Trading Analytics
+      </h1>
+      <p class="page-subtitle">
+        Discover historical market patterns and seasonal trends to optimize your trading strategy
+      </p>
+    </div>
+  </header>
 
+  <!-- Main Content Area -->
+  <main class="main-content">
+    <!-- Charts Section -->
+    <section class="charts-section">
+      <mat-card class="chart-card" elevation="2">
+        <mat-card-header>
+          <mat-card-title>Market Seasonality Chart</mat-card-title>
+          <mat-card-subtitle>Historical performance patterns by month and election cycles</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <app-chart-year-component
+            (valueChanged)="handleValueChanged($event)">
+          </app-chart-year-component>
+        </mat-card-content>
+      </mat-card>
+    </section>
+
+    <!-- Dynamic Analysis Section -->
+    <aside class="analysis-sidebar">
+      <mat-card class="analysis-card" elevation="2">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>analytics</mat-icon>
+            Market Analysis
+          </mat-card-title>
+          <mat-card-subtitle>Detailed insights for {{ selectedStockSymbol }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <div class="dynamic-content-wrapper">
+            <ng-template #dynamicInsert></ng-template>
+
+            @if (!hasDynamicContent) {
+              <div class="empty-analysis">
+                <mat-icon class="empty-icon">insights</mat-icon>
+                <h3>No Analysis Available</h3>
+                <p>Select a different symbol to view detailed market analysis and insights.</p>
+              </div>
+            }
+          </div>
+
+          @if (errorMessage) {
+            <div class="error-message">
+              <mat-icon color="warn">error_outline</mat-icon>
+              <p>{{ errorMessage }}</p>
+              <button mat-button color="primary" (click)="refreshData()">Try Again</button>
+            </div>
+          }
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Quick Stats Card -->
+      <mat-card class="stats-card" elevation="1">
+        <mat-card-content>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <mat-icon class="stat-icon">calendar_today</mat-icon>
+              <div class="stat-content">
+                <span class="stat-label">Current Month</span>
+                <span class="stat-value">{{ getCurrentMonthName() }}</span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <mat-icon class="stat-icon">show_chart</mat-icon>
+              <div class="stat-content">
+                <span class="stat-label">Symbol</span>
+                <span class="stat-value">{{ selectedStockSymbol }}</span>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </aside>
+  </main>
 </div>

@@ -1,1 +1,79 @@
-<p>profile-ai-info works!</p>
+<mat-card class="ai-profile-card">
+  <mat-card-header>
+    <mat-card-title>AI Trading Profile</mat-card-title>
+    <button mat-icon-button (click)="refreshProfile()" [disabled]="isLoading" aria-label="Refresh AI profile">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </mat-card-header>
+
+  <mat-card-content>
+    @if (isLoading) {
+      <div class="loading-container">
+        <mat-spinner diameter="40"></mat-spinner>
+        <p>Loading your AI profile...</p>
+      </div>
+    } @else if (error) {
+      <div class="error-container">
+        <mat-icon color="warn">error_outline</mat-icon>
+        <p>{{ error }}</p>
+      </div>
+    } @else if (aiData) {
+      <div class="ai-profile-content">
+        <section class="summary-section">
+          <h3>Trading Summary</h3>
+          <p>{{ aiData.summary }}</p>
+        </section>
+
+        <section class="trading-style-section">
+          <div class="style-item">
+            <h4>Trading Style</h4>
+            <p>{{ aiData.tradingStyle }}</p>
+          </div>
+          <div class="style-item">
+            <h4>Risk Level</h4>
+            <p>{{ aiData.riskLevel }}</p>
+          </div>
+          <div class="style-item">
+            <h4>Trading Frequency</h4>
+            <p>{{ aiData.tradingFrequency }}</p>
+          </div>
+        </section>
+
+        <section class="markets-section">
+          <h4>Preferred Markets</h4>
+          <div class="markets-list">
+            @for (market of aiData.preferredMarkets; track market) {
+              <span class="market-tag">{{ market }}</span>
+            }
+          </div>
+        </section>
+
+        @if (aiData.topPerformingTrades?.length) {
+          <section class="top-trades-section">
+            <h4>Top Performing Trades</h4>
+            <div class="trades-list">
+              @for (trade of aiData.topPerformingTrades; track trade) {
+                <div class="trade-item">
+                  <span class="trade-symbol">{{ trade.symbol }}</span>
+                  <span class="trade-return" [class.positive]="trade.returnPercentage > 0">
+                    {{ trade.returnPercentage > 0 ? '+' : '' }}{{ trade.returnPercentage }}%
+                  </span>
+                  <span class="trade-date">{{ trade.date | date:'mediumDate' }}</span>
+                </div>
+              }
+            </div>
+          </section>
+        }
+
+        <div class="last-updated">
+          Last updated: {{ aiData.lastUpdated | date:'medium' }}
+        </div>
+      </div>
+    } @else {
+      <div class="no-data-container">
+        <mat-icon>analytics</mat-icon>
+        <p>No AI profile data available yet. Click refresh to generate your profile.</p>
+      </div>
+    }
+  </mat-card-content>
+</mat-card>

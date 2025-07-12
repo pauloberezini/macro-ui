@@ -71,8 +71,6 @@ export class MacroChartsComponent implements OnInit {
         filter(value => value.length > 1) // Only if the value length is greater than 1
       )
       .subscribe(value => {
-        debugger
-
         this.request(value);
       });
   }

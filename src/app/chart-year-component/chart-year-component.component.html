@@ -1,34 +1,38 @@
-<mat-toolbar>
-  <mat-toolbar-row>
-    <span>Seasonal trading pattern analytics</span>
-  </mat-toolbar-row>
-</mat-toolbar>
-<app-loader *ngIf="isLoading"></app-loader>
-<section style="display: flex; align-items: center; gap: 20px;">
-  <!-- Материальный селект (выпадающий список) -->
-  <mat-form-field>
-    <mat-label>Enter a stock symbol</mat-label>
-    <mat-select (selectionChange)="getData('dropdown')" [(value)]="stockName" name="stock">
-      <mat-option *ngFor="let symbol of stockSymbols" [value]="symbol">{{ symbol }}</mat-option>
-    </mat-select>
-  </mat-form-field>
+  <div class="chart-controls">
+    <mat-button-toggle-group [(ngModel)]="election" (change)="getData('toggle')" aria-label="Chart Type">
+      <mat-button-toggle value="regular">Regular</mat-button-toggle>
+      <mat-button-toggle value="pre">Pre Election</mat-button-toggle>
+      <mat-button-toggle value="elec">Election</mat-button-toggle>
+      <mat-button-toggle value="post">Post Election</mat-button-toggle>
+    </mat-button-toggle-group>
 
-  <!-- Кастомный компонент для ввода -->
-  <div>
-    <app-search-bar  [clearOnDropdown]="clearOnDropdown" (suggestionSelected)="handleSuggestion($event)"></app-search-bar>
+    <mat-form-field>
+      <mat-label>Select Symbol</mat-label>
+      <mat-select [(ngModel)]="stockName" (selectionChange)="getData('dropdown')">
+        <mat-option *ngFor="let symbol of stockSymbols" [value]="symbol">
+          {{ symbol }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <app-search-bar
+      [clearOnDropdown]="clearOnDropdown"
+      (suggestionSelected)="handleSuggestion($event)">
+    </app-search-bar>
   </div>
-</section>
 
+  <div class="chart-content" [class.loading]="isLoading$ | async">
+    <div *ngIf="isLoading$ | async" class="loading-overlay">
+      <app-loader></app-loader>
+      <p class="loading-text">Analyzing Market Data</p>
+      <p class="loading-subtext">Please wait while we process seasonal patterns...</p>
+    </div>
 
-<section>
-  <mat-button-toggle-group (change)="getData('dropdown')" [(ngModel)]="election" aria-label="Font Style">
-    <mat-button-toggle value="regular">Regular</mat-button-toggle>
-    <mat-button-toggle value="pre">Pre Election</mat-button-toggle>
-    <mat-button-toggle value="elec">Election</mat-button-toggle>
-    <mat-button-toggle value="post">Post Election</mat-button-toggle>
-  </mat-button-toggle-group>
-</section>
+    <div *ngIf="error" class="error-message">
+      <mat-icon color="warn">error_outline</mat-icon>
+      <p>{{ error }}</p>
+      <button mat-button color="primary" (click)="getData('retry')">Try Again</button>
+    </div>
 
-<div class="chart-container">
-  <canvas [id]="canvasIdSeasonal">{{ chartSeasonal }}</canvas>
-</div>
+    <canvas [id]="canvasIdSeasonal" [style.display]="(isLoading$ | async) || error ? 'none' : 'block'"></canvas>
+  </div>

@@ -130,9 +130,9 @@ export class StockDataService {
     return this.http.get<any>(url, { params });
   }
 
-  getCurrentYearData(stockName: string): Observable<StockData[]> {
+  getCurrentYearData(stockName: string): Observable<any> {
     const url = `${environment.seasonal}/current-year/${stockName}`;
-    return this.http.get<StockData[]>(url);
+    return this.http.get<any>(url);
   }
 }
 ``

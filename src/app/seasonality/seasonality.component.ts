@@ -4,6 +4,12 @@ import {PieAreaComponent} from "../pie-area/pie-area.component";
 import {ChartYearComponentComponent} from "../chart-year-component/chart-year-component.component";
 import {Meta} from "@angular/platform-browser";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonModule } from '@angular/material/button';
+import { BehaviorSubject } from 'rxjs';
 
 export interface Tile {
   color: string;
@@ -16,29 +22,52 @@ export interface Tile {
   templateUrl: './seasonality.component.html',
   standalone: true,
   imports: [
-    ChartYearComponentComponent
+    CommonModule,
+    ChartYearComponentComponent,
+    MatCardModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatButtonModule
   ],
   styleUrls: ['./seasonality.component.css']
 })
-
 export class SeasonalityComponent implements OnInit {
-  @ViewChild(SeasonalityPro) lineChartComponent!: SeasonalityPro;
-  @ViewChild(PieAreaComponent) pieAreaComponent!: PieAreaComponent;
-  @ViewChild(ChartYearComponentComponent) chartYearComponentComponent!: ChartYearComponentComponent;
   @ViewChild('dynamicInsert', {read: ViewContainerRef}) dynamicInsert!: ViewContainerRef;
+  @ViewChild(ChartYearComponentComponent) chartComponent!: ChartYearComponentComponent;
 
+  // Loading states
+  private loadingSubject = new BehaviorSubject<boolean>(true); // Start with loading true
+  isLoading$ = this.loadingSubject.asObservable();
 
-  constructor(private metaTagService: Meta, private cdRef: ChangeDetectorRef) {
-
-  }
+  // Component states
   selectedStockSymbol: string = 'SP500';
-  selectedMonth: string = '04';
+  hasDynamicContent: boolean = false;
+  errorMessage: string | null = null;
 
-  async ngOnInit() {
+  constructor(
+    private metaTagService: Meta,
+    private cdRef: ChangeDetectorRef,
+    private breakpointObserver: BreakpointObserver
+  ) {}
+
+  ngOnInit() {
+    this.setupMetaTags();
+
+    // Set initial loading state
+    this.loadingSubject.next(true);
+
+    // Simulate initial data load delay
+    setTimeout(() => {
+      this.loadingSubject.next(false);
+      this.cdRef.detectChanges();
+    }, 1000); // Short delay to ensure components are ready
+  }
+
+  private setupMetaTags() {
     this.metaTagService.addTags([
       {
         name: 'description',
-        content: 'Explore historical market trends with Berezini Partners’ Seasonal Trading Pattern Analytics. Uncover patterns and make informed trading decisions based on SP500 historical seasonality.'
+        content: 'Explore historical market trends with Berezini Partners\' Seasonal Trading Pattern Analytics. Uncover patterns and make informed trading decisions based on SP500 historical seasonality.'
       },
       {
         name: 'keywords',
@@ -51,35 +80,66 @@ export class SeasonalityComponent implements OnInit {
       },
       {property: 'og:url', content: 'https://macro.berezini.com/app-seasonality'},
       {property: 'og:type', content: 'website'},
-      {property: 'og:image', content: 'https://macro.berezini.com/assets/images/seasonality-analysis-og-image.png'}, // Replace with your actual image path
+      {property: 'og:image', content: 'https://macro.berezini.com/assets/images/seasonality-analysis-og-image.png'},
     ]);
-    const currentMonth = new Date().getMonth() + 1; // +1 because getMonth() returns a zero-based value (0 for January, 1 for February, and so on)
-    this.selectedMonth = currentMonth < 10 ? '0' + currentMonth : '' + currentMonth;
   }
 
   handleValueChanged(stockName: string) {
+    if (stockName === this.selectedStockSymbol) return;
+
     this.selectedStockSymbol = stockName;
-    this.getData();
+    this.loadDynamicContent().then(r => {
+      // Ensure change detection runs after dynamic content is loaded
+      this.cdRef.detectChanges();
+    } );
   }
 
-  async getData(){
-    debugger
-    if (this.dynamicInsert) {
-      this.dynamicInsert.clear();
-    }
+  private async loadDynamicContent() {
+    if (this.loadingSubject.value) return;
 
-    this.cdRef.detectChanges();
+    this.loadingSubject.next(true);
+    this.errorMessage = null;
 
-    const componentMap: Record<string, () => Promise<Type<any>>> = {
-      'GAS': () => import('../dynamic-component/gas/gas.component').then(m => m.GasComponent),
-      // Add other mappings...
-    };
+    try {
+      if (this.dynamicInsert) {
+        this.dynamicInsert.clear();
+        this.hasDynamicContent = false;
+      }
 
-    if (componentMap[this.selectedStockSymbol]) {
-      await componentMap[this.selectedStockSymbol]().then((cmp: Type<unknown>) => {
-        return this.dynamicInsert.createComponent(cmp);
-      });
+      const componentMap: Record<string, () => Promise<Type<any>>> = {
+        'GAS': () => import('../dynamic-component/gas/gas.component').then(m => m.GasComponent),
+        // Add other mappings as needed
+      };
+
+      if (componentMap[this.selectedStockSymbol]) {
+        const component = await componentMap[this.selectedStockSymbol]();
+        const componentRef = this.dynamicInsert.createComponent(component);
+        this.hasDynamicContent = true;
+      }
+    } catch (error) {
+      console.error('Error loading dynamic component:', error);
+      this.errorMessage = 'Failed to load analysis data. Please try again.';
+    } finally {
+      // Short delay to ensure smooth loading state transition
+      setTimeout(() => {
+        this.loadingSubject.next(false);
+        this.cdRef.detectChanges();
+      }, 300);
     }
   }
 
+  getCurrentMonthName(): string {
+    const months = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    const currentMonth = new Date().getMonth();
+    return months[currentMonth];
+  }
+
+  refreshData() {
+    if (this.chartComponent) {
+      this.chartComponent.getData('refresh');
+    }
+  }
 }
