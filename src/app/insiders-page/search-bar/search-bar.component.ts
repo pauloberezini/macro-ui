@@ -58,6 +58,16 @@ export class SearchBarComponent implements OnInit {
     this.showSuggestions = false;
   }
 
+  // Emit the current input value as a suggestion on Enter or blur
+  onEnterOrBlur(): void {
+    const value = this.searchControl.value?.trim();
+    if (value) {
+      // Emit as a plain string or as a StockSuggestion-like object
+      this.suggestionSelected.emit({cik: "", id: 0, ticker: value, title: value });
+      this.showSuggestions = false;
+    }
+  }
+
   nameToDisplay(suggestion: StockSuggestion): string {
     return `${suggestion.ticker} (${suggestion.title})`;
   }

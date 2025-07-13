@@ -53,7 +53,7 @@ export class ChartYearComponentComponent implements OnInit {
   clearOnDropdown: boolean = false;
 
   stockSymbols: string[] = [
-    "AUDUSD", "BRENT", "BTCUSD", "COPPER", "CORN", "DAX",
+    "AUDUSD", "BRENT", "COPPER", "CORN", "DAX",
     "DOW_JONES", "DXY", "EURUSD", "GAS", "GASOLINE", "GBPUSD",
     "GOLD", "NASDAQ_100", "NIKKEI_225", "NZDUSD", "PLATINUM",
     "SILVER", "SOYBEANS", "SP500", "USDCAD", "USDCHF", "USDJPY",
@@ -77,7 +77,7 @@ export class ChartYearComponentComponent implements OnInit {
 
   getMarketstackSymbol(symbol: string): string {
     const symbolMapMarket: Record<string, string> = {
-      AUDUSD: "FXA", BRENT: "BNO", BTCUSD: "GBTC",
+      AUDUSD: "FXA", BRENT: "BNO",
       COPPER: "CPER", CORN: "CORN", DAX: "DAX",
       DOW_JONES: "DIA", DXY: "UUP", EURUSD: "FXE",
       GAS: "UNG", GASOLINE: "UGA", GBPUSD: "FXB",
@@ -103,6 +103,7 @@ export class ChartYearComponentComponent implements OnInit {
   handleSuggestion(suggestion: StockSuggestion): void {
     if (suggestion.ticker !== this.stockName) {
       this.stockName = suggestion.ticker;
+      this.valueChanged.emit(this.stockName);
       this.createSeasonalChart(null);
     }
   }

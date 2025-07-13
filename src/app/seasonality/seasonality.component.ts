@@ -4,12 +4,12 @@ import {PieAreaComponent} from "../pie-area/pie-area.component";
 import {ChartYearComponentComponent} from "../chart-year-component/chart-year-component.component";
 import {Meta} from "@angular/platform-browser";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
-import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatButtonModule } from '@angular/material/button';
-import { BehaviorSubject } from 'rxjs';
+import {CommonModule} from '@angular/common';
+import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatButtonModule} from '@angular/material/button';
+import {BehaviorSubject} from 'rxjs';
 
 export interface Tile {
   color: string;
@@ -41,14 +41,17 @@ export class SeasonalityComponent implements OnInit {
 
   // Component states
   selectedStockSymbol: string = 'SP500';
+  searchBarSymbol: string | null = null;
   hasDynamicContent: boolean = false;
   errorMessage: string | null = null;
+  valueChanged: string | null = null;
 
   constructor(
     private metaTagService: Meta,
     private cdRef: ChangeDetectorRef,
     private breakpointObserver: BreakpointObserver
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.setupMetaTags();
@@ -84,14 +87,21 @@ export class SeasonalityComponent implements OnInit {
     ]);
   }
 
-  handleValueChanged(stockName: string) {
-    if (stockName === this.selectedStockSymbol) return;
+  // Unified symbol change handler
+  onSymbolChanged(symbol: string) {
+    if (symbol && symbol !== this.selectedStockSymbol) {
+      this.selectedStockSymbol = symbol;
+      // Place your custom logic here (analytics, logging, etc.)
+      this.handleValueChangedInternal(symbol);
+    }
+  }
 
-    this.selectedStockSymbol = stockName;
+  // Internal method to avoid recursion
+  private handleValueChangedInternal(symbol: string) {
+    // This is the original handleValueChanged logic
     this.loadDynamicContent().then(r => {
-      // Ensure change detection runs after dynamic content is loaded
       this.cdRef.detectChanges();
-    } );
+    });
   }
 
   private async loadDynamicContent() {
@@ -110,7 +120,6 @@ export class SeasonalityComponent implements OnInit {
         'GAS': () => import('../dynamic-component/gas/gas.component').then(m => m.GasComponent),
         // Add other mappings as needed
       };
-
       if (componentMap[this.selectedStockSymbol]) {
         const component = await componentMap[this.selectedStockSymbol]();
         const componentRef = this.dynamicInsert.createComponent(component);
@@ -142,4 +151,18 @@ export class SeasonalityComponent implements OnInit {
       this.chartComponent.getData('refresh');
     }
   }
+
+  // Handler for search bar suggestion
+  onSearchBarSuggestion(suggestion: any) {
+    debugger
+    const symbol = suggestion?.ticker || suggestion || null;
+    this.onSymbolChanged(symbol);
+  }
+
+  handleValueChanged(symbol: string) {
+    console.log('Got valueChanged event:', symbol);
+    this.valueChanged = symbol;
+    this.onSymbolChanged(symbol);
+  }
+
 }

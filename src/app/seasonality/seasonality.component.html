@@ -32,8 +32,7 @@
         </mat-card-header>
 
         <mat-card-content>
-          <app-chart-year-component
-            (valueChanged)="handleValueChanged($event)">
+          <app-chart-year-component (valueChanged)="handleValueChanged($event)">
           </app-chart-year-component>
         </mat-card-content>
       </mat-card>
@@ -55,20 +54,20 @@
             <ng-template #dynamicInsert></ng-template>
 
             @if (!hasDynamicContent) {
-              <div class="empty-analysis">
-                <mat-icon class="empty-icon">insights</mat-icon>
-                <h3>No Analysis Available</h3>
-                <p>Select a different symbol to view detailed market analysis and insights.</p>
-              </div>
+            <div class="empty-analysis">
+              <mat-icon class="empty-icon">insights</mat-icon>
+              <h3>No Analysis Available</h3>
+              <p>Select a different symbol to view detailed market analysis and insights.</p>
+            </div>
             }
           </div>
 
           @if (errorMessage) {
-            <div class="error-message">
-              <mat-icon color="warn">error_outline</mat-icon>
-              <p>{{ errorMessage }}</p>
-              <button mat-button color="primary" (click)="refreshData()">Try Again</button>
-            </div>
+          <div class="error-message">
+            <mat-icon color="warn">error_outline</mat-icon>
+            <p>{{ errorMessage }}</p>
+            <button mat-button color="primary" (click)="refreshData()">Try Again</button>
+          </div>
           }
         </mat-card-content>
       </mat-card>
@@ -88,7 +87,7 @@
               <mat-icon class="stat-icon">show_chart</mat-icon>
               <div class="stat-content">
                 <span class="stat-label">Symbol</span>
-                <span class="stat-value">{{ selectedStockSymbol }}</span>
+                <span class="stat-value">{{ valueChanged }}</span>
               </div>
             </div>
           </div>

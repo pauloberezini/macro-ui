@@ -7,7 +7,8 @@
       [formControl]="searchControl"
       placeholder="Enter a stock symbol"
       (focus)="onFocus()"
-      (blur)="onBlur()">
+      (keydown.enter)="onEnterOrBlur()"
+      (blur)="onEnterOrBlur()">
   </mat-form-field>
 
   <button
