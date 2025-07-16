@@ -210,14 +210,20 @@ export class ChartYearComponentComponent implements OnInit {
               data: seasonalData,
               borderColor: 'rgb(54, 162, 235)',
               backgroundColor: 'rgba(54, 162, 235, 0.2)',
-              tension: 0.4
+              tension: 0.4,
+              borderWidth: 1,
+              pointStyle: false,
+              fill: false
             },
             {
               label: `${symbol} Current Year`,
               data: actualData,
               borderColor: 'rgb(255, 99, 132)',
               backgroundColor: 'rgba(255, 99, 132, 0.2)',
-              tension: 0.4
+              tension: 0.4,
+              borderWidth: 1,
+              pointStyle: false,
+              fill: false
             }
           ]
         },
