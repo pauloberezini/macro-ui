@@ -14,6 +14,32 @@ import {LoaderComponent} from "../loader/loader.component";
 import {NgForOf, NgIf, AsyncPipe} from "@angular/common";
 import {MatIcon} from "@angular/material/icon";
 
+// Interfaces for the new seasonal data response structure
+interface SeasonalDataResponse {
+  seasonalData: SeasonalDataDto[];
+  metadata: SeasonalCalculationMetadata;
+}
+
+interface SeasonalCalculationMetadata {
+  yearsUsed: number;
+  yearsIncluded: number[];
+  minTradingDays: number;
+  totalDataPoints: number;
+  electionType: string;
+  stockSymbol: string;
+  yearsDropped: number[];
+  calculationMethod: string;
+}
+
+interface SeasonalDataDto {
+  id: number;
+  date: string;
+  name: string;
+  value: number;
+  election: string;
+  windowSize: number;
+}
+
 @Component({
   selector: 'app-chart-year-component',
   templateUrl: './chart-year-component.component.html',
@@ -46,6 +72,10 @@ export class ChartYearComponentComponent implements OnInit {
   canvasId: string;
   canvasIdSeasonal: string;
   resizeEvent = new Subject<void>();
+
+  // Seasonal data metadata
+  public seasonalMetadata: SeasonalCalculationMetadata | null = null;
+  public calculationInfo: string = '';
 
   // Form controls
   public election: string = 'regular';
@@ -145,8 +175,13 @@ export class ChartYearComponentComponent implements OnInit {
       })
     ).subscribe({
       next: ({seasonal, current}) => {
-        const seasonalData = this.processSeasonalData(seasonal.data);
+        // Handle the new seasonal data response structure
+        const seasonalData = this.processSeasonalData(seasonal.data.seasonalData);
         const actualData = this.processActualData(current.data);
+        
+        // Store metadata and create calculation info
+        this.seasonalMetadata = seasonal.data.metadata;
+        this.updateCalculationInfo();
 
         // Use requestAnimationFrame to ensure the DOM is updated
         requestAnimationFrame(() => {
@@ -158,6 +193,21 @@ export class ChartYearComponentComponent implements OnInit {
         this.error = 'Failed to create chart. Please try again.';
       }
     });
+  }
+
+  private updateCalculationInfo() {
+    if (this.seasonalMetadata) {
+      const { yearsUsed, yearsIncluded, yearsDropped, calculationMethod } = this.seasonalMetadata;
+      this.calculationInfo = `Calculated using ${yearsUsed} years (${yearsIncluded.join(', ')})`;
+      
+      if (yearsDropped && yearsDropped.length > 0) {
+        this.calculationInfo += ` • ${yearsDropped.length} years excluded: ${yearsDropped.join(', ')}`;
+      }
+      
+      this.calculationInfo += ` • Method: ${calculationMethod}`;
+    } else {
+      this.calculationInfo = '';
+    }
   }
 
   private processSeasonalData(data: any[]) {

@@ -21,6 +21,12 @@
     </app-search-bar>
   </div>
 
+  <!-- Calculation Information -->
+  <div *ngIf="calculationInfo && !error" class="calculation-info">
+    <mat-icon class="info-icon">info_outline</mat-icon>
+    <span class="info-text">{{ calculationInfo }}</span>
+  </div>
+
   <div class="chart-content" [class.loading]="isLoading$ | async">
     <div *ngIf="isLoading$ | async" class="loading-overlay">
       <app-loader></app-loader>

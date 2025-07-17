@@ -56,6 +56,30 @@ mat-form-field {
   min-width: 200px;
 }
 
+.calculation-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #f5f5f5;
+  border-left: 4px solid #2196f3;
+  border-radius: 4px;
+  margin: 10px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.calculation-info .info-icon {
+  color: #2196f3;
+  font-size: 18px;
+  width: 47px;
+  height: 18px;
+}
+
+.calculation-info .info-text {
+  line-height: 1.4;
+}
+
 @media (max-width: 768px) {
   .chart-controls {
     flex-direction: column;
