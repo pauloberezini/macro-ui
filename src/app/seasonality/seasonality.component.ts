@@ -154,7 +154,6 @@ export class SeasonalityComponent implements OnInit {
 
   // Handler for search bar suggestion
   onSearchBarSuggestion(suggestion: any) {
-    debugger
     const symbol = suggestion?.ticker || suggestion || null;
     this.onSymbolChanged(symbol);
   }

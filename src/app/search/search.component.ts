@@ -54,7 +54,6 @@ export class SearchComponent implements OnInit {
 
   // Clear input method for the clear button
   clearInput(): void {
-    debugger
     console.log('clearInput called - current value:', this.myControl.value);
     this.myControl.setValue('');
     this.myControl.markAsTouched();
