@@ -22,9 +22,30 @@
   </div>
 
   <!-- Calculation Information -->
-  <div *ngIf="calculationInfo && !error" class="calculation-info">
-    <mat-icon class="info-icon">info_outline</mat-icon>
-    <span class="info-text">{{ calculationInfo }}</span>
+  <div *ngIf="seasonalMetadata && !error" class="calculation-card">
+    <div class="card-header">
+      <mat-icon class="analysis-icon">analytics</mat-icon>
+      <div class="header-content">
+        <h3 class="analysis-title">Seasonal Analysis</h3>
+        <span class="analysis-subtitle">{{ yearsAnalyzed }} years • {{ algorithmName }}</span>
+      </div>
+    </div>
+    
+    <div class="card-body">
+      <div class="years-section">
+        <div class="section-label">Years Included</div>
+        <div class="years-container">
+          <span *ngFor="let year of includedYears" class="year-badge included">{{ year }}</span>
+        </div>
+      </div>
+      
+      <div *ngIf="hasExcludedYears" class="years-section excluded-section">
+        <div class="section-label">Excluded (Insufficient Data)</div>
+        <div class="years-container">
+          <span *ngFor="let year of excludedYears" class="year-badge excluded">{{ year }}</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="chart-content" [class.loading]="isLoading$ | async">

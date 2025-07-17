@@ -131,11 +131,23 @@ export class ChartYearComponentComponent implements OnInit {
   }
 
   handleSuggestion(suggestion: StockSuggestion): void {
-    if (suggestion.ticker !== this.stockName) {
-      this.stockName = suggestion.ticker;
+    // Extract clean ticker from suggestion
+    const cleanTicker = this.extractCleanTicker(suggestion.ticker);
+
+    if (cleanTicker !== this.stockName) {
+      this.stockName = cleanTicker;
       this.valueChanged.emit(this.stockName);
       this.createSeasonalChart(null);
     }
+  }
+
+  // Helper method to extract clean ticker symbol
+  private extractCleanTicker(ticker: string): string {
+    if (!ticker) return '';
+
+    // If ticker contains parentheses (like "NVDA (NVIDIA CORP)"), extract just the ticker part
+    const match = ticker.match(/^([A-Z0-9._-]+)(?:\s*\(.*\))?$/);
+    return match ? match[1] : ticker.trim();
   }
 
   ngOnDestroy() {
@@ -178,7 +190,7 @@ export class ChartYearComponentComponent implements OnInit {
         // Handle the new seasonal data response structure
         const seasonalData = this.processSeasonalData(seasonal.data.seasonalData);
         const actualData = this.processActualData(current.data);
-        
+
         // Store metadata and create calculation info
         this.seasonalMetadata = seasonal.data.metadata;
         this.updateCalculationInfo();
@@ -198,16 +210,33 @@ export class ChartYearComponentComponent implements OnInit {
   private updateCalculationInfo() {
     if (this.seasonalMetadata) {
       const { yearsUsed, yearsIncluded, yearsDropped, calculationMethod } = this.seasonalMetadata;
-      this.calculationInfo = `Calculated using ${yearsUsed} years (${yearsIncluded.join(', ')})`;
-      
-      if (yearsDropped && yearsDropped.length > 0) {
-        this.calculationInfo += ` • ${yearsDropped.length} years excluded: ${yearsDropped.join(', ')}`;
-      }
-      
-      this.calculationInfo += ` • Method: ${calculationMethod}`;
+
+      // Keep calculationInfo for template binding, but we'll use getters for structured data
+      this.calculationInfo = `${yearsUsed} years analyzed`;
     } else {
       this.calculationInfo = '';
     }
+  }
+
+  // Getters for template binding
+  get yearsAnalyzed(): number {
+    return this.seasonalMetadata?.yearsUsed || 0;
+  }
+
+  get includedYears(): number[] {
+    return this.seasonalMetadata?.yearsIncluded || [];
+  }
+
+  get excludedYears(): number[] {
+    return this.seasonalMetadata?.yearsDropped || [];
+  }
+
+  get algorithmName(): string {
+    return this.seasonalMetadata?.calculationMethod?.replace('Bloomberg-style trading day index', 'Bloomberg Algorithm') || '';
+  }
+
+  get hasExcludedYears(): boolean {
+    return this.excludedYears.length > 0;
   }
 
   private processSeasonalData(data: any[]) {

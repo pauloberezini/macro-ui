@@ -1,9 +1,23 @@
-<mat-form-field class="example-full-width">
-    <input type="text" placeholder="Search" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+<div class="search-container">
+  <mat-form-field class="example-full-width">
+    <input type="text" placeholder="Search" aria-label="Search" matInput [formControl]="myControl" [matAutocomplete]="auto">
     <mat-autocomplete #auto="matAutocomplete">
       <mat-option *ngFor="let option of filteredOptions | async" [value]="option['1. symbol']">
         {{ option['1. symbol'] }} - {{ option['2. name'] }}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
+  
+  <!-- Clear button positioned absolutely -->
+  <button 
+    *ngIf="hasValue" 
+    class="clear-button"
+    mat-icon-button 
+    type="button"
+    (click)="clearInput()" 
+    aria-label="Clear search"
+    title="Clear search">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
   

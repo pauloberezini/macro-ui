@@ -1,0 +1,50 @@
+.search-container {
+  position: relative;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+/* Clear button styling - positioned absolutely */
+.clear-button {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  color: #666;
+  transition: color 0.2s ease;
+  width: 32px;
+  height: 32px;
+}
+
+.clear-button:hover {
+  color: #333;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.clear-button .mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+/* Add padding to input to make room for clear button */
+.mat-mdc-form-field.example-full-width .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control input {
+  padding-right: 40px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .search-container {
+    width: 100%;
+  }
+  
+  .clear-button {
+    right: 6px;
+    width: 28px;
+    height: 28px;
+  }
+}

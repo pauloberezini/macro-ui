@@ -62,10 +62,27 @@ export class SearchBarComponent implements OnInit {
   onEnterOrBlur(): void {
     const value = this.searchControl.value?.trim();
     if (value) {
-      // Emit as a plain string or as a StockSuggestion-like object
-      this.suggestionSelected.emit({cik: "", id: 0, ticker: value, title: value });
+      // Extract clean ticker from input (handle cases like "NVDA (NVIDIA CORP)")
+      const cleanTicker = this.extractCleanTicker(value);
+      
+      // Emit as a StockSuggestion-like object with clean ticker
+      this.suggestionSelected.emit({
+        cik: "", 
+        id: 0, 
+        ticker: cleanTicker, 
+        title: value 
+      });
       this.showSuggestions = false;
     }
+  }
+
+  // Helper method to extract clean ticker symbol
+  private extractCleanTicker(input: string): string {
+    if (!input) return '';
+    
+    // If input contains parentheses (like "NVDA (NVIDIA CORP)"), extract just the ticker part
+    const match = input.match(/^([A-Z0-9._-]+)(?:\s*\(.*\))?$/);
+    return match ? match[1] : input.trim().toUpperCase();
   }
 
   nameToDisplay(suggestion: StockSuggestion): string {
@@ -73,11 +90,12 @@ export class SearchBarComponent implements OnInit {
   }
 
   clearInput(): void {
+    debugger
     // Clear the input field only if clearOnDropdown is true
-    if (this.clearOnDropdown) {
+    // if (this.clearOnDropdown) {
       this.searchControl.setValue('');
       this.showSuggestions = false;
-    }
+    // }
   }
 
   onFocus(): void {
