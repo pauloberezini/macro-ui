@@ -16,6 +16,10 @@
   grid-row: 1;
   text-align: center;
   margin-bottom: 0;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .profile-title {
@@ -31,6 +35,62 @@
   color: var(--text-secondary);
   margin: 0;
   font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* User Loading State */
+.user-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--text-secondary);
+}
+
+.user-loading .loading-text {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.user-loading mat-progress-spinner {
+  color: var(--primary-blue);
+}
+
+/* User Error State */
+.user-error .profile-subtitle {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.error-icon-small {
+  font-size: 1.2rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  color: var(--warning);
+}
+
+.retry-link {
+  color: var(--primary-blue);
+  font-size: 0.9rem;
+  min-width: auto;
+  padding: 4px 8px;
+  margin-left: 8px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.retry-link:hover {
+  background-color: var(--background-accent);
+}
+
+.retry-link mat-icon {
+  font-size: 1rem;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 4px;
 }
 
 /* Card Styles */

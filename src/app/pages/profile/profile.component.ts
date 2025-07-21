@@ -24,13 +24,14 @@ import {
 import { MatSort } from '@angular/material/sort';
 import { NgForOf, TitleCasePipe, NgIf } from '@angular/common';
 import { finalize, catchError } from 'rxjs/operators';
-import { of, EMPTY } from 'rxjs';
+import { of, EMPTY, forkJoin } from 'rxjs';
 
 import { StockSuggestion } from '../../model/stock-suggestion';
 import { UserFavoritesService } from '../../services/user.favorites.service';
 import { SearchBarComponent } from '../../insiders-page/search-bar/search-bar.component';
 import { ProfileAiInfoComponent } from '../profile-ai-info/profile-ai-info.component';
 import { CamelCasePipe } from '../../model/truncate-pipe';
+import { AiProfileService, UserInfo } from '../../services/ai-profile.service';
 
 interface DeleteConfirmDialogData {
   stockTitle: string;
@@ -71,14 +72,18 @@ interface DeleteConfirmDialogData {
 export class ProfileComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly userFavoritesService = inject(UserFavoritesService);
+  private readonly aiProfileService = inject(AiProfileService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly snackBar = inject(MatSnackBar);
   private readonly dialog = inject(MatDialog);
 
   // Signals for reactive state management
   readonly favoriteStocks = signal<StockSuggestion[]>([]);
+  readonly userInfo = signal<UserInfo | null>(null);
   readonly isLoading = signal<boolean>(false);
+  readonly isUserLoading = signal<boolean>(false);
   readonly hasError = signal<boolean>(false);
+  readonly hasUserError = signal<boolean>(false);
   readonly clearOnDropdown = signal<boolean>(false);
 
   // Computed values
@@ -93,6 +98,12 @@ export class ProfileComponent implements OnInit {
     this.favoriteStocks().length === 0 && !this.isLoading()
   );
 
+  readonly userDisplayName = computed(() => {
+    const user = this.userInfo();
+    if (!user) return 'My Profile';
+    return user.fullName || `${user.name} ${user.surname}`.trim() || user.name || 'My Profile';
+  });
+
   readonly displayedColumns: readonly string[] = [
     'position',
     'title',
@@ -100,7 +111,29 @@ export class ProfileComponent implements OnInit {
   ] as const;
 
   ngOnInit(): void {
+    this.loadUserInfo();
     this.loadFavoriteStocks();
+  }
+
+  loadUserInfo(): void {
+    this.isUserLoading.set(true);
+    this.hasUserError.set(false);
+
+    this.aiProfileService.getCurrentUser()
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        catchError((error) => {
+          console.error('Error loading user information:', error);
+          this.hasUserError.set(true);
+          return of(null);
+        }),
+        finalize(() => this.isUserLoading.set(false))
+      )
+      .subscribe((userInfo) => {
+        if (userInfo) {
+          this.userInfo.set(userInfo);
+        }
+      });
   }
 
   loadFavoriteStocks(): void {
@@ -184,6 +217,10 @@ export class ProfileComponent implements OnInit {
 
   retryLoad(): void {
     this.loadFavoriteStocks();
+  }
+
+  retryUserLoad(): void {
+    this.loadUserInfo();
   }
 
   private showSuccessMessage(message: string): void {

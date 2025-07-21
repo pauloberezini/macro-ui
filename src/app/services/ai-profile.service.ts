@@ -17,6 +17,14 @@ export interface AiProfileData {
   lastUpdated: string;
 }
 
+export interface UserInfo {
+  id: number;
+  name: string;
+  surname: string;
+  email: string;
+  fullName: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -25,9 +33,14 @@ export class AiProfileService {
 
   constructor(private http: HttpClient) {}
 
+  /** 🔹 Get current user information */
+  getCurrentUser(): Observable<UserInfo> {
+    return this.http.get<UserInfo>(`${this.baseUrl}/user`);
+  }
+
   /** 🔹 Get AI profile data for the current user */
   getUserAiProfile(): Observable<AiProfileData> {
-    return this.http.get<AiProfileData>(`${this.baseUrl}/user`);
+    return this.http.get<AiProfileData>(`${this.baseUrl}/profile`);
   }
 
   /** 🔹 Request AI profile data refresh */

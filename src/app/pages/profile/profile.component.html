@@ -1,7 +1,26 @@
 <div class="profile-container">
   <div class="profile-header">
-    <h1 class="profile-title">My Profile</h1>
-    <p class="profile-subtitle">Manage your favorite stocks and AI insights</p>
+    <div *ngIf="isUserLoading()" class="user-loading">
+      <mat-progress-spinner [diameter]="24" mode="indeterminate"></mat-progress-spinner>
+      <span class="loading-text">Loading...</span>
+    </div>
+    
+    <div *ngIf="!isUserLoading() && !hasUserError()">
+      <h1 class="profile-title">{{ userDisplayName() }}</h1>
+      <p class="profile-subtitle">Manage your favorite stocks and AI insights</p>
+    </div>
+    
+    <div *ngIf="!isUserLoading() && hasUserError()" class="user-error">
+      <h1 class="profile-title">My Profile</h1>
+      <p class="profile-subtitle">
+        <mat-icon class="error-icon-small">warning</mat-icon>
+        Could not load user information
+        <button mat-button class="retry-link" (click)="retryUserLoad()">
+          <mat-icon>refresh</mat-icon>
+          Retry
+        </button>
+      </p>
+    </div>
   </div>
 
   <!-- Favorites Section -->
