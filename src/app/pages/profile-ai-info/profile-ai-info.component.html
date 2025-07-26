@@ -1,61 +1,122 @@
 <mat-card class="ai-profile-card">
   <mat-card-header>
-    <mat-card-title>AI Trading Profile</mat-card-title>
-    <button mat-icon-button (click)="refreshProfile()" [disabled]="isLoading" aria-label="Refresh AI profile">
+    <mat-card-title>
+      <mat-icon>smart_toy</mat-icon>
+      AI Trading Profile - Enhanced with Fireplexity
+    </mat-card-title>
+    <div class="header-actions">
+      <button mat-icon-button (click)="refreshProfile()" [disabled]="isLoadingProfile()" 
+              matTooltip="Refresh AI profile with latest market data">
       <mat-icon>refresh</mat-icon>
     </button>
+    </div>
   </mat-card-header>
 
   <mat-card-content>
-    @if (isLoading) {
+    <mat-tab-group mat-align-tabs="start" dynamicHeight>
+      
+      <!-- ==================== AI PROFILE TAB ==================== -->
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>person</mat-icon>
+          Profile
+          @if (isLoadingProfile()) {
+            <mat-spinner diameter="16" class="tab-spinner"></mat-spinner>
+          }
+        </ng-template>
+        
+        @if (isLoadingProfile()) {
       <div class="loading-container">
         <mat-spinner diameter="40"></mat-spinner>
-        <p>Loading your AI profile...</p>
+            <p>Loading your enhanced AI profile...</p>
       </div>
-    } @else if (error) {
+        } @else if (profileError()) {
       <div class="error-container">
         <mat-icon color="warn">error_outline</mat-icon>
-        <p>{{ error }}</p>
+            <p>{{ profileError() }}</p>
+            <button mat-button (click)="loadAiProfile()" color="primary">
+              <mat-icon>refresh</mat-icon>
+              Try Again
+            </button>
       </div>
-    } @else if (aiData) {
+        } @else if (aiData()) {
       <div class="ai-profile-content">
         <section class="summary-section">
           <h3>Trading Summary</h3>
-          <p>{{ aiData.summary }}</p>
+              <p class="summary-text">{{ aiData()!.summary }}</p>
         </section>
 
         <section class="trading-style-section">
+              <div class="style-grid">
           <div class="style-item">
+                  <mat-icon>trending_up</mat-icon>
+                  <div>
             <h4>Trading Style</h4>
-            <p>{{ aiData.tradingStyle }}</p>
+                    <p>{{ aiData()!.tradingStyle }}</p>
+                  </div>
           </div>
           <div class="style-item">
+                  <mat-icon [style.color]="getRiskLevelColor(aiData()!.riskLevel)">security</mat-icon>
+                  <div>
             <h4>Risk Level</h4>
-            <p>{{ aiData.riskLevel }}</p>
+                    <p [style.color]="getRiskLevelColor(aiData()!.riskLevel)">{{ aiData()!.riskLevel }}</p>
+                  </div>
           </div>
           <div class="style-item">
+                  <mat-icon>schedule</mat-icon>
+                  <div>
             <h4>Trading Frequency</h4>
-            <p>{{ aiData.tradingFrequency }}</p>
+                    <p>{{ aiData()!.tradingFrequency }}</p>
+                  </div>
+                </div>
           </div>
         </section>
 
+            @if (aiData()!.preferredMarkets?.length || aiData()!.preferredSectors?.length) {
         <section class="markets-section">
-          <h4>Preferred Markets</h4>
+                <h4>Preferred Markets & Sectors</h4>
           <div class="markets-list">
-            @for (market of aiData.preferredMarkets; track market) {
-              <span class="market-tag">{{ market }}</span>
+                  @for (market of aiData()!.preferredMarkets || []; track market) {
+                    <mat-chip-set>
+                      <mat-chip>{{ market }}</mat-chip>
+                    </mat-chip-set>
+                  }
+                  @for (sector of aiData()!.preferredSectors || []; track sector) {
+                    <mat-chip-set>
+                      <mat-chip color="accent">{{ sector }}</mat-chip>
+                    </mat-chip-set>
+                  }
+                </div>
+              </section>
+            }
+
+            @if (aiData()!.insights?.length) {
+              <section class="insights-section">
+                <h4>
+                  <mat-icon>lightbulb</mat-icon>
+                  AI Insights
+                </h4>
+                <div class="insights-list">
+                  @for (insight of aiData()!.insights; track insight) {
+                    <div class="insight-item">
+                      <mat-icon>check_circle</mat-icon>
+                      <span>{{ insight }}</span>
+                    </div>
             }
           </div>
         </section>
+            }
 
-        @if (aiData.topPerformingTrades?.length) {
+            @if (aiData()!.topPerformingTrades?.length) {
           <section class="top-trades-section">
             <h4>Top Performing Trades</h4>
             <div class="trades-list">
-              @for (trade of aiData.topPerformingTrades; track trade) {
+                  @for (trade of aiData()!.topPerformingTrades; track trade) {
                 <div class="trade-item">
                   <span class="trade-symbol">{{ trade.symbol }}</span>
-                  <span class="trade-return" [class.positive]="trade.returnPercentage > 0">
+                      <span class="trade-return" 
+                            [class.positive]="trade.returnPercentage > 0"
+                            [class.negative]="trade.returnPercentage < 0">
                     {{ trade.returnPercentage > 0 ? '+' : '' }}{{ trade.returnPercentage }}%
                   </span>
                   <span class="trade-date">{{ trade.date | date:'mediumDate' }}</span>
@@ -66,14 +127,286 @@
         }
 
         <div class="last-updated">
-          Last updated: {{ aiData.lastUpdated | date:'medium' }}
+              <mat-icon>update</mat-icon>
+              Last updated: {{ aiData()!.lastUpdated | date:'medium' }}
         </div>
       </div>
     } @else {
       <div class="no-data-container">
         <mat-icon>analytics</mat-icon>
-        <p>No AI profile data available yet. Click refresh to generate your profile.</p>
+            <h3>No AI Profile Data</h3>
+            <p>Click refresh to generate your enhanced AI profile with real-time market data.</p>
+            <button mat-raised-button color="primary" (click)="loadAiProfile()">
+              <mat-icon>refresh</mat-icon>
+              Generate Profile
+            </button>
+          </div>
+        }
+      </mat-tab>
+
+      <!-- ==================== PORTFOLIO ANALYSIS TAB ==================== -->
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>pie_chart</mat-icon>
+          Portfolio Analysis
+          @if (isLoadingPortfolio()) {
+            <mat-spinner diameter="16" class="tab-spinner"></mat-spinner>
+          }
+        </ng-template>
+
+        <div class="portfolio-analysis-tab">
+          <div class="tab-header">
+            <h3>
+              <mat-icon>analytics</mat-icon>
+              Portfolio Analysis
+            </h3>
+            <button mat-raised-button color="primary" (click)="loadPortfolioAnalysis()" 
+                    [disabled]="isLoadingPortfolio()" class="analyze-button">
+              @if (isLoadingPortfolio()) {
+                <mat-spinner diameter="20"></mat-spinner>
+              } @else {
+                <mat-icon>analytics</mat-icon>
+              }
+              Analyze Portfolio
+            </button>
+          </div>
+
+          @if (portfolioError()) {
+            <div class="error-container">
+              <mat-icon color="warn">error_outline</mat-icon>
+              <p>{{ portfolioError() }}</p>
+            </div>
+          } @else if (portfolioAnalysis()) {
+            <div class="portfolio-content">
+              <!-- Overall Sentiment -->
+              <mat-card class="sentiment-card">
+                <mat-card-content>
+                  <div class="sentiment-header">
+                    <h4>Portfolio Sentiment</h4>
+                    <div class="sentiment-badge" [style.background-color]="sentimentColor()">
+                      {{ overallSentiment() }}
+                    </div>
+                  </div>
+                  <p class="sentiment-score">
+                    Score: {{ portfolioAnalysis()!.portfolioSentiment | number:'1.2-2' }}
+                  </p>
+                </mat-card-content>
+              </mat-card>
+
+              <!-- Portfolio Summary -->
+              <mat-card class="summary-card">
+                <mat-card-content>
+                  <h4>
+                    <mat-icon>summarize</mat-icon>
+                    Analysis Summary
+                  </h4>
+                  <p>{{ portfolioAnalysis()!.summary }}</p>
+                  <div class="portfolio-stats">
+                    <span><strong>Total Stocks:</strong> {{ portfolioAnalysis()!.totalStocks }}</span>
+                    <span><strong>Analysis Date:</strong> {{ portfolioAnalysis()!.analysisDate | date:'medium' }}</span>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          } @else {
+            <div class="no-data-container">
+              <mat-icon>pie_chart</mat-icon>
+              <h3>Portfolio Analysis</h3>
+              <p>Get comprehensive AI-powered analysis of your entire portfolio with real-time market data.</p>
+              @if (favoriteTickersList().length > 0) {
+                <p class="stocks-info">
+                  <mat-icon>info</mat-icon>
+                  You have {{ favoriteTickersList().length }} favorite stocks ready for analysis
+                </p>
+              } @else {
+                <p class="no-stocks-info">
+                  <mat-icon>warning</mat-icon>
+                  Add some favorite stocks first to get portfolio analysis
+                </p>
+              }
+            </div>
+          }
+        </div>
+      </mat-tab>
+
+      <!-- ==================== TICKER INSIGHTS TAB ==================== -->
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>trending_up</mat-icon>
+          Ticker Insights
+          @if (isLoadingTicker()) {
+            <mat-spinner diameter="16" class="tab-spinner"></mat-spinner>
+          }
+        </ng-template>
+
+        <div class="ticker-insights-tab">
+          <div class="tab-header">
+            <h3>
+              <mat-icon>search</mat-icon>
+              Stock Insights
+            </h3>
+            <div class="search-actions">
+              <mat-form-field appearance="outline" class="ticker-search">
+                <mat-label>Enter ticker symbol</mat-label>
+                <input matInput [(ngModel)]="searchTicker" placeholder="e.g., AAPL"
+                       (keyup.enter)="searchTickerInsights()" maxlength="10">
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+              <button mat-raised-button color="primary" (click)="searchTickerInsights()"
+                      [disabled]="!searchTicker().trim() || isLoadingTicker()">
+                Get Insights
+              </button>
+              <button mat-stroked-button color="accent" (click)="loadAllFavoriteInsights()"
+                      [disabled]="favoriteTickersList().length === 0 || isLoadingTicker()">
+                <mat-icon>favorite</mat-icon>
+                Analyze Favorites
+              </button>
+            </div>
+          </div>
+
+          @if (tickerError()) {
+            <div class="error-container">
+              <mat-icon color="warn">error_outline</mat-icon>
+              <p>{{ tickerError() }}</p>
+            </div>
+          }
+
+          @if (hasTickerInsights()) {
+            <div class="ticker-insights-content">
+              @for (insight of tickerInsights() | keyvalue; track insight.key) {
+                <mat-card class="ticker-insight-card">
+                  <mat-card-header>
+                    <mat-card-title>
+                      <div class="ticker-header">
+                        <span class="ticker-symbol">{{ insight.key }}</span>
+                        @if (insight.value.companyName) {
+                          <span class="company-name">{{ insight.value.companyName }}</span>
+                        }
+                        <div class="insight-badges">
+                          <mat-chip [style.background-color]="getSentimentColor(insight.value.sentiment)">
+                            {{ formatSentiment(insight.value.sentiment) }}
+                          </mat-chip>
+                          <mat-chip [style.color]="getRecommendationColor(insight.value.recommendation)">
+                            {{ insight.value.recommendation }}
+                          </mat-chip>
+                          <mat-chip [style.color]="getRiskLevelColor(insight.value.riskAssessment)">
+                            {{ insight.value.riskAssessment }}
+                          </mat-chip>
+                        </div>
+                      </div>
+                    </mat-card-title>
+                    <div class="card-actions">
+                      <button mat-icon-button (click)="loadTickerNews(insight.key)"
+                              matTooltip="Load recent news">
+                        <mat-icon>newspaper</mat-icon>
+                      </button>
+                    </div>
+                  </mat-card-header>
+                  <mat-card-content>
+                    <p class="insight-summary">{{ insight.value.summary }}</p>
+                    
+                    @if (insight.value.keyPoints?.length) {
+                      <div class="key-points">
+                        <h5>Key Points:</h5>
+                        <mat-chip-set>
+                          @for (point of insight.value.keyPoints; track point) {
+                            <mat-chip>{{ point }}</mat-chip>
+                          }
+                        </mat-chip-set>
+                      </div>
+                    }
+
+                    <div class="insight-metadata">
+                      <small>
+                        <mat-icon>schedule</mat-icon>
+                        Generated: {{ insight.value.generatedAt | date:'short' }}
+                      </small>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              }
+            </div>
+          } @else {
+            <div class="no-data-container">
+              <mat-icon>trending_up</mat-icon>
+              <h3>Stock Insights</h3>
+              <p>Get detailed AI analysis for individual stocks using real-time market data.</p>
+              <div class="help-text">
+                <p>• Search for any ticker symbol to get instant insights</p>
+                <p>• Analyze all your favorite stocks at once</p>
+                <p>• Get sentiment analysis, risk assessment, and recommendations</p>
+              </div>
+            </div>
+          }
+        </div>
+      </mat-tab>
+
+      <!-- ==================== NEWS TAB ==================== -->
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>newspaper</mat-icon>
+          Market News
+          @if (isLoadingNews()) {
+            <mat-spinner diameter="16" class="tab-spinner"></mat-spinner>
+          }
+        </ng-template>
+
+        <div class="news-tab">
+          <div class="tab-header">
+            <h3>
+              <mat-icon>newspaper</mat-icon>
+              Market News
+            </h3>
+            <p class="tab-description">Latest news for your favorite stocks</p>
+          </div>
+
+          @if (hasTickerNews()) {
+            <div class="news-content">
+              @for (news of tickerNews() | keyvalue; track news.key) {
+                <mat-card class="news-card">
+                  <mat-card-header>
+                    <mat-card-title>
+                      <div class="news-header">
+                        <span class="ticker-symbol">{{ news.key }}</span>
+                        <mat-chip [matBadge]="news.value.newsCount" matBadgeColor="primary">
+                          {{ news.value.newsCount }} articles
+                        </mat-chip>
+                      </div>
+                    </mat-card-title>
+                  </mat-card-header>
+                  <mat-card-content>
+                    @if (news.value.news?.length) {
+                      <div class="news-list">
+                        @for (article of news.value.news; track article.data?.metadata?.sourceURL) {
+                          <div class="news-item">
+                            <h5>{{ article.data?.metadata?.title || 'News Article' }}</h5>
+                            <p class="news-description">{{ article.data?.metadata?.description || article.data?.content | slice:0:200 }}...</p>
+                            @if (article.data?.metadata?.sourceURL) {
+                              <a [href]="article.data.metadata.sourceURL" target="_blank" class="news-link">
+                                <mat-icon>open_in_new</mat-icon>
+                                Read More
+                              </a>
+                            }
+                          </div>
+                        }
+                      </div>
+                    } @else {
+                      <p>No news articles available for {{ news.key }}</p>
+                    }
+                  </mat-card-content>
+                </mat-card>
+              }
+            </div>
+          } @else {
+            <div class="no-data-container">
+              <mat-icon>newspaper</mat-icon>
+              <h3>Market News</h3>
+              <p>Click on the news icon next to any stock in the Ticker Insights tab to load recent news articles.</p>
       </div>
     }
+        </div>
+      </mat-tab>
+
+    </mat-tab-group>
   </mat-card-content>
 </mat-card>

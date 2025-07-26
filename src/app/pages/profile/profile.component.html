@@ -4,12 +4,12 @@
       <mat-progress-spinner [diameter]="24" mode="indeterminate"></mat-progress-spinner>
       <span class="loading-text">Loading...</span>
     </div>
-    
+
     <div *ngIf="!isUserLoading() && !hasUserError()">
       <h1 class="profile-title">{{ userDisplayName() }}</h1>
       <p class="profile-subtitle">Manage your favorite stocks and AI insights</p>
     </div>
-    
+
     <div *ngIf="!isUserLoading() && hasUserError()" class="user-error">
       <h1 class="profile-title">My Profile</h1>
       <p class="profile-subtitle">
@@ -31,7 +31,7 @@
         Favorite Stocks
       </mat-card-title>
     </mat-card-header>
-    
+
     <mat-card-content>
       <!-- Search Bar -->
       <div class="search-section">
@@ -44,8 +44,8 @@
 
       <!-- Loading State -->
       <div *ngIf="isLoading()" class="loading-container">
-        <mat-progress-spinner 
-          [diameter]="50" 
+        <mat-progress-spinner
+          [diameter]="50"
           mode="indeterminate"
           class="loading-spinner">
         </mat-progress-spinner>
@@ -57,9 +57,9 @@
         <mat-icon class="error-icon">error</mat-icon>
         <h3 class="error-title">Something went wrong</h3>
         <p class="error-message">We couldn't load your favorite stocks. Please try again.</p>
-        <button 
-          mat-raised-button 
-          color="primary" 
+        <button
+          mat-raised-button
+          color="primary"
           (click)="retryLoad()"
           class="retry-button">
           <mat-icon>refresh</mat-icon>
@@ -76,15 +76,15 @@
 
       <!-- Favorites Table -->
       <div *ngIf="!isLoading() && !hasError() && !hasNoFavorites()" class="table-container">
-        <table 
-          mat-table 
-          [dataSource]="tableStocks()" 
+        <table
+          mat-table
+          [dataSource]="tableStocks()"
           [trackBy]="trackByStock"
-          matSort 
+          matSort
           class="favorites-table"
           role="table"
           aria-label="Favorite stocks table">
-          
+
           <!-- Position Column -->
           <ng-container matColumnDef="position">
             <th mat-header-cell *matHeaderCellDef mat-sort-header aria-sort="ascending">
@@ -123,8 +123,8 @@
               Actions
             </th>
             <td mat-cell *matCellDef="let stock">
-              <button 
-                mat-icon-button 
+              <button
+                mat-icon-button
                 (click)="removeFavoriteStock(stock)"
                 [attr.aria-label]="'Remove ' + stock.title + ' from favorites'"
                 matTooltip="Remove from favorites"
@@ -135,8 +135,8 @@
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns.concat(['actions'])"></tr>
-          <tr 
-            mat-row 
+          <tr
+            mat-row
             *matRowDef="let row; columns: displayedColumns.concat(['actions'])"
             class="table-row">
           </tr>
@@ -153,9 +153,9 @@
         AI Insights
       </mat-card-title>
     </mat-card-header>
-    
+
     <mat-card-content>
-      <app-profile-ai-info></app-profile-ai-info>
+      <app-profile-ai-info [favoriteStocks]="favoriteStocks()"></app-profile-ai-info>
     </mat-card-content>
   </mat-card>
 </div>
