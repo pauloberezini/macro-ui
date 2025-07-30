@@ -1,8 +1,8 @@
 <div class="seasonality-container">
   <!-- Loading Overlay -->
-  <div *ngIf="isLoading$ | async" class="page-loading-overlay">
+  <div *ngIf="isLoading$ | async" class="page-loading-overlay" role="status" aria-live="polite">
     <div class="loading-content">
-      <mat-spinner diameter="60"></mat-spinner>
+      <mat-spinner diameter="60" aria-label="Loading market data"></mat-spinner>
       <h3>Analyzing Market Data</h3>
       <p>Please wait while we process seasonal patterns...</p>
     </div>
@@ -12,7 +12,7 @@
   <header class="page-header">
     <div class="header-content">
       <h1 class="page-title">
-        <mat-icon class="title-icon">trending_up</mat-icon>
+        <mat-icon class="title-icon" aria-label="Trending up icon">trending_up</mat-icon>
         Seasonal Trading Analytics
       </h1>
       <p class="page-subtitle">
@@ -24,26 +24,26 @@
   <!-- Main Content Area -->
   <main class="main-content">
     <!-- Charts Section -->
-    <section class="charts-section">
-      <mat-card class="chart-card" elevation="2">
+    <section class="charts-section" aria-label="Market seasonality charts">
+      <mat-card class="chart-card" elevation="2" role="region" aria-label="Market seasonality chart">
         <mat-card-header>
           <mat-card-title>Market Seasonality Chart</mat-card-title>
           <mat-card-subtitle>Historical performance patterns by month and election cycles</mat-card-subtitle>
         </mat-card-header>
 
         <mat-card-content>
-          <app-chart-year-component (valueChanged)="handleValueChanged($event)">
+          <app-chart-year-component (valueChanged)="handleValueChanged($event)" aria-label="Interactive chart component">
           </app-chart-year-component>
         </mat-card-content>
       </mat-card>
     </section>
 
     <!-- Dynamic Analysis Section -->
-    <aside class="analysis-sidebar">
-      <mat-card class="analysis-card" elevation="2">
+    <aside class="analysis-sidebar" aria-label="Market analysis sidebar">
+      <mat-card class="analysis-card" elevation="2" role="region" aria-label="Market analysis panel">
         <mat-card-header>
           <mat-card-title>
-            <mat-icon>analytics</mat-icon>
+            <mat-icon aria-label="Analytics icon">analytics</mat-icon>
             Market Analysis
           </mat-card-title>
           <mat-card-subtitle>Detailed insights for {{ selectedStockSymbol }}</mat-card-subtitle>
@@ -54,8 +54,8 @@
             <ng-template #dynamicInsert></ng-template>
 
             @if (!hasDynamicContent) {
-            <div class="empty-analysis">
-              <mat-icon class="empty-icon">insights</mat-icon>
+            <div class="empty-analysis" role="status" aria-live="polite">
+              <mat-icon class="empty-icon" aria-label="Insights icon">insights</mat-icon>
               <h3>No Analysis Available</h3>
               <p>Select a different symbol to view detailed market analysis and insights.</p>
             </div>
@@ -63,28 +63,28 @@
           </div>
 
           @if (errorMessage) {
-          <div class="error-message">
-            <mat-icon color="warn">error_outline</mat-icon>
+          <div class="error-message" role="alert" aria-live="assertive">
+            <mat-icon color="warn" aria-label="Error icon">error_outline</mat-icon>
             <p>{{ errorMessage }}</p>
-            <button mat-button color="primary" (click)="refreshData()">Try Again</button>
+            <button mat-button color="primary" (click)="refreshData()" aria-label="Try again button">Try Again</button>
           </div>
           }
         </mat-card-content>
       </mat-card>
 
       <!-- Quick Stats Card -->
-      <mat-card class="stats-card" elevation="1">
+      <mat-card class="stats-card" elevation="1" role="region" aria-label="Quick statistics">
         <mat-card-content>
           <div class="stats-grid">
-            <div class="stat-item">
-              <mat-icon class="stat-icon">calendar_today</mat-icon>
+            <div class="stat-item" role="listitem">
+              <mat-icon class="stat-icon" aria-label="Calendar icon">calendar_today</mat-icon>
               <div class="stat-content">
                 <span class="stat-label">Current Month</span>
                 <span class="stat-value">{{ getCurrentMonthName() }}</span>
               </div>
             </div>
-            <div class="stat-item">
-              <mat-icon class="stat-icon">show_chart</mat-icon>
+            <div class="stat-item" role="listitem">
+              <mat-icon class="stat-icon" aria-label="Chart icon">show_chart</mat-icon>
               <div class="stat-content">
                 <span class="stat-label">Symbol</span>
                 <span class="stat-value">{{ valueChanged }}</span>

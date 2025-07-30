@@ -13,12 +13,14 @@
   align-items: center;
   gap: 20px;
   flex-wrap: wrap;
+  order: 1; /* Mobile: controls first */
 }
 
 .chart-content {
   position: relative;
   min-height: 400px;
   width: 100%;
+  order: 2; /* Mobile: chart content second */
 }
 
 .chart-content.loading {
@@ -63,6 +65,7 @@ mat-form-field {
   margin: 16px 0;
   box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  order: 3; /* Mobile: calculation card at bottom */
 }
 
 .calculation-card:hover {
@@ -163,18 +166,33 @@ mat-form-field {
   color: #f59e0b;
 }
 
+/* Mobile-first responsive design */
 @media (max-width: 768px) {
+  .chart-container {
+    padding: 12px;
+    gap: 16px;
+  }
+
   .chart-controls {
     flex-direction: column;
     align-items: stretch;
+    order: 1; /* Controls first on mobile */
   }
 
   mat-form-field {
     width: 100%;
+    min-width: unset;
+  }
+
+  .chart-content {
+    order: 2; /* Chart content second on mobile */
+    min-height: 300px; /* Smaller height for mobile */
   }
 
   .calculation-card {
-    margin: 12px 0;
+    order: 3; /* Calculation card at bottom on mobile */
+    margin: 0; /* Remove margin to stick to bottom */
+    border-radius: 8px; /* Smaller border radius for mobile */
   }
 
   .card-header {
@@ -200,6 +218,40 @@ mat-form-field {
   .year-badge {
     font-size: 12px;
     padding: 3px 8px;
+  }
+}
+
+/* Tablet and desktop - restore original order */
+@media (min-width: 769px) {
+  .chart-controls {
+    order: 1; /* Controls first */
+  }
+
+  .chart-content {
+    order: 2; /* Chart content second */
+  }
+
+  .calculation-card {
+    order: 2; /* Calculation card in original position (after controls, before chart) */
+  }
+}
+
+/* Touch-friendly interactions for mobile */
+@media (hover: none) and (pointer: coarse) {
+  .calculation-card:hover {
+    transform: none;
+  }
+  
+  .calculation-card:active {
+    transform: scale(0.98);
+  }
+  
+  .year-badge:hover {
+    transform: none;
+  }
+  
+  .year-badge:active {
+    transform: scale(0.95);
   }
 }
 
