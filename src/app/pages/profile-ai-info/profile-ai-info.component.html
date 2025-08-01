@@ -42,8 +42,18 @@
         } @else if (aiData()) {
       <div class="ai-profile-content">
         <section class="summary-section">
-          <h3>Trading Summary</h3>
-              <div class="summary-text" markdown [data]="aiData()!.summary"></div>
+          <div class="summary-header">
+            <h3>Trading Summary</h3>
+            <button mat-icon-button 
+                    (click)="toggleSummaryZoom()" 
+                    [class.zoomed]="isSummaryZoomed()"
+                    matTooltip="Toggle summary zoom for better reading">
+              <mat-icon>{{ isSummaryZoomed() ? 'zoom_out' : 'zoom_in' }}</mat-icon>
+            </button>
+          </div>
+              <div class="summary-text" 
+                   [class.zoomed]="isSummaryZoomed()"
+                   markdown [data]="aiData()!.summary"></div>
         </section>
 
         <section class="trading-style-section">
@@ -244,6 +254,9 @@
             <h3>
               <mat-icon>search</mat-icon>
               Stock Insights
+              @if (selectedTickerForInsights()) {
+                <span class="selected-ticker-badge">{{ selectedTickerForInsights() }}</span>
+              }
             </h3>
             <div class="search-actions">
               <mat-form-field appearance="outline" class="ticker-search">
@@ -264,6 +277,13 @@
             </div>
           </div>
 
+          @if (selectedTickerForInsights() && !getInsightsByTicker(selectedTickerForInsights())) {
+            <div class="loading-selected-ticker">
+              <mat-spinner diameter="30"></mat-spinner>
+              <p>Loading insights for {{ selectedTickerForInsights() }}...</p>
+            </div>
+          }
+
           @if (tickerError()) {
             <div class="error-container">
               <mat-icon color="warn">error_outline</mat-icon>
@@ -274,13 +294,17 @@
           @if (hasTickerInsights()) {
             <div class="ticker-insights-content">
               @for (insight of tickerInsights() | keyvalue; track insight.key) {
-                <mat-card class="ticker-insight-card">
+                <mat-card class="ticker-insight-card" 
+                         [class.selected-ticker-insight]="selectedTickerForInsights() === insight.key">
                   <mat-card-header>
                     <mat-card-title>
                       <div class="ticker-header">
                         <span class="ticker-symbol">{{ insight.key }}</span>
                         @if (insight.value.companyName) {
                           <span class="company-name">{{ insight.value.companyName }}</span>
+                        }
+                        @if (selectedTickerForInsights() === insight.key) {
+                          <span class="selected-indicator">Selected</span>
                         }
                         <div class="insight-badges">
                           <mat-chip [style.background-color]="getSentimentColor(insight.value.sentiment)">

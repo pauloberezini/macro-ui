@@ -49,12 +49,41 @@
 .tab-header h3 {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   margin: 0;
   font-size: 1.3rem;
   color: rgba(0, 0, 0, 0.87);
 }
 
+.selected-ticker-badge {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.loading-selected-ticker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  background: rgba(102, 126, 234, 0.05);
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+.loading-selected-ticker p {
+  margin: 16px 0 0 0;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 1rem;
+}
+
+/* Search Actions */
 .tab-description {
   color: rgba(0, 0, 0, 0.6);
   margin: 8px 0 0 0;
@@ -117,9 +146,16 @@
   margin-bottom: 32px;
 }
 
+.summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
 .summary-section h3 {
   font-size: 1.3rem;
-  margin-bottom: 16px;
+  margin: 0;
   color: rgba(0, 0, 0, 0.87);
   display: flex;
   align-items: center;
@@ -139,6 +175,46 @@
   overflow-y: auto;
   overflow-x: hidden;
   padding-right: 8px; /* Space for scrollbar */
+  transition: all 0.3s ease;
+}
+
+.summary-text.zoomed {
+  max-height: 80vh;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.03);
+  border-left-width: 6px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  position: relative;
+  margin-bottom: 20px;
+  /* Ensure the zoomed text is fully visible */
+  transform: translateZ(0);
+  /* Ensure proper scrolling */
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Remove backdrop approach */
+
+/* Zoom button styling */
+.summary-header button {
+  color: #667eea;
+  transition: all 0.2s ease;
+}
+
+.summary-header button:hover {
+  background-color: rgba(102, 126, 234, 0.1);
+  transform: scale(1.1);
+}
+
+.summary-header button.zoomed {
+  color: #f44336;
+}
+
+.summary-header button.zoomed:hover {
+  background-color: rgba(244, 67, 54, 0.1);
 }
 
 /* Markdown styling */
@@ -623,9 +699,26 @@
 }
 
 .ticker-insight-card {
+  margin-bottom: 20px;
   border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.ticker-insight-card.selected-ticker-insight {
+  border: 2px solid #667eea;
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.2);
+  background: rgba(102, 126, 234, 0.02);
+}
+
+.selected-indicator {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  margin-left: 8px;
 }
 
 .ticker-header {
@@ -856,6 +949,22 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
+  }
+
+  /* Mobile zoom adjustments */
+  .summary-text.zoomed {
+    max-height: 70vh;
+    font-size: 1.1rem;
+    padding: 16px;
+    z-index: 1000;
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .summary-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
 }
 

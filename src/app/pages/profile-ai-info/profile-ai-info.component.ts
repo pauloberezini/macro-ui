@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, signal, computed } from '@angular/core';
+import { Component, OnInit, Input, signal, computed, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -48,8 +48,9 @@ import { of, forkJoin } from 'rxjs';
   ],
   providers: [provideMarkdown()]
 })
-export class ProfileAiInfoComponent implements OnInit {
+export class ProfileAiInfoComponent implements OnInit, OnChanges {
   @Input() favoriteStocks: StockSuggestion[] = [];
+  @Input() selectedTicker: string = '';
 
   // Signals for reactive state management
   readonly aiData = signal<AiProfileData | null>(null);
@@ -68,6 +69,9 @@ export class ProfileAiInfoComponent implements OnInit {
 
   readonly selectedTickerForInsights = signal<string>('');
   searchTicker = signal<string>('');
+
+  // Zoom functionality
+  readonly isSummaryZoomed = signal<boolean>(false);
 
   // Computed values
   readonly hasAnyData = computed(() =>
@@ -100,7 +104,29 @@ export class ProfileAiInfoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // Load general AI profile data
     this.loadAiProfile();
+    
+    // If a ticker is selected, load ticker-specific data
+    if (this.selectedTicker) {
+      this.loadTickerData(this.selectedTicker);
+    }
+  }
+
+  // Method to handle ticker selection changes
+  ngOnChanges() {
+    if (this.selectedTicker && this.selectedTicker !== this.selectedTickerForInsights()) {
+      this.loadTickerData(this.selectedTicker);
+    }
+  }
+
+  // Load ticker-specific data
+  loadTickerData(ticker: string) {
+    if (!ticker || ticker.trim() === '') return;
+    
+    this.selectedTickerForInsights.set(ticker.toUpperCase());
+    this.loadTickerInsights(ticker);
+    this.loadTickerNews(ticker);
   }
 
   // ================================
@@ -329,6 +355,21 @@ export class ProfileAiInfoComponent implements OnInit {
 
   hasTickerNews(): boolean {
     return Object.keys(this.tickerNews()).length > 0;
+  }
+
+  // Zoom functionality
+  toggleSummaryZoom(): void {
+    this.isSummaryZoomed.update(current => !current);
+    
+    // Scroll to top when zooming in to ensure full visibility
+    if (!this.isSummaryZoomed()) {
+      setTimeout(() => {
+        const summaryElement = document.querySelector('.summary-text');
+        if (summaryElement) {
+          summaryElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
   }
 
   private showSuccessMessage(message: string): void {

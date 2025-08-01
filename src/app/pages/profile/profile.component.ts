@@ -85,6 +85,7 @@ export class ProfileComponent implements OnInit {
   readonly hasError = signal<boolean>(false);
   readonly hasUserError = signal<boolean>(false);
   readonly clearOnDropdown = signal<boolean>(false);
+  readonly selectedTicker = signal<string>('');
 
   // Computed values
   readonly tableStocks = computed(() =>
@@ -221,6 +222,11 @@ export class ProfileComponent implements OnInit {
 
   retryUserLoad(): void {
     this.loadUserInfo();
+  }
+
+  // Handle ticker selection for AI insights
+  selectTickerForInsights(ticker: string): void {
+    this.selectedTicker.set(ticker);
   }
 
   private showSuccessMessage(message: string): void {
