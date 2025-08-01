@@ -4,6 +4,10 @@
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  /* Add height constraint to prevent overflow */
+  max-height: calc(100vh - 40px);
+  display: flex;
+  flex-direction: column;
 }
 
 .ai-profile-card mat-card-header {
@@ -130,6 +134,11 @@
   padding: 16px;
   border-radius: 8px;
   border-left: 4px solid #667eea;
+  /* Add scrolling for long summary content */
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 8px; /* Space for scrollbar */
 }
 
 /* Markdown styling */
@@ -711,11 +720,27 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  /* Add max height for news content to prevent overflow */
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 8px; /* Space for scrollbar */
 }
 
 .news-card {
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  /* Prevent news cards from growing too large */
+  max-height: 400px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.news-card mat-card-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .news-header {
@@ -728,6 +753,11 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  /* Limit news list height */
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 8px; /* Space for scrollbar */
 }
 
 .news-item {
@@ -768,12 +798,24 @@
 @media (max-width: 768px) {
   .ai-profile-card {
     margin: 12px;
+    max-height: calc(100vh - 24px);
   }
 
   .tab-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
+  }
+
+  /* Adjust max heights for mobile */
+  .news-content,
+  .ticker-insights-content,
+  .portfolio-content {
+    max-height: calc(100vh - 250px);
+  }
+
+  .news-list {
+    max-height: 250px;
   }
 
   .search-actions {
@@ -835,4 +877,154 @@
   .no-data-container {
     padding: 40px 16px;
   }
+}
+
+/* ==================== TAB CONTAINER STYLING ==================== */
+/* Add proper height and scrolling for tab content */
+mat-tab-group {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+mat-tab-group ::ng-deep .mat-mdc-tab-body-wrapper {
+  flex: 1;
+  overflow: hidden;
+}
+
+mat-tab-group ::ng-deep .mat-mdc-tab-body {
+  height: 100%;
+  overflow: hidden;
+}
+
+mat-tab-group ::ng-deep .mat-mdc-tab-body-content {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 16px;
+}
+
+/* ==================== TAB CONTENT STYLING ==================== */
+/* Ensure tab content has proper height and scrolling */
+.ai-profile-content,
+.portfolio-analysis-tab,
+.ticker-insights-tab,
+.news-tab {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* ==================== NEWS CONTENT SCROLLING ==================== */
+.news-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  /* Add max height for news content to prevent overflow */
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 8px; /* Space for scrollbar */
+}
+
+.news-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  /* Prevent news cards from growing too large */
+  max-height: 400px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.news-card mat-card-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  /* Limit news list height */
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 8px; /* Space for scrollbar */
+}
+
+/* ==================== TICKER INSIGHTS SCROLLING ==================== */
+.ticker-insights-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  /* Add max height for ticker insights content */
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 8px; /* Space for scrollbar */
+}
+
+/* ==================== PORTFOLIO ANALYSIS SCROLLING ==================== */
+.portfolio-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  /* Add max height for portfolio content */
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 8px; /* Space for scrollbar */
+}
+
+/* ==================== CUSTOM SCROLLBAR STYLING ==================== */
+/* Webkit browsers (Chrome, Safari, Edge) */
+.news-content::-webkit-scrollbar,
+.ticker-insights-content::-webkit-scrollbar,
+.portfolio-content::-webkit-scrollbar,
+.news-list::-webkit-scrollbar,
+.summary-text::-webkit-scrollbar,
+mat-tab-group ::ng-deep .mat-mdc-tab-body-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.news-content::-webkit-scrollbar-track,
+.ticker-insights-content::-webkit-scrollbar-track,
+.portfolio-content::-webkit-scrollbar-track,
+.news-list::-webkit-scrollbar-track,
+.summary-text::-webkit-scrollbar-track,
+mat-tab-group ::ng-deep .mat-mdc-tab-body-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+.news-content::-webkit-scrollbar-thumb,
+.ticker-insights-content::-webkit-scrollbar-thumb,
+.portfolio-content::-webkit-scrollbar-thumb,
+.news-list::-webkit-scrollbar-thumb,
+.summary-text::-webkit-scrollbar-thumb,
+mat-tab-group ::ng-deep .mat-mdc-tab-body-content::-webkit-scrollbar-thumb {
+  background: rgba(102, 126, 234, 0.3);
+  border-radius: 4px;
+}
+
+.news-content::-webkit-scrollbar-thumb:hover,
+.ticker-insights-content::-webkit-scrollbar-thumb:hover,
+.portfolio-content::-webkit-scrollbar-thumb:hover,
+.news-list::-webkit-scrollbar-thumb:hover,
+.summary-text::-webkit-scrollbar-thumb:hover,
+mat-tab-group ::ng-deep .mat-mdc-tab-body-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 126, 234, 0.5);
+}
+
+/* Firefox */
+.news-content,
+.ticker-insights-content,
+.portfolio-content,
+.news-list,
+.summary-text,
+mat-tab-group ::ng-deep .mat-mdc-tab-body-content {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(102, 126, 234, 0.3) rgba(0, 0, 0, 0.05);
 }
