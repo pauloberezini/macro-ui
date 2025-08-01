@@ -125,7 +125,10 @@ export class ProfileComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef),
         catchError((error) => {
           console.error('Error loading user information:', error);
-          this.hasUserError.set(true);
+          // Don't set user error for 401 - the interceptor will handle redirect
+          if (error.status !== 401) {
+            this.hasUserError.set(true);
+          }
           return of(null);
         }),
         finalize(() => this.isUserLoading.set(false))
@@ -146,8 +149,11 @@ export class ProfileComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef),
         catchError((error) => {
           console.error('Error loading favorite stocks:', error);
-          this.hasError.set(true);
-          this.showErrorMessage('Failed to load favorite stocks. Please try again.');
+          // Don't set error for 401 - the interceptor will handle redirect
+          if (error.status !== 401) {
+            this.hasError.set(true);
+            this.showErrorMessage('Failed to load favorite stocks. Please try again.');
+          }
           return of([]);
         }),
         finalize(() => this.isLoading.set(false))
@@ -165,7 +171,10 @@ export class ProfileComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef),
         catchError((error) => {
           console.error('Error adding favorite stock:', error);
-          this.showErrorMessage('Failed to add stock to favorites. Please try again.');
+          // Don't show error for 401 - the interceptor will handle redirect
+          if (error.status !== 401) {
+            this.showErrorMessage('Failed to add stock to favorites. Please try again.');
+          }
           return EMPTY;
         })
       )
@@ -200,7 +209,10 @@ export class ProfileComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef),
         catchError((error) => {
           console.error('Error removing favorite stock:', error);
-          this.showErrorMessage('Failed to remove stock from favorites. Please try again.');
+          // Don't show error for 401 - the interceptor will handle redirect
+          if (error.status !== 401) {
+            this.showErrorMessage('Failed to remove stock from favorites. Please try again.');
+          }
           return EMPTY;
         })
       )

@@ -23,6 +23,7 @@ import {LegalComponent} from "./app/pages/legal/legal.component";
 import {TermsComponent} from "./app/pages/terms/terms.component";
 import {PrivacyPolicyComponent} from "./app/pages/privacy-policy/privacy-policy.component";
 import {ProfileComponent} from "./app/pages/profile/profile.component";
+import {SignInComponent} from "./app/login/sign-in/sign-in.component";
 
 const routes: Routes = [
   { path: 'app-economic-calendar', component: EconomicCalendarComponent },
@@ -40,6 +41,7 @@ const routes: Routes = [
   { path: 'app-stock-anomaly', component: StockAnomalyComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'hockey-bet', component: HockeyBetComponent },
+  { path: 'sign-in', component: SignInComponent },
   { path: 'legal', component: LegalComponent },
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
   { path: 'terms', component: TermsComponent }
