@@ -4,7 +4,7 @@
   margin: 0 auto;
   padding: 20px;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-color: var(--light-gray);
 }
 
 /* Header Section */
@@ -12,10 +12,10 @@
   text-align: center;
   margin-bottom: 40px;
   padding: 40px 20px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: var(--background-primary);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-light);
 }
 
 .header-content {
@@ -24,7 +24,7 @@
 }
 
 .main-title {
-  color: white;
+  color: var(--logo-blue);
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 16px;
@@ -35,11 +35,11 @@
 }
 
 .title-icon {
-  color: #ff6b6b;
+  color: var(--accent-teal);
 }
 
 .subtitle {
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--text-secondary);
   font-size: 1.2rem;
   margin-bottom: 24px;
   font-weight: 300;
@@ -53,15 +53,14 @@
 }
 
 .support-chip {
-  background: rgba(255, 255, 255, 0.2) !important;
-  color: white !important;
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
-  backdrop-filter: blur(10px);
+  background-color: var(--background-accent) !important;
+  color: var(--logo-blue) !important;
+  border: 1px solid var(--border-medium) !important;
   transition: all 0.3s ease;
 }
 
 .support-chip:hover {
-  background: rgba(255, 255, 255, 0.3) !important;
+  background-color: var(--info-light) !important;
   transform: translateY(-2px);
 }
 
@@ -76,10 +75,10 @@
 /* Cards */
 .support-card,
 .info-card {
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: var(--light-green);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-light);
   overflow: hidden;
   transition: all 0.3s ease;
 }
@@ -87,13 +86,13 @@
 .support-card:hover,
 .info-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 /* Card Headers */
 mat-card-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background-color: var(--dark-gray);
+  color: var(--light-gray);
   padding: 24px;
 }
 
@@ -115,16 +114,17 @@ mat-card-subtitle {
   display: flex;
   gap: 8px;
   margin-bottom: 20px;
+  margin: 10px;
   padding: 0 24px;
 }
 
 .tab-button {
   flex: 1;
   padding: 12px 16px;
-  border-radius: 8px;
+  border-radius: 4px;
   border: 2px solid transparent;
-  background: rgba(102, 126, 234, 0.1);
-  color: #667eea;
+  background-color: var(--background-secondary);
+  color: var(--text-primary);
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
@@ -134,14 +134,14 @@ mat-card-subtitle {
 }
 
 .tab-button:hover {
-  background: rgba(102, 126, 234, 0.2);
+  background-color: var(--background-tertiary);
   transform: translateY(-1px);
 }
 
 .tab-button.active-tab {
-  background: #667eea;
-  color: white;
-  border-color: #667eea;
+  background-color: var(--logo-blue);
+  color: var(--light-gray);
+  border-color: var(--logo-blue);
 }
 
 .tab-divider {
@@ -166,11 +166,11 @@ mat-card-subtitle {
   align-items: center;
   gap: 16px;
   padding: 40px;
-  color: #666;
+  color: var(--text-muted);
 }
 
 .support-info h3 {
-  color: #333;
+  color: var(--text-primary);
   margin-bottom: 12px;
   font-size: 1.2rem;
 }
@@ -184,14 +184,14 @@ mat-card-subtitle {
   padding: 8px 0;
   position: relative;
   padding-left: 24px;
-  color: #555;
+  color: var(--text-secondary);
 }
 
 .support-info li::before {
   content: "✓";
   position: absolute;
   left: 0;
-  color: #667eea;
+  color: var(--success);
   font-weight: bold;
 }
 
@@ -201,7 +201,7 @@ mat-card-subtitle {
 }
 
 .project-description p {
-  color: #555;
+  color: var(--text-secondary);
   line-height: 1.6;
   margin-bottom: 24px;
 }
@@ -217,43 +217,43 @@ mat-card-subtitle {
   align-items: flex-start;
   gap: 16px;
   padding: 16px;
-  background: rgba(102, 126, 234, 0.05);
+  background-color: var(--background-secondary);
   border-radius: 8px;
-  border-left: 4px solid #667eea;
+  border-left: 4px solid var(--logo-blue);
 }
 
 .feature-item mat-icon {
-  color: #667eea;
+  color: var(--logo-blue);
   margin-top: 4px;
 }
 
 .feature-item h4 {
-  color: #333;
+  color: var(--text-primary);
   margin: 0 0 8px 0;
   font-size: 1.1rem;
 }
 
 .feature-item p {
-  color: #666;
+  color: var(--text-secondary);
   margin: 0;
   font-size: 0.9rem;
 }
 
 /* GitHub Button */
 .github-button {
-  background: #333 !important;
-  color: white !important;
+  background-color: var(--dark-green) !important;
+  color: var(--light-gray) !important;
   margin: 0 24px 24px;
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 24px;
-  border-radius: 8px;
+  border-radius: 4px;
   transition: all 0.3s ease;
 }
 
 .github-button:hover {
-  background: #555 !important;
+  background-color: var(--medium-green) !important;
   transform: translateY(-2px);
 }
 
@@ -263,9 +263,9 @@ mat-card-subtitle {
 }
 
 .thank-you-card {
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
-  color: white;
-  border-radius: 16px;
+  background-color: var(--accent-teal);
+  color: var(--light-gray);
+  border-radius: 8px;
   overflow: hidden;
 }
 
@@ -303,7 +303,7 @@ mat-card-subtitle {
   align-items: center;
   gap: 12px;
   padding: 24px;
-  background: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   border: 2px dashed rgba(255, 255, 255, 0.3);
 }
@@ -381,10 +381,6 @@ mat-card-subtitle {
     gap: 8px;
   }
 
-  .title-icon {
-    font-size: 1.5rem;
-  }
-
   .support-chip {
     font-size: 0.8rem;
     padding: 4px 8px;
@@ -453,14 +449,14 @@ mat-card-subtitle {
 }
 
 .feature-item:hover {
-  background: rgba(102, 126, 234, 0.1);
+  background-color: var(--background-accent);
   transform: translateX(4px);
 }
 
 /* Focus States for Accessibility */
 .tab-button:focus,
 .github-button:focus {
-  outline: 2px solid #667eea;
+  outline: 2px solid var(--logo-blue);
   outline-offset: 2px;
 }
 
@@ -470,15 +466,15 @@ mat-card-subtitle {
 }
 
 .tab-content::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--background-secondary);
   border-radius: 3px;
 }
 
 .tab-content::-webkit-scrollbar-thumb {
-  background: #667eea;
+  background: var(--logo-blue);
   border-radius: 3px;
 }
 
 .tab-content::-webkit-scrollbar-thumb:hover {
-  background: #5a6fd8;
+  background: var(--primary-blue-light);
 }
