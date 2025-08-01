@@ -1,20 +1,20 @@
-<mat-card class="ai-profile-card">
-  <mat-card-header>
-    <mat-card-title>
-      <mat-icon>smart_toy</mat-icon>
-      AI Trading Profile - Enhanced with Fireplexity
-    </mat-card-title>
-    <div class="header-actions">
-      <button mat-icon-button (click)="refreshProfile()" [disabled]="isLoadingProfile()" 
-              matTooltip="Refresh AI profile with latest market data">
-      <mat-icon>refresh</mat-icon>
-    </button>
-    </div>
-  </mat-card-header>
+<!--<mat-card class="ai-profile-card">-->
+<!--  <mat-card-header>-->
+<!--    <mat-card-title>-->
+<!--      <mat-icon>smart_toy</mat-icon>-->
+<!--      AI Trading Profile - Enhanced with Fireplexity-->
+<!--    </mat-card-title>-->
+<!--    <div class="header-actions">-->
+<!--      <button mat-icon-button (click)="refreshProfile()" [disabled]="isLoadingProfile()"-->
+<!--              matTooltip="Refresh AI profile with latest market data">-->
+<!--      <mat-icon>refresh</mat-icon>-->
+<!--    </button>-->
+<!--    </div>-->
+<!--  </mat-card-header>-->
 
   <mat-card-content>
     <mat-tab-group mat-align-tabs="start" dynamicHeight>
-      
+
       <!-- ==================== AI PROFILE TAB ==================== -->
       <mat-tab>
         <ng-template mat-tab-label>
@@ -24,7 +24,7 @@
             <mat-spinner diameter="16" class="tab-spinner"></mat-spinner>
           }
         </ng-template>
-        
+
         @if (isLoadingProfile()) {
       <div class="loading-container">
         <mat-spinner diameter="40"></mat-spinner>
@@ -43,7 +43,7 @@
       <div class="ai-profile-content">
         <section class="summary-section">
           <h3>Trading Summary</h3>
-              <p class="summary-text">{{ aiData()!.summary }}</p>
+              <div class="summary-text" markdown [data]="aiData()!.summary"></div>
         </section>
 
         <section class="trading-style-section">
@@ -114,7 +114,7 @@
                   @for (trade of aiData()!.topPerformingTrades; track trade) {
                 <div class="trade-item">
                   <span class="trade-symbol">{{ trade.symbol }}</span>
-                      <span class="trade-return" 
+                      <span class="trade-return"
                             [class.positive]="trade.returnPercentage > 0"
                             [class.negative]="trade.returnPercentage < 0">
                     {{ trade.returnPercentage > 0 ? '+' : '' }}{{ trade.returnPercentage }}%
@@ -160,7 +160,7 @@
               <mat-icon>analytics</mat-icon>
               Portfolio Analysis
             </h3>
-            <button mat-raised-button color="primary" (click)="loadPortfolioAnalysis()" 
+            <button mat-raised-button color="primary" (click)="loadPortfolioAnalysis()"
                     [disabled]="isLoadingPortfolio()" class="analyze-button">
               @if (isLoadingPortfolio()) {
                 <mat-spinner diameter="20"></mat-spinner>
@@ -200,7 +200,7 @@
                     <mat-icon>summarize</mat-icon>
                     Analysis Summary
                   </h4>
-                  <p>{{ portfolioAnalysis()!.summary }}</p>
+                  <div markdown [data]="portfolioAnalysis()!.summary"></div>
                   <div class="portfolio-stats">
                     <span><strong>Total Stocks:</strong> {{ portfolioAnalysis()!.totalStocks }}</span>
                     <span><strong>Analysis Date:</strong> {{ portfolioAnalysis()!.analysisDate | date:'medium' }}</span>
@@ -303,8 +303,8 @@
                     </div>
                   </mat-card-header>
                   <mat-card-content>
-                    <p class="insight-summary">{{ insight.value.summary }}</p>
-                    
+                    <div class="insight-summary" markdown [data]="insight.value.summary"></div>
+
                     @if (insight.value.keyPoints?.length) {
                       <div class="key-points">
                         <h5>Key Points:</h5>
@@ -409,4 +409,4 @@
 
     </mat-tab-group>
   </mat-card-content>
-</mat-card>
+<!--</mat-card>-->

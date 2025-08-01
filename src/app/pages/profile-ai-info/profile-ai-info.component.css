@@ -132,6 +132,66 @@
   border-left: 4px solid #667eea;
 }
 
+/* Markdown styling */
+.summary-text ::ng-deep h1,
+.summary-text ::ng-deep h2,
+.summary-text ::ng-deep h3,
+.summary-text ::ng-deep h4,
+.summary-text ::ng-deep h5,
+.summary-text ::ng-deep h6 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  color: #333;
+  font-weight: 600;
+}
+
+.summary-text ::ng-deep h3 {
+  color: #667eea;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 0.3em;
+}
+
+.summary-text ::ng-deep p {
+  margin-bottom: 1em;
+  line-height: 1.6;
+}
+
+.summary-text ::ng-deep ul,
+.summary-text ::ng-deep ol {
+  margin-bottom: 1em;
+  padding-left: 1.5em;
+}
+
+.summary-text ::ng-deep li {
+  margin-bottom: 0.5em;
+  line-height: 1.5;
+}
+
+.summary-text ::ng-deep strong,
+.summary-text ::ng-deep b {
+  color: #667eea;
+  font-weight: 600;
+}
+
+.summary-text ::ng-deep em {
+  font-style: italic;
+  color: #666;
+}
+
+.summary-text ::ng-deep hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 2em 0;
+}
+
+.summary-text ::ng-deep blockquote {
+  border-left: 4px solid #667eea;
+  padding-left: 1em;
+  margin: 1em 0;
+  color: #666;
+  font-style: italic;
+}
+
 .style-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -335,6 +395,52 @@
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
+/* Markdown styling for summary cards */
+.summary-card ::ng-deep h1,
+.summary-card ::ng-deep h2,
+.summary-card ::ng-deep h3,
+.summary-card ::ng-deep h4,
+.summary-card ::ng-deep h5,
+.summary-card ::ng-deep h6 {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  color: #333;
+  font-weight: 600;
+}
+
+.summary-card ::ng-deep h3 {
+  color: #667eea;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 0.3em;
+}
+
+.summary-card ::ng-deep p {
+  margin-bottom: 0.8em;
+  line-height: 1.5;
+}
+
+.summary-card ::ng-deep ul,
+.summary-card ::ng-deep ol {
+  margin-bottom: 0.8em;
+  padding-left: 1.2em;
+}
+
+.summary-card ::ng-deep li {
+  margin-bottom: 0.3em;
+  line-height: 1.4;
+}
+
+.summary-card ::ng-deep strong,
+.summary-card ::ng-deep b {
+  color: #667eea;
+  font-weight: 600;
+}
+
+.summary-card ::ng-deep em {
+  font-style: italic;
+  color: #666;
+}
+
 .distribution-list {
   display: flex;
   flex-direction: column;
@@ -387,6 +493,52 @@
 .insight-summary {
   line-height: 1.6;
   margin-bottom: 16px;
+}
+
+/* Markdown styling for insights */
+.insight-summary ::ng-deep h1,
+.insight-summary ::ng-deep h2,
+.insight-summary ::ng-deep h3,
+.insight-summary ::ng-deep h4,
+.insight-summary ::ng-deep h5,
+.insight-summary ::ng-deep h6 {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  color: #333;
+  font-weight: 600;
+}
+
+.insight-summary ::ng-deep h3 {
+  color: #667eea;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 0.3em;
+}
+
+.insight-summary ::ng-deep p {
+  margin-bottom: 0.8em;
+  line-height: 1.5;
+}
+
+.insight-summary ::ng-deep ul,
+.insight-summary ::ng-deep ol {
+  margin-bottom: 0.8em;
+  padding-left: 1.2em;
+}
+
+.insight-summary ::ng-deep li {
+  margin-bottom: 0.3em;
+  line-height: 1.4;
+}
+
+.insight-summary ::ng-deep strong,
+.insight-summary ::ng-deep b {
+  color: #667eea;
+  font-weight: 600;
+}
+
+.insight-summary ::ng-deep em {
+  font-style: italic;
+  color: #666;
 }
 
 .key-points h5 {

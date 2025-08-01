@@ -13,12 +13,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
-import { 
-  AiProfileService, 
-  AiProfileData, 
-  PortfolioAnalysis, 
+import { MarkdownModule, provideMarkdown } from 'ngx-markdown';
+import {
+  AiProfileService,
+  AiProfileData,
+  PortfolioAnalysis,
   FinancialInsight,
-  TickerNewsResponse 
+  TickerNewsResponse
 } from '../../services/ai-profile.service';
 import { StockSuggestion } from '../../model/stock-suggestion';
 import { catchError, finalize } from 'rxjs/operators';
@@ -42,8 +43,10 @@ import { of, forkJoin } from 'rxjs';
     MatTooltipModule,
     MatInputModule,
     MatFormFieldModule,
-    FormsModule
-  ]
+    FormsModule,
+    MarkdownModule
+  ],
+  providers: [provideMarkdown()]
 })
 export class ProfileAiInfoComponent implements OnInit {
   @Input() favoriteStocks: StockSuggestion[] = [];
@@ -53,25 +56,25 @@ export class ProfileAiInfoComponent implements OnInit {
   readonly portfolioAnalysis = signal<PortfolioAnalysis | null>(null);
   readonly tickerInsights = signal<{ [ticker: string]: FinancialInsight }>({});
   readonly tickerNews = signal<{ [ticker: string]: TickerNewsResponse }>({});
-  
+
   readonly isLoadingProfile = signal<boolean>(false);
   readonly isLoadingPortfolio = signal<boolean>(false);
   readonly isLoadingTicker = signal<string | null>(null);
   readonly isLoadingNews = signal<string | null>(null);
-  
+
   readonly profileError = signal<string | null>(null);
   readonly portfolioError = signal<string | null>(null);
   readonly tickerError = signal<string | null>(null);
-  
+
   readonly selectedTickerForInsights = signal<string>('');
-  readonly searchTicker = signal<string>('');
+  searchTicker = signal<string>('');
 
   // Computed values
-  readonly hasAnyData = computed(() => 
+  readonly hasAnyData = computed(() =>
     this.aiData() || this.portfolioAnalysis() || Object.keys(this.tickerInsights()).length > 0
   );
 
-  readonly favoriteTickersList = computed(() => 
+  readonly favoriteTickersList = computed(() =>
     this.favoriteStocks.map(stock => stock.ticker).filter(Boolean)
   );
 
@@ -214,9 +217,9 @@ export class ProfileAiInfoComponent implements OnInit {
     }
 
     this.tickerError.set(null);
-    
+
     // Load insights for all favorite tickers concurrently
-    const requests = tickers.map(ticker => 
+    const requests = tickers.map(ticker =>
       this.aiProfileService.getTickerInsights(ticker).pipe(
         catchError(err => {
           console.error(`Error loading insights for ${ticker}:`, err);
@@ -226,7 +229,7 @@ export class ProfileAiInfoComponent implements OnInit {
     );
 
     this.isLoadingTicker.set('ALL');
-    
+
     forkJoin(requests)
       .pipe(finalize(() => this.isLoadingTicker.set(null)))
       .subscribe(results => {
@@ -236,7 +239,7 @@ export class ProfileAiInfoComponent implements OnInit {
             insights[tickers[index]] = insight;
           }
         });
-        
+
         if (Object.keys(insights).length > 0) {
           this.tickerInsights.set(insights);
           this.showSuccessMessage(`Loaded insights for ${Object.keys(insights).length} stocks!`);
