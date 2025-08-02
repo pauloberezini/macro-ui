@@ -44,3 +44,40 @@ testem.log
 .DS_Store
 Thumbs.db
 /src/environments/environment.prod.ts
+
+# ========================================
+# SECURITY & CREDENTIALS
+
+# Environment files
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+.env.*
+# Cloudflare Tunnel
+cloudflared/
+*.json
+tunnel-config.yml
+
+# API Keys & Secrets
+config/
+secrets/
+api-keys.json
+database-credentials.json
+credentials.json
+
+# Logs (may contain sensitive data)
+*.log
+logs/
+log/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Certificate authorities
+ca/
+certificates/
+ssl/
