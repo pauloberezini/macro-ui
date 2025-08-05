@@ -1,5 +1,5 @@
 export const environment = {
-  production: false,
+  production: true,
   url: 'http://localhost:8089',
   baseUrl: 'http://localhost:8089/historical-data',
   seasonal: 'http://localhost:8089/seasonal-data',
@@ -7,7 +7,7 @@ export const environment = {
   baseUrlYearAllDaily: 'http://localhost:8089/historical-data/year/allDys',
   baseUrlAlpha: 'http://localhost:8089/alpha/historical-data',
   baseUrlDynamicData: 'http://localhost:8089/alpha/historical-data/dynamic/economic',
-
-  nowpaymentsApiKey: 'DEV_API_KEY_PLACEHOLDER',
-  nowpaymentsPublicKey: 'DEV_PUBLIC_KEY_PLACEHOLDER'
+  // NowPayments API Keys - Production keys (replace with actual keys)
+  nowpaymentsApiKey: 'PRODUCTION_API_KEY_PLACEHOLDER',
+  nowpaymentsPublicKey: 'PRODUCTION_PUBLIC_KEY_PLACEHOLDER'
 };

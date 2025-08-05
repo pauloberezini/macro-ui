@@ -7,6 +7,7 @@ import { MatChipsModule } from "@angular/material/chips";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { CommonModule } from '@angular/common';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-supported-by',
@@ -29,6 +30,11 @@ export class SupportedByComponent implements OnInit {
   readonly activeTab = signal<'github' | 'nowpayments'>('nowpayments');
 
   constructor(private metaTagService: Meta) {}
+
+  // Secure getter for NowPayments public key
+  get nowpaymentsPublicKey(): string {
+    return environment.nowpaymentsPublicKey;
+  }
 
   ngOnInit() {
     this.setupMetaTags();

@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  macro-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: macro-ui-production
+    ports:
+      - "443:443"
+    environment:
+      - NODE_ENV=production
+      - PORT=443
+      - NOWPAYMENTS_API_KEY=${NOWPAYMENTS_API_KEY}
+      - NOWPAYMENTS_PUBLIC_KEY=${NOWPAYMENTS_PUBLIC_KEY}
+    env_file:
+      - .env.production
+    volumes:
+      # Mount SSL certificates (optional - for easier certificate updates)
+      - ./cert:/app/production/cert:ro
+    restart: unless-stopped
+    networks:
+      - macro-ui-network
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('https').get('https://localhost:443', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  macro-ui-network:
+    driver: bridge 

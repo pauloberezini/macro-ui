@@ -94,16 +94,16 @@
                   <p>Loading donation widget...</p>
                 </div>
               }
-              <iframe
-                src="https://nowpayments.io/embeds/donation-widget?api_key=54bbe42c-e9be-42dc-90d3-7be444d86a2b"
-                width="346"
-                height="623"
-                frameborder="0"
-                scrolling="no"
-                style="overflow-y: hidden; border-radius: 8px;"
-                (load)="onDonationWidgetLoad()">
-                Can't load widget
-              </iframe>
+                                        <iframe
+                            [src]="'https://nowpayments.io/embeds/donation-widget?api_key=' + nowpaymentsPublicKey"
+                            width="346"
+                            height="623"
+                            frameborder="0"
+                            scrolling="no"
+                            style="overflow-y: hidden; border-radius: 8px;"
+                            (load)="onDonationWidgetLoad()">
+                            Can't load widget
+                          </iframe>
             </div>
 
             <div class="support-info">

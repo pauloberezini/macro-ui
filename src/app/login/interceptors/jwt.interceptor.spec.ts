@@ -67,10 +67,10 @@ describe('jwtInterceptor', () => {
 
     // Assert
     expect(mockRouter.navigate).toHaveBeenCalledWith(['/']);
-    expect(localStorage.getItem('token')).toBeNull();
-    expect(localStorage.getItem('refreshToken')).toBeNull();
-    expect(localStorage.getItem('lastEmail')).toBeNull();
-    expect(localStorage.getItem('lastPassword')).toBeNull();
+            expect(localStorage.getItem('token')).toBeNull();
+        expect(localStorage.getItem('refreshToken')).toBeNull();
+        expect(localStorage.getItem('lastEmail')).toBeNull();
+        // SECURITY: Removed password storage test
 
     // Cleanup
     localStorage.removeItem('token');

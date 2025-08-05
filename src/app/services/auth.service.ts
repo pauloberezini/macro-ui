@@ -42,7 +42,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('lastEmail');
-    localStorage.removeItem('lastPassword');
+    // SECURITY: Removed password storage reference
     this.loggedInSubject.next(false);
   }
 

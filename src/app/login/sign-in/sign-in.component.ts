@@ -1,4 +1,5 @@
-import {Component, OnInit, Optional} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Optional} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialogRef} from '@angular/material/dialog';
@@ -75,11 +76,8 @@ export class SignInComponent implements OnInit {
           localStorage.setItem('userId', response.userId);
           localStorage.setItem('token', response.token);
           localStorage.setItem('lastEmail', email);
-          if (savePassword) {
-            localStorage.setItem('lastPassword', password);
-          } else {
-            localStorage.removeItem('lastPassword');
-          }
+          // SECURITY: Removed password storage from localStorage
+          localStorage.removeItem('lastPassword');
 
           // Close the dialog after successful login
           if (this.dialogRef) {
