@@ -244,7 +244,7 @@ mat-card-subtitle {
   background-color: var(--dark-green) !important;
   color: var(--light-gray) !important;
   margin: 0 24px 24px;
-  display: flex;
+    display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 24px;
@@ -298,7 +298,7 @@ mat-card-subtitle {
 }
 
 .supporter-placeholder {
-  display: flex;
+    display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;

@@ -24,6 +24,31 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
+## Docker + Cloudflare Tunnel
+
+Avoid committing tokens. Use a local env file that is ignored by git.
+
+1) Create `.env.local`:
+
+```
+# Do not commit this file
+CLOUDFLARED_TOKEN=YOUR_TUNNEL_TOKEN_HERE
+```
+
+2) Bring up the stack:
+
+```
+docker compose up -d --build
+```
+
+3) Verify locally:
+
+```
+curl -I http://localhost:3000
+```
+
+The `docker-compose.yml` is configured to read `CLOUDFLARED_TOKEN` from `.env.local` and will not start the tunnel if it is missing.
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
