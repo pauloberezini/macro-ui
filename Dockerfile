@@ -31,15 +31,14 @@ RUN mkdir -p /app/production
 # The asterisk can cause issues if the directory is empty.
 RUN cp -r dist/my-app/browser/. /app/production/
 
-# Copy server.js and certificates
+# Copy server.js
 RUN cp server.js /app/production/
-RUN cp -r cert /app/production/
 
 # Set working directory to production
 WORKDIR /app/production
 
-# Expose HTTPS port
-EXPOSE 443
+# Expose HTTP port
+EXPOSE 3000
 
 # Create non-root user for security
 RUN addgroup -g 1001 -S nodejs
@@ -53,7 +52,7 @@ USER nodejs
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD node -e "require('https').get('https://localhost:443', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })" || exit 1
+    CMD node -e "require('http').get('http://localhost:3000', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })" || exit 1
 
 # Start the application
 CMD ["node", "server.js"]
