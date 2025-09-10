@@ -1,5 +1,5 @@
 <!-- Main container: Uses CSS Grid for layout -->
-<div class="container">
+<div class="container mobile-optimized">
 
   <!-- 📌 First Column: Economic Calendar -->
   <mat-card class="card economic-calendar-card" elevation="3">
@@ -197,8 +197,8 @@
     </mat-card-content>
   </mat-card>
 
-  <!-- 📌 Second Column: Historical Data -->
-  <mat-card class="card historical-data-card" elevation="3">
+  <!-- 📌 Second Column: Historical Data (Hidden on Mobile) -->
+  <mat-card class="card historical-data-card desktop-only" elevation="3">
     <mat-card-header class="card-header">
       <div mat-card-avatar class="chart-icon">
         <mat-icon>insert_chart</mat-icon>

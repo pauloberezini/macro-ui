@@ -8,6 +8,17 @@
   overflow: hidden;
 }
 
+/* Mobile-first: Hide desktop-only content on mobile */
+.desktop-only {
+  display: block;
+}
+
+/* Mobile optimization for container */
+.mobile-optimized {
+  padding: 0;
+  margin: 0;
+}
+
 /* Basic card styling */
 .card {
   padding: 16px;
@@ -224,14 +235,30 @@ table {
 
 /* Mobile responsive */
 @media (max-width: 1024px) {
+  /* Hide desktop-only content on mobile/tablet */
+  .desktop-only {
+    display: none !important;
+  }
+  
   .container {
     grid-template-columns: 1fr;
     gap: 8px;
     height: calc(100vh - 16px);
   }
+  
+  /* Make economic calendar card take full width */
+  .economic-calendar-card {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 768px) {
+  /* Ensure desktop content remains hidden */
+  .desktop-only {
+    display: none !important;
+  }
+  
   .container {
     height: calc(100vh - 8px);
     gap: 6px;
@@ -241,9 +268,17 @@ table {
     padding: 8px;
   }
 
+  /* Optimize economic calendar card for mobile */
+  .economic-calendar-card {
+    height: calc(100vh - 16px);
+    display: flex;
+    flex-direction: column;
+  }
+
   .filter-section {
     padding: 12px;
     margin-bottom: 8px;
+    flex-shrink: 0;
   }
 
   .filter-controls {
@@ -401,6 +436,11 @@ table {
 }
 
 @media (max-width: 480px) {
+  /* Ensure desktop content remains hidden */
+  .desktop-only {
+    display: none !important;
+  }
+  
   .container {
     height: calc(100vh - 4px);
     gap: 4px;
@@ -410,8 +450,16 @@ table {
     padding: 6px;
   }
 
+  /* Mobile-specific optimization for economic calendar */
+  .economic-calendar-card {
+    height: calc(100vh - 8px);
+    display: flex;
+    flex-direction: column;
+  }
+
   .filter-section {
     padding: 8px;
+    flex-shrink: 0;
   }
 
   .mat-mdc-cell {
