@@ -1,0 +1,405 @@
+/* ========================
+   WEEKDAY RETURNS CHART COMPONENT
+   ======================== */
+
+.weekday-chart-card {
+  background: var(--background-primary);
+  border-radius: 12px;
+  box-shadow: 
+    0 2px 12px rgba(16, 47, 119, 0.08),
+    0 1px 4px rgba(2, 102, 112, 0.04);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  height: 100%;
+}
+
+.weekday-chart-card.loading {
+  opacity: 0.7;
+}
+
+.weekday-chart-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 
+    0 4px 16px rgba(16, 47, 119, 0.12),
+    0 2px 8px rgba(2, 102, 112, 0.08);
+}
+
+/* ========================
+   HEADER STYLES
+   ======================== */
+
+.weekday-chart-card mat-card-header {
+  background: linear-gradient(135deg, var(--background-accent) 0%, var(--background-secondary) 100%);
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.weekday-chart-card mat-card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary-blue);
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.chart-icon {
+  color: var(--accent-teal);
+  font-size: 1.25rem;
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+.weekday-chart-card mat-card-subtitle {
+  color: var(--text-secondary);
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+}
+
+/* ========================
+   CONTENT STYLES
+   ======================== */
+
+.weekday-chart-card mat-card-content {
+  padding: 1.5rem;
+  height: calc(100% - 80px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ========================
+   LOADING STATE
+   ======================== */
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  min-height: 200px;
+}
+
+.loading-container p {
+  margin-top: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+/* ========================
+   ERROR STATE
+   ======================== */
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  text-align: center;
+  min-height: 200px;
+  background: rgba(244, 67, 54, 0.05);
+  border-radius: 8px;
+}
+
+.error-container mat-icon {
+  font-size: 3rem;
+  height: 3rem;
+  width: 3rem;
+}
+
+.error-container p {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+}
+
+.error-container button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ========================
+   CHART CONTAINER
+   ======================== */
+
+.chart-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.chart-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  background: var(--background-secondary);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ========================
+   BAR CHART STYLES
+   ======================== */
+
+.chart-bars {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: flex-end;
+  justify-content: space-around;
+  gap: 0.5rem;
+  padding: 0 1rem;
+}
+
+.bar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  min-width: 60px;
+  max-width: 100px;
+  height: 100%;
+}
+
+.bar-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  min-height: 100px;
+}
+
+.bar {
+  width: 100%;
+  min-height: 2px;
+  border-radius: 4px 4px 0 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.bar:hover {
+  transform: scaleY(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.bar.positive {
+  background: linear-gradient(180deg, var(--accent-teal) 0%, rgba(2, 102, 112, 0.8) 100%);
+}
+
+.bar.negative {
+  background: linear-gradient(180deg, var(--error-color) 0%, rgba(244, 67, 54, 0.8) 100%);
+}
+
+/* ========================
+   BAR LABELS
+   ======================== */
+
+.bar-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+}
+
+.bar-value {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--text-primary);
+}
+
+.bar-value.positive {
+  color: var(--accent-teal);
+}
+
+.bar-value.negative {
+  color: var(--error-color);
+}
+
+/* ========================
+   STATISTICS PANEL
+   ======================== */
+
+.stats-panel {
+  background: linear-gradient(135deg, var(--info-light) 0%, var(--background-primary) 100%);
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid var(--border-light);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  background: var(--background-primary);
+  border-radius: 6px;
+  transition: transform 0.2s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-1px);
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.stat-value.positive {
+  color: var(--accent-teal);
+}
+
+.stat-value.negative {
+  color: var(--error-color);
+}
+
+/* ========================
+   RESPONSIVE DESIGN
+   ======================== */
+
+/* Mobile devices */
+@media (max-width: 768px) {
+  .weekday-chart-card mat-card-content {
+    padding: 1rem;
+  }
+
+  .chart-bars {
+    gap: 0.25rem;
+    padding: 0 0.5rem;
+  }
+
+  .bar-container {
+    min-width: 40px;
+    max-width: 60px;
+  }
+
+  .bar-label {
+    font-size: 0.625rem;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    height: 40px;
+    display: flex;
+    align-items: center;
+  }
+
+  .bar-value {
+    font-size: 0.75rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .stat-item {
+    padding: 0.5rem;
+  }
+
+  .chart-wrapper {
+    padding: 0.5rem;
+  }
+}
+
+/* Tablet devices */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Large screens */
+@media (min-width: 1025px) {
+  .weekday-chart-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .bar:hover {
+    transform: scaleY(1.1);
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ========================
+   ACCESSIBILITY
+   ======================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .bar,
+  .stat-item,
+  .weekday-chart-card {
+    transition: none;
+  }
+
+  .bar:hover {
+    transform: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .bar.positive {
+    background: #00FF00;
+  }
+
+  .bar.negative {
+    background: #FF0000;
+  }
+
+  .chart-wrapper {
+    border: 2px solid var(--text-primary);
+  }
+}
+
+/* Focus indicators */
+.bar-container:focus,
+.stat-item:focus {
+  outline: 2px solid var(--accent-teal);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Print styles */
+@media print {
+  .weekday-chart-card {
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+
+  .loading-container,
+  .error-container {
+    display: none;
+  }
+}
+

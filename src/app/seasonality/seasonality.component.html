@@ -38,6 +38,42 @@
       </mat-card>
     </section>
 
+    <!-- Weekday Returns Analysis Section -->
+    <section class="weekday-returns-section" aria-label="Weekday returns analysis">
+      <div class="weekday-charts-grid">
+        <!-- Weekly Weekday Returns Chart -->
+        <app-weekday-returns-chart
+          *ngIf="weekdayReturnsRequest"
+          [request]="weekdayReturnsRequest"
+          [config]="{
+            title: 'Average Returns by Weekday',
+            subtitle: 'Weekly trading performance analysis',
+            showStats: true,
+            height: '350px',
+            colorScheme: 'performance'
+          }"
+          aria-label="Weekly weekday returns chart">
+        </app-weekday-returns-chart>
+
+        <!-- Monthly Weekday Returns Chart - will be added later -->
+        <mat-card class="monthly-weekday-card" elevation="2" role="region" aria-label="Monthly weekday analysis">
+          <mat-card-header>
+            <mat-card-title>
+              <mat-icon aria-label="Calendar icon">calendar_view_month</mat-icon>
+              Monthly Weekday Analysis
+            </mat-card-title>
+            <mat-card-subtitle>Coming soon: Monthly breakdown of weekday returns</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="coming-soon">
+              <mat-icon class="coming-soon-icon">construction</mat-icon>
+              <p>Monthly weekday analysis will be available in the next update</p>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </section>
+
     <!-- Dynamic Analysis Section -->
     <aside class="analysis-sidebar" aria-label="Market analysis sidebar">
       <mat-card class="analysis-card" elevation="2" role="region" aria-label="Market analysis panel">

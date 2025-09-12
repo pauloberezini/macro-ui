@@ -2,6 +2,7 @@ import {ChangeDetectorRef, Component, ComponentRef, OnInit, Type, ViewChild, Vie
 import {SeasonalityPro} from "../yahoo-monthly-data/seasonality-pro.component";
 import {PieAreaComponent} from "../pie-area/pie-area.component";
 import {ChartYearComponentComponent} from "../chart-year-component/chart-year-component.component";
+import {WeekdayReturnsChartComponent} from "../weekday-returns-chart/weekday-returns-chart.component";
 import {Meta} from "@angular/platform-browser";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {CommonModule} from '@angular/common';
@@ -10,6 +11,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatButtonModule} from '@angular/material/button';
 import {BehaviorSubject} from 'rxjs';
+import {WeekdayReturnsService} from '../services/weekday-returns.service';
+import {WeekdayReturnsRequest} from '../model/weekday-returns';
 
 export interface Tile {
   color: string;
@@ -24,6 +27,7 @@ export interface Tile {
   imports: [
     CommonModule,
     ChartYearComponentComponent,
+    WeekdayReturnsChartComponent,
     MatCardModule,
     MatIconModule,
     MatProgressSpinnerModule,
@@ -46,15 +50,20 @@ export class SeasonalityComponent implements OnInit {
   errorMessage: string | null = null;
   valueChanged: string | null = null;
 
+  // Weekday returns data
+  weekdayReturnsRequest: WeekdayReturnsRequest | null = null;
+
   constructor(
     private metaTagService: Meta,
     private cdRef: ChangeDetectorRef,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private weekdayService: WeekdayReturnsService
   ) {
   }
 
   ngOnInit() {
     this.setupMetaTags();
+    this.initializeWeekdayReturns();
 
     // Set initial loading state
     this.loadingSubject.next(true);
@@ -87,10 +96,46 @@ export class SeasonalityComponent implements OnInit {
     ]);
   }
 
+  private initializeWeekdayReturns() {
+    const defaultRange = this.weekdayService.getDefaultYearRange();
+    const marketstackSymbol = this.getMarketstackSymbol(this.selectedStockSymbol);
+    this.weekdayReturnsRequest = {
+      stockSymbol: marketstackSymbol,
+      fromYear: defaultRange.fromYear,
+      toYear: defaultRange.toYear
+    };
+  }
+
+  private getMarketstackSymbol(symbol: string): string {
+    const symbolMapMarket: Record<string, string> = {
+      AUDUSD: "FXA", BRENT: "BNO",
+      COPPER: "CPER", CORN: "CORN", DAX: "DAX",
+      DOW_JONES: "DIA", DXY: "UUP", EURUSD: "FXE",
+      GAS: "UNG", GASOLINE: "UGA", GBPUSD: "FXB",
+      GOLD: "GLD", NASDAQ_100: "QQQ", NIKKEI_225: "EWJ",
+      NZDUSD: "BNZ", PLATINUM: "PPLT", SILVER: "SLV",
+      SOYBEANS: "SOYB", SP500: "SPY", USDCAD: "FXC",
+      USDCHF: "FXF", USDJPY: "FXY", WHEAT: "WEAT",
+      WTI: "USO",
+    };
+    return symbolMapMarket[symbol] || symbol;
+  }
+
+  private updateWeekdayReturnsRequest(symbol: string) {
+    if (this.weekdayReturnsRequest) {
+      const marketstackSymbol = this.getMarketstackSymbol(symbol);
+      this.weekdayReturnsRequest = {
+        ...this.weekdayReturnsRequest,
+        stockSymbol: marketstackSymbol
+      };
+    }
+  }
+
   // Unified symbol change handler
   onSymbolChanged(symbol: string) {
     if (symbol && symbol !== this.selectedStockSymbol) {
       this.selectedStockSymbol = symbol;
+      this.updateWeekdayReturnsRequest(symbol);
       // Place your custom logic here (analytics, logging, etc.)
       this.handleValueChangedInternal(symbol);
     }

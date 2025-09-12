@@ -152,6 +152,84 @@
 }
 
 /* ========================
+   WEEKDAY RETURNS SECTION
+   ======================== */
+
+.weekday-returns-section {
+  order: 2; /* Mobile: between chart and analysis */
+  margin-bottom: 1rem;
+}
+
+.weekday-charts-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* Mobile: single column */
+  gap: 1rem;
+}
+
+.monthly-weekday-card {
+  background: var(--background-primary);
+  border-radius: 12px;
+  box-shadow: 
+    0 2px 12px rgba(16, 47, 119, 0.06),
+    0 1px 4px rgba(2, 102, 112, 0.03);
+  transition: all 0.3s ease;
+}
+
+.monthly-weekday-card mat-card-header {
+  background: linear-gradient(135deg, var(--background-accent) 0%, var(--background-secondary) 100%);
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.monthly-weekday-card mat-card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary-blue);
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.monthly-weekday-card mat-card-title mat-icon {
+  color: var(--accent-teal);
+  font-size: 1.25rem;
+}
+
+.monthly-weekday-card mat-card-subtitle {
+  color: var(--text-secondary);
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.monthly-weekday-card mat-card-content {
+  padding: 1rem 1.25rem;
+}
+
+.coming-soon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  text-align: center;
+  min-height: 150px;
+}
+
+.coming-soon-icon {
+  font-size: 3rem;
+  height: 3rem;
+  width: 3rem;
+  color: var(--border-medium);
+  margin-bottom: 1rem;
+}
+
+.coming-soon p {
+  color: var(--text-secondary);
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+/* ========================
    ANALYSIS SIDEBAR
    ======================== */
 
@@ -523,19 +601,32 @@
 
   .main-content {
     display: grid;
-    grid-template-columns: 1fr 350px; /* Desktop: two columns */
+    grid-template-columns: 1fr 350px; /* Desktop: main content and sidebar */
+    grid-template-rows: auto auto 1fr; /* Rows for charts, weekday, and analysis */
     gap: 1.5rem;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: -2rem auto 2rem;
     padding: 0 1.5rem;
   }
 
   .charts-section {
-    order: 1; /* Desktop: charts first */
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .weekday-returns-section {
+    grid-column: 1;
+    grid-row: 2;
   }
 
   .analysis-sidebar {
-    order: 2; /* Desktop: analysis second */
+    grid-column: 2;
+    grid-row: 1 / -1; /* Span all rows */
+  }
+
+  .weekday-charts-grid {
+    grid-template-columns: 1fr 1fr; /* Desktop: two columns for weekday charts */
+    gap: 1.5rem;
   }
 
   .chart-card {
