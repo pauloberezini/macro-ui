@@ -395,10 +395,6 @@ mat-card-content {
     font-size: 1rem;
   }
 
-  .main-content {
-    padding: 1rem;
-  }
-
   .main-container {
     gap: 1rem;
   }
@@ -425,10 +421,6 @@ mat-card-content {
 @media (max-width: 480px) {
   .search-section {
     padding: 1.5rem 0.75rem;
-  }
-
-  .main-content {
-    padding: 0.75rem;
   }
 
   mat-card-header {

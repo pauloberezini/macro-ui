@@ -114,7 +114,7 @@
 .chart-card {
   background: var(--background-primary);
   border-radius: 12px; /* Mobile border radius */
-  box-shadow: 
+  box-shadow:
     0 2px 12px rgba(16, 47, 119, 0.08),
     0 1px 4px rgba(2, 102, 112, 0.04);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -124,7 +124,7 @@
 
 .chart-card:hover {
   transform: translateY(-1px); /* Mobile: smaller hover effect */
-  box-shadow: 
+  box-shadow:
     0 4px 16px rgba(16, 47, 119, 0.12),
     0 2px 8px rgba(2, 102, 112, 0.08);
 }
@@ -169,7 +169,7 @@
 .monthly-weekday-card {
   background: var(--background-primary);
   border-radius: 12px;
-  box-shadow: 
+  box-shadow:
     0 2px 12px rgba(16, 47, 119, 0.06),
     0 1px 4px rgba(2, 102, 112, 0.03);
   transition: all 0.3s ease;
@@ -243,7 +243,7 @@
 .analysis-card {
   background: var(--background-primary);
   border-radius: 12px; /* Mobile border radius */
-  box-shadow: 
+  box-shadow:
     0 2px 12px rgba(16, 47, 119, 0.06),
     0 1px 4px rgba(2, 102, 112, 0.03);
   transition: all 0.3s ease;
@@ -485,13 +485,13 @@
 }
 
 @keyframes slideUp {
-  from { 
-    opacity: 0; 
-    transform: translateY(20px); 
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  to { 
-    opacity: 1; 
-    transform: translateY(0); 
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -518,19 +518,15 @@
   .page-title {
     font-size: 1.5rem;
   }
-  
+
   .title-icon {
     font-size: 1.75rem;
     height: 1.75rem;
     width: 1.75rem;
   }
-  
+
   .page-subtitle {
     font-size: 0.875rem;
-  }
-  
-  .main-content {
-    padding: 0 0.5rem;
   }
 }
 
@@ -539,16 +535,13 @@
   .page-title {
     font-size: 1.75rem;
   }
-  
+
   .title-icon {
     font-size: 2rem;
     height: 2rem;
     width: 2rem;
   }
-  
-  .main-content {
-    padding: 0 0.75rem;
-  }
+
 }
 
 /* Large mobile devices (414px and up) */
@@ -556,19 +549,15 @@
   .page-header {
     padding: 2.5rem 1.5rem 3.5rem;
   }
-  
+
   .page-title {
     font-size: 2rem;
   }
-  
+
   .title-icon {
     font-size: 2.25rem;
     height: 2.25rem;
     width: 2.25rem;
-  }
-  
-  .main-content {
-    padding: 0 1rem;
   }
 }
 
@@ -604,9 +593,7 @@
     grid-template-columns: 1fr 350px; /* Desktop: main content and sidebar */
     grid-template-rows: auto auto 1fr; /* Rows for charts, weekday, and analysis */
     gap: 1.5rem;
-    max-width: 1400px;
     margin: -2rem auto 2rem;
-    padding: 0 1.5rem;
   }
 
   .charts-section {
@@ -644,11 +631,6 @@
     margin-bottom: 0;
   }
 
-  .chart-card mat-card-content,
-  .analysis-card mat-card-content {
-    padding: 1.5rem;
-  }
-
   .stats-grid {
     flex-direction: row; /* Desktop: horizontal layout */
   }
@@ -664,13 +646,11 @@
   .main-content {
     grid-template-columns: 1fr 400px;
     gap: 2rem;
-    max-width: 1400px;
-    padding: 0 2rem;
   }
 
   .chart-card:hover {
     transform: translateY(-2px);
-    box-shadow: 
+    box-shadow:
       0 8px 32px rgba(16, 47, 119, 0.12),
       0 4px 16px rgba(2, 102, 112, 0.08);
   }
@@ -721,7 +701,7 @@
   .stat-item:hover {
     transform: none;
   }
-  
+
   .chart-card:active,
   .analysis-card:active,
   .stat-item:active {
@@ -735,7 +715,7 @@
     padding-left: max(0px, env(safe-area-inset-left));
     padding-right: max(0px, env(safe-area-inset-right));
   }
-  
+
   .page-loading-overlay {
     padding-left: max(0px, env(safe-area-inset-left));
     padding-right: max(0px, env(safe-area-inset-right));

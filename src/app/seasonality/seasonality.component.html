@@ -26,11 +26,6 @@
     <!-- Charts Section -->
     <section class="charts-section" aria-label="Market seasonality charts">
       <mat-card class="chart-card" elevation="2" role="region" aria-label="Market seasonality chart">
-        <mat-card-header>
-          <mat-card-title>Market Seasonality Chart</mat-card-title>
-          <mat-card-subtitle>Historical performance patterns by month and election cycles</mat-card-subtitle>
-        </mat-card-header>
-
         <mat-card-content>
           <app-chart-year-component (valueChanged)="handleValueChanged($event)" aria-label="Interactive chart component">
           </app-chart-year-component>
@@ -55,22 +50,19 @@
           aria-label="Weekly weekday returns chart">
         </app-weekday-returns-chart>
 
-        <!-- Monthly Weekday Returns Chart - will be added later -->
-        <mat-card class="monthly-weekday-card" elevation="2" role="region" aria-label="Monthly weekday analysis">
-          <mat-card-header>
-            <mat-card-title>
-              <mat-icon aria-label="Calendar icon">calendar_view_month</mat-icon>
-              Monthly Weekday Analysis
-            </mat-card-title>
-            <mat-card-subtitle>Coming soon: Monthly breakdown of weekday returns</mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
-            <div class="coming-soon">
-              <mat-icon class="coming-soon-icon">construction</mat-icon>
-              <p>Monthly weekday analysis will be available in the next update</p>
-            </div>
-          </mat-card-content>
-        </mat-card>
+        <!-- Monthly Weekday Returns Chart -->
+        <app-monthly-weekday-returns-chart
+          *ngIf="weekdayReturnsRequest"
+          [request]="weekdayReturnsRequest"
+          [config]="{
+            title: 'Monthly Weekday Analysis',
+            subtitle: 'Average returns by month and weekday',
+            showStats: true,
+            height: '350px',
+            colorScheme: 'heatmap'
+          }"
+          aria-label="Monthly weekday returns chart">
+        </app-monthly-weekday-returns-chart>
       </div>
     </section>
 

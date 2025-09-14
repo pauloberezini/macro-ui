@@ -5,7 +5,7 @@
 .weekday-chart-card {
   background: var(--background-primary);
   border-radius: 12px;
-  box-shadow: 
+  box-shadow:
     0 2px 12px rgba(16, 47, 119, 0.08),
     0 1px 4px rgba(2, 102, 112, 0.04);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -19,7 +19,7 @@
 
 .weekday-chart-card:hover {
   transform: translateY(-1px);
-  box-shadow: 
+  box-shadow:
     0 4px 16px rgba(16, 47, 119, 0.12),
     0 2px 8px rgba(2, 102, 112, 0.08);
 }
@@ -27,12 +27,6 @@
 /* ========================
    HEADER STYLES
    ======================== */
-
-.weekday-chart-card mat-card-header {
-  background: linear-gradient(135deg, var(--background-accent) 0%, var(--background-secondary) 100%);
-  padding: 1rem 1.25rem;
-  border-bottom: 1px solid var(--border-light);
-}
 
 .weekday-chart-card mat-card-title {
   display: flex;

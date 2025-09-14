@@ -3,6 +3,7 @@ import {SeasonalityPro} from "../yahoo-monthly-data/seasonality-pro.component";
 import {PieAreaComponent} from "../pie-area/pie-area.component";
 import {ChartYearComponentComponent} from "../chart-year-component/chart-year-component.component";
 import {WeekdayReturnsChartComponent} from "../weekday-returns-chart/weekday-returns-chart.component";
+import {MonthlyWeekdayReturnsChartComponent} from "../monthly-weekday-returns-chart/monthly-weekday-returns-chart.component";
 import {Meta} from "@angular/platform-browser";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {CommonModule} from '@angular/common';
@@ -12,7 +13,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatButtonModule} from '@angular/material/button';
 import {BehaviorSubject} from 'rxjs';
 import {WeekdayReturnsService} from '../services/weekday-returns.service';
+import {MonthlyWeekdayReturnsService} from '../services/monthly-weekday-returns.service';
 import {WeekdayReturnsRequest} from '../model/weekday-returns';
+import {HttpClientModule} from '@angular/common/http';
 
 export interface Tile {
   color: string;
@@ -28,6 +31,7 @@ export interface Tile {
     CommonModule,
     ChartYearComponentComponent,
     WeekdayReturnsChartComponent,
+    MonthlyWeekdayReturnsChartComponent,
     MatCardModule,
     MatIconModule,
     MatProgressSpinnerModule,
@@ -57,7 +61,8 @@ export class SeasonalityComponent implements OnInit {
     private metaTagService: Meta,
     private cdRef: ChangeDetectorRef,
     private breakpointObserver: BreakpointObserver,
-    private weekdayService: WeekdayReturnsService
+    private weekdayService: WeekdayReturnsService,
+    private monthlyWeekdayService: MonthlyWeekdayReturnsService
   ) {
   }
 
@@ -208,5 +213,4 @@ export class SeasonalityComponent implements OnInit {
     this.valueChanged = symbol;
     this.onSymbolChanged(symbol);
   }
-
 }
