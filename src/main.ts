@@ -16,7 +16,6 @@ import {ResetPasswordComponent} from "./app/login/reset-password/reset-password.
 import {HockeyBetComponent} from "./app/hockey-bet/hockey-bet.component";
 import {jwtInterceptor} from "./app/login/interceptors/jwt.interceptor";
 import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
-import {StockAnomalyComponent} from "./app/stock-anomaly/stock-anomaly.component";
 import {apiInterceptor} from "./app/services/spinner/apiInterceptor";
 import {HomeComponent} from "./app/home/home.component";
 import {LegalComponent} from "./app/pages/legal/legal.component";
@@ -38,7 +37,6 @@ const routes: Routes = [
   { path: 'dash-graphs', component: DashGraphsComponent },
   { path: 'app-gas', component: GasComponent },
   { path: '', component: HomeComponent },
-  { path: 'app-stock-anomaly', component: StockAnomalyComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'hockey-bet', component: HockeyBetComponent },
   { path: 'sign-in', component: SignInComponent },
