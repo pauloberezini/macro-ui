@@ -354,6 +354,117 @@ button:hover {
 }
 
 
+/* ========================
+   CUSTOM SQUARE CONTAINERS
+   ======================== */
+
+.square-container {
+  background: var(--background-primary);
+  border: 1px solid var(--border-light);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+/* Square variant (1:1 aspect ratio) */
+.square-container.square {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header styles */
+.box-header {
+  background: linear-gradient(135deg, var(--background-accent) 0%, var(--background-secondary) 100%);
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.header-title h2 {
+  color: var(--primary-blue);
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.header-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+/* Content styles */
+.box-content {
+  padding: 1rem;
+  flex: 1;
+  overflow: auto;
+}
+
+/* Variants */
+.square-container.primary {
+  border-color: var(--primary-blue);
+}
+
+.square-container.accent {
+  border-color: var(--accent-teal);
+}
+
+.square-container.info {
+  background: linear-gradient(135deg, var(--info-light) 0%, var(--background-primary) 100%);
+}
+
+.square-container.success {
+  background: linear-gradient(135deg, var(--success-light) 0%, var(--background-primary) 100%);
+}
+
+.square-container.warning {
+  background: linear-gradient(135deg, var(--warning-light) 0%, var(--background-primary) 100%);
+}
+
+.square-container.error {
+  background: linear-gradient(135deg, var(--error-light) 0%, var(--background-primary) 100%);
+}
+
+/* Hover effects */
+.square-container.hoverable:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Loading state */
+.square-container.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .square-container {
+    margin-bottom: 0.75rem;
+  }
+
+  .box-header {
+    padding: 0.75rem 1rem;
+  }
+
+  .header-title h2 {
+    font-size: 1.125rem;
+  }
+
+  .box-content {
+    padding: 0.75rem;
+  }
+}
+
 /* Mobile Styles */
 @media (max-width: 768px) {
   html {

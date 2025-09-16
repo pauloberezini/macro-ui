@@ -30,16 +30,16 @@ export interface MonthlyWeekdayReturnsChartConfig {
     AsyncPipe
   ],
   template: `
-    <mat-card class="chart-card">
-      <mat-card-header>
-        <mat-card-title>
+    <div class="square-container chart-box">
+      <div class="box-header">
+        <div class="header-title">
           <mat-icon>calendar_view_month</mat-icon>
-          {{ config?.title || 'Monthly Weekday Returns' }}
-        </mat-card-title>
-        <mat-card-subtitle>{{ config?.subtitle || 'Analysis of returns by month and weekday' }}</mat-card-subtitle>
-      </mat-card-header>
+          <h2>{{ config?.title || 'Monthly Weekday Returns' }}</h2>
+        </div>
+        <p class="header-subtitle">{{ config?.subtitle || 'Analysis of returns by month and weekday' }}</p>
+      </div>
 
-      <mat-card-content>
+      <div class="box-content">
         <!-- Loading State -->
         <div *ngIf="isLoading$ | async" class="loading-overlay">
           <mat-spinner diameter="40"></mat-spinner>
@@ -95,8 +95,8 @@ export interface MonthlyWeekdayReturnsChartConfig {
             <span class="stat-value">{{ (stats.volatility * 100).toFixed(2) }}%</span>
           </div>
         </div>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </div>
   `,
   styles: [`
     :host {
@@ -104,18 +104,50 @@ export interface MonthlyWeekdayReturnsChartConfig {
       width: 100%;
     }
 
-    .chart-card {
+    .square-container {
       width: 100%;
-      height: 100%;
+      aspect-ratio: 1;
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
     }
 
-    mat-card-content {
+    .box-header {
+      padding: 16px;
+      border-bottom: 1px solid #e0e0e0;
+      background: #fafafa;
+    }
+
+    .header-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .header-title h2 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .header-subtitle {
+      margin: 0;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .box-content {
       flex: 1;
       position: relative;
       display: flex;
       flex-direction: column;
+      padding: 16px;
+      overflow: auto;
     }
 
     .loading-overlay {

@@ -22,16 +22,16 @@
   </div>
 
   <!-- Calculation Information -->
-  <div *ngIf="seasonalMetadata && !error" class="calculation-card">
-    <div class="card-header">
-      <mat-icon class="analysis-icon">analytics</mat-icon>
-      <div class="header-content">
-        <h3 class="analysis-title">Seasonal Analysis</h3>
-        <span class="analysis-subtitle">{{ yearsAnalyzed }} years • {{ algorithmName }}</span>
+  <div *ngIf="seasonalMetadata && !error" class="square-container info">
+    <div class="box-header">
+      <div class="header-title">
+        <mat-icon>analytics</mat-icon>
+        <h2>Seasonal Analysis</h2>
       </div>
+      <p class="header-subtitle">{{ yearsAnalyzed }} years • {{ algorithmName }}</p>
     </div>
     
-    <div class="card-body">
+    <div class="box-content">
       <div class="years-section">
         <div class="section-label">Years Included</div>
         <div class="years-container">
