@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges, Inject } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule, NgIf, NgForOf, AsyncPipe } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -98,269 +98,7 @@ export interface MonthlyWeekdayReturnsChartConfig {
       </div>
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      width: 100%;
-    }
-
-    .square-container {
-      width: 100%;
-      aspect-ratio: 1;
-      background: #ffffff;
-      border: 1px solid #e0e0e0;
-      border-radius: 4px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .box-header {
-      padding: 16px;
-      border-bottom: 1px solid #e0e0e0;
-      background: #fafafa;
-    }
-
-    .header-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 4px;
-    }
-
-    .header-title h2 {
-      margin: 0;
-      font-size: 18px;
-      font-weight: 500;
-      color: #333;
-    }
-
-    .header-subtitle {
-      margin: 0;
-      font-size: 14px;
-      color: #666;
-    }
-
-    .box-content {
-      flex: 1;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      padding: 16px;
-      overflow: auto;
-    }
-
-    .loading-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255, 255, 255, 0.9);
-      z-index: 1;
-    }
-
-    .error-message {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      color: #f44336;
-      padding: 16px;
-    }
-
-    .chart-container {
-      flex: 1;
-      padding: 8px;
-      overflow: hidden;
-      min-height: 400px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .heatmap-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(120px, 1fr));
-      gap: 12px;
-      padding: 12px;
-      overflow: auto;
-      height: 100%;
-      align-content: start;
-    }
-
-    @media (max-width: 992px) {
-      .heatmap-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 8px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .heatmap-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 480px) {
-      .heatmap-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .heatmap-cell {
-      position: relative;
-      padding: 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-      background: white;
-      min-height: 80px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .heatmap-cell:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
-      z-index: 1;
-    }
-
-    .heatmap-cell:hover .tooltip {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .cell-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      text-align: center;
-      width: 100%;
-    }
-
-    .cell-value {
-      font-weight: 600;
-      font-size: 16px;
-      line-height: 1.2;
-      margin: 0;
-    }
-
-    .cell-label {
-      font-size: 13px;
-      font-weight: 500;
-      opacity: 0.85;
-      text-transform: capitalize;
-      margin: 0;
-      white-space: nowrap;
-    }
-
-    .tooltip {
-      position: absolute;
-      bottom: calc(100% + 8px);
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(33, 33, 33, 0.95);
-      color: white;
-      padding: 8px 12px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: 500;
-      white-space: nowrap;
-      z-index: 1000;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      pointer-events: none;
-    }
-
-    .tooltip::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border-width: 6px;
-      border-style: solid;
-      border-color: rgba(33, 33, 33, 0.95) transparent transparent transparent;
-    }
-
-    .stats-panel {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
-      padding: 16px;
-      background: linear-gradient(to bottom, #f8f9fa, #f1f3f5);
-      border-radius: 8px;
-      margin-top: 20px;
-      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
-    }
-
-    @media (max-width: 768px) {
-      .stats-panel {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 480px) {
-      .stats-panel {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .stat-item {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      padding: 12px;
-      background: white;
-      border-radius: 6px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .stat-item:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
-    }
-
-    .stat-label {
-      font-size: 12px;
-      color: rgba(0, 0, 0, 0.6);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-weight: 500;
-    }
-
-    .stat-value {
-      font-size: 15px;
-      font-weight: 600;
-      line-height: 1.4;
-    }
-
-    .positive {
-      color: #2e7d32;
-      background: rgba(46, 125, 50, 0.08);
-      padding: 4px 8px;
-      border-radius: 4px;
-      display: inline-block;
-    }
-
-    .negative {
-      color: #c62828;
-      background: rgba(198, 40, 40, 0.08);
-      padding: 4px 8px;
-      border-radius: 4px;
-      display: inline-block;
-    }
-  `]
+  styleUrls: ['./monthly-weekday-returns-chart.component.css']
 })
 export class MonthlyWeekdayReturnsChartComponent implements OnInit, OnChanges {
   @Input() request!: WeekdayReturnsRequest;
@@ -368,65 +106,93 @@ export class MonthlyWeekdayReturnsChartComponent implements OnInit, OnChanges {
 
   private loadingSubject = new BehaviorSubject<boolean>(false);
   isLoading$ = this.loadingSubject.asObservable();
-  error: string | null = null;
 
-  chartData$!: Observable<MonthlyWeekdayChartData[]>;
-  summaryStats$!: Observable<MonthlyWeekdayStats>;
-  private maxAbsValue = 0;
+  error: string | null = null;
 
   constructor(private monthlyWeekdayService: MonthlyWeekdayReturnsService) {}
 
-  ngOnInit() {
-    this.loadData();
-  }
+  private dataSubject = new BehaviorSubject<MonthlyWeekdayChartData[]>([]);
+  chartData$ = this.dataSubject.asObservable();
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['request'] && !changes['request'].firstChange) {
+  summaryStats$: Observable<MonthlyWeekdayStats | null> = this.chartData$.pipe(
+    map(data => {
+      if (data.length === 0) return null;
+      
+      const bestData = data.reduce((max, current) => current.value > max.value ? current : max);
+      const worstData = data.reduce((min, current) => current.value < min.value ? current : min);
+      const averageReturn = data.reduce((sum, current) => sum + current.value, 0) / data.length;
+      const variance = data.reduce((sum, current) => sum + Math.pow(current.value - averageReturn, 2), 0) / data.length;
+      const volatility = Math.sqrt(variance);
+
+      return {
+        bestMonth: bestData.month,
+        bestWeekday: bestData.displayName,
+        bestReturn: bestData.value,
+        worstMonth: worstData.month,
+        worstWeekday: worstData.displayName,
+        worstReturn: worstData.value,
+        averageReturn,
+        volatility
+      };
+    })
+  );
+
+  ngOnInit(): void {
+    if (this.request) {
       this.loadData();
     }
   }
 
-  private loadData() {
-    if (!this.request) return;
-
-    this.loadingSubject.next(true);
-    this.error = null;
-
-    this.chartData$ = this.monthlyWeekdayService.getMonthlyWeekdayReturns(this.request).pipe(
-      map(data => {
-        const chartData = this.monthlyWeekdayService.transformToChartData(data);
-        this.updateMaxValue(chartData);
-        return chartData;
-      }),
-      catchError(err => {
-        console.error('Error loading monthly weekday returns:', err);
-        this.error = 'Failed to load data. Please try again.';
-        throw err;
-      }),
-      finalize(() => this.loadingSubject.next(false))
-    );
-
-    this.summaryStats$ = this.chartData$.pipe(
-      map(data => this.monthlyWeekdayService.calculateSummaryStats(data))
-    );
-  }
-
-  private updateMaxValue(data: MonthlyWeekdayChartData[]) {
-    this.maxAbsValue = Math.max(...data.map(d => Math.abs(d.value)));
-  }
-
-  getBackgroundColor(value: number): string {
-    const intensity = Math.abs(value) / this.maxAbsValue;
-    if (value > 0) {
-      return `rgba(76, 175, 80, ${intensity * 0.5})`; // Green for positive
-    } else {
-      return `rgba(244, 67, 54, ${intensity * 0.5})`; // Red for negative
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['request'] && this.request) {
+      this.loadData();
     }
   }
 
+  private loadData(): void {
+    this.loadingSubject.next(true);
+    this.error = null;
+
+    this.monthlyWeekdayService.getMonthlyWeekdayReturns(this.request)
+      .pipe(
+        map(data => this.monthlyWeekdayService.transformToChartData(data)),
+        catchError(error => {
+          this.error = error.message || 'Failed to load data';
+          return [];
+        }),
+        finalize(() => this.loadingSubject.next(false))
+      )
+      .subscribe(chartData => {
+        this.dataSubject.next(chartData);
+      });
+  }
+
+  getBackgroundColor(value: number): string {
+    const config = this.config;
+    if (!config || config.colorScheme === 'performance') {
+      if (value > 2) return '#4CAF50';
+      if (value > 1) return '#8BC34A';
+      if (value > 0) return '#CDDC39';
+      if (value > -1) return '#FFC107';
+      if (value > -2) return '#FF9800';
+      return '#F44336';
+    }
+    
+    // Heatmap color scheme
+    const abs = Math.abs(value);
+    if (value > 2) return 'rgba(76, 175, 80, 0.8)';
+    if (value > 1) return 'rgba(139, 195, 74, 0.6)';
+    if (value > 0) return 'rgba(205, 220, 57, 0.4)';
+    if (value === 0) return 'rgba(158, 158, 158, 0.2)';
+    if (abs <= 1) return 'rgba(255, 193, 7, 0.4)';
+    if (abs <= 2) return 'rgba(255, 152, 0, 0.6)';
+    return 'rgba(244, 67, 54, 0.8)';
+  }
+
   getTextColor(value: number): string {
-    const intensity = Math.abs(value) / this.maxAbsValue;
-    return intensity > 0.7 ? '#ffffff' : '#000000';
+    const abs = Math.abs(value);
+    if (abs > 1.5) return 'white';
+    return '#333';
   }
 
   formatReturn(value: number): string {

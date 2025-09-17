@@ -35,18 +35,16 @@ export interface WeekdayReturnsChartConfig {
     MatTooltipModule
   ],
   template: `
-    <mat-card class="weekday-chart-card" [class.loading]="isLoading$ | async">
-      <mat-card-header>
-        <mat-card-title>
+    <div class="square-container chart-box" [class.loading]="isLoading$ | async">
+      <div class="box-header">
+        <div class="header-title">
           <mat-icon class="chart-icon">trending_up</mat-icon>
-          {{ config.title }}
-        </mat-card-title>
-        <mat-card-subtitle *ngIf="config.subtitle">
-          {{ config.subtitle }}
-        </mat-card-subtitle>
-      </mat-card-header>
+          <h2>{{ config.title }}</h2>
+        </div>
+        <p class="header-subtitle" *ngIf="config.subtitle">{{ config.subtitle }}</p>
+      </div>
 
-      <mat-card-content>
+      <div class="box-content">
         <!-- Loading State -->
         <div *ngIf="isLoading$ | async" class="loading-container">
           <mat-spinner diameter="40"></mat-spinner>
@@ -113,8 +111,8 @@ export interface WeekdayReturnsChartConfig {
             </div>
           </div>
         </div>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </div>
   `,
   styleUrls: ['./weekday-returns-chart.component.css']
 })

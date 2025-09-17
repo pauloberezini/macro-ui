@@ -597,6 +597,7 @@
   }
 
   .analysis-sidebar {
+    margin-top: 20px;
     grid-column: 2;
     grid-row: 1 / -1; /* Span all rows */
   }
