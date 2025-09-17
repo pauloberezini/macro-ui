@@ -179,7 +179,6 @@ mat-form-field {
   display: inline-flex;
   align-items: center;
   padding: 4px 10px;
-  border-radius: 20px;
   font-size: 13px;
   font-weight: 500;
   transition: all 0.2s ease;
