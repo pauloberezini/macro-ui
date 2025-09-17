@@ -1,3 +1,7 @@
+:host {
+  display: block;
+}
+
 .chart-container {
   display: flex;
   flex-direction: column;
@@ -10,10 +14,54 @@
 
 .chart-controls {
   display: flex;
+  flex-direction: column;
+  gap: 16px;
+  order: 1; /* Mobile: controls first */
+  margin-top: 20px; /* Space for sticky header */
+}
+
+.chart-controls-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chart-controls-header h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.help-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  padding: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  opacity: 0.7;
+}
+
+.help-button:hover {
+  opacity: 1;
+  color: var(--accent-teal);
+}
+
+.help-button mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.controls-content {
+  display: flex;
   align-items: center;
   gap: 20px;
   flex-wrap: wrap;
-  order: 1; /* Mobile: controls first */
 }
 
 .chart-content {
@@ -58,7 +106,59 @@ mat-form-field {
   min-width: 200px;
 }
 
-/* Years section styling */
+.calculation-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 16px 0;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  order: 3; /* Mobile: calculation card at bottom */
+}
+
+.calculation-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.25);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.analysis-icon {
+  color: white;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.card-header-content {
+  flex: 1;
+}
+
+.analysis-title {
+  margin: 0;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.analysis-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.card-body {
+  padding: 16px 20px 20px;
+  background: white;
+}
 
 .years-section {
   margin-bottom: 16px;
@@ -137,9 +237,26 @@ mat-form-field {
     min-height: 300px; /* Smaller height for mobile */
   }
 
-  .square-container {
+  .calculation-card {
     order: 3; /* Calculation card at bottom on mobile */
+    margin: 0; /* Remove margin to stick to bottom */
+    border-radius: 8px; /* Smaller border radius for mobile */
   }
+
+  .card-header {
+    padding: 12px 16px;
+  }
+
+  .analysis-title {
+    font-size: 15px;
+  }
+
+  .analysis-subtitle {
+    font-size: 12px;
+  }
+
+  .card-body {
+    padding: 12px 16px 16px;
   }
 
   .years-container {
@@ -162,13 +279,21 @@ mat-form-field {
     order: 2; /* Chart content second */
   }
 
-  .square-container {
+  .calculation-card {
     order: 2; /* Calculation card in original position (after controls, before chart) */
   }
 }
 
 /* Touch-friendly interactions for mobile */
 @media (hover: none) and (pointer: coarse) {
+  .calculation-card:hover {
+    transform: none;
+  }
+  
+  .calculation-card:active {
+    transform: scale(0.98);
+  }
+  
   .year-badge:hover {
     transform: none;
   }
@@ -177,4 +302,3 @@ mat-form-field {
     transform: scale(0.95);
   }
 }
-

@@ -1,37 +1,51 @@
   <div class="chart-controls">
-    <mat-button-toggle-group [(ngModel)]="election" (change)="getData('toggle')" aria-label="Chart Type">
-      <mat-button-toggle value="regular">Regular</mat-button-toggle>
-      <mat-button-toggle value="pre">Pre Election</mat-button-toggle>
-      <mat-button-toggle value="elec">Election</mat-button-toggle>
-      <mat-button-toggle value="post">Post Election</mat-button-toggle>
-    </mat-button-toggle-group>
+    <div class="chart-controls-header">
+      <h2>Chart Settings</h2>
+      <button 
+        type="button"
+        class="help-button"
+        [matTooltip]="'Click for detailed information'"
+        (click)="openHelpDialog()"
+        aria-label="View chart information">
+        <mat-icon>help_outline</mat-icon>
+      </button>
+    </div>
 
-    <mat-form-field>
-      <mat-label>Select Symbol</mat-label>
-      <mat-select [(ngModel)]="stockName" (selectionChange)="getData('dropdown')">
-        <mat-option *ngFor="let symbol of stockSymbols" [value]="symbol">
-          {{ symbol }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <div class="controls-content">
+      <mat-button-toggle-group [(ngModel)]="election" (change)="getData('toggle')" aria-label="Chart Type">
+        <mat-button-toggle value="regular">Regular</mat-button-toggle>
+        <mat-button-toggle value="pre">Pre Election</mat-button-toggle>
+        <mat-button-toggle value="elec">Election</mat-button-toggle>
+        <mat-button-toggle value="post">Post Election</mat-button-toggle>
+      </mat-button-toggle-group>
 
-    <app-search-bar
-      [clearOnDropdown]="clearOnDropdown"
-      (suggestionSelected)="handleSuggestion($event)">
-    </app-search-bar>
+      <mat-form-field>
+        <mat-label>Select Symbol</mat-label>
+        <mat-select [(ngModel)]="stockName" (selectionChange)="getData('dropdown')">
+          <mat-option *ngFor="let symbol of stockSymbols" [value]="symbol">
+            {{ symbol }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <app-search-bar
+        [clearOnDropdown]="clearOnDropdown"
+        (suggestionSelected)="handleSuggestion($event)">
+      </app-search-bar>
+    </div>
   </div>
 
   <!-- Calculation Information -->
-  <div *ngIf="seasonalMetadata && !error" class="square-container info">
-    <div class="box-header">
-      <div class="header-title">
-        <mat-icon>analytics</mat-icon>
-        <h2>Seasonal Analysis</h2>
+  <div *ngIf="seasonalMetadata && !error" class="calculation-card">
+    <div class="card-header">
+      <mat-icon class="analysis-icon">analytics</mat-icon>
+      <div class="card-header-content">
+        <h3 class="analysis-title">Seasonal Analysis</h3>
+        <span class="analysis-subtitle">{{ yearsAnalyzed }} years • {{ algorithmName }}</span>
       </div>
-      <p class="header-subtitle">{{ yearsAnalyzed }} years • {{ algorithmName }}</p>
     </div>
     
-    <div class="box-content">
+    <div class="card-body">
       <div class="years-section">
         <div class="section-label">Years Included</div>
         <div class="years-container">
@@ -61,5 +75,5 @@
       <button mat-button color="primary" (click)="getData('retry')">Try Again</button>
     </div>
 
-    <canvas [id]="canvasIdSeasonal" [style.display]="(isLoading$ | async) || error ? 'none' : 'block'"></canvas>
+    <canvas [id]="canvasIdSeasonal" [style.display]="(isLoading$ | async) || error ? 'none' : 'block'"></canvas>                                                                                                        
   </div>

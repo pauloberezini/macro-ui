@@ -1,4 +1,6 @@
-import {Component, EventEmitter, HostListener, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, HostListener, OnInit, Output, inject } from '@angular/core';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ChartHelpDialogComponent } from './components/chart-help-dialog/chart-help-dialog.component';
 import {Chart} from 'chart.js/auto';
 import {StockDataService} from "../services/stock-data.service";
 import {Subject, BehaviorSubject, forkJoin} from "rxjs";
@@ -13,6 +15,7 @@ import {StockSuggestion} from "../model/stock-suggestion";
 import {LoaderComponent} from "../loader/loader.component";
 import {NgForOf, NgIf, AsyncPipe} from "@angular/common";
 import {MatIcon} from "@angular/material/icon";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 // Interfaces for the new seasonal data response structure
 interface SeasonalDataResponse {
@@ -55,7 +58,10 @@ interface SeasonalDataDto {
     NgIf,
     NgForOf,
     AsyncPipe,
-    MatIcon
+    MatIcon,
+    MatTooltipModule,
+    MatDialogModule,
+    ChartHelpDialogComponent
   ]
 })
 export class ChartYearComponentComponent implements OnInit {
@@ -90,12 +96,25 @@ export class ChartYearComponentComponent implements OnInit {
     "WHEAT", "WTI"
   ];
 
-  constructor(private stockDataService: StockDataService) {
+  private readonly dialog = inject(MatDialog);
+  private readonly stockDataService = inject(StockDataService);
+
+  constructor() {
     Chart.register(annotationPlugin);
     this.resizeEvent.pipe(
       debounceTime(300)
     ).subscribe(() => {
       this.createSeasonalChart(null);
+    });
+  }
+
+  openHelpDialog(): void {
+    this.dialog.open(ChartHelpDialogComponent, {
+      width: '600px',
+      maxWidth: '90vw',
+      maxHeight: '90vh',
+      autoFocus: false,
+      panelClass: 'help-dialog-container'
     });
   }
 
