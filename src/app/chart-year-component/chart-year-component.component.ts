@@ -60,8 +60,7 @@ interface SeasonalDataDto {
     AsyncPipe,
     MatIcon,
     MatTooltipModule,
-    MatDialogModule,
-    ChartHelpDialogComponent
+    MatDialogModule
   ]
 })
 export class ChartYearComponentComponent implements OnInit {
