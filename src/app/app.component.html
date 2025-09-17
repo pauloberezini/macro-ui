@@ -1,13 +1,13 @@
 <!-- Skip to content link for accessibility -->
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<!-- Top Navigation Bar -->
-<header class="top-nav" role="banner">
-  <!-- Logo -->
-  <div class="logo-container">
-    <a routerLink="/" class="berezini-logo" aria-label="Berezini Partners - Go to homepage">
-    <span class="logo-icon" aria-hidden="true">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+<!-- Simple Header -->
+<header class="simple-header" role="banner">
+  <div class="header-content">
+    <!-- Logo -->
+    <a routerLink="/" class="logo" aria-label="Berezini Partners - Go to homepage">
+      <span class="logo-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
           <rect x="3" y="10" width="3" height="11" fill="currentColor"/>
           <rect x="9" y="6" width="3" height="15" fill="currentColor"/>
           <rect x="15" y="2" width="3" height="19" fill="currentColor"/>
@@ -15,147 +15,39 @@
       </span>
       <span class="logo-text">Berezini Partners</span>
     </a>
-  </div>
 
-  <!-- Desktop Navigation -->
-  <nav class="desktop-nav" role="navigation" aria-label="Main navigation">
-    <ul class="nav-items" role="menubar">
-      <li role="none">
-        <a class="nav-item"
-           routerLink="/"
-           routerLinkActive="active"
-           [routerLinkActiveOptions]="{exact: true}"
-           role="menuitem"
-           aria-label="Go to home page">
-          <mat-icon class="nav-icon" aria-hidden="true">home</mat-icon>
-          <span class="nav-text">Home</span>
-        </a>
-      </li>
-      <li role="none">
-        <a class="nav-item"
-           routerLink="/app-economic-calendar"
-           routerLinkActive="active"
-           role="menuitem"
-           aria-label="Go to economic events">
-          <mat-icon class="nav-icon" aria-hidden="true">event_note</mat-icon>
-          <span class="nav-text">Events</span>
-        </a>
-      </li>
-      <li role="none">
-        <a class="nav-item"
-           routerLink="/app-seasonality"
-           routerLinkActive="active"
-           role="menuitem"
-           aria-label="Go to seasonality analysis">
-          <mat-icon class="nav-icon" aria-hidden="true">show_chart</mat-icon>
-          <span class="nav-text">Seasonality</span>
-        </a>
-      </li>
-      <li role="none">
-        <a class="nav-item"
-           routerLink="/app-stock-anomaly"
-           routerLinkActive="active"
-           role="menuitem"
-           aria-label="Go to stock anomaly analysis">
-          <mat-icon class="nav-icon" aria-hidden="true">insights</mat-icon>
-          <span class="nav-text">Anomaly</span>
-        </a>
-      </li>
-      <li role="none">
-        <a class="nav-item"
-           routerLink="/insiders"
-           routerLinkActive="active"
-           role="menuitem"
-           aria-label="Go to insider trading information">
-          <mat-icon class="nav-icon" aria-hidden="true">trending_up</mat-icon>
-          <span class="nav-text">Insiders</span>
-        </a>
-      </li>
-      <li role="none">
-        <a class="nav-item"
-           routerLink="/app-news"
-           routerLinkActive="active"
-           role="menuitem"
-           aria-label="Go to market news">
-          <mat-icon class="nav-icon" aria-hidden="true">article</mat-icon>
-          <span class="nav-text">News</span>
-        </a>
-      </li>
-      <li role="none">
-        <a class="nav-item"
-           routerLink="/dash-graphs"
-           routerLinkActive="active"
-           role="menuitem"
-           aria-label="Go to analytics dashboard">
-          <mat-icon class="nav-icon" aria-hidden="true">dashboard</mat-icon>
-          <span class="nav-text">Analytics</span>
-        </a>
-      </li>
-      <li role="none">
-        <a class="nav-item"
-           routerLink="/app-supported-by"
-           routerLinkActive="active"
-           role="menuitem"
-           aria-label="Go to about page">
-          <mat-icon class="nav-icon" aria-hidden="true">info</mat-icon>
-          <span class="nav-text">About</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+      <a routerLink="/app-economic-calendar" routerLinkActive="active">Events</a>
+      <a routerLink="/app-seasonality" routerLinkActive="active">Seasonality</a>
+      <a routerLink="/insiders" routerLinkActive="active">Insiders</a>
+      <a routerLink="/app-news" routerLinkActive="active">News</a>
+      <a routerLink="/dash-graphs" routerLinkActive="active">Analytics</a>
+    </nav>
 
-  <!-- Auth Section -->
-  <div class="auth-section">
-    <!-- Logged Out State -->
-    <div class="auth-buttons" *ngIf="!isLoggedIn(); else loggedInTemplate">
-      <button class="btn btn-secondary"
-              (click)="openSignInPopup()"
-              [disabled]="isLoading()"
-              aria-label="Open sign in dialog">
-        <mat-icon class="btn-icon" aria-hidden="true">login</mat-icon>
-        <span class="btn-text">Sign In</span>
-      </button>
-      <button class="btn btn-primary"
-              (click)="openJoinPopup()"
-              [disabled]="isLoading()"
-              aria-label="Create free account">
-        <mat-icon class="btn-icon" aria-hidden="true">person_add</mat-icon>
-        <span class="btn-text">Join Free</span>
-      </button>
+    <!-- User Controls -->
+    <div class="user-controls">
+      <div *ngIf="!isLoggedIn(); else loggedInTemplate" class="auth-buttons">
+        <button class="btn-simple" (click)="openSignInPopup()">Sign In</button>
+        <button class="btn-primary" (click)="openJoinPopup()">Join</button>
+      </div>
+      
+      <ng-template #loggedInTemplate>
+        <div class="user-menu">
+          <a routerLink="/app-profile" class="profile-btn">
+            <mat-icon>account_circle</mat-icon>
+          </a>
+          <button class="btn-simple" (click)="logout()">Sign Out</button>
+        </div>
+      </ng-template>
     </div>
 
-    <!-- Logged In State -->
-    <ng-template #loggedInTemplate>
-      <div class="user-menu">
-        <a class="profile-link"
-           routerLink="/app-profile"
-           routerLinkActive="active"
-           aria-label="Go to your profile">
-          <mat-icon class="profile-icon" aria-hidden="true">account_circle</mat-icon>
-          <span class="profile-text">Profile</span>
-        </a>
-        <button class="btn btn-ghost"
-                (click)="logout()"
-                [disabled]="isLoading()"
-                aria-label="Sign out of your account">
-          <mat-icon class="btn-icon" aria-hidden="true">logout</mat-icon>
-          <span class="btn-text">Sign Out</span>
-        </button>
-      </div>
-    </ng-template>
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" (click)="toggleMobileMenu()">
+      <mat-icon>menu</mat-icon>
+    </button>
   </div>
-
-  <!-- Mobile Menu Toggle -->
-  <button class="mobile-toggle"
-          (click)="toggleMobileMenu()"
-          [attr.aria-expanded]="mobileMenuOpen()"
-          [class.active]="mobileMenuOpen()"
-          aria-controls="mobile-menu"
-          aria-label="Toggle navigation menu">
-    <span class="hamburger-line"></span>
-    <span class="hamburger-line"></span>
-    <span class="hamburger-line"></span>
-  </button>
 </header>
 
 <!-- Mobile Menu Overlay -->
@@ -225,17 +117,6 @@
            (click)="toggleMobileMenu()">
           <mat-icon class="mobile-nav-icon" aria-hidden="true">show_chart</mat-icon>
           <span class="mobile-nav-text">Seasonality</span>
-          <mat-icon class="nav-arrow" aria-hidden="true">chevron_right</mat-icon>
-        </a>
-      </li>
-      <li role="none">
-        <a class="mobile-nav-item"
-           routerLink="/app-stock-anomaly"
-           routerLinkActive="active"
-           role="menuitem"
-           (click)="toggleMobileMenu()">
-          <mat-icon class="mobile-nav-icon" aria-hidden="true">insights</mat-icon>
-          <span class="mobile-nav-text">Anomaly</span>
           <mat-icon class="nav-arrow" aria-hidden="true">chevron_right</mat-icon>
         </a>
       </li>

@@ -3,7 +3,6 @@ import {RouterModule, Routes} from '@angular/router';
 import {SignInComponent} from "./login/sign-in/sign-in.component";
 import {SeasonalityComponent} from "./seasonality/seasonality.component";
 import {AccessDeniedComponent} from "./login/access-denied/access-denied.component";
-import {StockAnomalyComponent} from "./stock-anomaly/stock-anomaly.component";
 import {NotFoundComponent} from "./not-found/not-found.component";
 import {AuthGuard} from "./login/guard/auth.guard";
 import {SupportedByComponent} from "./supported-by/supported-by.component";
@@ -22,7 +21,6 @@ import {ProfileComponent} from "./pages/profile/profile.component";
 const routes: Routes = [
   { path: 'app-economic-calendar', component: EconomicCalendarComponent, canActivate: [AuthGuard] },
   { path: 'app-seasonality', component: SeasonalityComponent, canActivate: [AuthGuard] },
-  { path: 'app-stock-anomaly', component: StockAnomalyComponent, canActivate: [AuthGuard] },
   { path: 'app-supported-by', component: SupportedByComponent, canActivate: [AuthGuard] },
   { path: 'app-profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'dash-graphs', component: DashGraphsComponent, canActivate: [AuthGuard] },

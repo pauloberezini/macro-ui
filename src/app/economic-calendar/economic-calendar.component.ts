@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild, HostListener, signal} from '@angular/core';
 import {StockDataService} from '../services/stock-data.service';
 import {FormControl, FormsModule} from "@angular/forms";
 import {Subject} from 'rxjs';
@@ -16,6 +16,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatButtonModule} from "@angular/material/button";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 
 @Component({
@@ -26,6 +27,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     EconomicDataComponent,
     MatCardModule,
     MatSelectModule,
+    MatFormFieldModule,
     FormsModule,
     MatTableModule,
     TimeFormatPipe,
@@ -57,6 +59,9 @@ export class EconomicCalendarComponent implements OnInit, AfterViewInit {
   hasError: boolean = false;
   lastUpdated: Date = new Date();
   canRefresh = true;
+  
+  // Mobile detection
+  isMobileView = signal(false);
 
   // Filter properties
   selectedOption: string = '2';

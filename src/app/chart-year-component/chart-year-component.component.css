@@ -1,3 +1,7 @@
+:host {
+  display: block;
+}
+
 .chart-container {
   display: flex;
   flex-direction: column;
@@ -10,10 +14,54 @@
 
 .chart-controls {
   display: flex;
+  flex-direction: column;
+  gap: 16px;
+  order: 1; /* Mobile: controls first */
+  margin-top: 20px; /* Space for sticky header */
+}
+
+.chart-controls-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chart-controls-header h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.help-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  padding: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  opacity: 0.7;
+}
+
+.help-button:hover {
+  opacity: 1;
+  color: var(--accent-teal);
+}
+
+.help-button mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.controls-content {
+  display: flex;
   align-items: center;
   gap: 20px;
   flex-wrap: wrap;
-  order: 1; /* Mobile: controls first */
 }
 
 .chart-content {
@@ -59,18 +107,10 @@ mat-form-field {
 }
 
 .calculation-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 12px;
+  background: var(--text-primary);
   overflow: hidden;
   margin: 16px 0;
-  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
   order: 3; /* Mobile: calculation card at bottom */
-}
-
-.calculation-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.25);
 }
 
 .card-header {
@@ -89,7 +129,7 @@ mat-form-field {
   height: 24px;
 }
 
-.header-content {
+.card-header-content {
   flex: 1;
 }
 
@@ -139,7 +179,6 @@ mat-form-field {
   display: inline-flex;
   align-items: center;
   padding: 4px 10px;
-  border-radius: 20px;
   font-size: 13px;
   font-weight: 500;
   transition: all 0.2s ease;
@@ -241,17 +280,16 @@ mat-form-field {
   .calculation-card:hover {
     transform: none;
   }
-  
+
   .calculation-card:active {
     transform: scale(0.98);
   }
-  
+
   .year-badge:hover {
     transform: none;
   }
-  
+
   .year-badge:active {
     transform: scale(0.95);
   }
 }
-

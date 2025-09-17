@@ -89,7 +89,7 @@
 .main-content {
   display: flex; /* Mobile: single column flex */
   flex-direction: column;
-  gap: 1rem; /* Mobile gap */
+  gap: 0; /* No gaps */
   max-width: 100%;
   margin: -1rem auto 1rem; /* Mobile margin */
   padding: 0 0.75rem; /* Mobile padding */
@@ -111,44 +111,128 @@
   transform: translateY(10px);
 }
 
-.chart-card {
+.square-container {
   background: var(--background-primary);
-  border-radius: 12px; /* Mobile border radius */
-  box-shadow: 
-    0 2px 12px rgba(16, 47, 119, 0.08),
-    0 1px 4px rgba(2, 102, 112, 0.04);
+  border: 1px solid var(--border-light);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
-  margin-bottom: 1rem; /* Mobile spacing */
+  margin-bottom: 0;
+  position: relative;
 }
 
-.chart-card:hover {
-  transform: translateY(-1px); /* Mobile: smaller hover effect */
-  box-shadow: 
-    0 4px 16px rgba(16, 47, 119, 0.12),
-    0 2px 8px rgba(2, 102, 112, 0.08);
+.chart-box {
+  display: flex;
+  flex-direction: column;
 }
 
-.chart-card mat-card-header {
+.box-header {
   background: linear-gradient(135deg, var(--background-accent) 0%, var(--background-secondary) 100%);
-  padding: 1rem 1.25rem; /* Mobile padding */
+  padding: 1rem 1.25rem;
   border-bottom: 1px solid var(--border-light);
 }
 
-.chart-card mat-card-title {
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.header-title h2 {
   color: var(--primary-blue);
   font-weight: 600;
-  font-size: 1.25rem; /* Mobile font size */
+  font-size: 1.25rem;
+  margin: 0;
 }
 
-.chart-card mat-card-subtitle {
+.header-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.box-content {
+  padding: 1rem;
+  flex: 1;
+  overflow: auto;
+}
+
+/* ========================
+   WEEKDAY RETURNS SECTION
+   ======================== */
+
+.weekday-returns-section {
+  order: 2; /* Mobile: between chart and analysis */
+  margin-bottom: 0;
+}
+
+.weekday-charts-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* Mobile: single column */
+  gap: 0;
+}
+
+.monthly-weekday-card {
+  background: var(--background-primary);
+  box-shadow:
+    0 2px 12px rgba(16, 47, 119, 0.06),
+    0 1px 4px rgba(2, 102, 112, 0.03);
+  transition: all 0.3s ease;
+}
+
+.monthly-weekday-card mat-card-header {
+  background: linear-gradient(135deg, var(--background-accent) 0%, var(--background-secondary) 100%);
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.monthly-weekday-card mat-card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary-blue);
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.monthly-weekday-card mat-card-title mat-icon {
+  color: var(--accent-teal);
+  font-size: 1.25rem;
+}
+
+.monthly-weekday-card mat-card-subtitle {
   color: var(--text-secondary);
   margin-top: 0.25rem;
-  font-size: 0.875rem; /* Mobile font size */
+  font-size: 0.875rem;
 }
 
-.chart-card mat-card-content {
-  padding: 1rem; /* Mobile padding */
+.monthly-weekday-card mat-card-content {
+  padding: 1rem 1.25rem;
+}
+
+.coming-soon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  text-align: center;
+  min-height: 150px;
+}
+
+.coming-soon-icon {
+  font-size: 3rem;
+  height: 3rem;
+  width: 3rem;
+  color: var(--border-medium);
+  margin-bottom: 1rem;
+}
+
+.coming-soon p {
+  color: var(--text-secondary);
+  margin: 0;
+  font-size: 0.875rem;
 }
 
 /* ========================
@@ -158,40 +242,26 @@
 .analysis-sidebar {
   display: flex;
   flex-direction: column;
-  gap: 1rem; /* Mobile gap */
+  gap: 0; /* No gaps */
   order: 1; /* Mobile: analysis first */
 }
 
-.analysis-card {
+.analysis-box {
   background: var(--background-primary);
-  border-radius: 12px; /* Mobile border radius */
-  box-shadow: 
-    0 2px 12px rgba(16, 47, 119, 0.06),
-    0 1px 4px rgba(2, 102, 112, 0.03);
-  transition: all 0.3s ease;
-  margin-bottom: 1rem; /* Mobile spacing */
+  margin-bottom: 0;
 }
 
-.analysis-card mat-card-header {
-  padding: 1rem 1.25rem 0; /* Mobile padding */
+.analysis-box .box-header {
+  padding: 1rem 1.25rem;
 }
 
-.analysis-card mat-card-title {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--primary-blue);
-  font-weight: 600;
-  font-size: 1.25rem; /* Mobile font size */
-}
-
-.analysis-card mat-card-title mat-icon {
+.analysis-box .header-title mat-icon {
   color: var(--accent-teal);
-  font-size: 1.25rem; /* Mobile icon size */
+  font-size: 1.25rem;
 }
 
-.analysis-card mat-card-content {
-  padding: 0.75rem 1.25rem 1rem; /* Mobile padding */
+.analysis-box .box-content {
+  padding: 0.75rem 1.25rem 1rem;
 }
 
 /* ========================
@@ -230,7 +300,6 @@
 .loading-content {
   text-align: center;
   padding: 1.5rem; /* Mobile padding */
-  border-radius: 12px;
   background: white;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   animation: fadeInUp 0.5s ease-out;
@@ -307,11 +376,11 @@
    STATS CARD
    ======================== */
 
-.stats-card {
+.stats-box {
   background: linear-gradient(135deg, var(--info-light) 0%, var(--background-primary) 100%);
-  border-radius: 12px; /* Mobile border radius */
   border: 1px solid var(--border-light);
-  margin-bottom: 1rem; /* Mobile spacing */
+  margin-bottom: 0;
+  padding: 1rem;
 }
 
 .stats-grid {
@@ -326,7 +395,6 @@
   gap: 0.75rem; /* Mobile gap */
   padding: 0.75rem;
   background: var(--background-primary);
-  border-radius: 8px;
   transition: transform 0.2s ease;
   /* Mobile touch target */
   min-height: 44px; /* iOS minimum touch target */
@@ -374,7 +442,6 @@
   gap: 0.75rem;
   padding: 1rem;
   background: rgba(244, 67, 54, 0.1);
-  border-radius: 8px;
   margin-top: 1rem;
   text-align: center;
 }
@@ -407,13 +474,13 @@
 }
 
 @keyframes slideUp {
-  from { 
-    opacity: 0; 
-    transform: translateY(20px); 
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  to { 
-    opacity: 1; 
-    transform: translateY(0); 
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -440,19 +507,15 @@
   .page-title {
     font-size: 1.5rem;
   }
-  
+
   .title-icon {
     font-size: 1.75rem;
     height: 1.75rem;
     width: 1.75rem;
   }
-  
+
   .page-subtitle {
     font-size: 0.875rem;
-  }
-  
-  .main-content {
-    padding: 0 0.5rem;
   }
 }
 
@@ -461,16 +524,13 @@
   .page-title {
     font-size: 1.75rem;
   }
-  
+
   .title-icon {
     font-size: 2rem;
     height: 2rem;
     width: 2rem;
   }
-  
-  .main-content {
-    padding: 0 0.75rem;
-  }
+
 }
 
 /* Large mobile devices (414px and up) */
@@ -478,19 +538,15 @@
   .page-header {
     padding: 2.5rem 1.5rem 3.5rem;
   }
-  
+
   .page-title {
     font-size: 2rem;
   }
-  
+
   .title-icon {
     font-size: 2.25rem;
     height: 2.25rem;
     width: 2.25rem;
-  }
-  
-  .main-content {
-    padding: 0 1rem;
   }
 }
 
@@ -523,39 +579,40 @@
 
   .main-content {
     display: grid;
-    grid-template-columns: 1fr 350px; /* Desktop: two columns */
-    gap: 1.5rem;
-    max-width: 1200px;
+    grid-template-columns: 1fr 350px; /* Desktop: main content and sidebar */
+    grid-template-rows: auto auto 1fr; /* Rows for charts, weekday, and analysis */
+    gap: 0;
     margin: -2rem auto 2rem;
-    padding: 0 1.5rem;
   }
 
   .charts-section {
-    order: 1; /* Desktop: charts first */
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .weekday-returns-section {
+    grid-column: 1;
+    grid-row: 2;
   }
 
   .analysis-sidebar {
-    order: 2; /* Desktop: analysis second */
+    margin-top: 20px;
+    grid-column: 2;
+    grid-row: 1 / -1; /* Span all rows */
   }
 
-  .chart-card {
-    border-radius: 16px;
+  .weekday-charts-grid {
+    grid-template-columns: 1fr 1fr; /* Desktop: two columns for weekday charts */
+    gap: 0;
+  }
+
+  .square-container {
     margin-bottom: 0;
   }
 
-  .analysis-card {
-    border-radius: 16px;
-    margin-bottom: 0;
-  }
 
-  .stats-card {
-    border-radius: 12px;
-    margin-bottom: 0;
-  }
-
-  .chart-card mat-card-content,
-  .analysis-card mat-card-content {
-    padding: 1.5rem;
+  .stats-box {
+    aspect-ratio: auto;
   }
 
   .stats-grid {
@@ -572,14 +629,12 @@
 @media (min-width: 1024px) {
   .main-content {
     grid-template-columns: 1fr 400px;
-    gap: 2rem;
-    max-width: 1400px;
-    padding: 0 2rem;
+    gap: 0;
   }
 
   .chart-card:hover {
     transform: translateY(-2px);
-    box-shadow: 
+    box-shadow:
       0 8px 32px rgba(16, 47, 119, 0.12),
       0 4px 16px rgba(2, 102, 112, 0.08);
   }
@@ -630,7 +685,7 @@
   .stat-item:hover {
     transform: none;
   }
-  
+
   .chart-card:active,
   .analysis-card:active,
   .stat-item:active {
@@ -644,7 +699,7 @@
     padding-left: max(0px, env(safe-area-inset-left));
     padding-right: max(0px, env(safe-area-inset-right));
   }
-  
+
   .page-loading-overlay {
     padding-left: max(0px, env(safe-area-inset-left));
     padding-right: max(0px, env(safe-area-inset-right));

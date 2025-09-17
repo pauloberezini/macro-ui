@@ -13,6 +13,7 @@
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
+<<<<<<< HEAD
     "importHelpers": true,
     "moduleResolution": "node",
     "importsNotUsedAsValues": "remove",
@@ -27,6 +28,19 @@
     "types": ["node"],
     "strictPropertyInitialization": false,
     "strictNullChecks": false
+=======
+    "moduleResolution": "bundler",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "lib": [
+      "ES2022",
+      "dom"
+    ],
+    "useDefineForClassFields": false,
+    "skipLibCheck": true,
+    "types": ["node"]
+>>>>>>> 4cb0164ffdde6039e517f4bd383da03ca5d6791e
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

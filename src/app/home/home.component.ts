@@ -50,7 +50,7 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
         { number: '1+ TB', label: 'Market Data' },
         { number: '24/7', label: 'Real-time Analysis' }
       ],
-      primaryAction: { text: 'Explore AI Tools', link: '/app-stock-anomaly' },
+      primaryAction: { text: 'Explore AI Tools', link: '/app-news' },
       secondaryAction: { text: 'Learn More', link: '/features' }
     },
     {
@@ -77,12 +77,6 @@ export class HomeComponent implements AfterViewInit, OnInit, OnDestroy {
       title: 'Seasonality Analysis',
       description: 'Identify predictable market patterns and optimize your trading strategy.',
       route: '/app-seasonality'
-    },
-    {
-      icon: 'insights',
-      title: 'AI Anomaly Detection',
-      description: 'Detect market disruptions before they impact your portfolio.',
-      route: '/app-stock-anomaly'
     },
     {
       icon: 'visibility',

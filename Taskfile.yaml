@@ -8,7 +8,7 @@ vars:
 tasks:
   default:
     cmds:
-      - ng serve --disable-host-check
+      - ng serve --configuration=development
     silent: true
   run:
     cmds:
