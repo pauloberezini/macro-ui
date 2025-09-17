@@ -107,18 +107,10 @@ mat-form-field {
 }
 
 .calculation-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 12px;
+  background: var(--text-primary);
   overflow: hidden;
   margin: 16px 0;
-  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
   order: 3; /* Mobile: calculation card at bottom */
-}
-
-.calculation-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.25);
 }
 
 .card-header {
@@ -289,15 +281,15 @@ mat-form-field {
   .calculation-card:hover {
     transform: none;
   }
-  
+
   .calculation-card:active {
     transform: scale(0.98);
   }
-  
+
   .year-badge:hover {
     transform: none;
   }
-  
+
   .year-badge:active {
     transform: scale(0.95);
   }
