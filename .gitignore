@@ -8,6 +8,7 @@
 /server.js
 /src/sitemap.xml
 /cert
+/BACKUP
 
 # Node
 /node_modules

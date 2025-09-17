@@ -7,27 +7,34 @@ services:
       dockerfile: Dockerfile
     container_name: macro-ui-production
     ports:
-      - "443:443"
+      - "3000:3000"  # Bind on both IPv4/IPv6 for Cloudflare
     environment:
       - NODE_ENV=production
-      - PORT=443
-      - NOWPAYMENTS_API_KEY=${NOWPAYMENTS_API_KEY}
-      - NOWPAYMENTS_PUBLIC_KEY=${NOWPAYMENTS_PUBLIC_KEY}
-    env_file:
-      - .env.production
-    volumes:
-      # Mount SSL certificates (optional - for easier certificate updates)
-      - ./cert:/app/production/cert:ro
+      - PORT=3000
     restart: unless-stopped
     networks:
       - macro-ui-network
     healthcheck:
-      test: ["CMD", "node", "-e", "require('https').get('https://localhost:443', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
 
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared-macro-ui
+    command: ["tunnel", "--no-autoupdate", "run", "--token", "${CLOUDFLARED_TOKEN}"]
+    restart: unless-stopped
+    env_file:
+      - .env.local
+    environment:
+      - CLOUDFLARED_TOKEN
+    depends_on:
+      - macro-ui
+    networks:
+      - macro-ui-network
+
 networks:
   macro-ui-network:
-    driver: bridge 
+    driver: bridge
