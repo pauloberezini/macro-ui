@@ -260,25 +260,33 @@ table {
   }
   
   .container {
-    height: calc(100vh - 8px);
+    height: calc(100vh - 60px); /* Adjust for header */
     gap: 6px;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
   }
 
   .card {
     padding: 8px;
+    height: 100%;
+    max-height: 100%;
+    overflow: hidden;
   }
 
   /* Optimize economic calendar card for mobile */
   .economic-calendar-card {
-    height: calc(100vh - 16px);
-    display: flex;
-    flex-direction: column;
+    height: 100%;
+    max-height: 100%;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden;
   }
 
   .filter-section {
     padding: 12px;
     margin-bottom: 8px;
     flex-shrink: 0;
+    background: #f5f5f5;
   }
 
   .filter-controls {
@@ -288,6 +296,7 @@ table {
 
   .filter-field {
     min-width: auto;
+    width: 100%;
   }
 
   .refresh-btn {
@@ -298,20 +307,26 @@ table {
   .table-header {
     padding: 6px 12px;
     flex-shrink: 0;
+    background: #fafafa;
+    border-bottom: 1px solid #eee;
   }
 
   .table-section {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
+    flex: 1 !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden;
   }
 
   .scrollable-table-container {
-    flex: 1;
-    min-height: 200px;
-    overflow-x: auto;
-    overflow-y: auto;
+    flex: 1 !important;
+    min-height: 300px !important;
+    max-height: none !important;
+    overflow-x: auto !important;
+    overflow-y: auto !important;
+    border: 1px solid #ddd;
+    background: white;
   }
 
   .results-count {
@@ -442,24 +457,41 @@ table {
   }
   
   .container {
-    height: calc(100vh - 4px);
+    height: calc(100vh - 60px); /* Consistent with 768px breakpoint */
     gap: 4px;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
   }
 
   .card {
     padding: 6px;
+    height: 100%;
+    max-height: 100%;
+    overflow: hidden;
   }
 
   /* Mobile-specific optimization for economic calendar */
   .economic-calendar-card {
-    height: calc(100vh - 8px);
-    display: flex;
-    flex-direction: column;
+    height: 100%;
+    max-height: 100%;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden;
   }
 
   .filter-section {
     padding: 8px;
     flex-shrink: 0;
+    background: #f5f5f5;
+  }
+
+  .scrollable-table-container {
+    flex: 1 !important;
+    min-height: 250px !important;
+    overflow-x: auto !important;
+    overflow-y: auto !important;
+    border: 1px solid #ddd;
+    background: white;
   }
 
   .mat-mdc-cell {
