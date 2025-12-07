@@ -1,28 +1,30 @@
 .cards-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 8px 4px 12px;
 }
 
 @media (max-width: 768px) {
   .cards-container {
-    flex-direction: column; /* Stack cards vertically on mobile */
-    align-items: stretch; /* Stretch cards to full width */
-    width: 100%;
+    padding-bottom: 14px;
   }
 }
 
 .team-card {
-  flex: 0 0 48%;
-  margin: 10px;
+  flex: 0 0 320px;
+  max-width: 360px;
+  margin: 0 6px;
   display: flex; /* Added to make the card itself a flex container */
   flex-direction: column; /* Stack the children of the card vertically */
 }
 @media (max-width: 768px) {
   .team-card {
-      flex: 0 0 100%; /* Make each card take full width */
-      margin: 10px 0; /* Adjust margins for mobile view */
+      flex: 0 0 85%;
+      min-width: 260px;
   }
 }
 
@@ -36,7 +38,8 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: auto;
+    flex: 0 0 auto;
   }
 }
 

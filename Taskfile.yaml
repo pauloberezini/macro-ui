@@ -8,15 +8,23 @@ vars:
 tasks:
   default:
     cmds:
-      - ng serve --configuration=development
+      - npx ng serve --configuration=development
+    silent: true
+
+  dev:
+    desc: Serve with development environment (environment.dev.ts)
+    cmds:
+      - npx ng serve --configuration=development
+    silent: true
+
+  prod:
+    desc: Serve with production environment (environment.prod.ts)
+    cmds:
+      - npx ng serve --disable-host-check --configuration=production
     silent: true
   run:
     cmds:
       - node server.js
-    silent: true
-  runp:
-    cmds:
-      - ng serve --disable-host-check --configuration=production
     silent: true
 
   build:
