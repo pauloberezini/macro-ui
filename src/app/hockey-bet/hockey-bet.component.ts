@@ -102,17 +102,34 @@ export class HockeyBetComponent {
     source$
       .pipe(finalize(() => this.isLoading = false))
       .subscribe({
-        next: (response: HockeyTeamStats[]) => {
-          this.dataSource = response || [];
+        next: (response: HockeyTeamStats[] | any) => {
+          this.dataSource = this.extractStandings(response);
           if (this.selection.selected.length > this.selectionLimit) {
             this.selection.clear();
           }
         },
-        error: () => {
+        error: (err) => {
           this.dataSource = [];
           this.selection.clear();
+          console.error('Failed to load standings', err);
           this.loadError = 'Unable to load standings. Please try again.';
         }
       });
+  }
+
+  private extractStandings(response: any): HockeyTeamStats[] {
+    if (Array.isArray(response)) {
+      return response;
+    }
+    if (Array.isArray(response?.data)) {
+      return response.data;
+    }
+    if (Array.isArray(response?.standings)) {
+      return response.standings;
+    }
+    if (Array.isArray(response?.previous)) {
+      return response.previous;
+    }
+    return [];
   }
 }

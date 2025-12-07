@@ -60,42 +60,17 @@
   border-color: #ffc3b8;
 }
 
-.cards-section,
+.cards-strip {
+  margin: 4px -4px 8px;
+}
+
+.cards-container.minimal {
+  gap: 10px;
+  padding: 6px 4px 10px;
+}
+
 .cards-empty {
-  background: #ffffff;
-  border: 1px solid #e5e8f0;
-  border-radius: 14px;
-  padding: 14px 14px 10px;
-  box-shadow: 0 10px 30px -18px rgba(15, 23, 42, 0.4);
-}
-
-.section-title {
-  font-weight: 700;
-  margin: 0 0 8px;
-  font-size: 16px;
-}
-
-.section-subtitle {
-  color: #5f6b7a;
-  font-size: 12px;
-  margin: 0;
-}
-
-.cards-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 10px;
-}
-
-.pill {
-  background: #1f3a93;
-  color: #fff;
-  border-radius: 999px;
-  padding: 6px 12px;
-  font-size: 12px;
-  font-weight: 700;
+  padding: 6px 0 10px;
 }
 
 .hint {
@@ -215,7 +190,7 @@
 
 .cards-container app-team-card .mat-mdc-card {
   height: 100%;
-  box-shadow: 0 12px 30px -18px rgba(15, 23, 42, 0.4);
+  box-shadow: 0 6px 18px -16px rgba(15, 23, 42, 0.35);
 }
 
 .team-card {

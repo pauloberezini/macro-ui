@@ -1,12 +1,90 @@
 
-.mat-mdc-card-title, .mat-mdc-card-subtitle {
-    text-align: center !important;
+.team-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid #e5e8f0;
+  border-radius: 12px;
+  box-shadow: 0 10px 26px -18px rgba(15, 23, 42, 0.4);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.team-name {
+  font-weight: 800;
+  font-size: 16px;
+  color: #0f172a;
+  flex: 1;
+}
+
+.meta {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  background: #f4f6fb;
+  color: #1f2937;
+  border: 1px solid #e3e7f0;
+  border-radius: 10px;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.badge.accent {
+  background: #eef2ff;
+  color: #1f3a93;
+  border-color: #c9d4ff;
+}
+
+.badge.muted {
+  background: #fff4ec;
+  color: #b45309;
+  border-color: #f5d4b0;
+}
+
+.stat-block {
+  background: #f9fbff;
+  border: 1px solid #e9eef7;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.block-title {
+  font-weight: 700;
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: #1f2937;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 8px;
+}
+
+.label {
+  color: #5f6b7a;
+  font-size: 12px;
+}
+
+.value {
+  font-weight: 700;
+  color: #0f172a;
+  font-size: 13px;
 }
 
 @media (max-width: 768px) {
-
-.mat-mdc-card-title, .mat-mdc-card-subtitle  {
-  text-align: center !important;
-}
+  .team-card {
+    padding: 12px;
+  }
 }
 

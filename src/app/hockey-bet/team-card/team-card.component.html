@@ -1,20 +1,34 @@
-<!-- team-card.component.html -->
 <mat-card class="team-card">
-  <mat-card-title>{{ team.teamName }}</mat-card-title>
-  <mat-card-content>
-    <mat-card-content>
-      <p>Games Played: {{ team.gamesPlayed }}</p>
-      <p>Goals: {{ team.goalsFor }}</p>
-      <p>Looses: {{ team.goalsAgainst }}</p>
+  <div class="card-header">
+    <div class="team-name">{{ team.teamName }}</div>
+    <div class="meta">
+      <span class="badge">GP {{ team.gamesPlayed }}</span>
+      <span class="badge accent">GF {{ team.goalsFor }}</span>
+      <span class="badge muted">GA {{ team.goalsAgainst }}</span>
+    </div>
+  </div>
 
-      <p>GA (All): {{ team.all.goalsAverage }}</p>
-      <p>LA (All): {{ team.all.lossesAverage }}</p>
+  <div class="stat-block">
+    <div class="block-title">All</div>
+    <div class="stat-grid">
+      <div class="label">Goals Avg</div><div class="value">{{ team.all.goalsAverage | number:'1.2-2' }}</div>
+      <div class="label">Losses Avg</div><div class="value">{{ team.all.lossesAverage | number:'1.2-2' }}</div>
+    </div>
+  </div>
 
-      <p>GA (Home): {{ team.home.goalsAverage }}</p>
-      <p>LA (Home): {{ team.home.lossesAverage }}</p>
+  <div class="stat-block">
+    <div class="block-title">Home</div>
+    <div class="stat-grid">
+      <div class="label">Goals Avg</div><div class="value">{{ team.home.goalsAverage | number:'1.2-2' }}</div>
+      <div class="label">Losses Avg</div><div class="value">{{ team.home.lossesAverage | number:'1.2-2' }}</div>
+    </div>
+  </div>
 
-      <p>GA (Guest): {{ team.guest.goalsAverage }}</p>
-      <p>LA (Guest): {{ team.guest.lossesAverage }}</p>
-    </mat-card-content>
-  </mat-card-content>
+  <div class="stat-block">
+    <div class="block-title">Guest</div>
+    <div class="stat-grid">
+      <div class="label">Goals Avg</div><div class="value">{{ team.guest.goalsAverage | number:'1.2-2' }}</div>
+      <div class="label">Losses Avg</div><div class="value">{{ team.guest.lossesAverage | number:'1.2-2' }}</div>
+    </div>
+  </div>
 </mat-card>

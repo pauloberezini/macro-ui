@@ -10,24 +10,17 @@
   </header>
 
   @if (selection.selected.length > 0) {
-    <section class="cards-section">
-      <div class="cards-header">
-        <div>
-          <div class="section-title">Selected teams</div>
-          <div class="section-subtitle">Drag horizontally to compare side-by-side.</div>
-        </div>
-        <div class="pill">{{ selection.selected.length }} selected</div>
-      </div>
-      <div class="cards-container">
+    <div class="cards-strip">
+      <div class="cards-container minimal">
         <ng-container *ngFor="let team of selection.selected; trackBy: trackByTeam">
           <app-team-card [team]="team"></app-team-card>
         </ng-container>
       </div>
-    </section>
+    </div>
   } @else {
-    <section class="cards-empty">
+    <div class="cards-empty">
       <div class="hint">Pick up to two teams from the table below to see details here.</div>
-    </section>
+    </div>
   }
 
   <div class="controls">

@@ -1,13 +1,15 @@
 import {Component, Input} from '@angular/core';
 import {HockeyTeamStats} from "../../model/hockey-teams-stats";
 import {MatCardModule} from "@angular/material/card";
+import {CommonModule} from "@angular/common";
 
 @Component({
   selector: 'app-team-card',
   templateUrl: './team-card.component.html',
   standalone: true,
   imports: [
-    MatCardModule
+    MatCardModule,
+    CommonModule
   ],
   styleUrls: ['./team-card.component.css']
 })
