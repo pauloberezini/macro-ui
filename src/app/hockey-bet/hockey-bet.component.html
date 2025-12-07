@@ -1,17 +1,67 @@
-@if (selection.selected.length > 0 && selection.selected.length <= 2) {
-  <div class="cards-container">
-    <ng-container *ngFor="let team of selection.selected">
-      <app-team-card [team]="team"></app-team-card>
-    </ng-container>
+<div class="page-shell">
+  <header class="page-header">
+    <div>
+      <h1>Hockey Bet</h1>
+      <p class="subtitle">Select up to two teams to compare key stats.</p>
+    </div>
+    <div class="selection-chip" [class.full]="selection.selected.length >= selectionLimit">
+      {{ selection.selected.length }} / {{ selectionLimit }} selected
+    </div>
+  </header>
+
+  @if (selection.selected.length > 0) {
+    <section class="cards-section">
+      <div class="cards-header">
+        <div>
+          <div class="section-title">Selected teams</div>
+          <div class="section-subtitle">Drag horizontally to compare side-by-side.</div>
+        </div>
+        <div class="pill">{{ selection.selected.length }} selected</div>
+      </div>
+      <div class="cards-container">
+        <ng-container *ngFor="let team of selection.selected; trackBy: trackByTeam">
+          <app-team-card [team]="team"></app-team-card>
+        </ng-container>
+      </div>
+    </section>
+  } @else {
+    <section class="cards-empty">
+      <div class="hint">Pick up to two teams from the table below to see details here.</div>
+    </section>
+  }
+
+  <div class="controls">
+    <mat-radio-group class="table-toggle"
+                    [(ngModel)]="isPreviousStandings"
+                    (change)="switchTable()">
+      <mat-radio-button [value]="false">Current Standings</mat-radio-button>
+      <mat-radio-button [value]="true">Previous Standings</mat-radio-button>
+    </mat-radio-group>
+    <button class="clear-btn"
+            type="button"
+            [disabled]="selection.isEmpty()"
+            (click)="clearSelection()">
+      Clear selections
+    </button>
   </div>
-}
-<mat-radio-group [(ngModel)]="isPreviousStandings" (change)="switchTable()">
-  <mat-radio-button [value]="false">Current Standings</mat-radio-button>
-  <mat-radio-button [value]="true">Previous Standings</mat-radio-button>
-</mat-radio-group>
 
+  <div class="table-wrapper">
+    <div class="table-header">
+      <div class="table-title">
+        {{ isPreviousStandings ? 'Previous Standings' : 'Current Standings' }}
+      </div>
+      <div class="table-subtitle">Tap rows to select (max {{ selectionLimit }})</div>
+    </div>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+    <div class="state state-loading" *ngIf="isLoading">Loading standings…</div>
+    <div class="state state-error" *ngIf="loadError">{{ loadError }}</div>
+    <div class="state state-empty" *ngIf="!isLoading && !loadError && (!dataSource || dataSource.length === 0)">
+      No data available.
+    </div>
+
+    <div class="table-scroll">
+      <table mat-table [dataSource]="dataSource"
+             class="mat-elevation-z8 demo-table">
   <!-- Checkbox Column -->
   <ng-container matColumnDef="select">
     <th mat-header-cell *matHeaderCellDef>
@@ -89,9 +139,12 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)">
+  <tr mat-row *matRowDef="let row; columns: displayedColumns; trackBy: trackByTeam" (click)="onRowClicked(row)">
     <!-- Row content here -->
   </tr>
 
 
-</table>
+      </table>
+    </div>
+  </div>
+</div>

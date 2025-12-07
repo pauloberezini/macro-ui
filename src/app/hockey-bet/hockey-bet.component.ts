@@ -3,6 +3,7 @@ import {HockeyTeamStats} from "../model/hockey-teams-stats";
 import {SelectionModel} from "@angular/cdk/collections";
 import {StockDataService} from "../services/stock-data.service";
 import {Observable} from "rxjs";
+import {finalize} from "rxjs/operators";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatRadioModule} from "@angular/material/radio";
 import {TeamCardComponent} from "./team-card/team-card.component";
@@ -26,34 +27,29 @@ import {NgForOf} from "@angular/common";
 })
 export class HockeyBetComponent {
   displayedColumns: string[] = ['select', 'teamName', 'gamesPlayed', 'goalsFor', 'goalsAgainst', 'goalsAverageAll', 'lossesAverage', 'goalsAverageAllH', 'lossesAverageH', 'goalsAverageAllG', 'lossesAverageG'];
-  dataSource: HockeyTeamStats[];
-  isPreviousStandings: boolean = false; // Добавляем флаг для определения таблицы
+  dataSource: HockeyTeamStats[] = [];
+  isPreviousStandings: boolean = false;
   selection = new SelectionModel<HockeyTeamStats>(true, []);
+  readonly selectionLimit = 2;
+  isLoading = false;
+  loadError = '';
 
   constructor(public service: StockDataService) {}
 
   ngOnInit(): void {
-    this.loadCurrentStandings();
+    this.loadStandings('current');
   }
 
   loadCurrentStandings(): void {
-    this.service.getNhlData().subscribe((response: any) => {
-      this.dataSource = response;
-    });
+    this.loadStandings('current');
   }
 
   loadPreviousStandings(): void {
-    this.service.getPreviousNhlData().subscribe((response: any) => {
-      this.dataSource = response;
-    });
+    this.loadStandings('previous');
   }
 
   switchTable(): void {
-    if (this.isPreviousStandings) {
-      this.loadPreviousStandings();
-    } else {
-      this.loadCurrentStandings();
-    }
+    this.loadStandings(this.isPreviousStandings ? 'previous' : 'current');
   }
 
 
@@ -64,7 +60,7 @@ export class HockeyBetComponent {
   }
 
   private canSelectMore(): boolean {
-    return this.selection.selected.length < 2;
+    return this.selection.selected.length < this.selectionLimit;
   }
 
   isAllSelected() {
@@ -91,5 +87,32 @@ export class HockeyBetComponent {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.teamName}`;
+  }
+
+  trackByTeam = (_: number, team: HockeyTeamStats) => team.teamName;
+
+  clearSelection(): void {
+    this.selection.clear();
+  }
+
+  private loadStandings(type: 'current' | 'previous'): void {
+    const source$ = type === 'previous' ? this.service.getPreviousNhlData() : this.service.getNhlData();
+    this.isLoading = true;
+    this.loadError = '';
+    source$
+      .pipe(finalize(() => this.isLoading = false))
+      .subscribe({
+        next: (response: HockeyTeamStats[]) => {
+          this.dataSource = response || [];
+          if (this.selection.selected.length > this.selectionLimit) {
+            this.selection.clear();
+          }
+        },
+        error: () => {
+          this.dataSource = [];
+          this.selection.clear();
+          this.loadError = 'Unable to load standings. Please try again.';
+        }
+      });
   }
 }
