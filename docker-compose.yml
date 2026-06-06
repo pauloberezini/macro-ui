@@ -37,4 +37,4 @@ services:
 
 networks:
   macro-ui-network:
-    driver: bridge
+    external: true
